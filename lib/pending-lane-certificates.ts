@@ -2,6 +2,7 @@ import { GridVisibilitySearch } from "./grid-visibility"
 import { VectorScene, type Copper } from "./vector-scene"
 import type { Connection, SimpleRouteJson, Trace } from "./types"
 import { packageApproachRegions } from "./package-approach-regions"
+import { getConnectedPadGroups } from "./connected-pad-groups"
 
 const certificates = new WeakMap<SimpleRouteJson, Map<string, Trace[]>>()
 
@@ -46,15 +47,7 @@ export function* pendingPackageExits(
       regions[index].pads,
     ]),
   )
-  const groups = new Map<string, Set<(typeof pads)[number]>>()
-  for (const pad of pads) {
-    const touching = pad.connectedTo.flatMap((alias) =>
-      groups.has(alias) ? [groups.get(alias)!] : [],
-    )
-    const group = new Set([pad, ...touching.flatMap((set) => [...set])])
-    for (const member of group)
-      for (const alias of member.connectedTo) groups.set(alias, group)
-  }
+  const groups = getConnectedPadGroups(pads)
   const assigned = new Set([
     ...input.connections.flatMap((connection) => [
       connection.name,
@@ -74,7 +67,7 @@ export function* pendingPackageExits(
     input.minTraceToPadEdgeClearance ?? input.defaultObstacleMargin ?? 0.075
   const extension = (input.minViaPadDiameter ?? 0.6) / 2 + width / 2 + clearance
   const result: Copper[] = []
-  for (const group of new Set(groups.values())) {
+  for (const group of groups) {
     if (group.size < 2) continue
     const owners = [...new Set([...group].flatMap((pad) => pad.connectedTo))]
     if (owners.some((owner) => assigned.has(owner))) continue
@@ -87,6 +80,10 @@ export function* pendingPackageExits(
       }),
     )
     if (ports.size < 2) continue
+    const ownerSet = new Set(owners)
+    const foreignCopper = fixed.filter(
+      (copper) => !copper.owners.some((owner) => ownerSet.has(owner)),
+    )
     for (const pad of group) {
       const port = (
         pad as typeof pad & { circuitJsonMetadata?: { pcb_port_id?: string } }
@@ -109,14 +106,7 @@ export function* pendingPackageExits(
           name: port,
           pointsToConnect: [start, end],
         }
-        const scene = new VectorScene(
-          input,
-          connection,
-          width,
-          fixed.filter(
-            (copper) => !copper.owners.some((owner) => owners.includes(owner)),
-          ),
-        )
+        const scene = new VectorScene(input, connection, width, foreignCopper)
         const search = new GridVisibilitySearch(scene, start, end, [], 0)
         try {
           while (!search.solved && !search.failed) {
