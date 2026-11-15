@@ -1,3 +1,4 @@
+import { applyToPoint } from "transformation-matrix"
 import { GridVisibilitySearch } from "./grid-visibility"
 import { VectorScene, type Copper } from "./vector-scene"
 import type { Connection, SimpleRouteJson, Trace } from "./types"
@@ -8,13 +9,14 @@ import { getPackagePadFrame } from "./package-pad-frame"
 const certificates = new WeakMap<SimpleRouteJson, Map<string, Trace[]>>()
 
 /** Preserve access for the pads of nets that a later request still has to
- * route. Every bus request receives them: a first bus between two packages
- * can close the last exit of a neighboring pad as easily as a branch added
- * to an existing trunk. Each guide runs from its pad to the nearest side of
- * the package's pad field, measured in the package's own frame so that a
- * rotated package is not given guides across the open board beside it. These
- * soft guides retain native connectivity aliases; they never become routed
- * connections. */
+ * route. A request needs no completed trunk to receive them: a first bus
+ * between two packages can close the last exit of a neighboring pad as easily
+ * as a branch added to an existing trunk. The ordered lane search asks for
+ * them for every input with buses; dense negotiation does not use them. Each
+ * guide runs from its pad to the nearest side of the package's pad field,
+ * measured in the package's own frame so that a rotated package is not given
+ * guides across the open board beside it. These soft guides retain native
+ * connectivity aliases; they never become routed connections. */
 export function* pendingPackageExits(
   input: SimpleRouteJson,
   fixed: Copper[],
@@ -72,23 +74,21 @@ export function* pendingPackageExits(
         pad as typeof pad & { circuitJsonMetadata?: { pcb_port_id?: string } }
       ).circuitJsonMetadata?.pcb_port_id
       if (!port) continue
-      const { angle, field } = frames.get(pad.componentId!)!
-      const cos = Math.cos(angle),
-        sin = Math.sin(angle)
-      // Pad center in the package frame; exits leave along the frame axes.
-      const x = pad.center.x * cos + pad.center.y * sin,
-        y = -pad.center.x * sin + pad.center.y * cos
+      const { field, boardToPackage, packageToBoard } = frames.get(
+        pad.componentId!,
+      )!
+      // Exits leave along the package frame's axes.
+      const padCenterInPackage = applyToPoint(boardToPackage, pad.center)
       for (const layer of pad.layers) {
         const start = { ...pad.center, layer, pcb_port_id: port }
         const end = [
-          { x: field.minX - extension, y },
-          { x: field.maxX + extension, y },
-          { x, y: field.minY - extension },
-          { x, y: field.maxY + extension },
+          { x: field.minX - extension, y: padCenterInPackage.y },
+          { x: field.maxX + extension, y: padCenterInPackage.y },
+          { x: padCenterInPackage.x, y: field.minY - extension },
+          { x: padCenterInPackage.x, y: field.maxY + extension },
         ]
-          .map((exit) => ({
-            x: exit.x * cos - exit.y * sin,
-            y: exit.x * sin + exit.y * cos,
+          .map((exitInPackage) => ({
+            ...applyToPoint(packageToBoard, exitInPackage),
             layer,
           }))
           .sort(

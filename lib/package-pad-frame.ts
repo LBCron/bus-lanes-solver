@@ -1,16 +1,30 @@
+import {
+  applyToPoint,
+  compose,
+  type Matrix,
+  rotate,
+  rotateDEG,
+  translate,
+} from "transformation-matrix"
 import type { Obstacle, SimpleRouteJson } from "./types"
 
 type Box = SimpleRouteJson["bounds"]
 
-/** A package's pad field in the package's own frame. `angle` is the frame's
- * CCW rotation from board +X in radians; `field` bounds frame coordinates in
- * mm. An axis-aligned package keeps the supplied board-frame field. */
-export type PackagePadFrame = { angle: number; field: Box }
+/** A package's pad field in the package's own frame. `field` bounds
+ * package-frame coordinates in mm; board coordinates are +X right, +Y up. An
+ * axis-aligned package keeps the supplied board-frame field. */
+export type PackagePadFrame = {
+  /** CCW rotation of the package frame from board +X. */
+  ccwRotationRadians: number
+  field: Box
+  boardToPackage: Matrix
+  packageToBoard: Matrix
+}
 
-const fieldAt = (pads: Obstacle[], degrees: number): Box => {
-  const angle = (degrees * Math.PI) / 180,
-    cos = Math.cos(angle),
-    sin = Math.sin(angle)
+const getBoxArea = (box: Box) => (box.maxX - box.minX) * (box.maxY - box.minY)
+
+/** Bound every pad's copper in the frame reached through `boardToPackage`. */
+function getPadField(pads: Obstacle[], boardToPackage: Matrix): Box {
   const field = {
     minX: Infinity,
     maxX: -Infinity,
@@ -18,24 +32,34 @@ const fieldAt = (pads: Obstacle[], degrees: number): Box => {
     maxY: -Infinity,
   }
   for (const pad of pads) {
-    const x = pad.center.x * cos + pad.center.y * sin,
-      y = -pad.center.x * sin + pad.center.y * cos
-    const turn =
-      pad.shape === "circle"
-        ? 0
-        : (((pad.ccwRotationDegrees ?? 0) - degrees) * Math.PI) / 180
-    const halfX =
-        (Math.abs(Math.cos(turn)) * pad.width +
-          Math.abs(Math.sin(turn)) * pad.height) /
-        2,
-      halfY =
-        (Math.abs(Math.sin(turn)) * pad.width +
-          Math.abs(Math.cos(turn)) * pad.height) /
-        2
-    field.minX = Math.min(field.minX, x - halfX)
-    field.maxX = Math.max(field.maxX, x + halfX)
-    field.minY = Math.min(field.minY, y - halfY)
-    field.maxY = Math.max(field.maxY, y + halfY)
+    const isCircle = pad.shape === "circle"
+    const padToPackage = compose(
+      boardToPackage,
+      translate(pad.center.x, pad.center.y),
+      rotateDEG(isCircle ? 0 : (pad.ccwRotationDegrees ?? 0)),
+    )
+    const halfWidth = pad.width / 2,
+      halfHeight = (isCircle ? pad.width : pad.height) / 2
+    const center = applyToPoint(padToPackage, { x: 0, y: 0 })
+    // A circle's extent is its radius in every frame; a rectangle's is the
+    // bounding box of its four corners.
+    const extents = isCircle
+      ? [
+          { x: center.x - halfWidth, y: center.y - halfWidth },
+          { x: center.x + halfWidth, y: center.y + halfWidth },
+        ]
+      : [
+          { x: -halfWidth, y: -halfHeight },
+          { x: halfWidth, y: -halfHeight },
+          { x: halfWidth, y: halfHeight },
+          { x: -halfWidth, y: halfHeight },
+        ].map((corner) => applyToPoint(padToPackage, corner))
+    for (const point of extents) {
+      field.minX = Math.min(field.minX, point.x)
+      field.maxX = Math.max(field.maxX, point.x)
+      field.minY = Math.min(field.minY, point.y)
+      field.maxY = Math.max(field.maxY, point.y)
+    }
   }
   return field
 }
@@ -49,21 +73,31 @@ export function getPackagePadFrame(
   pads: Obstacle[],
   boardAlignedField: Box,
 ): PackagePadFrame {
-  const area = (field: Box) =>
-    (field.maxX - field.minX) * (field.maxY - field.minY)
-  let best: PackagePadFrame = { angle: 0, field: boardAlignedField }
-  let bestArea = area(boardAlignedField)
-  const candidates = new Set(
+  let best: PackagePadFrame = {
+    ccwRotationRadians: 0,
+    field: boardAlignedField,
+    boardToPackage: rotate(0),
+    packageToBoard: rotate(0),
+  }
+  const candidateCcwRotationDegrees = new Set(
     pads
       .filter((pad) => pad.shape !== "circle")
       .map((pad) => (((pad.ccwRotationDegrees ?? 0) % 90) + 90) % 90),
   )
-  for (const degrees of [...candidates].sort((a, b) => a - b)) {
-    if (!degrees) continue
-    const field = fieldAt(pads, degrees)
-    if (area(field) >= bestArea - 1e-9) continue
-    best = { angle: (degrees * Math.PI) / 180, field }
-    bestArea = area(field)
+  for (const ccwRotationDegrees of [...candidateCcwRotationDegrees].sort(
+    (a, b) => a - b,
+  )) {
+    if (!ccwRotationDegrees) continue
+    const ccwRotationRadians = (ccwRotationDegrees * Math.PI) / 180
+    const boardToPackage = rotate(-ccwRotationRadians)
+    const field = getPadField(pads, boardToPackage)
+    if (getBoxArea(field) >= getBoxArea(best.field) - 1e-9) continue
+    best = {
+      ccwRotationRadians,
+      field,
+      boardToPackage,
+      packageToBoard: rotate(ccwRotationRadians),
+    }
   }
   return best
 }
