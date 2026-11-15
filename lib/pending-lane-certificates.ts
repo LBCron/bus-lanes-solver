@@ -3,48 +3,31 @@ import { VectorScene, type Copper } from "./vector-scene"
 import type { Connection, SimpleRouteJson, Trace } from "./types"
 import { packageApproachRegions } from "./package-approach-regions"
 import { getConnectedPadGroups } from "./connected-pad-groups"
+import { getPackagePadFrame } from "./package-pad-frame"
 
 const certificates = new WeakMap<SimpleRouteJson, Map<string, Trace[]>>()
 
-/** Preserve access for later pads while adding a branch to an existing
- * package-to-package trunk. These soft guides stop at the pad field and
- * retain native connectivity aliases; they never become routed connections. */
+/** Preserve access for the pads of nets that a later request still has to
+ * route. Every bus request receives them: a first bus between two packages
+ * can close the last exit of a neighboring pad as easily as a branch added
+ * to an existing trunk. Each guide runs from its pad to the nearest side of
+ * the package's pad field, measured in the package's own frame so that a
+ * rotated package is not given guides across the open board beside it. These
+ * soft guides retain native connectivity aliases; they never become routed
+ * connections. */
 export function* pendingPackageExits(
   input: SimpleRouteJson,
   fixed: Copper[],
 ): Generator<void, Copper[]> {
   const pads = input.obstacles.filter((pad) => pad.componentId)
-  const activeOwners = new Set(
-    input.connections.flatMap((connection) => [
-      connection.name,
-      connection.source_trace_id,
-    ]),
-  )
-  const hasCompletedTrunk = input.traces?.some((trace) => {
-    const owners = [trace.connection_name, trace.source_trace_id].filter(
-      (owner): owner is string => !!owner,
-    )
-    if (!owners.some((owner) => activeOwners.has(owner))) return false
-    const components = [trace.route[0], trace.route.at(-1)].map((point) =>
-      point?.route_type === "wire"
-        ? pads.find(
-            (pad) =>
-              pad.layers.includes(point.layer) &&
-              Math.hypot(pad.center.x - point.x, pad.center.y - point.y) <
-                1e-8 &&
-              pad.connectedTo.some((owner) => owners.includes(owner)),
-          )?.componentId
-        : undefined,
-    )
-    // A local fanout is not a completed package-to-package trunk.
-    return components[0] && components[1] && components[0] !== components[1]
-  })
-  if (!hasCompletedTrunk) return []
   const regions = packageApproachRegions(input, 0)
-  const fields = new Map(
+  const frames = new Map(
     [...new Set(pads.map((pad) => pad.componentId!))].map((id, index) => [
       id,
-      regions[index].pads,
+      getPackagePadFrame(
+        pads.filter((pad) => pad.componentId === id),
+        regions[index].pads,
+      ),
     ]),
   )
   const groups = getConnectedPadGroups(pads)
@@ -89,19 +72,30 @@ export function* pendingPackageExits(
         pad as typeof pad & { circuitJsonMetadata?: { pcb_port_id?: string } }
       ).circuitJsonMetadata?.pcb_port_id
       if (!port) continue
-      const field = fields.get(pad.componentId!)!
+      const { angle, field } = frames.get(pad.componentId!)!
+      const cos = Math.cos(angle),
+        sin = Math.sin(angle)
+      // Pad center in the package frame; exits leave along the frame axes.
+      const x = pad.center.x * cos + pad.center.y * sin,
+        y = -pad.center.x * sin + pad.center.y * cos
       for (const layer of pad.layers) {
         const start = { ...pad.center, layer, pcb_port_id: port }
         const end = [
-          { x: field.minX - extension, y: start.y, layer },
-          { x: field.maxX + extension, y: start.y, layer },
-          { x: start.x, y: field.minY - extension, layer },
-          { x: start.x, y: field.maxY + extension, layer },
-        ].sort(
-          (a, b) =>
-            Math.hypot(a.x - start.x, a.y - start.y) -
-            Math.hypot(b.x - start.x, b.y - start.y),
-        )[0]
+          { x: field.minX - extension, y },
+          { x: field.maxX + extension, y },
+          { x, y: field.minY - extension },
+          { x, y: field.maxY + extension },
+        ]
+          .map((exit) => ({
+            x: exit.x * cos - exit.y * sin,
+            y: exit.x * sin + exit.y * cos,
+            layer,
+          }))
+          .sort(
+            (a, b) =>
+              Math.hypot(a.x - start.x, a.y - start.y) -
+              Math.hypot(b.x - start.x, b.y - start.y),
+          )[0]
         const connection: Connection = {
           name: port,
           pointsToConnect: [start, end],

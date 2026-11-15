@@ -3,10 +3,11 @@ import { expect, test } from "bun:test"
 import { readFileSync } from "node:fs"
 import { gunzipSync } from "node:zlib"
 import {
+  getCopperLayerNames,
   validateOriginalEndpointConnectivity,
   validateRoutedCopperDrc,
 } from "@tscircuit/fanout-solver"
-import { type AnyCircuitElement, pcb_trace } from "circuit-json"
+import { type AnyCircuitElement, pcb_trace, pcb_via } from "circuit-json"
 import {
   BusLanesPipelineSolver,
   type Connection,
@@ -59,7 +60,7 @@ function expectConnectedAndClear(
 
 // Board coordinates in mm, +X right, +Y up. RAM U200 is on the left, the
 // series resistor networks in the middle and CPU U100 on the right.
-test("A13 RAM byte 0 leaves RAM byte 1 unroutable", async (): Promise<void> => {
+test("A13 RAM byte 1 routes after RAM byte 0", async (): Promise<void> => {
   const fixture = JSON.parse(
     gunzipSync(
       readFileSync(
@@ -101,34 +102,38 @@ test("A13 RAM byte 0 leaves RAM byte 1 unroutable", async (): Promise<void> => {
   byte1.solve()
   expect(second).toEqual(originalSecond)
 
-  expect(byte1.solved).toBe(false)
-  expect(byte1.failed).toBe(true)
-  expect(byte1.error).toBe(
-    "Generated native surface approaches could not satisfy full-path geometry and matching",
+  expect(byte1.error).toBeNull()
+  expect(byte1.solved).toBe(true)
+  const traces = byte1.getOutput().traces
+  expect(traces).toHaveLength(32)
+  expect(traces.slice(0, 24)).toEqual(afterByte0)
+  expectConnectedAndClear(
+    second,
+    [...fixture.fixedConnections, ...first.connections, ...second.connections],
+    traces,
   )
 
-  // Only validated, completed copper is drawn. The requested connections
-  // that did not route are straight guide lines, never candidate copper.
   const caption =
-    "FAILED: RAM byte 1 0/8 after RAM byte 0 8/8; 24 completed routes shown; blue dashed lines are the 8 requested connections"
-  const circuit = [
-    ...fixture.circuit,
-    ...afterByte0.map((trace) => pcb_trace.parse(trace)),
-  ]
-  for (const [index, connection] of second.connections.entries()) {
-    const [start, end] = connection.pointsToConnect
-    circuit.push({
-      type: "pcb_note_line",
-      pcb_note_line_id: `requested_${index}`,
-      layer: "top",
-      x1: start.x,
-      y1: start.y,
-      x2: end.x,
-      y2: end.y,
-      stroke_width: 0.07,
-      color: "#1d4ed8",
-      is_dashed: true,
-    })
+    "COMPLETED: RAM byte 1 8/8 after RAM byte 0 8/8; 32/32 routes connected; earlier copper unchanged; DRC passed"
+  const circuit = [...fixture.circuit]
+  const layers = getCopperLayerNames(second.layerCount)
+  for (const trace of traces) {
+    circuit.push(pcb_trace.parse(trace))
+    for (const [index, point] of trace.route.entries()) {
+      if (point.route_type !== "via") continue
+      circuit.push(
+        pcb_via.parse({
+          type: "pcb_via",
+          pcb_via_id: `${trace.pcb_trace_id}_via_${index}`,
+          pcb_trace_id: trace.pcb_trace_id,
+          x: point.x,
+          y: point.y,
+          outer_diameter: point.via_diameter ?? second.minViaPadDiameter,
+          hole_diameter: point.via_hole_diameter ?? second.minViaHoleDiameter,
+          layers,
+        }),
+      )
+    }
   }
   const svgOptions = {
     backgroundColor: "white",
