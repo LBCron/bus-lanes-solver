@@ -20,8 +20,28 @@ Bun 1.4.0; Blacksmith 4-vCPU Ubuntu 24.04 x64; 3,600 seconds per solver/sample; 
 | [inner-layers-complete-ca](inner-layers-complete-ca-solved.png) | 47/47 | 0 | 0.634990 / 0.634992 / 0.634994 | 0.075359 / 0.000000 / 0.066384 | pass | 350.316 → 316.104 |
 | [outer-layers](outer-layers-solved.png) | 47/47 | 0 | 0.635000 / 0.635000 | 0.019219 / 0.127000 / 0.127000 | pass | 952.335 → 1122.954 |
 
-Aggregate solve time: **3148.766 → 3664.010 seconds (+16.4%)**. This first pair is slower in aggregate despite identical search iterations and validation measurements. An unchanged-production-code control also varied +8.7%; the repeat comparison is still running. No speedup or performance acceptance is claimed.
+Aggregate solve time: **3148.766 → 3664.010 seconds (+16.4%)**. This first pair is slower in aggregate despite identical search iterations and validation measurements. An unchanged-production-code control also varied +8.7%; the final-head repeat reverses the timing direction, as reported below. No speedup is claimed.
 
 Bus skew limit: 0.635 mm. Pair skew limit: 0.127 mm. All three shared pair sections and their exterior coupling checks pass in every sample. Full original SVGs, 2,200-pixel PNGs and raw reports remain in the workflow artifacts. The PNGs here are 1,100-pixel previews rendered from those validated SVGs.
 
 After the measured production revision, `a43773f681aabba4d3ce4beabc12266859a67a5a` changes only three expected SVG snapshots; no solver or benchmark code changes.
+
+## Repeat on the final snapshot revision
+
+The [final-head repeat](https://github.com/tscircuit/bus-lanes-solver/actions/runs/43963070700) also passes **11/11**. Total solve seconds: **2953.396 → 2768.892 (-6.2%)**. Every validation result and iteration count remains identical. This reverses the first pair’s +16.4% timing result; the unchanged-code control also varied +8.7%. These runs show no consistent runtime regression or speedup.
+
+| Placement | First pair, seconds | Repeat, seconds |
+| --- | ---: | ---: |
+| above | 28.768 → 34.661 | 38.427 → 36.904 |
+| control | 24.090 → 24.817 | 49.220 → 42.517 |
+| control-inner1 | 1247.751 → 1457.594 | 975.594 → 720.397 |
+| inner-layers | 58.741 → 57.749 | 45.340 → 48.367 |
+| inner-layers-above | 194.892 → 298.456 | 324.109 → 344.424 |
+| inner-layers-complete-ca | 350.316 → 316.104 | 315.345 → 247.872 |
+| inner-layers-left | 145.196 → 225.215 | 233.294 → 263.080 |
+| inner-layers-right | 72.163 → 67.577 | 73.343 → 88.696 |
+| left | 40.320 → 32.924 | 24.904 → 31.672 |
+| outer-layers | 952.335 → 1122.954 | 845.745 → 912.029 |
+| right | 34.193 → 25.960 | 28.075 → 32.935 |
+
+Private coverage of freshly solved `control` (50,026 iterations) and `above` (101,425 iterations) records zero calls to the changed `expanded-signal-sites` and `route-generated-signal-sites` search functions. The profiling is diagnostic only; its instrumented timings are not compared with benchmark measurements.
