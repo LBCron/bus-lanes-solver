@@ -9,13 +9,30 @@ export function connectivityDrillConflicts(
   traces: Trace[],
 ) {
   const gap = input.minViaHoleEdgeToViaHoleEdgeClearance ?? 0
-  const vias = traces.flatMap((trace) =>
-    trace.route.flatMap((point) =>
-      point.route_type === "via"
-        ? [{ name: trace.connection_name!, point }]
-        : [],
-    ),
-  )
+  const seen = new Set<string>()
+  const vias = traces
+    .flatMap((trace) =>
+      trace.route.flatMap((point) =>
+        point.route_type === "via"
+          ? [{ name: trace.connection_name!, point }]
+          : [],
+      ),
+    )
+    .filter(({ name, point }) => {
+      // Branches may repeat the same physical via. Distinct holes on the same
+      // net still require drill clearance, as do coincident different-net vias.
+      const key = JSON.stringify([
+        name,
+        point.x,
+        point.y,
+        point.via_hole_diameter ?? input.minViaHoleDiameter ?? 0.15,
+        point.via_diameter ?? input.minViaPadDiameter ?? 0.3,
+        [...(point.layers ?? [point.from_layer, point.to_layer])].sort(),
+      ])
+      if (seen.has(key)) return false
+      seen.add(key)
+      return true
+    })
   const hits: Array<{ names: [string, string]; points: [Via, Via] }> = []
   for (let i = 0; i < vias.length; i++)
     for (let j = 0; j < i; j++) {

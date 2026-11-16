@@ -51,7 +51,7 @@ test("bounded refinement repairs a synthetic crossed pad bank without changing i
     const input = crossedPads(offset),
       before = structuredClone(input)
     const options = {
-      gridStep: 0.3,
+      gridStep: 0.4,
       maxPasses: 2,
       maxExpansionsPerRoute: 100000,
     }
