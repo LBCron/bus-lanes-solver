@@ -1,0 +1,244 @@
+[
+  {
+    "sample": "above",
+    "metadata": {
+      "order": [
+        "main",
+        "pr"
+      ],
+      "mainSha": "74ed20b7f9331a97abfed44ff606d9e72e208a0a",
+      "prSha": "b1b366dcbaea5ea37b80cd62df8ec901f04f42e3",
+      "controllerSha": "74ed20b7f9331a97abfed44ff606d9e72e208a0a",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-jjn3rab4jittzfvp",
+      "runnerOS": "Linux"
+    },
+    "beforeSeconds": 63.321133182000004,
+    "afterSeconds": 55.054501325000004,
+    "beforeIterations": 101425,
+    "afterIterations": 101425,
+    "sameValidation": true
+  },
+  {
+    "sample": "control",
+    "metadata": {
+      "order": [
+        "main",
+        "pr"
+      ],
+      "mainSha": "74ed20b7f9331a97abfed44ff606d9e72e208a0a",
+      "prSha": "b1b366dcbaea5ea37b80cd62df8ec901f04f42e3",
+      "controllerSha": "74ed20b7f9331a97abfed44ff606d9e72e208a0a",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-yz3k4imkhh5sr7cm",
+      "runnerOS": "Linux"
+    },
+    "beforeSeconds": 39.797923748,
+    "afterSeconds": 31.326278124,
+    "beforeIterations": 50026,
+    "afterIterations": 50026,
+    "sameValidation": true
+  },
+  {
+    "sample": "control-inner1",
+    "metadata": {
+      "order": [
+        "pr",
+        "main"
+      ],
+      "mainSha": "74ed20b7f9331a97abfed44ff606d9e72e208a0a",
+      "prSha": "b1b366dcbaea5ea37b80cd62df8ec901f04f42e3",
+      "controllerSha": "74ed20b7f9331a97abfed44ff606d9e72e208a0a",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-duwz2vzacf4l6wbd",
+      "runnerOS": "Linux"
+    },
+    "beforeSeconds": 1237.998375619,
+    "afterSeconds": 1339.7549715970001,
+    "beforeIterations": 98842,
+    "afterIterations": 98842,
+    "sameValidation": true
+  },
+  {
+    "sample": "inner-layers",
+    "metadata": {
+      "order": [
+        "pr",
+        "main"
+      ],
+      "mainSha": "74ed20b7f9331a97abfed44ff606d9e72e208a0a",
+      "prSha": "b1b366dcbaea5ea37b80cd62df8ec901f04f42e3",
+      "controllerSha": "74ed20b7f9331a97abfed44ff606d9e72e208a0a",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-eu44l24eesua2cij",
+      "runnerOS": "Linux"
+    },
+    "beforeSeconds": 56.009425525,
+    "afterSeconds": 48.604903198,
+    "beforeIterations": 123306,
+    "afterIterations": 123306,
+    "sameValidation": true
+  },
+  {
+    "sample": "inner-layers-above",
+    "metadata": {
+      "order": [
+        "main",
+        "pr"
+      ],
+      "mainSha": "74ed20b7f9331a97abfed44ff606d9e72e208a0a",
+      "prSha": "b1b366dcbaea5ea37b80cd62df8ec901f04f42e3",
+      "controllerSha": "74ed20b7f9331a97abfed44ff606d9e72e208a0a",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-5k4nzyprhthqg3il",
+      "runnerOS": "Linux"
+    },
+    "beforeSeconds": 260.301984354,
+    "afterSeconds": 303.19374569200005,
+    "beforeIterations": 323178,
+    "afterIterations": 323178,
+    "sameValidation": true
+  },
+  {
+    "sample": "inner-layers-complete-ca",
+    "metadata": {
+      "order": [
+        "pr",
+        "main"
+      ],
+      "mainSha": "74ed20b7f9331a97abfed44ff606d9e72e208a0a",
+      "prSha": "b1b366dcbaea5ea37b80cd62df8ec901f04f42e3",
+      "controllerSha": "74ed20b7f9331a97abfed44ff606d9e72e208a0a",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-gklbb2a5h27w3y3t",
+      "runnerOS": "Linux"
+    },
+    "beforeSeconds": 191.41487636999997,
+    "afterSeconds": 187.14019795800002,
+    "beforeIterations": 72633,
+    "afterIterations": 72633,
+    "sameValidation": true
+  },
+  {
+    "sample": "inner-layers-left",
+    "metadata": {
+      "order": [
+        "pr",
+        "main"
+      ],
+      "mainSha": "74ed20b7f9331a97abfed44ff606d9e72e208a0a",
+      "prSha": "b1b366dcbaea5ea37b80cd62df8ec901f04f42e3",
+      "controllerSha": "74ed20b7f9331a97abfed44ff606d9e72e208a0a",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-2sqlfibavksnogrv",
+      "runnerOS": "Linux"
+    },
+    "beforeSeconds": 231.97421254600002,
+    "afterSeconds": 265.668060225,
+    "beforeIterations": 246079,
+    "afterIterations": 246079,
+    "sameValidation": true
+  },
+  {
+    "sample": "inner-layers-right",
+    "metadata": {
+      "order": [
+        "main",
+        "pr"
+      ],
+      "mainSha": "74ed20b7f9331a97abfed44ff606d9e72e208a0a",
+      "prSha": "b1b366dcbaea5ea37b80cd62df8ec901f04f42e3",
+      "controllerSha": "74ed20b7f9331a97abfed44ff606d9e72e208a0a",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-7qvvcv7ruuivz2ex",
+      "runnerOS": "Linux"
+    },
+    "beforeSeconds": 70.27120902699998,
+    "afterSeconds": 65.204382293,
+    "beforeIterations": 159784,
+    "afterIterations": 159784,
+    "sameValidation": true
+  },
+  {
+    "sample": "left",
+    "metadata": {
+      "order": [
+        "pr",
+        "main"
+      ],
+      "mainSha": "74ed20b7f9331a97abfed44ff606d9e72e208a0a",
+      "prSha": "b1b366dcbaea5ea37b80cd62df8ec901f04f42e3",
+      "controllerSha": "74ed20b7f9331a97abfed44ff606d9e72e208a0a",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-evruwowvuofunhvq",
+      "runnerOS": "Linux"
+    },
+    "beforeSeconds": 38.150288774,
+    "afterSeconds": 34.429256599999995,
+    "beforeIterations": 82820,
+    "afterIterations": 82820,
+    "sameValidation": true
+  },
+  {
+    "sample": "outer-layers",
+    "metadata": {
+      "order": [
+        "main",
+        "pr"
+      ],
+      "mainSha": "74ed20b7f9331a97abfed44ff606d9e72e208a0a",
+      "prSha": "b1b366dcbaea5ea37b80cd62df8ec901f04f42e3",
+      "controllerSha": "74ed20b7f9331a97abfed44ff606d9e72e208a0a",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-rdtplxx7lo3kznji",
+      "runnerOS": "Linux"
+    },
+    "beforeSeconds": 1044.670165692,
+    "afterSeconds": 1183.261981541,
+    "beforeIterations": 4174041,
+    "afterIterations": 4174041,
+    "sameValidation": true
+  },
+  {
+    "sample": "right",
+    "metadata": {
+      "order": [
+        "main",
+        "pr"
+      ],
+      "mainSha": "74ed20b7f9331a97abfed44ff606d9e72e208a0a",
+      "prSha": "b1b366dcbaea5ea37b80cd62df8ec901f04f42e3",
+      "controllerSha": "74ed20b7f9331a97abfed44ff606d9e72e208a0a",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-nw47dmzzsstcbimd",
+      "runnerOS": "Linux"
+    },
+    "beforeSeconds": 31.044416381999998,
+    "afterSeconds": 35.499200015,
+    "beforeIterations": 51405,
+    "afterIterations": 51405,
+    "sameValidation": true
+  }
+]
