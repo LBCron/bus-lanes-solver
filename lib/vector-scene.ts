@@ -204,7 +204,21 @@ export function clearanceToCopper(a: Point, b: Point, c: Copper) {
 /** Predicate equivalent to clearanceToCopper(a, b, c) < margin. Stop after
  * the first colliding projection; retain the same sqrt/subtraction arithmetic. */
 export function copperTooClose(a: Point, b: Point, c: Copper, margin: number) {
-  if (c.rect) return clearanceToCopper(a, b, c) < margin
+  if (c.rect) {
+    // Reject a diagonal that misses the expanded world bounds before testing
+    // each physical pad edge. Keep slack at the broad-phase boundary.
+    const expansion = margin + 1e-8
+    if (
+      !intersectsRect(a, b, {
+        minX: c.rect.minX - expansion,
+        maxX: c.rect.maxX + expansion,
+        minY: c.rect.minY - expansion,
+        maxY: c.rect.maxY + expansion,
+      })
+    )
+      return false
+    return clearanceToCopper(a, b, c) < margin
+  }
   const u = c.a,
     v = c.b,
     radius = c.radius
