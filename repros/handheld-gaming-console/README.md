@@ -33,6 +33,10 @@ clearance and deduplicates physical vias shared by fixed branches. Existing
 valid layouts keep their original search order. Failed layouts may require an
 additional search attempt.
 
+Run the drill-clearance regressions and seeded completion controls with:
+
+    bun test tests/connectivity-review-regressions.test.ts tests/connectivity-completion-preservation.test.ts
+
 Benchmark acceptance requires fresh paired solves of all eleven AM3352 cases
 against the pinned main revision, including connectivity, DRC, total-copper bus
 and pair skew, coupling and fixed-copper preservation. Current measurements and
