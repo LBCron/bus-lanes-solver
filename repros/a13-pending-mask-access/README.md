@@ -11,6 +11,6 @@ bun test tests/a13-pending-mask-access.test.ts --timeout 900000
 bun repros/a13-pending-mask-access/capture.tsx /path/to/core
 ```
 
-The fixture retains the future-phase intent produced by [Core #5586](https://github.com/tscircuit/core/pull/5586) at `7414df0367bf2e48af3db69c6b74d1a94907fd24`. Removing only `pendingRoutingAccess` from its two captured requests gives exactly the published Core 0.0.2396 inputs used in [the release comparison](https://github.com/tscircuit/core/actions/runs/43921005346). Bus 0.0.58 ignores that field. Geometry, clearances, layer restrictions and logical nets are unchanged.
+The fixture uses the published Core 0.0.2396 inputs from [the release comparison](https://github.com/tscircuit/core/actions/runs/43921005346), with bus solver 0.0.58. Geometry, clearances, layer restrictions and logical nets are unchanged. No pending-intent producer is required.
 
-The committed fixture uses the previously verified CPU-byte output. The capture command freshly routes those bytes and requires a Core checkout with the intent producer. The snapshot contains only completed data copper; it does not present the pending mask connections as routed.
+The committed fixture uses the previously verified CPU-byte output. The capture command freshly routes all four data phases and records their requests before starting the remaining signals. The snapshot contains only completed data copper; it does not present the pending mask connections as routed.
