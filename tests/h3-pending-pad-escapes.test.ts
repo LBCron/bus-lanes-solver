@@ -1,12 +1,9 @@
 import "./fixtures/pcb-snapshot"
 import { expect, test } from "bun:test"
-import { Buffer } from "node:buffer"
-import { createHash } from "node:crypto"
 import { readFileSync } from "node:fs"
 import { gunzipSync } from "node:zlib"
 import { type AnyCircuitElement, pcb_trace, pcb_via } from "circuit-json"
 import { getCopperLayerNames } from "@tscircuit/fanout-solver"
-import { convertCircuitJsonToPcbSvg } from "circuit-to-svg"
 import {
   BusLanesPipelineSolver,
   type Connection,
@@ -50,13 +47,19 @@ function getPendingPads(input: SimpleRouteJson): PendingPad[] {
   )
 }
 
-function statusNote(
-  id: string,
-  text: string,
-  x: number,
-  y: number,
-  fontSize: number,
-): AnyCircuitElement {
+function statusNote({
+  id,
+  text,
+  x,
+  y,
+  fontSize,
+}: {
+  id: string
+  text: string
+  x: number
+  y: number
+  fontSize: number
+}): AnyCircuitElement {
   return {
     type: "pcb_note_text",
     pcb_note_text_id: id,
@@ -68,32 +71,6 @@ function statusNote(
     font_size: fontSize,
     anchor_alignment: "center",
   }
-}
-
-// Temporary exact transport of the canonical renderer output. Remove this
-// helper after CI-generated goldens have been captured and committed.
-async function emitCanonicalSvg(
-  name: "PCB" | "CPU",
-  svg: string,
-): Promise<void> {
-  const bytes = Buffer.from(svg, "utf8")
-  const encoded = bytes.toString("base64")
-  const prefix = "BUS_H3_PENDING_PAD_ESCAPES_" + name + "_SVG"
-  const lines = [prefix + "_BASE64_BEGIN"]
-  for (let offset = 0; offset < encoded.length; offset += 120) {
-    lines.push(encoded.slice(offset, offset + 120))
-  }
-  lines.push(prefix + "_BASE64_END")
-  lines.push(
-    prefix +
-      "_SHA256 " +
-      createHash("sha256").update(bytes).digest("hex") +
-      " bytes=" +
-      bytes.length,
-  )
-  // One awaited write retains the complete transport before a stale-golden
-  // assertion can fail; per-line console writes can be lost under CI pressure.
-  await Bun.write(Bun.stdout, lines.join("\n") + "\n")
 }
 
 const svgOptions = {
@@ -255,20 +232,32 @@ test("H3 byte 1 leaves pads of later connections without an escape", async (): P
     )
     if (!source || source.type !== "source_component") continue
     circuit.push(
-      statusNote(
-        "package_" + element.pcb_component_id,
-        [source.name, source.manufacturer_part_number]
+      statusNote({
+        id: "package_" + element.pcb_component_id,
+        text: [source.name, source.manufacturer_part_number]
           .filter(Boolean)
           .join(" / "),
-        element.center.x,
-        element.center.y + element.height / 2 + 0.7,
-        0.45,
-      ),
+        x: element.center.x,
+        y: element.center.y + element.height / 2 + 0.7,
+        fontSize: 0.45,
+      }),
     )
   }
 
   const board = fixture.circuit.find((element) => element.type === "pcb_board")
-  if (!board) throw Error("The native fixture has no PCB board")
+  if (
+    !board ||
+    board.width === undefined ||
+    board.height === undefined ||
+    !Number.isFinite(board.width) ||
+    !Number.isFinite(board.height) ||
+    board.width <= 0 ||
+    board.height <= 0
+  ) {
+    throw Error(
+      "The native fixture must declare finite positive PCB dimensions",
+    )
+  }
   const boardBounds = {
     minX: board.center.x - board.width / 2,
     maxX: board.center.x + board.width / 2,
@@ -286,20 +275,20 @@ test("H3 byte 1 leaves pads of later connections without an escape", async (): P
     "All 76 native terminals checked; dashed lines are requests."
   const fullCircuit = [
     ...circuit,
-    statusNote(
-      "routing_status_board",
-      title,
-      board.center.x,
-      boardBounds.maxY + 2.2,
-      0.47,
-    ),
-    statusNote(
-      "routing_scope_board",
-      scope,
-      board.center.x,
-      boardBounds.maxY + 1.25,
-      0.32,
-    ),
+    statusNote({
+      id: "routing_status_board",
+      text: title,
+      x: board.center.x,
+      y: boardBounds.maxY + 2.2,
+      fontSize: 0.47,
+    }),
+    statusNote({
+      id: "routing_scope_board",
+      text: scope,
+      x: board.center.x,
+      y: boardBounds.maxY + 1.25,
+      fontSize: 0.32,
+    }),
   ]
   const fullOptions = {
     ...svgOptions,
@@ -314,21 +303,22 @@ test("H3 byte 1 leaves pads of later connections without an escape", async (): P
   }
   const cpuCircuit = [
     ...circuit,
-    statusNote(
-      "routing_status_cpu",
-      "FAILED: " + trappedPorts.length + " newly trapped pads (blue)",
-      -4.2,
-      6.45,
-      0.115,
-    ),
-    statusNote(
-      "routing_scope_cpu",
-      alreadyInaccessiblePorts.length +
+    statusNote({
+      id: "routing_status_cpu",
+      text: "FAILED: " + trappedPorts.length + " newly trapped pads (blue)",
+      x: -4.2,
+      y: 6.45,
+      fontSize: 0.115,
+    }),
+    statusNote({
+      id: "routing_scope_cpu",
+      text:
+        alreadyInaccessiblePorts.length +
         " already inaccessible (amber); only 16 completed routes",
-      -4.2,
-      6.2,
-      0.095,
-    ),
+      x: -4.2,
+      y: 6.2,
+      fontSize: 0.095,
+    }),
   ]
   const cpuOptions = {
     ...svgOptions,
@@ -337,34 +327,7 @@ test("H3 byte 1 leaves pads of later connections without an escape", async (): P
     viewport: { minX: -7.8, maxX: -0.6, minY: -0.6, maxY: 6.6 },
   }
 
-  // All solver, connectivity, DRC, copper-preservation and regression
-  // assertions precede diagnostic emission. Goldens are canonical output.
-  console.log(
-    "BUS_H3_PENDING_PAD_ESCAPES_ACCESS_REPORT " +
-      JSON.stringify({
-        completedRoutes: traces.length,
-        pendingConnections: fixture.pendingConnections.length,
-        terminalsChecked: after.length,
-        initiallyInaccessiblePorts,
-        alreadyInaccessiblePorts,
-        newlyTrappedPorts: trappedPorts,
-        recoveredPorts,
-      }),
-  )
-  await emitCanonicalSvg(
-    "PCB",
-    convertCircuitJsonToPcbSvg(fullCircuit, {
-      showDebugObjects: true,
-      ...fullOptions,
-    }),
-  )
-  await emitCanonicalSvg(
-    "CPU",
-    convertCircuitJsonToPcbSvg(cpuCircuit, {
-      showDebugObjects: true,
-      ...cpuOptions,
-    }),
-  )
+  // Snapshot only the completed, validated copper and labeled request guides.
   await expect(fullCircuit).toMatchPcbSnapshot({
     testPath: import.meta.path,
     svgOptions: fullOptions,
