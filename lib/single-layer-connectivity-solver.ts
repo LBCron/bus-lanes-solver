@@ -19,12 +19,15 @@ import {
   type GridRoutingAccess,
 } from "./grid-visibility"
 import { GridHeap } from "./grid-heap"
-import { ConnectivitySearchState } from "./connectivity-search-state"
 import { fixedCopper, VectorScene } from "./vector-scene"
 import { CopperConflictIndex } from "./copper-conflict-index"
 import { length, simplify } from "./geometry"
 import { busLengthReports, pairLengthReports } from "./route-lengths"
 import type { Trace, Connection, Point, Wire, SimpleRouteJson } from "./types"
+
+const ESCAPE_POLICIES = ["legal", "negotiated", "provisional"] as const
+type EscapePolicy = (typeof ESCAPE_POLICIES)[number]
+class ConnectivityRouteFailure extends Error {}
 
 export interface SingleLayerConnectivityOptions {
   /** Original connections owning supplied immutable copper not in the routing requests. */
@@ -32,12 +35,12 @@ export interface SingleLayerConnectivityOptions {
   /** Bounded local grid halvings after negotiation stalls; zero disables refinement. */
   maxRefinements?: number
   gridStep?: number
-  /** Passes per search ordering/refinement; retries share the total step limit. */
+  /** Passes per escape attempt/refinement; retries share the total step limit. */
   maxPasses?: number
   maxExpansionsPerRoute?: number
 }
 
-/** Routes top-layer terminals through two plated vias onto one signal carrier.
+/** Routes top-layer terminals with at most one non-top signal carrier.
  * This connectivity stage does not enforce bus timing or differential coupling.
  * Its solved flag means complete connectivity and copper DRC, never DDR acceptance.
  * Use BusLanesPipelineSolver when length matching and coupled pairs are required.
@@ -48,10 +51,6 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
   traces: Trace[] = []
   phase = "routing"
   private task: Generator<void, Trace[]>
-  private retainViaAlternatives = false
-  private deferFirstViaClearance = false
-  private primaryFailure?: string
-  private primaryPasses = 0
   constructor(
     input: SimpleRouteJson,
     options: SingleLayerConnectivityOptions = {},
@@ -210,11 +209,6 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
   _step() {
     try {
       const next = this.task.next()
-      if (this.primaryFailure) {
-        if (this.retainViaAlternatives) this.stats.expandedViaSearch = true
-        if (this.deferFirstViaClearance) this.stats.deferredViaSearch = true
-        this.stats.primaryAttemptPasses = this.primaryPasses
-      }
       if (next.done) {
         this.traces = next.value
         this.phase = "complete"
@@ -222,31 +216,29 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
       }
     } catch (error) {
       this.task.return([])
-      // Preserve valid topologies from both the strict via search and main's
-      // ordering, which negotiates drill conflicts after proposing routes.
-      // Distinct first-via labels are the final fallback. Every attempt must
-      // pass the same physical validation and shares the outer time/step limit.
-      if (!this.retainViaAlternatives) {
-        if (!this.primaryFailure) {
-          this.primaryFailure = String(error)
-          this.primaryPasses = (this.stats.pass ?? -1) + 1
-        }
-        if (!this.deferFirstViaClearance) this.deferFirstViaClearance = true
-        else this.retainViaAlternatives = true
-        this.task = this.routeAll()
-        return
-      }
       this.failed = true
       this.phase = "failed"
       this.error = String(error)
     }
   }
-  private *routeAll(): Generator<void, Trace[]> {
+  private *routeAll(policyIndex = 0): Generator<void, Trace[]> {
+    try {
+      return yield* this.routeAttempt(ESCAPE_POLICIES[policyIndex])
+    } catch (error) {
+      if (
+        !(error instanceof ConnectivityRouteFailure) ||
+        policyIndex + 1 === ESCAPE_POLICIES.length
+      )
+        throw error
+      // Progressively relax proposal constraints, never the acceptance checks.
+      // Attempts share the outer step/time budget; programming/input errors stop.
+      return yield* this.routeAll(policyIndex + 1)
+    }
+  }
+  private *routeAttempt(policy: EscapePolicy): Generator<void, Trace[]> {
+    const allowTemporaryTerminalVias = policy === "provisional"
     const input = this.input,
       options = this.options,
-      retainViaAlternatives = this.retainViaAlternatives,
-      deferFirstViaClearance =
-        this.deferFirstViaClearance && !retainViaAlternatives,
       carrier = input.allowedLayers![0]
     const layers = getCopperLayerNames(input.layerCount)
     if (!layers.includes(carrier))
@@ -296,6 +288,11 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
         throw Error(`Missing package pad ownership for ${c.name} terminal ${j}`)
       return regions.get(pad.componentId!)!
     }
+    const terminalRegions = new Map(
+      input.connections.map(
+        (c) => [c, [sourceRegion(c, 0), sourceRegion(c, 1)]] as const,
+      ),
+    )
     const bounds = input.bounds,
       step = options.gridStep ?? input.minTraceWidth
     const fixed = fixedCopper(input),
@@ -312,8 +309,15 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
       ),
       N = projector.cellCount
     const heap = new GridHeap(N * 3),
-      searchState = new ConnectivitySearchState(N, heap),
+      best = new Float64Array(N * 3),
+      parent = new Int32Array(N * 3),
       history = [new Float32Array(N), new Float32Array(N)]
+    const firstVia = policy === "legal" ? new Int32Array(N * 3) : undefined
+    const fixedVias = (input.traces ?? []).flatMap((trace) =>
+      trace.route.filter(
+        (point): point is import("./types").Via => point.route_type === "via",
+      ),
+    )
     const cached = new Map<string, GridRoutingAccess>()
     const hardGrid = ({
       c,
@@ -349,23 +353,13 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
       c,
       pass,
       strict = false,
-      repair = false,
+      repair = !allowTemporaryTerminalVias,
     }: {
       c: Connection
       pass: number
       strict?: boolean
       repair?: boolean
     }): Generator<void, Trace | null> {
-      let best = searchState.best,
-        parent = searchState.parent
-      const firstVia = retainViaAlternatives
-        ? undefined
-        : new Int32Array(N * 3).fill(-1)
-      const fixedVias = (input.traces ?? []).flatMap((t) =>
-        t.route.filter(
-          (p): p is import("./types").Via => p.route_type === "via",
-        ),
-      )
       const movableVias = [...routed.values()].flatMap((t) =>
         t.route.filter(
           (p): p is import("./types").Via => p.route_type === "via",
@@ -429,31 +423,26 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
       const roots = new Map<number, Point[]>(),
         target = c.pointsToConnect[1],
         penalty = 5 + pass * 5
-      const targetBox = sourceRegion(c, 1),
-        sourceBox = sourceRegion(c, 0)
+      const [sourceBox, targetBox] = terminalRegions.get(c)!
       const p = (id: number) => g.point(id)
       const heuristic = (id: number) => {
-        const xy = p(retainViaAlternatives ? searchState.cell(id) : id % N),
+        const xy = p(id % N),
           dx = Math.abs(xy.x - target.x) / step,
           dy = Math.abs(xy.y - target.y) / step
         return (
           Math.max(dx, dy) +
           (Math.SQRT2 - 1) * Math.min(dx, dy) +
-          (2 -
-            (retainViaAlternatives
-              ? searchState.stage(id)
-              : Math.floor(id / N))) *
-            100
+          (2 - Math.floor(id / N)) * 100
         )
       }
-      if (retainViaAlternatives) searchState.reset()
-      else best.fill(Infinity)
+      best.fill(Infinity)
       heap.clear()
       for (const a of g.starts) {
         const cost = length(a.path) / step
         best[a.id] = cost
         parent[a.id] = -1
         roots.set(a.id, a.path)
+        if (firstVia) firstVia[a.id] = -1
         heap.push(a.id, cost, cost + heuristic(a.id))
       }
       let goal = -1,
@@ -467,13 +456,9 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
         const id = heap.id,
           cost = heap.g
         if (cost !== best[id]) continue
-        const stage = retainViaAlternatives
-            ? searchState.stage(id)
-            : Math.floor(id / N),
-          cell = retainViaAlternatives ? searchState.cell(id) : id % N,
-          firstViaCell = retainViaAlternatives
-            ? searchState.firstVia(id)
-            : firstVia![id],
+        const stage = Math.floor(id / N),
+          cell = id % N,
+          firstViaCell = firstVia?.[id] ?? -1,
           plane = stage === 1 ? 1 : 0,
           grid = grids[plane],
           a = p(cell)
@@ -506,15 +491,8 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
           if (!grid.hardEdgeIsClear(cell, n)) continue
           const softCost = grid.softEdgeIsClear(a, b) ? 0 : penalty
           if (strict && softCost) continue
-          const ni =
-              retainViaAlternatives && stage === 1
-                ? searchState.carrierId(next, firstViaCell)
-                : stage * N + next,
+          const ni = stage * N + next,
             nc = cost + n.cost + softCost + history[plane][next]
-          if (retainViaAlternatives) {
-            best = searchState.best
-            parent = searchState.parent
-          }
           if (nc < best[ni] - 1e-9) {
             best[ni] = nc
             parent[ni] = id
@@ -536,33 +514,14 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
           vias.every((v) => !v.isBlocked(cell)) &&
           fixedVias.every((v) => drillClear(a, v)) &&
           (stage === 0 ||
-            deferFirstViaClearance ||
+            !firstVia ||
             firstViaCell < 0 ||
             Math.hypot(a.x - p(firstViaCell).x, a.y - p(firstViaCell).y) >=
               (input.minViaHoleEdgeToViaHoleEdgeClearance ?? 0) +
                 (input.minViaHoleDiameter ?? 0.15) -
                 1e-8)
         ) {
-          // A first via only needs a distinct carrier label if its drill
-          // exclusion disk intersects the region containing possible exits.
-          let ni = id + N
-          if (retainViaAlternatives) {
-            ni = 2 * N + cell
-            if (stage === 0) {
-              const exitDistance = Math.hypot(
-                Math.max(targetBox.minX - a.x, a.x - targetBox.maxX, 0),
-                Math.max(targetBox.minY - a.y, a.y - targetBox.maxY, 0),
-              )
-              const restricted =
-                exitDistance <
-                (input.minViaHoleEdgeToViaHoleEdgeClearance ?? 0) +
-                  (input.minViaHoleDiameter ?? 0.15) -
-                  1e-8
-              ni = searchState.carrierId(cell, restricted ? cell : -1)
-            }
-            best = searchState.best
-            parent = searchState.parent
-          }
+          const ni = id + N
           const viaSoft =
             movableVias.reduce(
               (sum, v) => sum + (drillClear(a, v) ? 0 : penalty * 4),
@@ -594,13 +553,9 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
       }))
       for (let i = 1; i < ids.length; i++) {
         const id = ids[i],
-          stage = retainViaAlternatives
-            ? searchState.stage(id)
-            : Math.floor(id / N),
-          prevStage = retainViaAlternatives
-            ? searchState.stage(ids[i - 1])
-            : Math.floor(ids[i - 1] / N),
-          xy = p(retainViaAlternatives ? searchState.cell(id) : id % N),
+          stage = Math.floor(id / N),
+          prevStage = Math.floor(ids[i - 1] / N),
+          xy = p(id % N),
           layer = stage === 1 ? carrier : "top"
         if (stage !== prevStage)
           route.push({
@@ -670,7 +625,7 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
         const t =
           (pass >= 12 ? yield* solve({ c, pass, strict: true }) : null) ??
           (yield* solve({ c, pass }))
-        if (!t) throw Error(`No route for ${c.name}`)
+        if (!t) throw new ConnectivityRouteFailure(`No route for ${c.name}`)
         routed.set(
           c.name,
           canonicalConnectivityTrace({ input, connection: c, trace: t }),
@@ -734,6 +689,7 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
         conflicts: count,
         routedSignals: routed.size,
         matchingEnforced: false,
+        escapePolicy: policy,
       }
       yield
       if (!count) {
@@ -763,8 +719,7 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
           fixedConnections: [...(options.fixedConnections ?? []), ...retained],
         },
       )
-      refinement.retainViaAlternatives = retainViaAlternatives
-      refinement.deferFirstViaClearance = this.deferFirstViaClearance
+      refinement.task = refinement.routeAttempt(policy)
       while (!refinement.solved && !refinement.failed) {
         refinement.step()
         yield
@@ -779,14 +734,14 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
           refinementGridStep: step / 2,
           conflicts: 0,
         }
-        if (refinement.stats.expandedViaSearch)
-          this.stats.expandedViaSearch = true
       }
     }
     if (!complete)
-      throw Error("Single-layer negotiation exhausted its pass budget")
-    // Temporary via sites can coincide with terminals while negotiating topology.
-    // Repair those sites against all completed routes before accepting any output.
+      throw new ConnectivityRouteFailure(
+        "Single-layer negotiation exhausted its pass budget",
+      )
+    // Only the bounded fallback permits provisional terminal vias. Repair them
+    // against every completed route before accepting any output.
     for (const c of input.connections) {
       const t = routed.get(c.name)!
       if (
@@ -801,7 +756,10 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
         continue
       routed.delete(c.name)
       const repaired = yield* solve({ c, pass: 5, strict: true, repair: true })
-      if (!repaired) throw Error(`No legal terminal via for ${c.name}`)
+      if (!repaired)
+        throw new ConnectivityRouteFailure(
+          `No legal terminal via for ${c.name}`,
+        )
       routed.set(c.name, repaired)
       yield
     }
@@ -829,7 +787,9 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
       connectivityDrillConflicts(input, [...(input.traces ?? []), ...result])
         .length
     )
-      throw Error("Single-layer connectivity violates drill spacing")
+      throw new ConnectivityRouteFailure(
+        "Single-layer connectivity violates drill spacing",
+      )
     if (
       result.some(
         (trace) =>
@@ -837,9 +797,13 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
           connectivityViaShortcuts(input, trace),
       )
     )
-      throw Error("Single-layer connectivity has invalid joined geometry")
+      throw new ConnectivityRouteFailure(
+        "Single-layer connectivity has invalid joined geometry",
+      )
     if (result.some((trace) => !traceStaysInsideOutline(input, trace)))
-      throw Error("Generated connectivity copper crosses the board outline")
+      throw new ConnectivityRouteFailure(
+        "Generated connectivity copper crosses the board outline",
+      )
     const drc = validateRoutedCopperDrc({
       inputSrj: {
         ...input,
@@ -853,7 +817,7 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
       allowBlindAndBuriedVias: false,
     } as unknown as Parameters<typeof validateRoutedCopperDrc>[0])
     if (!drc.valid)
-      throw Error(
+      throw new ConnectivityRouteFailure(
         `Single-layer copper DRC rejected the route: ${drc.issues.map((issue) => issue.code).join(", ")}`,
       )
     return result

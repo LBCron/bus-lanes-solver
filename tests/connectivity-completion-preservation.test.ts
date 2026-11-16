@@ -2,55 +2,13 @@ import { expect, test } from "bun:test"
 import { validateRoutedCopperDrc } from "@tscircuit/fanout-solver"
 import { SingleLayerConnectivitySolver } from "../lib/single-layer-connectivity-solver"
 import { connectivityDrillConflicts } from "../lib/connectivity-geometry"
-import type { SimpleRouteJson } from "../lib/types"
+import { createCrossedPadBanks } from "./fixtures/connectivity-crossed-pads"
 import fixture from "./fixtures/connectivity-crossed-banks.json"
 
-function crossedPads(permutation: number[], offset: number): SimpleRouteJson {
-  const connections = permutation.map((p, i) => ({
-    name: "net-" + i,
-    pointsToConnect: [
-      {
-        x: offset - 1.5 + (i % 2) * 0.5,
-        y: Math.floor(i / 2) * 0.5,
-        layer: "top",
-        pcb_port_id: "left-" + i,
-      },
-      {
-        x: offset + 1.5 + (p % 2) * 0.5,
-        y: Math.floor(p / 2) * 0.5,
-        layer: "top",
-        pcb_port_id: "right-" + i,
-      },
-    ],
-  }))
-  return {
-    layerCount: 4,
-    allowedLayers: ["inner1"],
-    minTraceWidth: 0.09,
-    minTraceToPadEdgeClearance: 0.09,
-    minViaPadDiameter: 0.25,
-    minViaHoleDiameter: 0.15,
-    minViaHoleEdgeToViaHoleEdgeClearance: 0.25,
-    bounds: { minX: offset - 3, maxX: offset + 4, minY: -2, maxY: 3 },
-    connections,
-    obstacles: connections.flatMap((c) =>
-      c.pointsToConnect.map((p, j) => ({
-        shape: "circle",
-        componentId: "package-" + j,
-        center: { x: p.x, y: p.y },
-        width: 0.23,
-        height: 0.23,
-        layers: ["top"],
-        connectedTo: [c.name, p.pcb_port_id],
-      })),
-    ),
-  }
-}
-
-test("crossed bank layouts retain all previously validated completions", () => {
+test("crossed bank layouts complete without changing their native inputs", () => {
   let accepted = 0
   for (const sample of fixture.cases) {
-    const input = crossedPads(sample.permutation, sample.offset)
+    const input = createCrossedPadBanks(sample.permutation, sample.offset)
     const before = structuredClone(input)
     const solver = new SingleLayerConnectivitySolver(input, {
       gridStep: 0.3,
@@ -60,8 +18,7 @@ test("crossed bank layouts retain all previously validated completions", () => {
     })
     solver.solve()
     expect(input).toEqual(before)
-    if (sample.previouslyValidated || sample.mainValidated)
-      expect(solver.solved).toBe(true)
+    expect(solver.solved).toBe(true)
     if (!solver.solved) {
       expect(solver.traces).toEqual([])
       continue
@@ -92,5 +49,5 @@ test("crossed bank layouts retain all previously validated completions", () => {
     } as unknown as Parameters<typeof validateRoutedCopperDrc>[0])
     expect(drc.issues).toEqual([])
   }
-  expect(accepted).toBeGreaterThanOrEqual(11)
+  expect(accepted).toBe(12)
 }, 60000)

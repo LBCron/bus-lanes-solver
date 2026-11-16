@@ -28,11 +28,13 @@ The result establishes connectivity geometry. All six DDR bus groups still
 fail length matching, and differential coupling remains unresolved. Completed
 connectivity does not establish DDR timing or manufacturing readiness.
 
-The solver PR also retains the first-via search alternatives required for drill
-clearance and deduplicates physical vias shared by fixed branches. Existing
-valid layouts retain strict via ordering or main's negotiated via ordering.
-Distinct first-via labels provide a final fallback. Failed layouts may require
-additional search attempts; every result still requires physical validation.
+The solver uses one cell/stage search with three ordered escape policies: legal
+terminal vias with drill-clear pruning, legal terminal vias with negotiated
+drill spacing, then provisional terminal sites repaired before acceptance. All
+policies share the outer step/time budget and the same final physical checks.
+Refinement keeps the selected policy and supplied fixed copper immutable.
+Repeated representations of one physical fixed via count as one hole. The
+shared matched-routing heap is unchanged.
 
 Run the drill-clearance regressions and seeded completion controls with:
 
