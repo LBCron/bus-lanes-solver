@@ -70,13 +70,14 @@ export function boardSegmentIsClear({
   const margin = copperRadiusMm + (input.minBoardEdgeClearance ?? 0),
     r = input.bounds
   if (
-    [start, end].some(
-      (p) =>
-        p.x < r.minX + margin - epsilon ||
-        p.x > r.maxX - margin + epsilon ||
-        p.y < r.minY + margin - epsilon ||
-        p.y > r.maxY - margin + epsilon,
-    )
+    start.x < r.minX + margin - epsilon ||
+    start.x > r.maxX - margin + epsilon ||
+    start.y < r.minY + margin - epsilon ||
+    start.y > r.maxY - margin + epsilon ||
+    end.x < r.minX + margin - epsilon ||
+    end.x > r.maxX - margin + epsilon ||
+    end.y < r.minY + margin - epsilon ||
+    end.y > r.maxY - margin + epsilon
   )
     return false
   const ring = input.outline
