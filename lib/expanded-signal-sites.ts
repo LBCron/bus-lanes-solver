@@ -287,7 +287,6 @@ export function* expandedSignalSites({
     candidates.sort(
       (a, b) => distance(pad, a) - distance(pad, b) || a.x - b.x || a.y - b.y,
     )
-    const gridCandidateCount = candidates.length
     // Fixed copper can leave a drill-clear escape between the BGA grid sites.
     // The annulus may join its own pad; the drill must remain outside it.
     const padToViaDistance = (owner.width + hole) / 2 + 1e-5
@@ -342,8 +341,7 @@ export function* expandedSignalSites({
             },
           }
         : {}
-      for (const [index, point] of candidates.entries()) {
-        if (index === gridCandidateCount && ends[end].length) break
+      for (const point of candidates) {
         if (viaScenes.some((scene) => !scene.visible(point, point))) continue
         if (
           existingVias.some(

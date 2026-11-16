@@ -20,7 +20,7 @@ type Fixture = {
   circuit: AnyCircuitElement[]
 }
 
-test("A13 RAM bytes leave the pending mask pads without an escape", async (): Promise<void> => {
+test("A13 RAM bytes retain the pending DM0 escape", async (): Promise<void> => {
   const fixture = JSON.parse(
     gunzipSync(
       readFileSync(
@@ -64,7 +64,7 @@ test("A13 RAM bytes leave the pending mask pads without an escape", async (): Pr
     })
   })
   const accessibleMaskPads = ramMaskPads.filter(Boolean).length
-  expect(accessibleMaskPads).toBe(0)
+  expect(accessibleMaskPads).toBe(1)
 
   const circuit = [...fixture.circuit]
   const layers = getCopperLayerNames(output.layerCount)
