@@ -11,8 +11,9 @@ type NativePad = Obstacle & {
   circuitJsonMetadata?: { pcb_port_id?: PcbPortId }
 }
 
-/** How a pad can still be reached: through a legal via site, or by leaving
- * its package's pad field on its own layer. `null` means neither. */
+/** How a pad can still be reached: through a native expanded site (including
+ * an existing target-layer handoff), or by leaving its package's pad field on
+ * its own layer. `null` means neither. */
 export type PadEscape = "via_site" | "surface_exit" | null
 
 /** What one pad of a not-yet-routed connection can still do beside the copper
@@ -22,29 +23,42 @@ export type PadEscape = "via_site" | "surface_exit" | null
 export function getPadEscape(params: {
   input: SimpleRouteJson
   connection: Connection
-  end: 0 | 1
+  end: number
   viaTargetLayer: string
 }): PadEscape {
   const { input, connection, end, viaTargetLayer } = params
   const start = connection.pointsToConnect[end]
+  if (!start) throw Error(connection.name + " has no terminal " + end)
   const pcbPortId = start.pcb_port_id
   if (!pcbPortId) throw Error(`${connection.name} end ${end} has no pcb port`)
+  // The production site generator searches its first two terminals. Put the
+  // requested native terminal first, retaining every other terminal and its
+  // metadata, so this oracle can inspect any endpoint of a multi-terminal net.
+  const selectedConnection = {
+    ...connection,
+    pointsToConnect: [
+      start,
+      ...connection.pointsToConnect.filter((_, index) => index !== end),
+    ],
+  }
   const sites = expandedSignalSites({
-    input: { ...input, connections: [connection] },
-    connection,
+    input: { ...input, connections: [selectedConnection] },
+    connection: selectedConnection,
     targetLayer: viaTargetLayer,
     allowPadEdgeSites: true,
   })
   let siteStep = sites.next()
   while (!siteStep.done) siteStep = sites.next()
-  if (siteStep.value[end].length > 0) return "via_site"
+  if (siteStep.value[0].length > 0) return "via_site"
 
   const pads: NativePad[] = input.obstacles.filter((pad) => pad.componentId)
   const pad = pads.find(
     (candidate) => candidate.circuitJsonMetadata?.pcb_port_id === pcbPortId,
   )
   if (!pad) throw Error(`No native pad for ${pcbPortId}`)
-  const componentIds = [...new Set(pads.map((candidate) => candidate.componentId))]
+  const componentIds = [
+    ...new Set(pads.map((candidate) => candidate.componentId)),
+  ]
   const { field, boardToPackage, packageToBoard } = getPackagePadFrame(
     pads.filter((candidate) => candidate.componentId === pad.componentId),
     packageApproachRegions(input, 0)[componentIds.indexOf(pad.componentId)]
