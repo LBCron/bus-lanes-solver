@@ -32,6 +32,7 @@ export interface SingleLayerConnectivityOptions {
   /** Bounded local grid halvings after negotiation stalls; zero disables refinement. */
   maxRefinements?: number
   gridStep?: number
+  /** Passes per search ordering/refinement; retries share the total step limit. */
   maxPasses?: number
   maxExpansionsPerRoute?: number
 }
@@ -47,6 +48,9 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
   traces: Trace[] = []
   phase = "routing"
   private task: Generator<void, Trace[]>
+  private retainViaAlternatives = false
+  private primaryFailure?: string
+  private primaryPasses = 0
   constructor(
     input: SimpleRouteJson,
     options: SingleLayerConnectivityOptions = {},
@@ -205,6 +209,10 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
   _step() {
     try {
       const next = this.task.next()
+      if (this.primaryFailure) {
+        this.stats.expandedViaSearch = true
+        this.stats.primaryAttemptPasses = this.primaryPasses
+      }
       if (next.done) {
         this.traces = next.value
         this.phase = "complete"
@@ -212,6 +220,16 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
       }
     } catch (error) {
       this.task.return([])
+      // Preserve existing valid negotiation topologies. If the original ordering
+      // fails, retry with distinct first-via labels. Both attempts keep all
+      // geometry checks and share the outer time/step limit.
+      if (!this.retainViaAlternatives) {
+        this.primaryFailure = String(error)
+        this.primaryPasses = (this.stats.pass ?? -1) + 1
+        this.retainViaAlternatives = true
+        this.task = this.routeAll()
+        return
+      }
       this.failed = true
       this.phase = "failed"
       this.error = String(error)
@@ -220,6 +238,7 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
   private *routeAll(): Generator<void, Trace[]> {
     const input = this.input,
       options = this.options,
+      retainViaAlternatives = this.retainViaAlternatives,
       carrier = input.allowedLayers![0]
     const layers = getCopperLayerNames(input.layerCount)
     if (!layers.includes(carrier))
@@ -329,6 +348,11 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
       strict?: boolean
       repair?: boolean
     }): Generator<void, Trace | null> {
+      let best = searchState.best,
+        parent = searchState.parent
+      const firstVia = retainViaAlternatives
+        ? undefined
+        : new Int32Array(N * 3).fill(-1)
       const fixedVias = (input.traces ?? []).flatMap((t) =>
         t.route.filter(
           (p): p is import("./types").Via => p.route_type === "via",
@@ -401,21 +425,26 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
         sourceBox = sourceRegion(c, 0)
       const p = (id: number) => g.point(id)
       const heuristic = (id: number) => {
-        const xy = p(searchState.cell(id)),
+        const xy = p(retainViaAlternatives ? searchState.cell(id) : id % N),
           dx = Math.abs(xy.x - target.x) / step,
           dy = Math.abs(xy.y - target.y) / step
         return (
           Math.max(dx, dy) +
           (Math.SQRT2 - 1) * Math.min(dx, dy) +
-          (2 - searchState.stage(id)) * 100
+          (2 -
+            (retainViaAlternatives
+              ? searchState.stage(id)
+              : Math.floor(id / N))) *
+            100
         )
       }
-      searchState.reset()
+      if (retainViaAlternatives) searchState.reset()
+      else best.fill(Infinity)
       heap.clear()
       for (const a of g.starts) {
         const cost = length(a.path) / step
-        searchState.best[a.id] = cost
-        searchState.parent[a.id] = -1
+        best[a.id] = cost
+        parent[a.id] = -1
         roots.set(a.id, a.path)
         heap.push(a.id, cost, cost + heuristic(a.id))
       }
@@ -429,9 +458,14 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
         heap.pop()
         const id = heap.id,
           cost = heap.g
-        if (cost !== searchState.best[id]) continue
-        const stage = searchState.stage(id),
-          cell = searchState.cell(id),
+        if (cost !== best[id]) continue
+        const stage = retainViaAlternatives
+            ? searchState.stage(id)
+            : Math.floor(id / N),
+          cell = retainViaAlternatives ? searchState.cell(id) : id % N,
+          firstViaCell = retainViaAlternatives
+            ? searchState.firstVia(id)
+            : firstVia![id],
           plane = stage === 1 ? 1 : 0,
           grid = grids[plane],
           a = p(cell)
@@ -465,13 +499,18 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
           const softCost = grid.softEdgeIsClear(a, b) ? 0 : penalty
           if (strict && softCost) continue
           const ni =
-              stage === 1
-                ? searchState.carrierId(next, searchState.firstVia(id))
+              retainViaAlternatives && stage === 1
+                ? searchState.carrierId(next, firstViaCell)
                 : stage * N + next,
             nc = cost + n.cost + softCost + history[plane][next]
-          if (nc < searchState.best[ni] - 1e-9) {
-            searchState.best[ni] = nc
-            searchState.parent[ni] = id
+          if (retainViaAlternatives) {
+            best = searchState.best
+            parent = searchState.parent
+          }
+          if (nc < best[ni] - 1e-9) {
+            best[ni] = nc
+            parent[ni] = id
+            if (firstVia) firstVia[ni] = firstViaCell
             heap.push(ni, nc, nc + heuristic(ni))
           }
         }
@@ -489,30 +528,32 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
           vias.every((v) => !v.isBlocked(cell)) &&
           fixedVias.every((v) => drillClear(a, v)) &&
           (stage === 0 ||
-            searchState.firstVia(id) < 0 ||
-            Math.hypot(
-              a.x - p(searchState.firstVia(id)).x,
-              a.y - p(searchState.firstVia(id)).y,
-            ) >=
+            firstViaCell < 0 ||
+            Math.hypot(a.x - p(firstViaCell).x, a.y - p(firstViaCell).y) >=
               (input.minViaHoleEdgeToViaHoleEdgeClearance ?? 0) +
                 (input.minViaHoleDiameter ?? 0.15) -
                 1e-8)
         ) {
           // A first via only needs a distinct carrier label if its drill
           // exclusion disk intersects the region containing possible exits.
-          const exitDistance = Math.hypot(
-            Math.max(targetBox.minX - a.x, a.x - targetBox.maxX, 0),
-            Math.max(targetBox.minY - a.y, a.y - targetBox.maxY, 0),
-          )
-          const restricted =
-            exitDistance <
-            (input.minViaHoleEdgeToViaHoleEdgeClearance ?? 0) +
-              (input.minViaHoleDiameter ?? 0.15) -
-              1e-8
-          const ni =
-            stage === 0
-              ? searchState.carrierId(cell, restricted ? cell : -1)
-              : 2 * N + cell
+          let ni = id + N
+          if (retainViaAlternatives) {
+            ni = 2 * N + cell
+            if (stage === 0) {
+              const exitDistance = Math.hypot(
+                Math.max(targetBox.minX - a.x, a.x - targetBox.maxX, 0),
+                Math.max(targetBox.minY - a.y, a.y - targetBox.maxY, 0),
+              )
+              const restricted =
+                exitDistance <
+                (input.minViaHoleEdgeToViaHoleEdgeClearance ?? 0) +
+                  (input.minViaHoleDiameter ?? 0.15) -
+                  1e-8
+              ni = searchState.carrierId(cell, restricted ? cell : -1)
+            }
+            best = searchState.best
+            parent = searchState.parent
+          }
           const viaSoft =
             movableVias.reduce(
               (sum, v) => sum + (drillClear(a, v) ? 0 : penalty * 4),
@@ -524,16 +565,17 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
             )
           if (strict && viaSoft) continue
           const nc = cost + 100 + viaSoft + history[0][cell] + history[1][cell]
-          if (nc < searchState.best[ni] - 1e-9) {
-            searchState.best[ni] = nc
-            searchState.parent[ni] = id
+          if (nc < best[ni] - 1e-9) {
+            best[ni] = nc
+            parent[ni] = id
+            if (firstVia) firstVia[ni] = stage === 0 ? cell : firstViaCell
             heap.push(ni, nc, nc + heuristic(ni))
           }
         }
       }
       if (goal < 0) return null
       const ids: number[] = []
-      for (let id = goal; id >= 0; id = searchState.parent[id]) ids.push(id)
+      for (let id = goal; id >= 0; id = parent[id]) ids.push(id)
       ids.reverse()
       const route: Trace["route"] = roots.get(ids[0])!.map((x) => ({
         ...x,
@@ -543,9 +585,13 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
       }))
       for (let i = 1; i < ids.length; i++) {
         const id = ids[i],
-          stage = searchState.stage(id),
-          prevStage = searchState.stage(ids[i - 1]),
-          xy = p(searchState.cell(id)),
+          stage = retainViaAlternatives
+            ? searchState.stage(id)
+            : Math.floor(id / N),
+          prevStage = retainViaAlternatives
+            ? searchState.stage(ids[i - 1])
+            : Math.floor(ids[i - 1] / N),
+          xy = p(retainViaAlternatives ? searchState.cell(id) : id % N),
           layer = stage === 1 ? carrier : "top"
         if (stage !== prevStage)
           route.push({
@@ -708,6 +754,7 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
           fixedConnections: [...(options.fixedConnections ?? []), ...retained],
         },
       )
+      refinement.retainViaAlternatives = retainViaAlternatives
       while (!refinement.solved && !refinement.failed) {
         refinement.step()
         yield
@@ -722,6 +769,8 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
           refinementGridStep: step / 2,
           conflicts: 0,
         }
+        if (refinement.stats.expandedViaSearch)
+          this.stats.expandedViaSearch = true
       }
     }
     if (!complete)

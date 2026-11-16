@@ -1,3 +1,5 @@
+import type { GridHeap } from "./grid-heap"
+
 /** Carrier labels retain the first via when it constrains the possible exits.
  * Unrestricted labels share the original dense cell/stage arrays. */
 export class ConnectivitySearchState {
@@ -54,4 +56,3 @@ export class ConnectivitySearchState {
     return id
   }
 }
-import type { GridHeap } from "./grid-heap"
