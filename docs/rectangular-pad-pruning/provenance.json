@@ -1,0 +1,119 @@
+{
+  "solverCommit": "25e4b24df639719050fe9662bdaf5875ac137dde",
+  "harnessCommit": "5823630880ca86cdf48435830e36365587619f22",
+  "workflow": "https://github.com/tscircuit/bus-lanes-solver/actions/runs/43845541748",
+  "pairedBenchmark": "https://github.com/tscircuit/bus-lanes-solver/actions/runs/43835118138",
+  "runtime": "Bun 1.4.0, fresh process per sample, Blacksmith 4 vCPU x64",
+  "perSampleBudgetSeconds": 3600,
+  "acceptedSamples": 11,
+  "signalsPerSample": 47,
+  "fixedPowerDogbonesPerSample": 161,
+  "validation": "Existing benchmark validates fresh solve, endpoint connectivity, combined DRC, full-copper bus/pair skew, coupling, input immutability and fixed power preservation. Existing full-set exporter independently revalidates all eleven outputs before writing any image.",
+  "visualInspection": {
+    "completed": true,
+    "samples": [
+      "control",
+      "control-inner1",
+      "right",
+      "left",
+      "above",
+      "inner-layers",
+      "inner-layers-right",
+      "inner-layers-left",
+      "inner-layers-above",
+      "inner-layers-complete-ca",
+      "outer-layers"
+    ]
+  },
+  "timing": "These artifacts illustrate validated completed copper. Performance comparisons come from the separate paired benchmark, not image-generation timings.",
+  "files": [
+    {
+      "name": "above-solved.png",
+      "sha256": "b5f785f1b1ecb3115dc6cac59c94f1cc55c8aa60a6a62dd463c49097b1e712c5"
+    },
+    {
+      "name": "above-solved.svg",
+      "sha256": "6be5b96f85af4fcfcbb4c5eee06cd94959c3aa63abca900d12980db689425206"
+    },
+    {
+      "name": "control-inner1-solved.png",
+      "sha256": "4f71f56ef7a05a6f3cc8ab14e7d75f43352a83c01e58a9a8e18e66d583bf87bc"
+    },
+    {
+      "name": "control-inner1-solved.svg",
+      "sha256": "e885b86aaaf2e36da4a7948f1c0dedb53cde9bc2f38c8cefe7dcf32702621077"
+    },
+    {
+      "name": "control-solved.png",
+      "sha256": "811ee038058ce10218683cf4f714e6857b2923f186222ab5263266e59e614014"
+    },
+    {
+      "name": "control-solved.svg",
+      "sha256": "8fb01931c2be93f0ea067ad49fd8ef47762c25f68c042bbcfece2ffcb2828e80"
+    },
+    {
+      "name": "inner-layers-above-solved.png",
+      "sha256": "dbdab10b144c64bc60be42584d232db7e23c7306d62d92402960c57e41ffed8a"
+    },
+    {
+      "name": "inner-layers-above-solved.svg",
+      "sha256": "8d9f50dd364b31020084d412d976dd2c9afdd40a5cc6b3ba29bc41070ba0e8b6"
+    },
+    {
+      "name": "inner-layers-complete-ca-solved.png",
+      "sha256": "8d42fb6dd4142834d1971ff1b756f88e91288fc428783599647ad808a3640185"
+    },
+    {
+      "name": "inner-layers-complete-ca-solved.svg",
+      "sha256": "ecee94b1761214a68d691d762ff1aec7d91b4f0507d148318bf924fc3118abe9"
+    },
+    {
+      "name": "inner-layers-left-solved.png",
+      "sha256": "d004f64b7620372b8881eb69480b0240df43f8cd95d4c3a83d06d32a43bc5319"
+    },
+    {
+      "name": "inner-layers-left-solved.svg",
+      "sha256": "a251550f1f14dc1fe12dfadab17d44eb5e180130ede50f874ea701ae8b204b76"
+    },
+    {
+      "name": "inner-layers-right-solved.png",
+      "sha256": "9f14118c44621cded9aa6bb8730d33fe918be854eadb7c4c8662f0a46aeefdda"
+    },
+    {
+      "name": "inner-layers-right-solved.svg",
+      "sha256": "96af1f98b12e039b211e7c5ed460761d1c83375857dbf126fc3d302e0c395ae4"
+    },
+    {
+      "name": "inner-layers-solved.png",
+      "sha256": "69377065f2c849a08976dad9588dd6ed682b6af65eba4ec3505f5d367d2437a3"
+    },
+    {
+      "name": "inner-layers-solved.svg",
+      "sha256": "c5b46fa14cf59e08008a1be7ba47744e02fbdf52c739e8548d1f0aa0aa5a63e0"
+    },
+    {
+      "name": "left-solved.png",
+      "sha256": "42cebd55f4a15fb4db1c5b3c0e95b803a728fe7b39b89751e9f9c570e3c21777"
+    },
+    {
+      "name": "left-solved.svg",
+      "sha256": "3c7f689cab2c6348d21e335222b8f5113e570d832bdf8b41bf3b74c93e473f73"
+    },
+    {
+      "name": "outer-layers-solved.png",
+      "sha256": "716ab2b56349756cbe6b1d49bcc53cdbc762d3044bb7a412cd87214d208f7722"
+    },
+    {
+      "name": "outer-layers-solved.svg",
+      "sha256": "4df7b191a5529607e5044ed501a1eb08be223e982805c1f35e812491e02a802b"
+    },
+    {
+      "name": "right-solved.png",
+      "sha256": "f3722abc3b2f9f1b68650d5185f938436147ab304656a932156579afdef658a2"
+    },
+    {
+      "name": "right-solved.svg",
+      "sha256": "ad196e276bd4b9625f3dc0a18cc80206c22f0fc5e46908a853c918f1d870e8cd"
+    }
+  ]
+}
