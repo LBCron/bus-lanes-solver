@@ -60,7 +60,8 @@ test("crossed bank layouts retain all previously validated completions", () => {
     })
     solver.solve()
     expect(input).toEqual(before)
-    if (sample.previouslyValidated) expect(solver.solved).toBe(true)
+    if (sample.previouslyValidated || sample.mainValidated)
+      expect(solver.solved).toBe(true)
     if (!solver.solved) {
       expect(solver.traces).toEqual([])
       continue
@@ -91,5 +92,5 @@ test("crossed bank layouts retain all previously validated completions", () => {
     } as unknown as Parameters<typeof validateRoutedCopperDrc>[0])
     expect(drc.issues).toEqual([])
   }
-  expect(accepted).toBeGreaterThanOrEqual(9)
+  expect(accepted).toBeGreaterThanOrEqual(11)
 }, 60000)

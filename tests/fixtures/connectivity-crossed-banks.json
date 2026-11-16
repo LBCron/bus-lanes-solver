@@ -15,7 +15,8 @@
         1
       ],
       "offset": 0,
-      "previouslyValidated": false
+      "previouslyValidated": false,
+      "mainValidated": true
     },
     {
       "permutation": [
@@ -31,7 +32,8 @@
         4
       ],
       "offset": 8,
-      "previouslyValidated": true
+      "previouslyValidated": true,
+      "mainValidated": false
     },
     {
       "permutation": [
@@ -47,7 +49,8 @@
         7
       ],
       "offset": 0,
-      "previouslyValidated": true
+      "previouslyValidated": true,
+      "mainValidated": false
     },
     {
       "permutation": [
@@ -63,7 +66,8 @@
         0
       ],
       "offset": 8,
-      "previouslyValidated": false
+      "previouslyValidated": false,
+      "mainValidated": true
     },
     {
       "permutation": [
@@ -79,7 +83,8 @@
         1
       ],
       "offset": 0,
-      "previouslyValidated": true
+      "previouslyValidated": true,
+      "mainValidated": true
     },
     {
       "permutation": [
@@ -95,7 +100,8 @@
         4
       ],
       "offset": 8,
-      "previouslyValidated": true
+      "previouslyValidated": true,
+      "mainValidated": false
     },
     {
       "permutation": [
@@ -111,7 +117,8 @@
         5
       ],
       "offset": 0,
-      "previouslyValidated": true
+      "previouslyValidated": true,
+      "mainValidated": false
     },
     {
       "permutation": [
@@ -127,7 +134,8 @@
         8
       ],
       "offset": 8,
-      "previouslyValidated": false
+      "previouslyValidated": false,
+      "mainValidated": false
     },
     {
       "permutation": [
@@ -143,7 +151,8 @@
         9
       ],
       "offset": 0,
-      "previouslyValidated": true
+      "previouslyValidated": true,
+      "mainValidated": false
     },
     {
       "permutation": [
@@ -159,7 +168,8 @@
         2
       ],
       "offset": 8,
-      "previouslyValidated": true
+      "previouslyValidated": true,
+      "mainValidated": false
     },
     {
       "permutation": [
@@ -175,7 +185,8 @@
         3
       ],
       "offset": 0,
-      "previouslyValidated": true
+      "previouslyValidated": true,
+      "mainValidated": true
     },
     {
       "permutation": [
@@ -191,7 +202,9 @@
         2
       ],
       "offset": 8,
-      "previouslyValidated": true
+      "previouslyValidated": true,
+      "mainValidated": true
     }
-  ]
+  ],
+  "mainRevision": "74ed20b7f9331a97abfed44ff606d9e72e208a0a"
 }

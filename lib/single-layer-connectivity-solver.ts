@@ -49,6 +49,7 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
   phase = "routing"
   private task: Generator<void, Trace[]>
   private retainViaAlternatives = false
+  private deferFirstViaClearance = false
   private primaryFailure?: string
   private primaryPasses = 0
   constructor(
@@ -210,7 +211,8 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
     try {
       const next = this.task.next()
       if (this.primaryFailure) {
-        this.stats.expandedViaSearch = true
+        if (this.retainViaAlternatives) this.stats.expandedViaSearch = true
+        if (this.deferFirstViaClearance) this.stats.deferredViaSearch = true
         this.stats.primaryAttemptPasses = this.primaryPasses
       }
       if (next.done) {
@@ -220,13 +222,17 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
       }
     } catch (error) {
       this.task.return([])
-      // Preserve existing valid negotiation topologies. If the original ordering
-      // fails, retry with distinct first-via labels. Both attempts keep all
-      // geometry checks and share the outer time/step limit.
+      // Preserve valid topologies from both the strict via search and main's
+      // ordering, which negotiates drill conflicts after proposing routes.
+      // Distinct first-via labels are the final fallback. Every attempt must
+      // pass the same physical validation and shares the outer time/step limit.
       if (!this.retainViaAlternatives) {
-        this.primaryFailure = String(error)
-        this.primaryPasses = (this.stats.pass ?? -1) + 1
-        this.retainViaAlternatives = true
+        if (!this.primaryFailure) {
+          this.primaryFailure = String(error)
+          this.primaryPasses = (this.stats.pass ?? -1) + 1
+        }
+        if (!this.deferFirstViaClearance) this.deferFirstViaClearance = true
+        else this.retainViaAlternatives = true
         this.task = this.routeAll()
         return
       }
@@ -239,6 +245,8 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
     const input = this.input,
       options = this.options,
       retainViaAlternatives = this.retainViaAlternatives,
+      deferFirstViaClearance =
+        this.deferFirstViaClearance && !retainViaAlternatives,
       carrier = input.allowedLayers![0]
     const layers = getCopperLayerNames(input.layerCount)
     if (!layers.includes(carrier))
@@ -528,6 +536,7 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
           vias.every((v) => !v.isBlocked(cell)) &&
           fixedVias.every((v) => drillClear(a, v)) &&
           (stage === 0 ||
+            deferFirstViaClearance ||
             firstViaCell < 0 ||
             Math.hypot(a.x - p(firstViaCell).x, a.y - p(firstViaCell).y) >=
               (input.minViaHoleEdgeToViaHoleEdgeClearance ?? 0) +
@@ -755,6 +764,7 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
         },
       )
       refinement.retainViaAlternatives = retainViaAlternatives
+      refinement.deferFirstViaClearance = this.deferFirstViaClearance
       while (!refinement.solved && !refinement.failed) {
         refinement.step()
         yield

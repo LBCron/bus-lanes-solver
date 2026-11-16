@@ -30,8 +30,9 @@ connectivity does not establish DDR timing or manufacturing readiness.
 
 The solver PR also retains the first-via search alternatives required for drill
 clearance and deduplicates physical vias shared by fixed branches. Existing
-valid layouts keep their original search order. Failed layouts may require an
-additional search attempt.
+valid layouts retain strict via ordering or main's negotiated via ordering.
+Distinct first-via labels provide a final fallback. Failed layouts may require
+additional search attempts; every result still requires physical validation.
 
 Run the drill-clearance regressions and seeded completion controls with:
 
