@@ -5,6 +5,27 @@ import { GridVisibilitySearch } from "../lib/grid-visibility"
 import { VectorScene, copperTooClose, type Copper } from "../lib/vector-scene"
 import { boardOutlineInput } from "./fixtures/board-outline"
 
+test("alternating search bounds reuse their board occupancy", () => {
+  const input = boardOutlineInput()
+  const step = 0.2
+  const xs = Float64Array.from({ length: 51 }, (_, x) => -5 + x * step)
+  const ys = Float64Array.from({ length: 41 }, (_, y) => -4 + y * step)
+  const narrowXs = xs.slice(10, -10)
+  const full = { input, copperRadiusMm: 0.05, xs, ys, step }
+  const narrow = { ...full, xs: narrowXs }
+  const predicate = spyOn(boardOutline, "boardSegmentIsClear")
+  try {
+    const fullBoard = getBoardGrid(full)
+    const narrowBoard = getBoardGrid(narrow)
+    predicate.mockClear()
+    expect(getBoardGrid(full)).toBe(fullBoard)
+    expect(getBoardGrid(narrow)).toBe(narrowBoard)
+    expect(predicate).not.toHaveBeenCalled()
+  } finally {
+    predicate.mockRestore()
+  }
+})
+
 test("copper changes reuse board occupancy without retaining stale copper or clearance", () => {
   const input = boardOutlineInput()
   const connection = input.connections[0]
