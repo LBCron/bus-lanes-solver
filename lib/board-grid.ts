@@ -1,9 +1,11 @@
 import { boardSegmentIsClear } from "./board-outline"
 import type { SimpleRouteJson } from "./types"
 
+type BoardGridKey = string
+
 // Retain board rasters across search bounds, independently of copper.
 // Oversized rasters are used by their caller without retaining another copy.
-const boardGrids = new WeakMap<SimpleRouteJson, Map<string, Uint8Array>>()
+const boardGrids = new WeakMap<SimpleRouteJson, Map<BoardGridKey, Uint8Array>>()
 const maxBoardGridBytes = 16 * 1024 * 1024
 
 /** Read-only board occupancy in board-world mm; callers copy it before marking copper. */
@@ -20,7 +22,7 @@ export function getBoardGrid({
   ys: Float64Array
   step: number
 }): Uint8Array {
-  const key = JSON.stringify([
+  const key: BoardGridKey = JSON.stringify([
     xs[0],
     ys[0],
     xs.length,
@@ -31,7 +33,7 @@ export function getBoardGrid({
     input.outline,
     input.minBoardEdgeClearance,
   ])
-  const grids = boardGrids.get(input) ?? new Map<string, Uint8Array>()
+  const grids = boardGrids.get(input) ?? new Map<BoardGridKey, Uint8Array>()
   const previous = grids.get(key)
   if (previous) {
     grids.delete(key)
