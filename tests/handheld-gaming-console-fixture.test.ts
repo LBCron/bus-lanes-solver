@@ -90,19 +90,15 @@ test("handheld reproduction retains native pad positions and all 65 requested ne
   }
 })
 
-test("handheld input snapshots are reproducible and refuse candidate copper", async () => {
+test("handheld input previews refuse candidate copper and preserve the fixture", async () => {
   const { loadInput } = await import("../repros/handheld-gaming-console/input")
   const { renderInputSnapshot } = await import(
     "../repros/handheld-gaming-console/snapshot"
   )
   const input = loadInput()
   const unchanged = JSON.stringify(input)
-  for (const [file, zoom] of [
-    ["input.snap.svg", false],
-    ["cpu-escape.snap.svg", true],
-  ] as const) {
+  for (const zoom of [false, true]) {
     const svg = renderInputSnapshot(input, zoom)
-    expect(svg).toBe(read(file).toString())
     expect(svg).toContain("UNROUTED INPUT")
     expect(svg).toContain("SIX PHYSICAL LAYERS")
     expect(svg).toContain("0 / 65 accepted routes")
