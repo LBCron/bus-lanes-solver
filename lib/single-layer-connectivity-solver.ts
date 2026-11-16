@@ -285,7 +285,7 @@ export class SingleLayerConnectivitySolver extends BaseSolver {
       ),
       N = projector.cellCount
     const heap = new GridHeap(N * 3),
-      searchState = new ConnectivitySearchState(N),
+      searchState = new ConnectivitySearchState(N, heap),
       history = [new Float32Array(N), new Float32Array(N)]
     const cached = new Map<string, GridRoutingAccess>()
     const hardGrid = ({

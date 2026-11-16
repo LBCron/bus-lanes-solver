@@ -6,7 +6,10 @@ export class ConnectivitySearchState {
   private cells: number[] = []
   private firstVias: number[] = []
   private labels = new Map<number, Map<number, number>>()
-  constructor(readonly cellCount: number) {
+  constructor(
+    readonly cellCount: number,
+    private readonly heap: GridHeap,
+  ) {
     this.best = new Float64Array(cellCount * 3)
     this.parent = new Int32Array(cellCount * 3)
   }
@@ -43,6 +46,7 @@ export class ConnectivitySearchState {
       parent.set(this.parent)
       this.best = best
       this.parent = parent
+      this.heap.reserve(best.length)
     }
     this.cells.push(cell)
     this.firstVias.push(firstVia)
@@ -50,3 +54,4 @@ export class ConnectivitySearchState {
     return id
   }
 }
+import type { GridHeap } from "./grid-heap"

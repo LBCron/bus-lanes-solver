@@ -34,14 +34,17 @@ export class GridHeap {
     this.id = 0
     this.g = 0
   }
-  push(id: number, g: number, f: number) {
-    if (id >= this.positions.length) {
+  /** Reserve labels before inserting them, keeping the hot push loop unchanged. */
+  reserve(cellCount: number) {
+    if (cellCount > this.positions.length) {
       const positions = new Int32Array(
-        Math.max(id + 1, this.positions.length * 2),
+        Math.max(cellCount, this.positions.length * 2),
       )
       positions.set(this.positions)
       this.positions = positions
     }
+  }
+  push(id: number, g: number, f: number) {
     const seq = this.sequence++
     const previous = this.positions[id]
     if (
