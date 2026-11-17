@@ -277,6 +277,9 @@ export function* negotiateSignalSites(
   options: SignalSiteOptions = {},
 ): Generator<void, FlexibleSignalState | null> {
   if (!remove.size) return null
+  // Widening all site domains compares complete pad-to-pad copper lengths.
+  // Preserve the local fallback's established carrier-routing objective.
+  const compareFullCopperLength = options.expandEmptyDomainsOnly === false
   const { native } = state
   const all = [...state.retained, ...state.traces]
   const stable = all.filter((trace) => !remove.has(trace.connection_name!))
@@ -456,10 +459,12 @@ export function* negotiateSignalSites(
               yield
             }
             if (search.solved) {
-              const escapeLength = escapes.reduce(
-                (sum, escape) => sum + length(escape.route),
-                0,
-              )
+              let escapeLength = 0
+              if (compareFullCopperLength)
+                escapeLength = escapes.reduce(
+                  (sum, escape) => sum + length(escape.route),
+                  0,
+                )
               choices.push({
                 connection: local,
                 escapes,
@@ -498,6 +503,8 @@ export function* negotiateSignalSites(
           connection.name,
         )
         if (length(option.route) > maxLength + 1e-8) continue
+        let routeLength = length(option.route)
+        if (compareFullCopperLength) routeLength = option.length
         choices.push({
           connection: option.connection,
           escapes: option.escapes,
@@ -513,7 +520,7 @@ export function* negotiateSignalSites(
             hard,
           ),
           layer,
-          length: option.length,
+          length: routeLength,
           maxLength,
         })
       }
@@ -602,10 +609,12 @@ export function* negotiateSignalSites(
   for (const connection of base.connections) {
     const previous = existing.get(connection.name)
     if (!previous?.trace) continue
-    const escapeLength = previous.option.escapes.reduce(
-      (sum, escape) => sum + length(escape.route),
-      0,
-    )
+    let escapeLength = 0
+    if (compareFullCopperLength)
+      escapeLength = previous.option.escapes.reduce(
+        (sum, escape) => sum + length(escape.route),
+        0,
+      )
     const candidate: Candidate = {
       ...previous.option,
       id: candidateId++,
@@ -699,10 +708,12 @@ export function* negotiateSignalSites(
           yield
         }
         if (search.solved) {
-          const escapeLength = option.escapes.reduce(
-            (sum, escape) => sum + length(escape.route),
-            0,
-          )
+          let escapeLength = 0
+          if (compareFullCopperLength)
+            escapeLength = option.escapes.reduce(
+              (sum, escape) => sum + length(escape.route),
+              0,
+            )
           const trace = signalTrace(native, connection, search.result, layer),
             copper = [...option.escapeCopper, ...routeCopper(trace)]
           const hits = others.filter(
