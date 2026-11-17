@@ -62,10 +62,7 @@
         "bytes": 5240222,
         "sha256": "8fb01931c2be93f0ea067ad49fd8ef47762c25f68c042bbcfece2ffcb2828e80"
       },
-      "dimensions": [
-        2200,
-        1560
-      ],
+      "dimensions": [2200, 1560],
       "inputSha256": "b7a4e9d09a22fe0ed131a544548b14eef20fbf4e88b6dc6ffaa11ca44e6bfe59",
       "nativeSha256": "4421da8e4a038cec2f937ced9ee47d7be6cea8d541442b7ecccaebafffd30b44",
       "routeSha256": "bb34f5e5f09ed044b1dc504f473a022542985f390f37dce66a1bb9a24d22d8e1",
@@ -89,10 +86,7 @@
         "bytes": 6875737,
         "sha256": "e885b86aaaf2e36da4a7948f1c0dedb53cde9bc2f38c8cefe7dcf32702621077"
       },
-      "dimensions": [
-        2200,
-        1085
-      ],
+      "dimensions": [2200, 1085],
       "inputSha256": "14b5b318540ce7bac367cf22338abd7f9fffd2f7ce6c2a12f903116f50ca9bde",
       "nativeSha256": "9ce3a2c9fd22e08a829120b7020ce0959fe8bf50cfc731f3f57e637682c22c0b",
       "routeSha256": "1b37583111f459b29f52e735cfbdba7a12bc1dcd9271c8270068af7bc083ab63",
@@ -116,10 +110,7 @@
         "bytes": 6569391,
         "sha256": "ad196e276bd4b9625f3dc0a18cc80206c22f0fc5e46908a853c918f1d870e8cd"
       },
-      "dimensions": [
-        2200,
-        392
-      ],
+      "dimensions": [2200, 392],
       "inputSha256": "78c22c8d818ee2c2abe2eec9c6b6e408161a9d0eaf09afbafc3242e71e8f5778",
       "nativeSha256": "9c3e9d5b761dba882899239297c8beabffd76d68cc1fa323b35babe0c33f1fbc",
       "routeSha256": "e5425c2f8570920acf830f0f635f8d4d820e0c23e80d65e808bc47fd60381eb8",
@@ -143,10 +134,7 @@
         "bytes": 8813399,
         "sha256": "3c7f689cab2c6348d21e335222b8f5113e570d832bdf8b41bf3b74c93e473f73"
       },
-      "dimensions": [
-        2200,
-        360
-      ],
+      "dimensions": [2200, 360],
       "inputSha256": "6042ca0f0889a983a6ccf8f929a6a46b18cc57134e1b9f3b49c19063b936caa5",
       "nativeSha256": "19cb9709341808dd66093636ba7c204e4af0577c20d54bae1a3e38f7ce32012d",
       "routeSha256": "885c31418903a5963dd0e35a21a3307b45a57f9f6440ceda271063f261715ed6",
@@ -170,10 +158,7 @@
         "bytes": 7458033,
         "sha256": "6be5b96f85af4fcfcbb4c5eee06cd94959c3aa63abca900d12980db689425206"
       },
-      "dimensions": [
-        2200,
-        1507
-      ],
+      "dimensions": [2200, 1507],
       "inputSha256": "20fc884f08accd368e4ce049ab3fc180a1926f425787a504dbc4040f651bfa69",
       "nativeSha256": "ca60e05960e0816018358cb742c729909bf0b76380ea5a616b146e08e386ef24",
       "routeSha256": "49941b99bed35d97e1e09e5133ae10a01be8c4619d9162d057d0d94b4549b8c8",
@@ -197,10 +182,7 @@
         "bytes": 5295621,
         "sha256": "c5b46fa14cf59e08008a1be7ba47744e02fbdf52c739e8548d1f0aa0aa5a63e0"
       },
-      "dimensions": [
-        2200,
-        1544
-      ],
+      "dimensions": [2200, 1544],
       "inputSha256": "1b91e6c5207e4b7e132aa5ac246e94777f926c7beab8675adf0356634b8280ad",
       "nativeSha256": "874de73218111f900c07d8186a3978768d32417eefc3a5514e2607b4a3a5b2c8",
       "routeSha256": "a41d8fddb48f29c7afc14b310f43f60a7bcebf8dc135934ada19bb915b7ed01c",
@@ -224,10 +206,7 @@
         "bytes": 5597624,
         "sha256": "96af1f98b12e039b211e7c5ed460761d1c83375857dbf126fc3d302e0c395ae4"
       },
-      "dimensions": [
-        2200,
-        419
-      ],
+      "dimensions": [2200, 419],
       "inputSha256": "2eaf3dedcd84fbfed10262f4d4c99370a0ca00a7a060f87b7a1cdcba9de37a8e",
       "nativeSha256": "a9fd724d2e61420abbf9437be49ec16bc8fab53f64b6f4cf752c28108158eed9",
       "routeSha256": "c28c979cdf908ed68b8fc3d8567c48aab87969fed96401edb7dd66e7b001cf57",
@@ -251,10 +230,7 @@
         "bytes": 9546811,
         "sha256": "a251550f1f14dc1fe12dfadab17d44eb5e180130ede50f874ea701ae8b204b76"
       },
-      "dimensions": [
-        2200,
-        399
-      ],
+      "dimensions": [2200, 399],
       "inputSha256": "1c3db8ee018bc90df7fbbb0c198c42efcc0ca948a6a213338650cf81a51f7ab2",
       "nativeSha256": "2fe1ac7386d30d51470e2708c533ba2b8786cb7bac98aea05bcd259f1e5c27c6",
       "routeSha256": "18e48acbde1be203a8904c023773e4639b6867f9daba61aeed6c242bffa0d9b5",
@@ -278,10 +254,7 @@
         "bytes": 8645984,
         "sha256": "8d9f50dd364b31020084d412d976dd2c9afdd40a5cc6b3ba29bc41070ba0e8b6"
       },
-      "dimensions": [
-        2200,
-        1247
-      ],
+      "dimensions": [2200, 1247],
       "inputSha256": "68a86ef74f8ec9628954e909464c009d98fb2c902a6376e20b3a32d4b5cff555",
       "nativeSha256": "d8e5376a35722d42f620c229b204919ca90073566eb2ab49c05b64e3058bdaec",
       "routeSha256": "261b1b22daa95786c390652e7537b700375ee35075be5c3e9affc638b1037030",
@@ -305,10 +278,7 @@
         "bytes": 15906880,
         "sha256": "ecee94b1761214a68d691d762ff1aec7d91b4f0507d148318bf924fc3118abe9"
       },
-      "dimensions": [
-        2200,
-        806
-      ],
+      "dimensions": [2200, 806],
       "inputSha256": "a6def279fa2d3356a66ee94b1760a76eebb6c6d8e605005ce5903bd2fbca8776",
       "nativeSha256": "a64565264c6f64c54ea81e69ab0c53b2cb543170b9af0a550cc6d11f6d01cb28",
       "routeSha256": "adacd86dfa7ca920645749a5126b892c9dcb402c31c63ecb5d9dd0d6114a9110",
@@ -332,10 +302,7 @@
         "bytes": 7104059,
         "sha256": "4df7b191a5529607e5044ed501a1eb08be223e982805c1f35e812491e02a802b"
       },
-      "dimensions": [
-        2200,
-        1123
-      ],
+      "dimensions": [2200, 1123],
       "inputSha256": "de3fd915f3c7d8c9bf4fd3c9b197596ba5e08c1be328f9c5223d7ab78736588f",
       "nativeSha256": "ae3fbd27f8dc5c598110d1702bf24bd009b730c9bfe9f2bf48a953c42291fe77",
       "routeSha256": "2b59d2a0b652bd6d572f04f18c31e3fde498f67707f981be32703370be10964f",
