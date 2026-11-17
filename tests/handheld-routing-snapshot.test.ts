@@ -10,7 +10,7 @@ test("fresh handheld connectivity result reproduces this revision's board snapsh
   await expect(svg).toMatchSvgSnapshot(import.meta.path)
 }, 900000)
 test("completed handheld snapshot rejects incomplete output", () => {
-  expect(() => renderRoutingSnapshot(loadInput(), [], true)).toThrow(
-    "every requested signal",
-  )
+  expect(() =>
+    renderRoutingSnapshot({ input: loadInput(), traces: [] }),
+  ).toThrow("every requested signal")
 })

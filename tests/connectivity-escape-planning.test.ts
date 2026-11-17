@@ -12,9 +12,8 @@ import fixture from "./fixtures/connectivity-escape-planning.json"
 
 test("legal escape planning retains layouts needing provisional terminal vias", () => {
   for (const sample of fixture.cases) {
-    const input = createCrossedPadBanks(sample.permutation, sample.offset, {
-      distance: sample.distance,
-      spacing: sample.spacing,
+    const input = createCrossedPadBanks({
+      ...sample,
       maxY:
         Math.floor((sample.permutation.length - 1) / 2) * sample.spacing + 1,
     })

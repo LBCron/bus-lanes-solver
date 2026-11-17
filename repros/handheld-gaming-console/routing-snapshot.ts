@@ -1,17 +1,58 @@
-import { readFileSync, writeFileSync } from "node:fs"
-import { gunzipSync } from "node:zlib"
-import { createHash } from "node:crypto"
+import { mkdirSync, writeFileSync } from "node:fs"
+import { applyToPoint, compose, scale, translate } from "transformation-matrix"
 import { validateRoutedCopperDrc } from "@tscircuit/fanout-solver"
 import { SingleLayerConnectivitySolver } from "../../lib/single-layer-connectivity-solver"
 import { joinedSignalGeometryIsValid } from "../../lib/joined-signal-geometry"
 import { busLengthReports } from "../../lib/route-lengths"
 import type { SimpleRouteJson, Trace } from "../../lib/types"
 import { loadInput } from "./input"
+import provenance from "./provenance.json"
 
 const dir = new URL("./", import.meta.url)
-export const expectation = JSON.parse(
-  readFileSync(new URL("routing-expectation.json", dir), "utf8"),
+
+/** Board XY in mm (+Y up) to SVG pixels (+Y down); positions include translation. */
+const boardToSvgTransform = compose(
+  translate(30, 110),
+  scale(21, -21),
+  translate(10, -21),
 )
+const boardLengthToSvgTransform = scale(21)
+
+function getSvgX(x: number) {
+  return applyToPoint(boardToSvgTransform, { x, y: 0 }).x
+}
+function getSvgY(y: number) {
+  return applyToPoint(boardToSvgTransform, { x: 0, y }).y
+}
+/** Lengths in mm become pixel lengths without translation. */
+function getSvgLength(lengthMm: number) {
+  return applyToPoint(boardLengthToSvgTransform, { x: lengthMm, y: 0 }).x
+}
+function formatCoordinate(coordinate: number) {
+  return coordinate.toFixed(4)
+}
+function escapeXml(label: string) {
+  return label.replace(
+    /[<>&"]/g,
+    (character) =>
+      ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;" })[character]!,
+  )
+}
+function renderSnapshotText({
+  x,
+  y,
+  label,
+  fontSize = 17,
+  color = "#e0e8f4",
+}: {
+  x: number
+  y: number
+  label: string
+  fontSize?: number
+  color?: string
+}) {
+  return `<text x="${x}" y="${y}" fill="${color}" font-size="${fontSize}">${escapeXml(label)}</text>`
+}
 
 export function validateConnectivitySnapshot(
   input: SimpleRouteJson,
@@ -63,24 +104,15 @@ export function validateConnectivitySnapshot(
   if (!drc.valid) throw Error("Snapshot copper DRC failed")
 }
 
-export function renderRoutingSnapshot(
-  input: SimpleRouteJson,
-  traces: Trace[],
-  solved: boolean,
-) {
-  if (solved) validateConnectivitySnapshot(input, traces)
-  const color = solved ? "#66dfb6" : "#ff7e87"
-  const esc = (s: string) =>
-    s.replace(
-      /[<>&"]/g,
-      (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;" })[c]!,
-    )
-  const text = (x: number, y: number, s: string, size = 17, c = "#e0e8f4") =>
-    `<text x="${x}" y="${y}" fill="${c}" font-size="${size}">${esc(s)}</text>`
-  const box = { minX: -10, maxX: 10, minY: -10, maxY: 21 }
-  const sx = (x: number) => 30 + (x - box.minX) * 21,
-    sy = (y: number) => 110 + (box.maxY - y) * 21
-  const n = (v: number) => v.toFixed(4)
+export function renderRoutingSnapshot({
+  input,
+  traces,
+}: {
+  input: SimpleRouteJson
+  traces: Trace[]
+}) {
+  validateConnectivitySnapshot(input, traces)
+  const color = "#66dfb6"
   const colors: Record<string, string> = {
     top: "#f5af53",
     inner3: "#56c9b2",
@@ -88,32 +120,30 @@ export function renderRoutingSnapshot(
   }
   const parts = [
     `<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="830" viewBox="0 0 1120 830"><rect width="1120" height="830" fill="#101a29"/><g font-family="Arial,sans-serif">`,
-    text(
-      28,
-      38,
-      "Handheld Gaming Console — same six-layer routing fixture",
-      25,
-    ),
-    text(
-      28,
-      72,
-      solved
-        ? "PASS: 65 / 65 connected — geometry checks passed"
-        : "FAIL: routing exhausted — 0 / 65 accepted routes",
-      22,
+    renderSnapshotText({
+      x: 28,
+      y: 38,
+      label: "Handheld Gaming Console — same six-layer routing fixture",
+      fontSize: 25,
+    }),
+    renderSnapshotText({
+      x: 28,
+      y: 72,
+      label: "PASS: 65 / 65 connected — geometry checks passed",
+      fontSize: 22,
       color,
-    ),
+    }),
     '<rect x="25" y="105" width="430" height="660" fill="#19283c"/>',
   ]
   for (const p of input.obstacles) {
     if (!p.layers.includes("top")) continue
     if (p.shape === "circle")
       parts.push(
-        `<circle cx="${n(sx(p.center.x))}" cy="${n(sy(p.center.y))}" r="${n((p.width * 21) / 2)}" fill="#6c8097"/>`,
+        `<circle cx="${formatCoordinate(getSvgX(p.center.x))}" cy="${formatCoordinate(getSvgY(p.center.y))}" r="${formatCoordinate(getSvgLength(p.width) / 2)}" fill="#6c8097"/>`,
       )
     else
       parts.push(
-        `<rect x="${n(sx(p.center.x - p.width / 2))}" y="${n(sy(p.center.y + p.height / 2))}" width="${n(p.width * 21)}" height="${n(p.height * 21)}" fill="#6c8097"/>`,
+        `<rect x="${formatCoordinate(getSvgX(p.center.x - p.width / 2))}" y="${formatCoordinate(getSvgY(p.center.y + p.height / 2))}" width="${formatCoordinate(getSvgLength(p.width))}" height="${formatCoordinate(getSvgLength(p.height))}" fill="#6c8097"/>`,
       )
   }
   for (const t of traces)
@@ -122,7 +152,7 @@ export function renderRoutingSnapshot(
         b = t.route[i + 1]
       if (a.route_type === "via")
         parts.push(
-          `<circle cx="${n(sx(a.x))}" cy="${n(sy(a.y))}" r="${n(((a.via_diameter ?? 0.25) * 21) / 2)}" fill="#eee0a9"/><circle cx="${n(sx(a.x))}" cy="${n(sy(a.y))}" r="${n(((a.via_hole_diameter ?? 0.15) * 21) / 2)}" fill="#19283c"/>`,
+          `<circle cx="${formatCoordinate(getSvgX(a.x))}" cy="${formatCoordinate(getSvgY(a.y))}" r="${formatCoordinate(getSvgLength(a.via_diameter ?? 0.25) / 2)}" fill="#eee0a9"/><circle cx="${formatCoordinate(getSvgX(a.x))}" cy="${formatCoordinate(getSvgY(a.y))}" r="${formatCoordinate(getSvgLength(a.via_hole_diameter ?? 0.15) / 2)}" fill="#19283c"/>`,
         )
       if (
         b &&
@@ -132,49 +162,52 @@ export function renderRoutingSnapshot(
         Math.hypot(a.x - b.x, a.y - b.y) > 1e-7
       )
         parts.push(
-          `<path d="M ${n(sx(a.x))} ${n(sy(a.y))} L ${n(sx(b.x))} ${n(sy(b.y))}" stroke="${colors[a.layer] ?? "#fff"}" stroke-width="${n(a.width * 21)}" fill="none"/>`,
+          `<path d="M ${formatCoordinate(getSvgX(a.x))} ${formatCoordinate(getSvgY(a.y))} L ${formatCoordinate(getSvgX(b.x))} ${formatCoordinate(getSvgY(b.y))}" stroke="${colors[a.layer] ?? "#fff"}" stroke-width="${formatCoordinate(getSvgLength(a.width))}" fill="none"/>`,
         )
     }
-  if (!solved)
+  const labels = [
+    "Fresh solve with general connectivity fix",
+    "65 requested signals / 65 accepted",
+    "No saved routes supplied to solver",
+    "Copper clearance: PASS",
+    "Drill spacing: PASS",
+    "Endpoints and self-clearance: PASS",
+    "Original pads, placements and widths preserved",
+    "Length matching: still failing",
+    "Differential coupling: not approved",
+  ]
+  labels.forEach((label, i) =>
     parts.push(
-      `<circle cx="${n(sx(-4.6))}" cy="${n(sy(6.4))}" r="20" fill="none" stroke="#ff506d" stroke-width="3"/>`,
-    )
-  const labels = solved
-    ? [
-        "Fresh solve with general connectivity fix",
-        "65 requested signals / 65 accepted",
-        "No saved routes supplied to solver",
-        "Copper clearance: PASS",
-        "Drill spacing: PASS",
-        "Endpoints and self-clearance: PASS",
-        "Original pads, placements and widths preserved",
-        "Length matching: still failing",
-        "Differential coupling: not approved",
-      ]
-    : [
-        "Fresh stock-solver failure",
-        "300 negotiation passes / 1 conflict remains",
-        "Shown: recorded UNACCEPTED candidates",
-        "Candidate paths are not completed routing",
-        "Red circle: DQ5_A / DQ13_A crossing",
-        "No routing hacks in the clean repro",
-        "65 requested signals / 0 accepted",
-        "Length matching: not achieved",
-        "Differential coupling: not approved",
-      ]
-  labels.forEach((s, i) =>
-    parts.push(text(490, 150 + i * 48, s, 18, i === 0 ? color : "#e0e8f4")),
+      renderSnapshotText({
+        x: 490,
+        y: 150 + i * 48,
+        label,
+        fontSize: 18,
+        color: i === 0 ? color : "#e0e8f4",
+      }),
+    ),
   )
   parts.push(
-    text(490, 650, "Orange: top · Green: L4 signal", 17),
-    text(490, 690, "Other copper layers reserved or unused.", 17),
-    text(
-      28,
-      797,
-      "Connectivity-only regression. Not DDR timing, impedance or manufacturing approval.",
-      17,
-      "#ffcb75",
-    ),
+    renderSnapshotText({
+      x: 490,
+      y: 650,
+      label: "Orange: top · Green: L4 signal",
+      fontSize: 17,
+    }),
+    renderSnapshotText({
+      x: 490,
+      y: 690,
+      label: "Other copper layers reserved or unused.",
+      fontSize: 17,
+    }),
+    renderSnapshotText({
+      x: 28,
+      y: 797,
+      label:
+        "Connectivity-only regression. Not DDR timing, impedance or manufacturing approval.",
+      fontSize: 17,
+      color: "#ffcb75",
+    }),
     "</g></svg>\n",
   )
   return parts.join("")
@@ -194,45 +227,9 @@ export function freshRoutingSnapshot() {
     solver.step()
   if (JSON.stringify(input) !== before)
     throw Error("Snapshot solve mutated its fixture")
-  if (
-    solver.solved !== expectation.solved ||
-    (!solver.solved && !solver.failed)
-  )
-    throw Error(
-      "Fresh routing result does not match this revision's expectation",
-    )
-  let traces = solver.traces
-  if (!solver.solved) {
-    if (
-      solver.stats.conflicts !== 1 ||
-      solver.stats.pass !== 299 ||
-      solver.traces.length
-    )
-      throw Error("Stock failure changed; recapture its diagnostic evidence")
-    const raw = gunzipSync(
-      readFileSync(
-        new URL(
-          "../../tests/fixtures/handheld-gaming-console/failed-candidates.json.gz",
-          dir,
-        ),
-      ),
-    )
-    if (
-      createHash("sha256").update(raw).digest("hex") !==
-      expectation.candidateSha256
-    )
-      throw Error("Failure capture hash mismatch")
-    traces = JSON.parse(raw.toString())
-    const drc = validateRoutedCopperDrc({
-      inputSrj: input,
-      routedSrj: { ...input, traces },
-      clearance: 0.09,
-      allowBlindAndBuriedVias: false,
-    } as never)
-    if (drc.valid)
-      throw Error("Failure capture no longer demonstrates a copper conflict")
-  }
-  const svg = renderRoutingSnapshot(input, traces, solver.solved)
+  if (!solver.solved)
+    throw Error(solver.error ?? "Fresh connectivity solve exceeded its budget")
+  const svg = renderRoutingSnapshot({ input, traces: solver.traces })
   return {
     svg,
     report: {
@@ -241,8 +238,8 @@ export function freshRoutingSnapshot() {
       error: solver.error,
       stats: solver.stats,
       acceptedRoutes: solver.traces.length,
-      displayedCandidates: solver.solved ? 0 : traces.length,
-      fixtureSha256: expectation.fixtureSha256,
+      displayedCandidates: 0,
+      fixtureSha256: provenance.input_sha256,
       busReports: busLengthReports(input, solver.traces),
       elapsedMs: performance.now() - start,
       scope: "connectivity-only; DDR matching remains unapproved",
@@ -250,6 +247,7 @@ export function freshRoutingSnapshot() {
   }
 }
 if (import.meta.main) {
+  mkdirSync(new URL("results/", dir), { recursive: true })
   const result = freshRoutingSnapshot()
   writeFileSync(new URL("board.snap.svg", dir), result.svg)
   writeFileSync(

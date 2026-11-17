@@ -90,12 +90,12 @@ test("refinement budgets and drill clearances reject invalid values", () => {
       () =>
         new SingleLayerConnectivitySolver(crossedPads(), { maxRefinements }),
     ).toThrow("maxRefinements")
-  for (const value of [-1, NaN, Infinity])
+  for (const minViaHoleEdgeToViaHoleEdgeClearance of [-1, NaN, Infinity])
     expect(
       () =>
         new SingleLayerConnectivitySolver({
           ...crossedPads(),
-          minViaHoleEdgeToViaHoleEdgeClearance: value,
+          minViaHoleEdgeToViaHoleEdgeClearance,
         }),
     ).toThrow("Via hole clearance")
 })

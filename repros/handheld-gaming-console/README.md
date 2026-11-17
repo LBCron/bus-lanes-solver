@@ -20,9 +20,11 @@ Regenerate the completed board image with:
     bun repros/handheld-gaming-console/routing-snapshot.ts
 
 The runner has a 600-second cooperative budget. The active fixture uses six
-physical layers; the original eight-layer native board, input and historical
-failure metadata remain preserved for provenance. Input-only diagnostic images
-can be generated locally with `snapshot.ts` and are excluded from Git.
+physical layers. The original native board remains preserved for provenance.
+The eight-layer SRJ is reconstructed from the active fixture and its recorded
+source layer plan, then verified against the original byte hash. This avoids
+a second copy of the pad geometry. Only completed, independently validated
+routing can be exported.
 
 The result establishes connectivity geometry. All six DDR bus groups still
 fail length matching, and differential coupling remains unresolved. Completed

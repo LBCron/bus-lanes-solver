@@ -20,6 +20,7 @@
   ],
   "source_ownership": "User-provided handheld design; retained locally, no new hardware redistribution license asserted.",
   "source_physical_layers": 8,
+  "source_allowed_layers": ["inner2", "inner3", "inner5", "bottom", "top"],
   "source_eight_layer_input_sha256": "cd8920e11e8a1410d3a1b31415a867bdf0913c7618ab9669be821320113123be",
   "derivation": "Six-layer experiment: only layerCount and global allowedLayers changed from the preserved eight-layer input; native pad geometry and constraints retained.",
   "layer_plan": [

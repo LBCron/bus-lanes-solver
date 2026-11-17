@@ -1,10 +1,18 @@
 import type { SimpleRouteJson } from "../../lib/types"
 
-export function createCrossedPadBanks(
-  permutation: number[],
-  offset: number,
-  { distance = 3, spacing = 0.5, maxY = 3 }: { distance?: number; spacing?: number; maxY?: number } = {},
-): SimpleRouteJson {
+export function createCrossedPadBanks({
+  permutation,
+  offset,
+  distance = 3,
+  spacing = 0.5,
+  maxY = 3,
+}: {
+  permutation: number[]
+  offset: number
+  distance?: number
+  spacing?: number
+  maxY?: number
+}): SimpleRouteJson {
   const connections = permutation.map((p, i) => ({
     name: "net-" + i,
     pointsToConnect: [

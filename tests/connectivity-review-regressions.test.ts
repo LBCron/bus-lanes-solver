@@ -10,24 +10,19 @@ import type {
   Trace,
 } from "../lib/types"
 
+function wire({
+  x,
+  y,
+  layer = "top",
+}: {
+  x: number
+  y: number
+  layer?: string
+}): Wire {
+  return { route_type: "wire", x, y, layer, width: 0.1 }
+}
+
 function firstViaInput() {
-  const wire = (x: number, y: number, layer = "top"): Wire => ({
-    route_type: "wire",
-    x,
-    y,
-    layer,
-    width: 0.04,
-  })
-  const via = (x: number, from_layer: string, to_layer: string): Via => ({
-    route_type: "via",
-    x,
-    y: 0,
-    from_layer,
-    to_layer,
-    layers: ["top", "inner1", "inner2", "bottom"],
-    via_diameter: 0.1,
-    via_hole_diameter: 0.05,
-  })
   const c: Connection = {
     name: "signal",
     pointsToConnect: [
@@ -83,13 +78,6 @@ function firstViaInput() {
   return { input }
 }
 function sharedViaInput() {
-  const wire = (x: number, y: number, layer = "top"): Wire => ({
-    route_type: "wire",
-    x,
-    y,
-    layer,
-    width: 0.1,
-  })
   const via: Via = {
     route_type: "via",
     x: -2.5,
@@ -142,11 +130,11 @@ function sharedViaInput() {
         pcb_trace_id: "fixed_power_1",
         connection_name: "POWER",
         route: [
-          wire(-3, 3),
-          wire(-2.5, 3),
+          wire({ x: -3, y: 3 }),
+          wire({ x: -2.5, y: 3 }),
           via,
-          wire(-2.5, 3, "inner1"),
-          wire(-2, 3, "inner1"),
+          wire({ x: -2.5, y: 3, layer: "inner1" }),
+          wire({ x: -2, y: 3, layer: "inner1" }),
         ],
       },
       {
@@ -154,11 +142,11 @@ function sharedViaInput() {
         pcb_trace_id: "fixed_power_2",
         connection_name: "POWER",
         route: [
-          wire(-3, 3),
-          wire(-2.5, 3),
+          wire({ x: -3, y: 3 }),
+          wire({ x: -2.5, y: 3 }),
           { ...via },
-          wire(-2.5, 3, "inner1"),
-          wire(-2, 4, "inner1"),
+          wire({ x: -2.5, y: 3, layer: "inner1" }),
+          wire({ x: -2, y: 4, layer: "inner1" }),
         ],
       },
     ],

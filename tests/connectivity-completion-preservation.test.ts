@@ -8,7 +8,7 @@ import fixture from "./fixtures/connectivity-crossed-banks.json"
 test("crossed bank layouts complete without changing their native inputs", () => {
   let accepted = 0
   for (const sample of fixture.cases) {
-    const input = createCrossedPadBanks(sample.permutation, sample.offset)
+    const input = createCrossedPadBanks(sample)
     const before = structuredClone(input)
     const solver = new SingleLayerConnectivitySolver(input, {
       gridStep: 0.3,
