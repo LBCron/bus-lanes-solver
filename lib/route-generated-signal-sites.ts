@@ -6,7 +6,7 @@ import { negotiateSignalSites } from "./negotiate-signal-sites"
 import { runBoundedRouting } from "./run-bounded-routing"
 import type { SimpleRouteJson, SolverOptions } from "./types"
 
-const PAD_EDGE_PROBE_STEPS = 3000
+const EXPANDED_GRID_PROBE_STEPS = 3000
 
 interface GeneratedSignalSitesRequest {
   input: SimpleRouteJson
@@ -19,24 +19,24 @@ interface GeneratedSignalSitesRequest {
 export function* routeGeneratedSignalSites(
   request: GeneratedSignalSitesRequest,
 ): Generator<void, CompletedGeneratedSurfaceCarriers | null> {
-  // Try the additional drill-clear sites together before freezing a grid
+  // Try additional grid-centered sites together before freezing a local
   // assignment. Keep this probe bounded before the ordinary site search.
-  if (request.maxSteps > 2 * PAD_EDGE_PROBE_STEPS) {
-    const padEdgeRoute = yield* runBoundedRouting(
-      completeGeneratedSignalSites(request, [true]),
-      PAD_EDGE_PROBE_STEPS,
+  if (request.maxSteps > 2 * EXPANDED_GRID_PROBE_STEPS) {
+    const expandedGridRoute = yield* runBoundedRouting(
+      completeGeneratedSignalSites(request, { expandAllGridSites: true }),
+      EXPANDED_GRID_PROBE_STEPS,
     )
-    if (padEdgeRoute) return padEdgeRoute
+    if (expandedGridRoute) return expandedGridRoute
   }
   return yield* completeGeneratedSignalSites(request)
 }
 
 function* completeGeneratedSignalSites(
   { input, options, maxSteps }: GeneratedSignalSitesRequest,
-  allowPadEdgeSitesByAttempt = [false, true],
+  { expandAllGridSites = false } = {},
 ): Generator<void, CompletedGeneratedSurfaceCarriers | null> {
   const routed = yield* runBoundedRouting(
-    negotiateGeneratedSignalSites(input, allowPadEdgeSitesByAttempt),
+    negotiateGeneratedSignalSites(input, expandAllGridSites),
     maxSteps,
   )
   if (!routed) return null
@@ -51,10 +51,12 @@ function* completeGeneratedSignalSites(
 
 function* negotiateGeneratedSignalSites(
   input: SimpleRouteJson,
-  allowPadEdgeSitesByAttempt: boolean[],
+  expandAllGridSites: boolean,
 ): ReturnType<typeof negotiateSignalSites> {
-  // The ordinary fallback visits grid sites before expanding pad-edge sites.
-  for (const allowPadEdgeSites of allowPadEdgeSitesByAttempt) {
+  // Preserve the ordinary fallback when the grid-only probe cannot complete.
+  for (const allowPadEdgeSites of [false, true]) {
+    if (expandAllGridSites && allowPadEdgeSites) break
+    const expandEmptyDomainsOnly = !expandAllGridSites && !allowPadEdgeSites
     const routed = yield* negotiateSignalSites(
       { native: input, pending: input, escapes: [], retained: [], traces: [] },
       new Set(input.connections.map((connection) => connection.name)),
@@ -63,7 +65,7 @@ function* negotiateGeneratedSignalSites(
       {
         checkEscapeCompatibility: true,
         allowExpandedSites: true,
-        expandEmptyDomainsOnly: !allowPadEdgeSites,
+        expandEmptyDomainsOnly,
         allowPadEdgeSites,
         maxCandidateSearchNodes: 12000,
       },

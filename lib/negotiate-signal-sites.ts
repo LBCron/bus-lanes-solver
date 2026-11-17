@@ -455,16 +455,21 @@ export function* negotiateSignalSites(
               search.step()
               yield
             }
-            if (search.solved)
+            if (search.solved) {
+              const escapeLength = escapes.reduce(
+                (sum, escape) => sum + length(escape.route),
+                0,
+              )
               choices.push({
                 connection: local,
                 escapes,
                 escapeCopper,
                 scene,
                 layer,
-                length: length(search.result),
+                length: length(search.result) + escapeLength,
                 maxLength,
               })
+            }
           } finally {
             search.cancel()
           }
@@ -508,7 +513,7 @@ export function* negotiateSignalSites(
             hard,
           ),
           layer,
-          length: length(option.route),
+          length: option.length,
           maxLength,
         })
       }
@@ -597,13 +602,17 @@ export function* negotiateSignalSites(
   for (const connection of base.connections) {
     const previous = existing.get(connection.name)
     if (!previous?.trace) continue
+    const escapeLength = previous.option.escapes.reduce(
+      (sum, escape) => sum + length(escape.route),
+      0,
+    )
     const candidate: Candidate = {
       ...previous.option,
       id: candidateId++,
       trace: previous.trace,
       copper: [...previous.option.escapeCopper, ...routeCopper(previous.trace)],
       hits: [],
-      score: length(previous.trace.route),
+      score: length(previous.trace.route) + escapeLength,
     }
     addCandidate(candidate)
     if ([...routed.values()].every((other) => compatible(candidate, other)))
@@ -690,6 +699,10 @@ export function* negotiateSignalSites(
           yield
         }
         if (search.solved) {
+          const escapeLength = option.escapes.reduce(
+            (sum, escape) => sum + length(escape.route),
+            0,
+          )
           const trace = signalTrace(native, connection, search.result, layer),
             copper = [...option.escapeCopper, ...routeCopper(trace)]
           const hits = others.filter(
@@ -701,7 +714,7 @@ export function* negotiateSignalSites(
                   other.escapes,
                 ),
             ),
-            score = length(trace.route) + hits.length * 100
+            score = length(trace.route) + escapeLength + hits.length * 100
           const candidate = {
             ...option,
             id: candidateId++,
