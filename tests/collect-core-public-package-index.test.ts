@@ -11,7 +11,7 @@ type RegistryVersion = {
   dist: { tarball: string; integrity: string; shasum: string }
 }
 
-// Exact Core914 public versions. No install, script, extraction, package alias,
+// Exact declared Core and runtime-transitive public versions. No install, script, extraction, package alias,
 // dependency resolution, routing, source, or constraint change is performed.
 const packages: readonly PublicPackage[] = [
   { name: "@dagrejs/dagre", version: "2.0.4" },
@@ -44,6 +44,21 @@ const packages: readonly PublicPackage[] = [
     version: "0.0.246",
     url: "https://jscdn.tscircuit.com/@tscircuit/schematic-trace-solver/0.0.246.tgz",
   },
+  {
+    name: "@tscircuit/cad-collision-checking",
+    version: "0.0.6",
+    url: "https://jscdn.tscircuit.com/@tscircuit/cad-collision-checking/0.0.6.tgz",
+  },
+  { name: "poppygl", version: "0.0.38" },
+  { name: "circuit-json-to-gltf", version: "0.0.164" },
+  { name: "@tscircuit/jscad", version: "0.0.6" },
+  {
+    name: "@tscircuit/jscad-to-manifold",
+    version: "0.0.1",
+    url: "https://jscdn.tscircuit.com/@tscircuit/jscad-to-manifold/0.0.1.tgz",
+  },
+  { name: "react", version: "19.1.0" },
+  { name: "@tscircuit/fanout-solver", version: "0.0.83" },
 ]
 
 const maximumArchiveBytes = 2 * 1024 * 1024
@@ -228,8 +243,8 @@ function transportBody(metadata: Record<string, unknown>, bytes: Buffer): string
 }
 
 test("indexed Core public transport rejects implicit and out-of-range selection", () => {
-  assert.equal(packages.length, 18)
-  assert.equal(new Set(packages.map((entry) => entry.name)).size, 18)
+  assert.equal(packages.length, 25)
+  assert.equal(new Set(packages.map((entry) => entry.name + "@" + entry.version)).size, 25)
   assert.equal(boundedIndex("0", 18), 0)
   assert.equal(boundedIndex("17", 18), 17)
   for (const bad of [undefined, "", "00", "-1", "18", "1.0", "NaN", "0;1"]) {
