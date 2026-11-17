@@ -27,9 +27,9 @@ test("records cache reuse across alternating search bounds", () => {
       reusedNarrowGrid: repeatedNarrowBoard === narrowBoard,
     }).toMatchInlineSnapshot(`
       {
-        "repeatedPointChecks": 3362,
-        "reusedFullGrid": false,
-        "reusedNarrowGrid": false,
+        "repeatedPointChecks": 0,
+        "reusedFullGrid": true,
+        "reusedNarrowGrid": true,
       }
     `)
   } finally {
