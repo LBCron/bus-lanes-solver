@@ -1,6 +1,10 @@
-name: Read validated A13 fix review artifacts
+name: Read centered-grid AM3352 comparison
 on:
   workflow_dispatch:
+    inputs:
+      run_id:
+        required: true
+        type: string
 permissions:
   contents: read
   actions: read
@@ -10,10 +14,10 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: validated-controls-and-comparison
-          run-id: 43959167575
+          pattern: am3352-*
+          run-id: ${{ inputs.run_id }}
           github-token: ${{ github.token }}
-          path: saved
+          path: saved/reports
       - run: |
           python3 - <<'PY'
           import pathlib,json,copy
@@ -43,25 +47,4 @@ jobs:
           assert len(rows)==11,len(rows)
           print('COMPACT_PAIRS_JSON='+json.dumps(rows,separators=(',',':')))
           print(pathlib.Path('saved/reports/am3352-comparison/comparison.md').read_text())
-          PY
-  image:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        sample: [control, control-inner1, right, left, above, inner-layers, inner-layers-right, inner-layers-left, inner-layers-above, inner-layers-complete-ca, outer-layers]
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: validated-controls-and-comparison
-          run-id: 43959167575
-          github-token: ${{ github.token }}
-          path: saved
-      - env:
-          SAMPLE: ${{ matrix.sample }}
-        run: |
-          python3 - <<'PY'
-          import pathlib,json,base64,gzip,os
-          p=pathlib.Path('saved/gallery')/(os.environ['SAMPLE']+'-solved.svg')
-          data=base64.b64encode(gzip.compress(p.read_bytes())).decode()
-          print('GALLERY_JSON='+json.dumps({'name':p.name,'gzipBase64':data},separators=(',',':')))
           PY
