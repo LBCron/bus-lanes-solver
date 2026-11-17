@@ -52,7 +52,8 @@ function allocateScratch(request: {
   // Physical graph nodes have one in/out pair. Two private terminal nodes
   // contract the physically equivalent native-layer anchors of each endpoint.
   const bytes =
-    nodeCount * (Uint8Array.BYTES_PER_ELEMENT * 2 + Int32Array.BYTES_PER_ELEMENT * 3) +
+    nodeCount *
+      (Uint8Array.BYTES_PER_ELEMENT * 2 + Int32Array.BYTES_PER_ELEMENT * 3) +
     networkCount * Int32Array.BYTES_PER_ELEMENT * 2 +
     (sourceCapacity + targetCapacity) * Int32Array.BYTES_PER_ELEMENT +
     iteratorFrameBytes
@@ -104,9 +105,14 @@ export function* findSimpleCarrierPath<Step>({
   neighbors,
   isCarrier,
   reverseStep,
-}: CarrierPathRequest<Step>): Generator<void, PendingSimpleCarrierPath<Step> | undefined> {
+}: CarrierPathRequest<Step>): Generator<
+  void,
+  PendingSimpleCarrierPath<Step> | undefined
+> {
   if (!Number.isSafeInteger(physicalCount) || physicalCount < 0)
-    throw new RangeError("Pending carrier graph needs a nonnegative integer size")
+    throw new RangeError(
+      "Pending carrier graph needs a nonnegative integer size",
+    )
   if (!sourceNodes.length || !targetNodes.length) return undefined
   const source = physicalCount
   const target = physicalCount + 1
@@ -117,16 +123,30 @@ export function* findSimpleCarrierPath<Step>({
     targetCapacity: Math.min(targetNodes.length, physicalCount),
   })
   const {
-    terminalMask, sourceAliases, targetAliases, reached, reachQueue,
-    parent, queue, flowTo, flowFrom,
+    terminalMask,
+    sourceAliases,
+    targetAliases,
+    reached,
+    reachQueue,
+    parent,
+    queue,
+    flowTo,
+    flowFrom,
   } = scratch
   let operations = 0
   let sourceCount = 0
   let targetCount = 0
-  const validNode = (node: number) => Number.isInteger(node) && node >= 0 && node < physicalCount
-  for (const [nodes, mask] of [[sourceNodes, 1], [targetNodes, 2]] as const)
+  const validNode = (node: number) =>
+    Number.isInteger(node) && node >= 0 && node < physicalCount
+  for (const [nodes, mask] of [
+    [sourceNodes, 1],
+    [targetNodes, 2],
+  ] as const)
     for (const node of nodes) {
-      if (!validNode(node)) throw new RangeError("Pending carrier graph contains an invalid terminal node")
+      if (!validNode(node))
+        throw new RangeError(
+          "Pending carrier graph contains an invalid terminal node",
+        )
       if (!(terminalMask[node] & mask)) {
         terminalMask[node] |= mask
         if (mask === 1) sourceAliases[sourceCount++] = node
@@ -146,9 +166,15 @@ export function* findSimpleCarrierPath<Step>({
     return node
   }
 
-  function* edgesFrom(request: { original: number; canonical: number }): Generator<PendingCarrierGraphEdge<Step>> {
+  function* edgesFrom(request: {
+    original: number
+    canonical: number
+  }): Generator<PendingCarrierGraphEdge<Step>> {
     for (const edge of neighbors(request.original)) {
-      if (!validNode(edge.other)) throw new RangeError("Pending carrier graph contains an invalid neighbor")
+      if (!validNode(edge.other))
+        throw new RangeError(
+          "Pending carrier graph contains an invalid neighbor",
+        )
       const other = canonical(edge.other)
       // A self-loop or an excursion between aliases of the same endpoint
       // cannot belong to a simple endpoint path.
@@ -170,7 +196,10 @@ export function* findSimpleCarrierPath<Step>({
   /** An augmented flood is a cheap positive proof only when its reconstructed
    * physical-node path is simple. Exhaustion is a valid negative; a spur walk
    * is deliberately inconclusive and proceeds to the block-chain check. */
-  function* fastPath(): Generator<void, PendingSimpleCarrierPath<Step> | null | undefined> {
+  function* fastPath(): Generator<
+    void,
+    PendingSimpleCarrierPath<Step> | null | undefined
+  > {
     parent.fill(-1)
     const start = source * 2
     const goal = target * 2 + 1
@@ -180,7 +209,8 @@ export function* findSimpleCarrierPath<Step>({
     for (let head = 0; head < tail && parent[goal] < 0; head++) {
       const state = queue[head]
       for (const edge of graphEdges(Math.floor(state / 2))) {
-        const next = edge.other * 2 + Number(state % 2 === 1 || isCarrier(edge.step))
+        const next =
+          edge.other * 2 + Number(state % 2 === 1 || isCarrier(edge.step))
         if (parent[next] < 0) {
           parent[next] = state
           queue[tail++] = next
@@ -226,7 +256,10 @@ export function* findSimpleCarrierPath<Step>({
    * deep raster DFS does not retain one generator frame per vertex. This is
    * linear on bounded-degree grids; arbitrary high-degree graph vertices can
    * require sum(degree^2) neighbor examinations. All such work still yields. */
-  function* carrierOnBlockChain(): Generator<void, { from: number; to: number } | undefined> {
+  function* carrierOnBlockChain(): Generator<
+    void,
+    { from: number; to: number } | undefined
+  > {
     const discovered = flowTo
     const low = flowFrom
     const dfsParent = reachQueue
@@ -284,10 +317,14 @@ export function* findSimpleCarrierPath<Step>({
             candidateTo[other] = other
           }
           stackNodes[depth++] = other
-        } else if (other === dfsParent[node] || discovered[other] < discovered[node]) {
+        } else if (
+          other === dfsParent[node] ||
+          discovered[other] < discovered[node]
+        ) {
           // Parallel parent edges belong to the same two-vertex block and
           // may qualify as carrier even when the DFS tree edge did not.
-          if (other !== dfsParent[node]) low[node] = Math.min(low[node], discovered[other])
+          if (other !== dfsParent[node])
+            low[node] = Math.min(low[node], discovered[other])
           if (isCarrier(edge.step)) {
             candidateFrom[node] = node
             candidateTo[node] = other
@@ -297,7 +334,9 @@ export function* findSimpleCarrierPath<Step>({
       return undefined
     } catch (error) {
       if (error instanceof RangeError)
-        throw new RoutingMemoryBudgetExceeded("Could not retain pending carrier block work")
+        throw new RoutingMemoryBudgetExceeded(
+          "Could not retain pending carrier block work",
+        )
       throw error
     }
   }
@@ -310,9 +349,12 @@ export function* findSimpleCarrierPath<Step>({
   let secondEnd = -1
 
   function vertexUsed(node: number): boolean {
-    return flowTo[node] >= 0 || flowFrom[node] >= 0 ||
+    return (
+      flowTo[node] >= 0 ||
+      flowFrom[node] >= 0 ||
       (node === source && (usedSources & 1) !== 0) ||
       (node === target && (usedSources & 2) !== 0)
+    )
   }
 
   function* residualNeighbors(node: number): Generator<number | undefined> {
@@ -346,7 +388,11 @@ export function* findSimpleCarrierPath<Step>({
   function augment(): void {
     // Remove reversed old edges before adding rerouted edges. Applying these
     // in a single pass could clear a new predecessor installed at that vertex.
-    for (let node = networkTarget; node !== networkSource; node = parent[node]) {
+    for (
+      let node = networkTarget;
+      node !== networkSource;
+      node = parent[node]
+    ) {
       const previous = parent[node]
       if (previous === networkSource || node === networkTarget) continue
       if (previous % 2 === 0 && node % 2 === 1) {
@@ -358,7 +404,11 @@ export function* findSimpleCarrierPath<Step>({
         }
       }
     }
-    for (let node = networkTarget; node !== networkSource; node = parent[node]) {
+    for (
+      let node = networkTarget;
+      node !== networkSource;
+      node = parent[node]
+    ) {
       const previous = parent[node]
       if (previous === networkSource) {
         usedSources |= node === source * 2 ? 1 : 2
@@ -388,7 +438,10 @@ export function* findSimpleCarrierPath<Step>({
       for (let head = 0; head < tail && parent[networkTarget] < 0; head++) {
         const node = queue[head]
         for (const other of residualNeighbors(node)) {
-          if (other === undefined) { yield; continue }
+          if (other === undefined) {
+            yield
+            continue
+          }
           if (parent[other] >= 0) continue
           parent[other] = node
           queue[tail++] = other
@@ -402,7 +455,9 @@ export function* findSimpleCarrierPath<Step>({
     return true
   }
 
-  function* arm(start: number): Generator<void, { end: number; steps: Step[] }> {
+  function* arm(
+    start: number,
+  ): Generator<void, { end: number; steps: Step[] }> {
     const steps: Step[] = []
     let node = start
     for (let count = 0; count < nodeCount; count++) {
@@ -415,7 +470,10 @@ export function* findSimpleCarrierPath<Step>({
       let edge: PendingCarrierGraphEdge<Step> | undefined
       for (const candidate of graphEdges(node)) {
         if (++operations % 256 === 0) yield
-        if (candidate.other === next) { edge = candidate; break }
+        if (candidate.other === next) {
+          edge = candidate
+          break
+        }
       }
       if (!edge) throw new Error("Pending carrier path lost a physical edge")
       steps.push(edge.step)
@@ -434,15 +492,21 @@ export function* findSimpleCarrierPath<Step>({
   let carrierStep: Step | undefined
   for (const edge of graphEdges(firstEnd)) {
     if (++operations % 256 === 0) yield
-    if (edge.other === secondEnd && isCarrier(edge.step)) { carrierStep = edge.step; break }
+    if (edge.other === secondEnd && isCarrier(edge.step)) {
+      carrierStep = edge.step
+      break
+    }
   }
-  if (carrierStep === undefined) throw Error("Pending carrier block lost its eligible edge")
-  if (!(yield* findArms())) throw Error("Pending carrier block lost its simple path")
+  if (carrierStep === undefined)
+    throw Error("Pending carrier block lost its eligible edge")
+  if (!(yield* findArms()))
+    throw Error("Pending carrier block lost its simple path")
   const fromSource = yield* arm(source)
   const fromTarget = yield* arm(target)
   if (fromSource.end === fromTarget.end)
     throw new Error("Pending carrier path did not separate its endpoints")
-  const carrier = fromSource.end === firstEnd ? carrierStep : reverseStep(carrierStep)
+  const carrier =
+    fromSource.end === firstEnd ? carrierStep : reverseStep(carrierStep)
   const steps = fromSource.steps
   steps.push(carrier)
   for (let index = fromTarget.steps.length - 1; index >= 0; index--) {

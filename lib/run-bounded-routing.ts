@@ -1,9 +1,11 @@
 /** Numeric limits retain the legacy null result. A caller that must distinguish
  * an unfinished search from a proved failure supplies an exhaustion error. */
-export type RoutingStepLimit = number | {
-  maxSteps: number
-  onExhausted: () => Error
-}
+export type RoutingStepLimit =
+  | number
+  | {
+      maxSteps: number
+      onExhausted: () => Error
+    }
 
 export function exhaustedRoutingResult(limit: RoutingStepLimit): null {
   if (typeof limit !== "number") throw limit.onExhausted()

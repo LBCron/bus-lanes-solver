@@ -1,7 +1,10 @@
 import { expect, test } from "bun:test"
 import { CopperConflictIndex } from "../lib/copper-conflict-index"
 import { PendingPadAccess } from "../lib/pending-pad-access"
-import { findPendingPadEscape, PendingPadScene } from "../lib/pending-pad-escape"
+import {
+  findPendingPadEscape,
+  PendingPadScene,
+} from "../lib/pending-pad-escape"
 import type { SimpleRouteJson } from "../lib/types"
 import { fixedCopper, VectorScene } from "../lib/vector-scene"
 import {
@@ -34,7 +37,11 @@ test("same-field future peers retain physical connectivity without requiring fie
     },
     {
       name: "future wide wire cannot fit interior passage",
-      options: { interiorWallHalfLength: 0.4, futureClearance: 0.05, futureWidth: 0.2 },
+      options: {
+        interiorWallHalfLength: 0.4,
+        futureClearance: 0.05,
+        futureWidth: 0.2,
+      },
       blocked: true,
     },
     {
@@ -77,44 +84,67 @@ test("same-field future peers retain physical connectivity without requiring fie
       traces: input.traces,
     }
     for (const terminalIndex of [0, 1]) {
-      expect(exhaust(findPendingPadEscape({
-        input: future,
-        connection: pendingConnection,
-        terminalIndex,
-      }))).not.toBeNull()
+      expect(
+        exhaust(
+          findPendingPadEscape({
+            input: future,
+            connection: pendingConnection,
+            terminalIndex,
+          }),
+        ),
+      ).not.toBeNull()
     }
     const conflicts = new CopperConflictIndex()
     const candidateCopper = addedCopper.map((trace) =>
       fixedCopper({ ...input, obstacles: [], traces: [trace] }),
     )
     for (const [index, copper] of candidateCopper.entries()) {
-      expect(conflicts.firstConflict(copper, fixedCopper(input), 0.1 - 1e-8))
-        .toBeUndefined()
+      expect(
+        conflicts.firstConflict(copper, fixedCopper(input), 0.1 - 1e-8),
+      ).toBeUndefined()
       for (const other of candidateCopper.slice(index + 1)) {
-        expect(conflicts.firstConflict(copper, other, 0.1 - 1e-8))
-          .toBeUndefined()
+        expect(
+          conflicts.firstConflict(copper, other, 0.1 - 1e-8),
+        ).toBeUndefined()
       }
     }
     if (entry.name === "direct internal wire") {
       const changed = withInternalPeerCopper({ input: future, addedCopper })
-      const scene = new VectorScene(changed, pendingConnection, 0.1, fixedCopper(changed))
+      const scene = new VectorScene(
+        changed,
+        pendingConnection,
+        0.1,
+        fixedCopper(changed),
+      )
       expect(scene.pathVisible(pendingConnection.pointsToConnect)).toBe(true)
     }
     if (entry.name === "future narrow wire fits interior passage") {
       const changed = withInternalPeerCopper({ input: future, addedCopper })
-      const scene = new VectorScene(changed, pendingConnection, 0.1, fixedCopper(changed))
-      expect(scene.pathVisible([
-        pendingConnection.pointsToConnect[0],
-        { x: -0.2, y: 0.55 },
-        { x: 0.2, y: 0.55 },
-        pendingConnection.pointsToConnect[1],
-      ])).toBe(true)
+      const scene = new VectorScene(
+        changed,
+        pendingConnection,
+        0.1,
+        fixedCopper(changed),
+      )
+      expect(
+        scene.pathVisible([
+          pendingConnection.pointsToConnect[0],
+          { x: -0.2, y: 0.55 },
+          { x: 0.2, y: 0.55 },
+          pendingConnection.pointsToConnect[1],
+        ]),
+      ).toBe(true)
     }
     if (input.layerCount === 4) {
       const changed = withInternalPeerCopper({ input: future, addedCopper })
-      const scene = new PendingPadScene({ input: changed, connection: pendingConnection, terminalIndex: 0 })
-      expect(scene.viaSpan({ x: -0.6, y: 0 }, "inner1"))
-        .toEqual(future.allowBlindAndBuriedVias ? ["top", "inner1"] : undefined)
+      const scene = new PendingPadScene({
+        input: changed,
+        connection: pendingConnection,
+        terminalIndex: 0,
+      })
+      expect(scene.viaSpan({ x: -0.6, y: 0 }, "inner1")).toEqual(
+        future.allowBlindAndBuriedVias ? ["top", "inner1"] : undefined,
+      )
     }
     const access = new PendingPadAccess(input)
     expect(blockedPendingConnections(access, [])).toEqual([])
@@ -127,7 +157,11 @@ test("same-field future peers retain physical connectivity without requiring fie
   expect(blockedPendingConnections(externalAccess, [])).toEqual([])
   observations.push({
     name: "outside peer still requires field egress",
-    blocked: blockedPendingConnections(externalAccess, [external.upperLeft, external.lowerRight]).length > 0,
+    blocked:
+      blockedPendingConnections(externalAccess, [
+        external.upperLeft,
+        external.lowerRight,
+      ]).length > 0,
   })
   expect(observations).toEqual([
     ...cases.map(({ name, blocked }) => ({ name, blocked })),

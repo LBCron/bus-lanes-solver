@@ -63,8 +63,7 @@ export function* solveSignalCandidatePoolSteps<T>({
     remaining: initial,
     state,
   })
-  if (!answer && state.exhausted && onSearchExhausted)
-    throw onSearchExhausted()
+  if (!answer && state.exhausted && onSearchExhausted) throw onSearchExhausted()
   return answer
 }
 
@@ -92,7 +91,11 @@ function* visitSignalCandidateDomains<T>({
     const answer = selected.slice()
     return !acceptSelection || (yield* acceptSelection(answer)) ? answer : null
   }
-  for (let candidateIndex = 0; candidateIndex < remaining[next].length; candidateIndex++) {
+  for (
+    let candidateIndex = 0;
+    candidateIndex < remaining[next].length;
+    candidateIndex++
+  ) {
     const candidate = remaining[next][candidateIndex]
     selected[next] = candidate
     assigned[next] = 1

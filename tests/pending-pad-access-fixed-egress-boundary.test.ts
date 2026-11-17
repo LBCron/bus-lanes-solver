@@ -9,18 +9,33 @@ import {
 function fixture(angle: number, crossing: boolean) {
   const source = pendingPadAccessFixture()
   source.pendingConnection.pointsToConnect[0].x = 2
-  source.input.obstacles.find((pad) =>
-    pad.componentId === "CPU" && pad.center.x === 2 && pad.center.y === 0,
+  source.input.obstacles.find(
+    (pad) =>
+      pad.componentId === "CPU" && pad.center.x === 2 && pad.center.y === 0,
   )!.connectedTo = [source.pendingConnection.name, "cpu_strobe"]
-  source.input.traces = [{
-    type: "pcb_trace",
-    pcb_trace_id: "supplied_boundary_conductor",
-    connection_name: source.pendingConnection.name,
-    route: [
-      { route_type: "wire", x: 2, y: 0, layer: "top", width: crossing ? 0.02 : 0.01 },
-      { route_type: "wire", x: crossing ? 2.145 : 1.99, y: 0, layer: "top", width: crossing ? 0.02 : 0.01 },
-    ],
-  }]
+  source.input.traces = [
+    {
+      type: "pcb_trace",
+      pcb_trace_id: "supplied_boundary_conductor",
+      connection_name: source.pendingConnection.name,
+      route: [
+        {
+          route_type: "wire",
+          x: 2,
+          y: 0,
+          layer: "top",
+          width: crossing ? 0.02 : 0.01,
+        },
+        {
+          route_type: "wire",
+          x: crossing ? 2.145 : 1.99,
+          y: 0,
+          layer: "top",
+          width: crossing ? 0.02 : 0.01,
+        },
+      ],
+    },
+  ]
   const result = rotatePendingPadAccessFixture(source, angle)
   const rotation = rotateDEG(angle)
   result.input.traces = source.input.traces.map((trace) => ({
@@ -47,7 +62,9 @@ test("old copper touching a rotated field boundary cannot masquerade as physical
     // add one floating-point ulp; cached witnesses need the same separation
     // test as new support-point witnesses.
     const boundary = applyToPoint(rotateDEG(angle), { x: 2.15, y: 0.15 })
-    expect(touchingScene.existingEgressIsClear({ point: boundary, layer: "top" })).toBe(false)
+    expect(
+      touchingScene.existingEgressIsClear({ point: boundary, layer: "top" }),
+    ).toBe(false)
 
     const crossing = fixture(angle, true)
     const crossingScene = new PendingPadScene({
@@ -62,8 +79,12 @@ test("old copper touching a rotated field boundary cannot masquerade as physical
     // beyond the pad field, although a new 0.1 mm wire center would not exit.
     for (const point of crossing.input.traces![0].route) {
       const local = applyToPoint(crossingScene.frame!.boardToPackage, point)
-      expect(local.x).toBeLessThanOrEqual(crossingScene.frame!.field.maxX + 1e-8)
-      expect(local.y).toBeLessThanOrEqual(crossingScene.frame!.field.maxY + 1e-8)
+      expect(local.x).toBeLessThanOrEqual(
+        crossingScene.frame!.field.maxX + 1e-8,
+      )
+      expect(local.y).toBeLessThanOrEqual(
+        crossingScene.frame!.field.maxY + 1e-8,
+      )
     }
     expect(crossingScene.surfaceExit(contact.point)).toBe(false)
     expect(crossingScene.existingEgressIsClear(contact)).toBe(true)

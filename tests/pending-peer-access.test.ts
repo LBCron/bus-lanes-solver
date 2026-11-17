@@ -1,5 +1,10 @@
 import { expect, test } from "bun:test"
-import { applyToPoint, compose, rotateDEG, translate } from "transformation-matrix"
+import {
+  applyToPoint,
+  compose,
+  rotateDEG,
+  translate,
+} from "transformation-matrix"
 import { PendingPadAccess } from "../lib/pending-pad-access"
 import {
   PendingPeerAccess,
@@ -209,13 +214,17 @@ test("already separated peers do not hide a newly divided baseline component", (
 test("unframed collective trapping is checked against the full candidate union", () => {
   const { input, pendingConnection, upperLeft, lowerRight } =
     pendingPadAccessFixture()
-  input.obstacles = input.obstacles.map(({ componentId, ...obstacle }) => obstacle)
+  input.obstacles = input.obstacles.map(
+    ({ componentId, ...obstacle }) => obstacle,
+  )
   const access = new PendingPeerAccess(input, pendingConnection)
   expect(
     finish(access.getUncertifiedConnections({ ...input, traces: [upperLeft] })),
   ).toBe(false)
   expect(
-    finish(access.getUncertifiedConnections({ ...input, traces: [lowerRight] })),
+    finish(
+      access.getUncertifiedConnections({ ...input, traces: [lowerRight] }),
+    ),
   ).toBe(false)
   expect(
     finish(
@@ -254,7 +263,11 @@ test("peer connectivity uses the future bus width through a real clearance bottl
     finish(narrow.getUncertifiedConnections({ ...input, traces: [narrowing] })),
   ).toBe(false)
   input.buses = [
-    { busId: "future_bus", connectionNames: [connection.name], traceWidth: 0.4 },
+    {
+      busId: "future_bus",
+      connectionNames: [connection.name],
+      traceWidth: 0.4,
+    },
   ]
   const wide = new PendingPeerAccess(input, connection)
   expect(finish(wide.getUncertifiedConnections(input))).toBe(false)
@@ -274,7 +287,9 @@ test("a legal via must continue to the opposite-layer peer rather than end in a 
     finish(access.getUncertifiedConnections({ ...input, traces: [topWall] })),
   ).toBe(false)
   expect(
-    finish(access.getUncertifiedConnections({ ...input, traces: [bottomWall] })),
+    finish(
+      access.getUncertifiedConnections({ ...input, traces: [bottomWall] }),
+    ),
   ).toBe(false)
   expect(
     finish(
@@ -365,7 +380,10 @@ test("cached access cannot keep a candidate-owned via that was removed from the 
   ).toBe(false)
   expect(
     finish(
-      access.getUncertifiedConnections({ ...input, traces: [leftVia, bottomWall] }),
+      access.getUncertifiedConnections({
+        ...input,
+        traces: [leftVia, bottomWall],
+      }),
     ),
   ).toBe(true)
 })
@@ -451,7 +469,9 @@ test("the pending-access wrapper protects an unlabelled pad using real peer conn
   const access = integratedAccess(input)
   expect(finish(access.getUncertifiedConnections([]))).toEqual([])
   expect(
-    finish(access.getUncertifiedConnections([ring(1)])).map((peer) => peer.name),
+    finish(access.getUncertifiedConnections([ring(1)])).map(
+      (peer) => peer.name,
+    ),
   ).toEqual([connection.name])
 })
 

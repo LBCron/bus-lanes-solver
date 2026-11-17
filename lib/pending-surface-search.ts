@@ -51,12 +51,15 @@ export class PendingSurfaceSearch {
     this.viaCounts = viaCounts
   }
 
-  get memory(): RoutingMemoryBudget | undefined { return this.budget }
+  get memory(): RoutingMemoryBudget | undefined {
+    return this.budget
+  }
 
   attachMemory(maximumBytes: number): RoutingMemoryBudget {
     if (this.budget) return this.budget
     const memory = new RoutingMemoryBudget(maximumBytes)
-    if (!memory.reserve(this.headerBytes)) throw new RoutingMemoryBudgetExceeded()
+    if (!memory.reserve(this.headerBytes))
+      throw new RoutingMemoryBudgetExceeded()
     this.budget = memory
     return memory
   }
@@ -112,13 +115,19 @@ export class PendingSurfaceSearch {
       pendingRoutingAccess: this.input.pendingRoutingAccess?.map((group) => ({
         ...group,
         connections: group.connections.flatMap((connection) => {
-          const pointsToConnect = connection.pointsToConnect.flatMap((point) => {
-            const layers = (point.layers ?? [point.layer]).filter((layer) =>
-              this.activeCuts.has(this.cutKey(point, layer)),
-            )
-            return layers.length ? [{ ...point, layer: layers[0], layers }] : []
-          })
-          return pointsToConnect.length ? [{ ...connection, pointsToConnect }] : []
+          const pointsToConnect = connection.pointsToConnect.flatMap(
+            (point) => {
+              const layers = (point.layers ?? [point.layer]).filter((layer) =>
+                this.activeCuts.has(this.cutKey(point, layer)),
+              )
+              return layers.length
+                ? [{ ...point, layer: layers[0], layers }]
+                : []
+            },
+          )
+          return pointsToConnect.length
+            ? [{ ...connection, pointsToConnect }]
+            : []
         }),
       })),
     }
@@ -132,10 +141,13 @@ export class PendingSurfaceSearch {
     if (!this.memory) throw new RoutingMemoryBudgetExceeded()
     // No eager all-terminal index is allocated. Reserve temporary staging
     // before collecting changes, and publish no cut if either charge fails.
-    const layers = terminals.reduce((sum, terminal) =>
-      sum + (terminal.layers?.length ?? 1), 0)
+    const layers = terminals.reduce(
+      (sum, terminal) => sum + (terminal.layers?.length ?? 1),
+      0,
+    )
     const scratchBytes = layers * 512
-    if (!this.memory.reserve(scratchBytes)) throw new RoutingMemoryBudgetExceeded()
+    if (!this.memory.reserve(scratchBytes))
+      throw new RoutingMemoryBudgetExceeded()
     try {
       const additions = new Set<string>()
       for (const terminal of terminals)
@@ -143,9 +155,13 @@ export class PendingSurfaceSearch {
           const key = this.cutKey(terminal, layer)
           const declared = this.input.pendingRoutingAccess?.some((group) =>
             group.connections.some((connection) =>
-              connection.pointsToConnect.some((point) =>
-                point.x === terminal.x && point.y === terminal.y &&
-                (point.layers ? point.layers.includes(layer) : point.layer === layer),
+              connection.pointsToConnect.some(
+                (point) =>
+                  point.x === terminal.x &&
+                  point.y === terminal.y &&
+                  (point.layers
+                    ? point.layers.includes(layer)
+                    : point.layer === layer),
               ),
             ),
           )
@@ -183,7 +199,12 @@ export class PendingSurfaceSearch {
     return this.rejected.get(key)?.uncertified === true
   }
 
-  reject(key: string, result: readonly Terminal[] | { terminals: readonly Terminal[]; uncertified: boolean }): void {
+  reject(
+    key: string,
+    result:
+      | readonly Terminal[]
+      | { terminals: readonly Terminal[]; uncertified: boolean },
+  ): void {
     const terminals = "terminals" in result ? result.terminals : result
     const uncertified = "terminals" in result && result.uncertified
     if (!this.memory || this.rejected.has(key)) return
@@ -213,7 +234,12 @@ export class PendingSurfaceSearch {
 
   releasePassMemory(): void {
     if (this.memory)
-      this.memory.release(this.memory.usedBytes - this.memoBytes - this.cutBytes - this.headerBytes)
+      this.memory.release(
+        this.memory.usedBytes -
+          this.memoBytes -
+          this.cutBytes -
+          this.headerBytes,
+      )
   }
 
   dispose(): void {

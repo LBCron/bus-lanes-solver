@@ -12,7 +12,10 @@ import {
   type SurfaceBridgeRoute,
 } from "./route-surface-bridge"
 import { solveSignalCandidatePoolSteps } from "./solve-signal-candidate-pool"
-import { PendingPadAccess, type PendingAccessObligation } from "./pending-pad-access"
+import {
+  PendingPadAccess,
+  type PendingAccessObligation,
+} from "./pending-pad-access"
 import { pendingClosureFragments } from "./pending-closure-fragments"
 import { CandidateSearchOutcomes } from "./candidate-search-outcomes"
 import { PendingRoutingWorkBudgetExceeded } from "./routing-memory-budget"
@@ -111,12 +114,18 @@ export function* negotiateSurfaceRoutes(
       native.minTraceToPadEdgeClearance ?? native.defaultObstacleMargin ?? 0.075
   const access = new PendingPadAccess(native)
   const frozenJoined = hard.traces!.slice(native.traces?.length ?? 0)
-  const mutableOwners = targets.map((connection) => new Set([
-    connection.name,
-    connection.source_trace_id,
-    ...original.filter((trace) => trace.connection_name === connection.name)
-      .flatMap((trace) => [trace.connection_name, trace.source_trace_id]),
-  ].filter((owner): owner is string => !!owner)))
+  const mutableOwners = targets.map(
+    (connection) =>
+      new Set(
+        [
+          connection.name,
+          connection.source_trace_id,
+          ...original
+            .filter((trace) => trace.connection_name === connection.name)
+            .flatMap((trace) => [trace.connection_name, trace.source_trace_id]),
+        ].filter((owner): owner is string => !!owner),
+      ),
+  )
   const restoringIndices = new Map<Connection, readonly number[]>()
   for (const intent of native.pendingRoutingAccess ?? [])
     for (const connection of intent.connections) {
@@ -124,14 +133,19 @@ export function* negotiateSurfaceRoutes(
       // are owned. Shared ownership can add an existing manufactured handoff,
       // so those variables are not monotone obstructions.
       const owners = access.getConnectionOwners(connection)
-      restoringIndices.set(connection, mutableOwners.flatMap((aliases, index) =>
-        [...aliases].some((alias) => owners.has(alias)) ? [index] : [],
-      ))
+      restoringIndices.set(
+        connection,
+        mutableOwners.flatMap((aliases, index) =>
+          [...aliases].some((alias) => owners.has(alias)) ? [index] : [],
+        ),
+      )
     }
   const requiredForCandidate = targets.map((_, index) => {
-    const required = new Set([...restoringIndices].flatMap(([connection, owners]) =>
-      owners.some((other) => other !== index) ? [] : [connection],
-    ))
+    const required = new Set(
+      [...restoringIndices].flatMap(([connection, owners]) =>
+        owners.some((other) => other !== index) ? [] : [connection],
+      ),
+    )
     return required.size === restoringIndices.size ? undefined : required
   })
   // Uncertified frozen copper cannot be repaired by foreign additions. This
@@ -287,23 +301,25 @@ export function* negotiateSurfaceRoutes(
     compatible,
     restoringIndices,
   }
-  const select = () => outcomes.run(
-    solveSignalCandidatePoolSteps({
-      domains,
-      compatible,
-      maxSearchNodes: options.maxCandidateSearchNodes ?? 50000,
-      maxSupportChecks: options.maxSupportChecks ?? 500000,
-      acceptSelection: selectionContext.hasPending
-        ? (values) =>
-            acceptSurfaceSelection({ context: selectionContext, values })
-        : undefined,
-      onSearchExhausted: selectionContext.hasPending
-        ? () => new PendingRoutingWorkBudgetExceeded(
-            "Pending routing selection exhausted its candidate node budget",
-          )
-        : undefined,
-    }),
-  )
+  const select = () =>
+    outcomes.run(
+      solveSignalCandidatePoolSteps({
+        domains,
+        compatible,
+        maxSearchNodes: options.maxCandidateSearchNodes ?? 50000,
+        maxSupportChecks: options.maxSupportChecks ?? 500000,
+        acceptSelection: selectionContext.hasPending
+          ? (values) =>
+              acceptSurfaceSelection({ context: selectionContext, values })
+          : undefined,
+        onSearchExhausted: selectionContext.hasPending
+          ? () =>
+              new PendingRoutingWorkBudgetExceeded(
+                "Pending routing selection exhausted its candidate node budget",
+              )
+          : undefined,
+      }),
+    )
   const preferredVias = (index: number): 2 | 4 =>
     frozen.size > paired.size &&
     !timed.has(targets[index].name) &&
@@ -336,9 +352,13 @@ export function* negotiateSurfaceRoutes(
       },
     }
   }
-  function* finishSelection(values: Candidate[]): Generator<void, FlexibleSignalState | null> {
-    if (selectionContext.hasPending &&
-      !(yield* acceptSurfaceSelection({ context: selectionContext, values })))
+  function* finishSelection(
+    values: Candidate[],
+  ): Generator<void, FlexibleSignalState | null> {
+    if (
+      selectionContext.hasPending &&
+      !(yield* acceptSurfaceSelection({ context: selectionContext, values }))
+    )
       return null
     return compose(values)
   }
@@ -374,14 +394,23 @@ export function* negotiateSurfaceRoutes(
       // other closures repair its existing blockers later. Derive this set
       // from the original baseline, never a baseline rebuilt after access was
       // lost (or temporarily recovered) by the prefix.
-      const prefixBlocked = yield* access.getBlockedObligations(input.traces ?? [])
-      if (prefixBlocked.length) excludedObligations = new Set(prefixBlocked.filter((obligation) => {
-        const restorers = restoringIndices.get(obligation.connection) ?? []
-        // A sole mutable owner must repair globally frozen access in its own
-        // search frontier. Accepting its cheapest nonrestoring goal would
-        // discard the remaining legal paths before global selection sees them.
-        return !frozenBlocked.has(obligation) || restorers.length !== 1 || restorers[0] !== index
-      }))
+      const prefixBlocked = yield* access.getBlockedObligations(
+        input.traces ?? [],
+      )
+      if (prefixBlocked.length)
+        excludedObligations = new Set(
+          prefixBlocked.filter((obligation) => {
+            const restorers = restoringIndices.get(obligation.connection) ?? []
+            // A sole mutable owner must repair globally frozen access in its own
+            // search frontier. Accepting its cheapest nonrestoring goal would
+            // discard the remaining legal paths before global selection sees them.
+            return (
+              !frozenBlocked.has(obligation) ||
+              restorers.length !== 1 ||
+              restorers[0] !== index
+            )
+          }),
+        )
     }
     // Only hard, unaffected copper participates here. Other movable routes
     // remain domain choices; the complete union is checked by the CSP above.
@@ -403,26 +432,44 @@ export function* negotiateSurfaceRoutes(
               // pre-existing conflicts; another mutable owned variable may
               // restore access. Complete selections always pass the original
               // unconditional full-union predicate below.
-              const blocked = yield* access.getBlockedObligations([
-                ...(input.traces ?? []),
-                joinSignalEscapes(route.carrier, route.escapes),
-              ], { connections: requiredConnections, excludedObligations, stopAfterFirst: true })
+              const blocked = yield* access.getBlockedObligations(
+                [
+                  ...(input.traces ?? []),
+                  joinSignalEscapes(route.carrier, route.escapes),
+                ],
+                {
+                  connections: requiredConnections,
+                  excludedObligations,
+                  stopAfterFirst: true,
+                },
+              )
               rejectedTerminals = blocked.flatMap((obligation) => {
-                const indices = obligation.kind === "terminal"
-                  ? [obligation.terminalIndex]
-                  : [obligation.link.sourceTerminalIndex, obligation.link.targetTerminalIndex]
-                return indices.map((terminalIndex) =>
-                  obligation.connection.pointsToConnect[terminalIndex],
+                const indices =
+                  obligation.kind === "terminal"
+                    ? [obligation.terminalIndex]
+                    : [
+                        obligation.link.sourceTerminalIndex,
+                        obligation.link.targetTerminalIndex,
+                      ]
+                return indices.map(
+                  (terminalIndex) =>
+                    obligation.connection.pointsToConnect[terminalIndex],
                 )
               })
-              return { accepted: !blocked.length, uncertified: blocked.length > 0 }
+              return {
+                accepted: !blocked.length,
+                uncertified: blocked.length > 0,
+              }
             }
           : undefined,
       }),
     )
     if (!result) {
       // An exhausted branch is unresolved, not a cached absence of a route.
-      if (outcomes.unknownCount === previousUnknowns && access.unknownCount === previousAccessUnknowns) {
+      if (
+        outcomes.unknownCount === previousUnknowns &&
+        access.unknownCount === previousAccessUnknowns
+      ) {
         if (pendingMemo) pendingMemo.set(key, null)
         else searches.set(key, null)
       }
@@ -507,7 +554,8 @@ export function* negotiateSurfaceRoutes(
       const state = yield* inspect(current)
       const active = state.edges
       const counts = new Uint16Array(targets.length)
-      if (!state.violationCount) return yield* finishSelection(current as Candidate[])
+      if (!state.violationCount)
+        return yield* finishSelection(current as Candidate[])
       if (state.violationCount < bestCount) {
         best = current.slice()
         bestCount = state.violationCount
@@ -598,7 +646,9 @@ export function* negotiateSurfaceRoutes(
           attempts = 0
         const fragments = selectionContext.hasPending
           ? pendingClosureFragments({
-              component, edges: active, limit: maximumClosure,
+              component,
+              edges: active,
+              limit: maximumClosure,
               maxFragments: options.maxClosureFragments ?? 12,
             })
           : closureFragments(component, active, maximumClosure)
@@ -609,7 +659,10 @@ export function* negotiateSurfaceRoutes(
             break
           }
         }
-        if (!repaired || (yield* inspect(current)).violationCount >= state.violationCount)
+        if (
+          !repaired ||
+          (yield* inspect(current)).violationCount >= state.violationCount
+        )
           return noSolution()
         continue
       }
@@ -619,7 +672,9 @@ export function* negotiateSurfaceRoutes(
         // require rerouting every member together. Try lower-dimensional
         // releases first, retaining the complete joint closure last.
         for (const fragment of pendingClosureFragments({
-          component, edges: active, limit: component.length,
+          component,
+          edges: active,
+          limit: component.length,
         }))
           if (yield* repairClosure(fragment)) {
             repaired = true
@@ -763,10 +818,10 @@ function* acceptSurfaceSelection({
   context: SurfaceSelectionContext
   values: Candidate[]
 }): Generator<void, boolean> {
-  return !(yield* context.access.getBlockedObligations([
-    ...context.frozenJoined,
-    ...values.map((value) => value.joined),
-  ], { stopAfterFirst: true })).length
+  return !(yield* context.access.getBlockedObligations(
+    [...context.frozenJoined, ...values.map((value) => value.joined)],
+    { stopAfterFirst: true },
+  )).length
 }
 
 function* surfaceConstraints({
@@ -806,10 +861,10 @@ function* surfaceConstraints({
       if (restorers.has(index)) continue
       const without = members.filter((other) => other !== index)
       if (
-        (yield* access.getBlockedObligations([
-          ...frozenJoined,
-          ...without.map((other) => values[other]!.joined),
-        ], { obligation })).includes(obligation)
+        (yield* access.getBlockedObligations(
+          [...frozenJoined, ...without.map((other) => values[other]!.joined)],
+          { obligation },
+        )).includes(obligation)
       )
         members = without
     }

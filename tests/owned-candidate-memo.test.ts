@@ -134,7 +134,8 @@ test("disposal releases entries and stops consulting the choice owner", () => {
 test("invalid metadata allowances are rejected before the memo is used", () => {
   for (const maxBytes of [-1, 0.5, Infinity, Number.NaN]) {
     expect(
-      () => new OwnedCandidateMemo<object>({ maxBytes, retained: () => new Set() }),
+      () =>
+        new OwnedCandidateMemo<object>({ maxBytes, retained: () => new Set() }),
     ).toThrow(RangeError)
   }
   const zero = new OwnedCandidateMemo<object>({

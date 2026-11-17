@@ -46,7 +46,9 @@ function corners(copper: Copper): Point[] {
     { x: rectangle.minX, y: rectangle.maxY },
   ]
   return copper.orientedRect
-    ? points.map((point) => applyToPoint(copper.orientedRect!.padToBoard, point))
+    ? points.map((point) =>
+        applyToPoint(copper.orientedRect!.padToBoard, point),
+      )
     : points
 }
 
@@ -113,8 +115,7 @@ export class PendingOwnedCarrierAccess {
       const from = physical.indexOf(via.from_layer)
       const to = physical.indexOf(via.to_layer)
       const layers =
-        via.layers ??
-        physical.slice(Math.min(from, to), Math.max(from, to) + 1)
+        via.layers ?? physical.slice(Math.min(from, to), Math.max(from, to) + 1)
       return [{ point: via, layers: [...layers] }]
     })
     this.roots = this.copper.map((_, index) => index)
@@ -148,10 +149,13 @@ export class PendingOwnedCarrierAccess {
       for (const point of [shape.a, shape.b, ...corners(shape)]) {
         const key = JSON.stringify([shape.layer, point.x, point.y])
         if (!anchors.has(key))
-          anchors.set(key, Object.freeze({
-            point: Object.freeze({ x: point.x, y: point.y }),
-            layer: shape.layer,
-          }))
+          anchors.set(
+            key,
+            Object.freeze({
+              point: Object.freeze({ x: point.x, y: point.y }),
+              layer: shape.layer,
+            }),
+          )
       }
     this.anchors = Object.freeze([...anchors.values()])
     const groups = new Map<number, OwnedCarrierTarget[]>()
@@ -212,13 +216,16 @@ export class PendingOwnedCarrierAccess {
       layers: terminal.layers ?? [terminal.layer],
       radius: 0,
     })
-    return this.connection.pointsToConnect.every((other, index) =>
-      index === terminalIndex ||
-      [...this.contacts({
-        point: other,
-        layers: other.layers ?? [other.layer],
-        radius: 0,
-      })].some((root) => source.has(root)),
+    return this.connection.pointsToConnect.every(
+      (other, index) =>
+        index === terminalIndex ||
+        [
+          ...this.contacts({
+            point: other,
+            layers: other.layers ?? [other.layer],
+            radius: 0,
+          }),
+        ].some((root) => source.has(root)),
     )
   }
 
@@ -239,10 +246,18 @@ export class PendingOwnedCarrierAccess {
     isOutside(point: Point): boolean
   }): OwnedCarrierTarget | undefined {
     if (!this.hasTraceCopper) return undefined
-    const source = this.contacts({ point: from.point, layers: [from.layer], radius: 0 })
+    const source = this.contacts({
+      point: from.point,
+      layers: [from.layer],
+      radius: 0,
+    })
     if (!source.size) return undefined
     for (const [index, copper] of this.copper.entries()) {
-      if (!source.has(this.roots[index]) || !carrierLayers.includes(copper.layer)) continue
+      if (
+        !source.has(this.roots[index]) ||
+        !carrierLayers.includes(copper.layer)
+      )
+        continue
       const points = corners(copper)
       if (!copper.rect)
         for (const direction of directions) {
@@ -250,8 +265,8 @@ export class PendingOwnedCarrierAccess {
           if (!norm) continue
           for (const endpoint of [copper.a, copper.b])
             points.push({
-              x: endpoint.x + copper.radius * direction.x / norm,
-              y: endpoint.y + copper.radius * direction.y / norm,
+              x: endpoint.x + (copper.radius * direction.x) / norm,
+              y: endpoint.y + (copper.radius * direction.y) / norm,
             })
         }
       for (const point of points)
@@ -295,8 +310,7 @@ export class PendingOwnedCarrierAccess {
           radius: approachWidth / 2,
         })) {
           const target = targets.get(root)
-          if (target)
-            return { point: { ...target.point }, layer: target.layer }
+          if (target) return { point: { ...target.point }, layer: target.layer }
         }
         return undefined
       },

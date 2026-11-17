@@ -11,8 +11,15 @@ import { rebalancePairEscapes } from "./rebalance-pair-escapes"
 import { reduceOrdinaryTurns } from "./reduce-ordinary-turns"
 import { routeAnglesAreConventional } from "./route-angle-validation"
 import { busLengthReports, pairLengthReports } from "./route-lengths"
-import { exhaustedRoutingResult, runBoundedRouting, type RoutingStepLimit } from "./run-bounded-routing"
-import { PendingRoutingWorkBudgetExceeded, RoutingMemoryBudgetExceeded } from "./routing-memory-budget"
+import {
+  exhaustedRoutingResult,
+  runBoundedRouting,
+  type RoutingStepLimit,
+} from "./run-bounded-routing"
+import {
+  PendingRoutingWorkBudgetExceeded,
+  RoutingMemoryBudgetExceeded,
+} from "./routing-memory-budget"
 import { PendingAccessSearchUnknownError } from "./pending-access-search-unknown"
 import { shortenPairApproaches } from "./shorten-pair-approaches"
 import { tuneGeneratedOrdinaryEscapes } from "./tune-generated-ordinary-escapes"
@@ -64,12 +71,15 @@ export function* finishSurfaceTiming(
   const maxSteps = policy.maxSteps ?? 200000
   const hasPending = Boolean(native.pendingRoutingAccess?.length)
   const outcomes = new CandidateSearchOutcomes()
-  const limit: RoutingStepLimit = hasPending ? {
-    maxSteps,
-    onExhausted: () => new PendingRoutingWorkBudgetExceeded(
-      "Pending routing finishing exhausted its cooperative step budget",
-    ),
-  } : maxSteps
+  const limit: RoutingStepLimit = hasPending
+    ? {
+        maxSteps,
+        onExhausted: () =>
+          new PendingRoutingWorkBudgetExceeded(
+            "Pending routing finishing exhausted its cooperative step budget",
+          ),
+      }
+    : maxSteps
   // An unfinished optional attempt must not suppress an existing alternative.
   // Its UNKNOWN is retained only if none of those alternatives completes.
   const attempt = <T>(search: Generator<void, T | null>) =>
@@ -192,12 +202,9 @@ export function* finishSurfaceTiming(
       if (tuned) prepared = tuned
     }
     if (!accepted()) {
-      const matched = yield* attempt(solveRefinement(
-        prepared.input,
-        prepared.traces,
-        options,
-        limit,
-      ))
+      const matched = yield* attempt(
+        solveRefinement(prepared.input, prepared.traces, options, limit),
+      )
       if (!matched) return outcomes.noSolution()
       prepared.traces = matched
       const extended = yield* bounded(
@@ -242,12 +249,9 @@ export function* finishSurfaceTiming(
           if (balanced) prepared = balanced
         }
         if (!accepted()) {
-          const rematched = yield* attempt(solveRefinement(
-            prepared.input,
-            prepared.traces,
-            options,
-            limit,
-          ))
+          const rematched = yield* attempt(
+            solveRefinement(prepared.input, prepared.traces, options, limit),
+          )
           if (!rematched) return outcomes.noSolution()
           prepared.traces = rematched
         }
@@ -284,7 +288,12 @@ export function* finishSurfaceTiming(
       ),
     }
   } catch (error) {
-    if (hasPending && (error instanceof PendingRoutingWorkBudgetExceeded || error instanceof RoutingMemoryBudgetExceeded || error instanceof PendingAccessSearchUnknownError))
+    if (
+      hasPending &&
+      (error instanceof PendingRoutingWorkBudgetExceeded ||
+        error instanceof RoutingMemoryBudgetExceeded ||
+        error instanceof PendingAccessSearchUnknownError)
+    )
       throw error
     return outcomes.noSolution()
   }

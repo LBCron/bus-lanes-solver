@@ -5,7 +5,10 @@ import { PendingPadGeometry } from "./pending-pad-geometry"
 import { PendingCopperOwnership } from "./pending-copper-ownership"
 import { PendingAccessSearchUnknownError } from "./pending-access-search-unknown"
 import { findSimpleCarrierPath } from "./pending-simple-carrier-path"
-import type { PendingOwnedCarrierAccess, OwnedCarrierTarget } from "./pending-owned-carrier-access"
+import type {
+  PendingOwnedCarrierAccess,
+  OwnedCarrierTarget,
+} from "./pending-owned-carrier-access"
 import type { Connection, Point, SimpleRouteJson } from "./types"
 import { VectorScene, type Copper } from "./vector-scene"
 
@@ -16,7 +19,9 @@ type LayerPointKey = string
 // or its copper once for every connection.
 const originalTraceKeys = new WeakMap<SimpleRouteJson, string>()
 function traceUnionKey(input: SimpleRouteJson): string {
-  return JSON.stringify((input.traces ?? []).map(trace => JSON.stringify(trace)).sort())
+  return JSON.stringify(
+    (input.traces ?? []).map((trace) => JSON.stringify(trace)).sort(),
+  )
 }
 
 interface PeerWire {
@@ -171,13 +176,20 @@ class PeerScene {
 
   constructor(
     readonly input: SimpleRouteJson,
-    request: { connection: Connection; requireCarrier: boolean; ownership?: PendingCopperOwnership },
+    request: {
+      connection: Connection
+      requireCarrier: boolean
+      ownership?: PendingCopperOwnership
+    },
   ) {
     const { connection, requireCarrier } = request
     this.connection = connection
     this.requireCarrier = requireCarrier
     this.geometry = new PendingPadGeometry(input, request.ownership)
-    const first = new PendingPadScene({ input, connection, terminalIndex: 0 }, this.geometry)
+    const first = new PendingPadScene(
+      { input, connection, terminalIndex: 0 },
+      this.geometry,
+    )
     this.layers = first.physical
     this.widthMm = first.width
     this.carrierLayers = new Set(first.carrierLayers)
@@ -232,38 +244,41 @@ class PeerScene {
       })
     }
     for (const { point: via, layers } of this.fixedViaSpans) {
-        const firstLayer = layers[0]
-        for (const layer of layers.slice(1))
-          this.connect({
-            from: this.anchor(via, firstLayer),
-            to: this.anchor(via, layer),
-            step: {
-              kind: "fixed_via",
-              point: via,
-              fromLayer: firstLayer,
-              toLayer: layer,
-              layers,
-            },
-          })
+      const firstLayer = layers[0]
+      for (const layer of layers.slice(1))
+        this.connect({
+          from: this.anchor(via, firstLayer),
+          to: this.anchor(via, layer),
+          step: {
+            kind: "fixed_via",
+            point: via,
+            fromLayer: firstLayer,
+            toLayer: layer,
+            layers,
+          },
+        })
     }
     // Actual fixed copper may meet at wire interiors or inside a native pad.
     // Connect its existing anchors by physical component, without inventing a
     // new wire on an excluded layer or resizing an old manufactured conductor.
-    for (const component of requireCarrier ? [] : ownedAccess.anchorComponents) {
+    for (const component of requireCarrier
+      ? []
+      : ownedAccess.anchorComponents) {
       let first: number | undefined
       for (const [index, anchor] of this.anchors.entries()) {
         if (!ownedAccess.connectedContacts({ from: anchor, to: component[0] }))
           continue
         if (first === undefined) first = index
-        else this.connect({
-          from: first,
-          to: index,
-          step: {
-            kind: "fixed_component",
-            from: this.anchors[first],
-            to: anchor,
-          },
-        })
+        else
+          this.connect({
+            from: first,
+            to: index,
+            step: {
+              kind: "fixed_component",
+              from: this.anchors[first],
+              to: anchor,
+            },
+          })
       }
     }
   }
@@ -280,7 +295,15 @@ class PeerScene {
     return anchor
   }
 
-  private connect({ from, to, step }: { from: number; to: number; step: PeerStep }) {
+  private connect({
+    from,
+    to,
+    step,
+  }: {
+    from: number
+    to: number
+    step: PeerStep
+  }) {
     this.anchors[from].edges.push({ other: to, step })
     this.anchors[to].edges.push({ other: from, step: reverseStep(step) })
   }
@@ -288,12 +311,15 @@ class PeerScene {
   private layerScene(layerIndex: number): PendingPadScene {
     const old = this.scenes[layerIndex]
     if (old) return old
-    const scene = new PendingPadScene({
-      input: this.input,
-      connection: this.connection,
-      terminalIndex: 0,
-      terminalLayer: this.layers[layerIndex],
-    }, this.geometry)
+    const scene = new PendingPadScene(
+      {
+        input: this.input,
+        connection: this.connection,
+        terminalIndex: 0,
+        terminalLayer: this.layers[layerIndex],
+      },
+      this.geometry,
+    )
     this.scenes[layerIndex] = scene
     return scene
   }
@@ -383,7 +409,9 @@ class PeerScene {
     return nodeCount
   }
 
-  private *neighbors(node: number): Generator<{ other: number; step: PeerStep }> {
+  private *neighbors(
+    node: number,
+  ): Generator<{ other: number; step: PeerStep }> {
     const gridNodes = this.gridNodeCount
     if (node >= gridNodes) {
       const anchor = this.anchors[node - gridNodes]
@@ -405,8 +433,7 @@ class PeerScene {
         }
       return
     }
-    const layerIndex =
-      this.gridLayerIndices[Math.floor(node / this.cellCount)]
+    const layerIndex = this.gridLayerIndices[Math.floor(node / this.cellCount)]
     const cell = node % this.cellCount
     const access = this.grid(layerIndex)
     const point = access.point(cell)
@@ -436,7 +463,8 @@ class PeerScene {
       }
     }
     for (const [otherIndex, otherLayer] of this.layers.entries()) {
-      if (otherIndex === layerIndex || !this.wireLayers.has(otherLayer)) continue
+      if (otherIndex === layerIndex || !this.wireLayers.has(otherLayer))
+        continue
       const otherAccess = this.grid(otherIndex)
       if (otherAccess.isBlocked(cell)) continue
       const layers = this.layerScene(layerIndex).viaSpan(point, otherLayer)
@@ -493,8 +521,10 @@ class PeerScene {
         widthMm === this.widthMm
           ? scene.scene
           : this.geometry.createScene({
-              input: this.input, connection: scene.scene.connection,
-              width: widthMm, copper: scene.scene.copper,
+              input: this.input,
+              connection: scene.scene.connection,
+              width: widthMm,
+              copper: scene.scene.copper,
             })
       return (
         wireScene.visible(step.path[0], step.path[0]) &&
@@ -523,23 +553,40 @@ class PeerScene {
 
   witnessIsClear(witness: PeerWitness): boolean {
     if (witness.existingConnection)
-      return this.existingTerminalConnection(witness.fromIndex, witness.toIndex) !== undefined
-    if (this.requireCarrier && !witness.steps.some((step) => this.isCarrier(step))) return false
+      return (
+        this.existingTerminalConnection(witness.fromIndex, witness.toIndex) !==
+        undefined
+      )
+    if (
+      this.requireCarrier &&
+      !witness.steps.some((step) => this.isCarrier(step))
+    )
+      return false
     if (this.requireCarrier) this.assertPhysicalCarrierPath(witness.steps)
     return witness.steps.every((step) => this.stepIsClear(step))
   }
 
-  private existingTerminalConnection(first: number, second: number): PeerStep[] | undefined {
+  private existingTerminalConnection(
+    first: number,
+    second: number,
+  ): PeerStep[] | undefined {
     const source = this.connection.pointsToConnect[first]
     const target = this.connection.pointsToConnect[second]
     for (const fromLayer of source.layers ?? [source.layer])
       for (const toLayer of target.layers ?? [target.layer])
-        if (this.ownedAccess.connectedContacts({
-          from: { point: source, layer: fromLayer },
-          to: { point: target, layer: toLayer },
-        }))
-          return [{ kind: "fixed_component",
-            from: { point: source, layer: fromLayer }, to: { point: target, layer: toLayer } }]
+        if (
+          this.ownedAccess.connectedContacts({
+            from: { point: source, layer: fromLayer },
+            to: { point: target, layer: toLayer },
+          })
+        )
+          return [
+            {
+              kind: "fixed_component",
+              from: { point: source, layer: fromLayer },
+              to: { point: target, layer: toLayer },
+            },
+          ]
     return undefined
   }
 
@@ -549,9 +596,12 @@ class PeerScene {
     // A genuine manufactured handoff may end directly on a native carrier
     // terminal. Simple-path verification prevents an excursion through the
     // same barrel from masquerading as carrier participation.
-    return (step.kind === "new_via" || step.kind === "fixed_via") &&
+    return (
+      (step.kind === "new_via" || step.kind === "fixed_via") &&
       step.fromLayer !== step.toLayer &&
-      (this.carrierLayers.has(step.fromLayer) || this.carrierLayers.has(step.toLayer))
+      (this.carrierLayers.has(step.fromLayer) ||
+        this.carrierLayers.has(step.toLayer))
+    )
   }
 
   private assertPhysicalCarrierPath(steps: readonly PeerStep[]): void {
@@ -561,22 +611,28 @@ class PeerScene {
     const visit = (point: Point, layer: string) => {
       const key = JSON.stringify([layer, point.x, point.y])
       if (key === previous) return
-      if (seen.has(key)) throw new PendingPeerAccessUnknownError(
-        "Pending carrier path needs unresolved physical cycle negotiation",
-      )
+      if (seen.has(key))
+        throw new PendingPeerAccessUnknownError(
+          "Pending carrier path needs unresolved physical cycle negotiation",
+        )
       seen.add(key)
       previous = key
     }
     for (const step of steps) {
-      if (step.kind === "fixed_component") throw new PendingPeerAccessUnknownError(
-        "Pending carrier path needs an expanded existing-conductor witness",
-      )
+      if (step.kind === "fixed_component")
+        throw new PendingPeerAccessUnknownError(
+          "Pending carrier path needs an expanded existing-conductor witness",
+        )
       if (step.kind === "wire") {
         for (const point of step.path) visit(point, step.layer)
         const path = simplify(step.path)
         for (let index = 1; index < path.length; index++)
           if (distance(path[index - 1], path[index]) > 1e-8)
-            segments.push({ a: path[index - 1], b: path[index], layer: step.layer })
+            segments.push({
+              a: path[index - 1],
+              b: path[index],
+              layer: step.layer,
+            })
       } else {
         visit(step.point, step.fromLayer)
         visit(step.point, step.toLayer)
@@ -584,8 +640,10 @@ class PeerScene {
     }
     for (const [index, first] of segments.entries())
       for (const second of segments.slice(index + 2))
-        if (first.layer === second.layer &&
-          segmentDistance([first.a, first.b], [second.a, second.b]) <= 1e-8)
+        if (
+          first.layer === second.layer &&
+          segmentDistance([first.a, first.b], [second.a, second.b]) <= 1e-8
+        )
           throw new PendingPeerAccessUnknownError(
             "Pending carrier path needs unresolved physical crossing negotiation",
           )
@@ -603,8 +661,11 @@ class PeerScene {
     }
     for (const [index, anchor] of this.anchors.entries())
       for (const edge of anchor.edges)
-        if (edge.step.kind === "fixed_via" || edge.step.kind === "native_transition" ||
-          (edge.step.kind === "wire" && edge.step.requiresSuppliedCopper))
+        if (
+          edge.step.kind === "fixed_via" ||
+          edge.step.kind === "native_transition" ||
+          (edge.step.kind === "wire" && edge.step.requiresSuppliedCopper)
+        )
           parents[root(edge.other)] = root(index)
     // Carrier search deliberately omits opaque component stars: their hidden
     // physical junctions could turn a graph-simple path into a carrier spur.
@@ -614,7 +675,13 @@ class PeerScene {
     for (const component of this.ownedAccess.anchorComponents) {
       let first: number | undefined
       for (const [index, anchor] of this.anchors.entries()) {
-        if (!this.ownedAccess.connectedContacts({ from: anchor, to: component[0] })) continue
+        if (
+          !this.ownedAccess.connectedContacts({
+            from: anchor,
+            to: component[0],
+          })
+        )
+          continue
         const found = root(index)
         if (first === undefined) first = found
         else if (found !== first)
@@ -625,23 +692,35 @@ class PeerScene {
     }
   }
 
-  private *findCarrierPaths({ sourceIndex, targetIndices }: {
-    sourceIndex: number; targetIndices: readonly number[]
+  private *findCarrierPaths({
+    sourceIndex,
+    targetIndices,
+  }: {
+    sourceIndex: number
+    targetIndices: readonly number[]
   }): Generator<void, Map<number, PeerWitness>> {
     const found = new Map<number, PeerWitness>()
     for (const targetIndex of targetIndices) {
       const existing = this.existingTerminalConnection(sourceIndex, targetIndex)
       if (existing) {
-        found.set(targetIndex, { fromIndex: sourceIndex, toIndex: targetIndex,
-          steps: existing.map(snapshotStep), existingConnection: true })
+        found.set(targetIndex, {
+          fromIndex: sourceIndex,
+          toIndex: targetIndex,
+          steps: existing.map(snapshotStep),
+          existingConnection: true,
+        })
         continue
       }
       const nodeCount = this.prepareGraph()
       const gridNodes = this.gridNodeCount
       const path = yield* findSimpleCarrierPath({
         nodeCount,
-        sourceNodes: this.terminalAnchors[sourceIndex].map((anchor) => gridNodes + anchor),
-        targetNodes: this.terminalAnchors[targetIndex].map((anchor) => gridNodes + anchor),
+        sourceNodes: this.terminalAnchors[sourceIndex].map(
+          (anchor) => gridNodes + anchor,
+        ),
+        targetNodes: this.terminalAnchors[targetIndex].map(
+          (anchor) => gridNodes + anchor,
+        ),
         neighbors: (node) => this.neighbors(node),
         isCarrier: (step) => this.isCarrier(step),
         reverseStep,
@@ -655,7 +734,9 @@ class PeerScene {
       this.assertViaPlacement(steps)
       const witness = { fromIndex: sourceIndex, toIndex: targetIndex, steps }
       if (!this.witnessIsClear(witness))
-        throw new PendingPeerAccessUnknownError("Pending carrier witness lost its physical geometry")
+        throw new PendingPeerAccessUnknownError(
+          "Pending carrier witness lost its physical geometry",
+        )
       found.set(targetIndex, witness)
     }
     return found
@@ -696,17 +777,20 @@ class PeerScene {
     const vias = steps.filter(
       (step): step is PeerTransition => step.kind === "new_via",
     )
-    const holeClearanceMm = this.input.minViaHoleEdgeToViaHoleEdgeClearance ?? 0.1
+    const holeClearanceMm =
+      this.input.minViaHoleEdgeToViaHoleEdgeClearance ?? 0.1
     for (const [index, via] of vias.entries())
       if (
-        vias.slice(index + 1).some(
-          (other) =>
-            via.layers.some((layer) => other.layers.includes(layer)) &&
-            distance(via.point, other.point) <
-              (this.input.minViaHoleDiameter ?? 0.15) +
-                holeClearanceMm -
-                1e-8,
-        )
+        vias
+          .slice(index + 1)
+          .some(
+            (other) =>
+              via.layers.some((layer) => other.layers.includes(layer)) &&
+              distance(via.point, other.point) <
+                (this.input.minViaHoleDiameter ?? 0.15) +
+                  holeClearanceMm -
+                  1e-8,
+          )
       )
         throw new PendingPeerAccessUnknownError(
           "Pending peer graph path needs unresolved via-placement negotiation",
@@ -720,7 +804,8 @@ class PeerScene {
     sourceIndex: number
     targetIndices: readonly number[]
   }): Generator<void, Map<number, PeerWitness>> {
-    if (this.requireCarrier) return yield* this.findCarrierPaths({ sourceIndex, targetIndices })
+    if (this.requireCarrier)
+      return yield* this.findCarrierPaths({ sourceIndex, targetIndices })
     const nodeCount = this.prepareGraph()
     // Integer-domain and allocation failures propagate as unknown; neither is
     // converted into a disconnected component or a successful access check.
@@ -776,10 +861,16 @@ export class PendingPeerAccess {
 
   constructor(
     private readonly input: SimpleRouteJson,
-    request: Connection | { connection: Connection; ownership: PendingCopperOwnership },
+    request:
+      | Connection
+      | { connection: Connection; ownership: PendingCopperOwnership },
   ) {
-    this.connection = "pointsToConnect" in request ? request : request.connection
-    this.ownership = "pointsToConnect" in request ? new PendingCopperOwnership(input) : request.ownership
+    this.connection =
+      "pointsToConnect" in request ? request : request.connection
+    this.ownership =
+      "pointsToConnect" in request
+        ? new PendingCopperOwnership(input)
+        : request.ownership
     let traceKey = originalTraceKeys.get(input)
     if (traceKey === undefined) {
       traceKey = traceUnionKey(input)
@@ -792,22 +883,40 @@ export class PendingPeerAccess {
    * but cannot manufacture a positive peer-connection certificate. Normalize
    * trace ordering only; all geometry, ownership and policy values remain. */
   private isOriginalUnion(candidate: SimpleRouteJson): boolean {
-    if ((candidate.traces?.length ?? 0) !== (this.input.traces?.length ?? 0)) return false
-    const originalKeys = Object.keys(this.input).filter(key => key !== "traces") as (keyof SimpleRouteJson)[]
-    const candidateKeys = Object.keys(candidate).filter(key => key !== "traces") as (keyof SimpleRouteJson)[]
+    if ((candidate.traces?.length ?? 0) !== (this.input.traces?.length ?? 0))
+      return false
+    const originalKeys = Object.keys(this.input).filter(
+      (key) => key !== "traces",
+    ) as (keyof SimpleRouteJson)[]
+    const candidateKeys = Object.keys(candidate).filter(
+      (key) => key !== "traces",
+    ) as (keyof SimpleRouteJson)[]
     // Reference equality is sufficient under the immutable declaration
     // contract, and conservative for cloned-but-equal metadata. Check every
     // property, so unchanged trace copper never masks a changed future rule.
-    if (originalKeys.length !== candidateKeys.length ||
-      originalKeys.some(key => !Object.hasOwn(candidate, key) || candidate[key] !== this.input[key])) return false
-    return candidate.traces === this.input.traces || traceUnionKey(candidate) === this.originalTraceKey
+    if (
+      originalKeys.length !== candidateKeys.length ||
+      originalKeys.some(
+        (key) =>
+          !Object.hasOwn(candidate, key) || candidate[key] !== this.input[key],
+      )
+    )
+      return false
+    return (
+      candidate.traces === this.input.traces ||
+      traceUnionKey(candidate) === this.originalTraceKey
+    )
   }
 
   /** Internal package work needs a physical carrier path, rather than an
    * arbitrary walk on native approach layers. Activation is decided from the
    * complete original baseline by PendingPadAccess. */
-  static forInternalPackage(input: SimpleRouteJson,
-    request: Connection | { connection: Connection; ownership: PendingCopperOwnership }): PendingPeerAccess {
+  static forInternalPackage(
+    input: SimpleRouteJson,
+    request:
+      | Connection
+      | { connection: Connection; ownership: PendingCopperOwnership },
+  ): PendingPeerAccess {
     const access = new PendingPeerAccess(input, request)
     access.requireCarrier = true
     return access
@@ -818,7 +927,9 @@ export class PendingPeerAccess {
     const witnesses: PeerWitness[] = []
     if (this.connection.pointsToConnect.length >= 2) {
       const baseline = new PeerScene(this.input, {
-        connection: this.connection, requireCarrier: this.requireCarrier, ownership: this.ownership,
+        connection: this.connection,
+        requireCarrier: this.requireCarrier,
+        ownership: this.ownership,
       })
       const assigned = new Set<number>()
       for (const sourceIndex of this.connection.pointsToConnect.keys()) {
@@ -839,14 +950,16 @@ export class PendingPeerAccess {
     // first complete original forest; no query may replace its link identities.
     // A resource exception or cancellation above publishes no partial forest.
     if (!this.links) {
-      const positive = witnesses.map((witness): PeerLinkState => ({
-        link: Object.freeze({
-          sourceTerminalIndex: witness.fromIndex,
-          targetTerminalIndex: witness.toIndex,
+      const positive = witnesses.map(
+        (witness): PeerLinkState => ({
+          link: Object.freeze({
+            sourceTerminalIndex: witness.fromIndex,
+            targetTerminalIndex: witness.toIndex,
+          }),
+          baselineUnresolved: false,
+          witness,
         }),
-        baselineUnresolved: false,
-        witness,
-      }))
+      )
       // Positive components are real connectivity facts. Their missing joins
       // are unresolved, not inaccessible: retain a stable spanning set of
       // those joins so final acceptance must positively connect the net.
@@ -855,15 +968,23 @@ export class PendingPeerAccess {
         while (roots[index] !== index) index = roots[index]
         return index
       }
-      for (const state of positive) roots[root(state.link.targetTerminalIndex)] = root(state.link.sourceTerminalIndex)
+      for (const state of positive)
+        roots[root(state.link.targetTerminalIndex)] = root(
+          state.link.sourceTerminalIndex,
+        )
       const representatives = [...new Set(roots.map((_, index) => root(index)))]
-      const unresolved = representatives.slice(1).map((target): PeerLinkState => ({
-        link: Object.freeze({ sourceTerminalIndex: representatives[0], targetTerminalIndex: target }),
-        baselineUnresolved: true,
-      }))
+      const unresolved = representatives.slice(1).map(
+        (target): PeerLinkState => ({
+          link: Object.freeze({
+            sourceTerminalIndex: representatives[0],
+            targetTerminalIndex: target,
+          }),
+          baselineUnresolved: true,
+        }),
+      )
       const forest = [...positive, ...unresolved]
-      const links = Object.freeze(positive.map(state => state.link))
-      const requiredLinks = Object.freeze(forest.map(state => state.link))
+      const links = Object.freeze(positive.map((state) => state.link))
+      const requiredLinks = Object.freeze(forest.map((state) => state.link))
       this.forest = forest
       this.links = links
       this.requiredLinks = requiredLinks
@@ -879,8 +1000,9 @@ export class PendingPeerAccess {
   }
 
   isBaselineUnresolved(link: PendingPeerLink): boolean {
-    const state = this.forest?.find(candidate => candidate.link === link)
-    if (!state) throw Error("Pending peer query must reference an original baseline link")
+    const state = this.forest?.find((candidate) => candidate.link === link)
+    if (!state)
+      throw Error("Pending peer query must reference an original baseline link")
     return state.baselineUnresolved
   }
 
@@ -902,21 +1024,27 @@ export class PendingPeerAccess {
     // The caller owns an immutable candidate-union lease for this entire
     // cooperative query. PendingPadAccess snapshots it once before any yield;
     // copying the complete copper again for every peer would multiply memory.
-    const unchanged = !requireCertificates && this.isOriginalUnion(candidateInput)
+    const unchanged =
+      !requireCertificates && this.isOriginalUnion(candidateInput)
     const links = yield* this.getRequiredLinks()
     for (const link of requested ?? [])
       if (!links.includes(link))
-        throw Error("Pending peer query must reference an original baseline link")
+        throw Error(
+          "Pending peer query must reference an original baseline link",
+        )
     const selected = this.forest!.filter(
       (state) => !requested || requested.has(state.link),
     )
     if (!selected.length) return []
     const candidate = new PeerScene(candidateInput, {
-      connection: this.connection, requireCarrier: this.requireCarrier, ownership: this.ownership,
+      connection: this.connection,
+      requireCarrier: this.requireCarrier,
+      ownership: this.ownership,
     })
     const blocked: PendingPeerLink[] = []
     for (const state of selected) {
-      if (state.baselineUnresolved && unchanged && !requireCertificates) continue
+      if (state.baselineUnresolved && unchanged && !requireCertificates)
+        continue
       const witness = state.witness
       if (witness && candidate.witnessIsClear(witness)) continue
       const paths = yield* candidate.findPaths({
@@ -932,7 +1060,9 @@ export class PendingPeerAccess {
     return blocked
   }
 
-  *getBlockedConnections(candidateInput: SimpleRouteJson): Generator<void, boolean> {
+  *getBlockedConnections(
+    candidateInput: SimpleRouteJson,
+  ): Generator<void, boolean> {
     if (yield* this.getUncertifiedConnections(candidateInput))
       throw new PendingAccessSearchUnknownError()
     return false
@@ -940,7 +1070,12 @@ export class PendingPeerAccess {
 
   /** A finite search miss demands another candidate or a positive witness;
    * it never certifies continuous disconnection. */
-  *getUncertifiedConnections(candidateInput: SimpleRouteJson): Generator<void, boolean> {
-    return (yield* this.getBlockedLinks(candidateInput, { stopAfterFirst: true })).length > 0
+  *getUncertifiedConnections(
+    candidateInput: SimpleRouteJson,
+  ): Generator<void, boolean> {
+    return (
+      (yield* this.getBlockedLinks(candidateInput, { stopAfterFirst: true }))
+        .length > 0
+    )
   }
 }

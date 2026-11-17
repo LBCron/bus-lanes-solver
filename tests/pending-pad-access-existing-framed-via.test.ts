@@ -88,10 +88,30 @@ function checkOwnedAccess(layeredChain: boolean): void {
   // Independently demonstrate the baseline path: a top wire reaches the
   // supplied via, whose bottom span can reach the RAM terminal.
   const baselinePaths = [
-    ["top", [{ x: 0, y: 0 }, { x: 1, y: 0 }]],
-    ["bottom", [{ x: layeredChain ? 1.5 : 1, y: 0 }, { x: 3, y: 3 }]],
+    [
+      "top",
+      [
+        { x: 0, y: 0 },
+        { x: 1, y: 0 },
+      ],
+    ],
+    [
+      "bottom",
+      [
+        { x: layeredChain ? 1.5 : 1, y: 0 },
+        { x: 3, y: 3 },
+      ],
+    ],
     ...(layeredChain
-      ? [["inner1", [{ x: 1, y: 0 }, { x: 1.5, y: 0 }]]]
+      ? [
+          [
+            "inner1",
+            [
+              { x: 1, y: 0 },
+              { x: 1.5, y: 0 },
+            ],
+          ],
+        ]
       : []),
   ] as Array<[string, [{ x: number; y: number }, { x: number; y: number }]]>
   for (const [layer, path] of baselinePaths) {
@@ -130,10 +150,9 @@ function checkOwnedAccess(layeredChain: boolean): void {
     fixedCopper(input),
   )
   expect(fenceScene.pathVisible(enclosure.route)).toBe(true)
-  const blocked = blockedPendingConnections(
-    new PendingPadAccess(input),
-    [enclosure],
-  ).map((connection) => connection.name)
+  const blocked = blockedPendingConnections(new PendingPadAccess(input), [
+    enclosure,
+  ]).map((connection) => connection.name)
   expect(blocked).toEqual([pendingConnection.name])
   expect(input).toEqual(before)
 }

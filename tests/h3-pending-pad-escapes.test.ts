@@ -35,10 +35,13 @@ const fixture = JSON.parse(
 // Projected from the captured native remaining phase; its own physical rules
 // are documented beside this file. The original byte1 fixture is unchanged.
 const pendingRoutingAccess = JSON.parse(
-  readFileSync(new URL(
-    "./fixtures/h3-pending-pad-escapes/pending-routing-access.json",
-    import.meta.url,
-  ), "utf8"),
+  readFileSync(
+    new URL(
+      "./fixtures/h3-pending-pad-escapes/pending-routing-access.json",
+      import.meta.url,
+    ),
+    "utf8",
+  ),
 ) as PendingRoutingAccess[]
 
 type PendingPad = { pcbPortId: string; escape: PadEscape }
@@ -48,20 +51,20 @@ type PendingPad = { pcbPortId: string; escape: PadEscape }
 function getPendingPads(input: SimpleRouteJson): PendingPad[] {
   return input.pendingRoutingAccess!.flatMap((intent) =>
     intent.connections.flatMap((connection) =>
-    connection.pointsToConnect.map((point, end) => ({
-      pcbPortId: point.pcb_port_id!,
-      escape: getPadEscape({
-        input: {
-          ...intent,
-          layerCount: input.layerCount,
-          obstacles: input.obstacles,
-          traces: input.traces,
-        },
-        connection,
-        end,
-        viaTargetLayer: "bottom",
-      }),
-    })),
+      connection.pointsToConnect.map((point, end) => ({
+        pcbPortId: point.pcb_port_id!,
+        escape: getPadEscape({
+          input: {
+            ...intent,
+            layerCount: input.layerCount,
+            obstacles: input.obstacles,
+            traces: input.traces,
+          },
+          connection,
+          end,
+          viaTargetLayer: "bottom",
+        }),
+      })),
     ),
   )
 }
@@ -105,14 +108,19 @@ const svgOptions = {
 test("H3 byte 1 preserves access to every declared later terminal", async (): Promise<void> => {
   // Core hands each phase request to the solver without options.
   const input = { ...fixture.byte1Request, pendingRoutingAccess }
-  expect(pendingRoutingAccess.flatMap((intent) => intent.connections))
-    .toEqual(fixture.pendingConnections)
+  expect(pendingRoutingAccess.flatMap((intent) => intent.connections)).toEqual(
+    fixture.pendingConnections,
+  )
   const original = structuredClone(input)
   const beforeCertificates = auditPendingWitnesses({
-    input, traces: input.traces ?? [], fixedConnections: fixture.fixedConnections,
+    input,
+    traces: input.traces ?? [],
+    fixedConnections: fixture.fixedConnections,
   })
   expect(beforeCertificates.terminalCount).toBe(76)
-  expect(beforeCertificates.reports.filter((report) => !report.valid)).toEqual([])
+  expect(beforeCertificates.reports.filter((report) => !report.valid)).toEqual(
+    [],
+  )
   const solver = new BusLanesPipelineSolver(input)
   // Supervise default-options stepping with the benchmark's observation
   // deadline. An unfinished solve fails before any snapshot is exported.
@@ -125,7 +133,9 @@ test("H3 byte 1 preserves access to every declared later terminal", async (): Pr
   }
   expect(input).toEqual(original)
   if (!solver.solved && !solver.failed)
-    throw Error("Native H3 routing is unresolved after the 300-second observation deadline")
+    throw Error(
+      "Native H3 routing is unresolved after the 300-second observation deadline",
+    )
   const nativeElapsedMs = performance.now() - started
   expect(solver.error).toBeNull()
   expect(solver.solved).toBe(true)
@@ -150,25 +160,40 @@ test("H3 byte 1 preserves access to every declared later terminal", async (): Pr
   })
 
   const afterCertificates = auditPendingWitnesses({
-    input, traces, fixedConnections: fixture.fixedConnections,
+    input,
+    traces,
+    fixedConnections: fixture.fixedConnections,
   })
   expect(afterCertificates.terminalCount).toBe(76)
   expect(afterCertificates.validCount).toBe(76)
-  expect(afterCertificates.reports.filter((report) => !report.valid)).toEqual([])
+  expect(afterCertificates.reports.filter((report) => !report.valid)).toEqual(
+    [],
+  )
 
   // Independently checked concrete witnesses decide access. Each witness
   // belongs to its own future phase's geometry/rules; future nets are not
   // claimed to have been routed together by this necessary-access check.
-  expect(beforeCertificates.reports.every((report) => typeof report.pcbPortId === "string")).toBe(true)
-  const beforeByPortId = new Map(beforeCertificates.reports.map((report) => [report.pcbPortId!, report]))
+  expect(
+    beforeCertificates.reports.every(
+      (report) => typeof report.pcbPortId === "string",
+    ),
+  ).toBe(true)
+  const beforeByPortId = new Map(
+    beforeCertificates.reports.map((report) => [report.pcbPortId!, report]),
+  )
   expect(beforeByPortId.size).toBe(76)
   const after = getPendingPads({ ...input, traces })
   expect(after).toHaveLength(76)
   const trappedPorts = afterCertificates.reports
-    .filter((report) => beforeByPortId.get(report.pcbPortId!)!.valid && !report.valid)
+    .filter(
+      (report) => beforeByPortId.get(report.pcbPortId!)!.valid && !report.valid,
+    )
     .map((report) => report.pcbPortId!)
   const alreadyInaccessiblePorts = afterCertificates.reports
-    .filter((report) => !beforeByPortId.get(report.pcbPortId!)!.valid && !report.valid)
+    .filter(
+      (report) =>
+        !beforeByPortId.get(report.pcbPortId!)!.valid && !report.valid,
+    )
     .map((report) => report.pcbPortId!)
   const initiallyInaccessiblePorts = beforeCertificates.reports
     .filter((report) => !report.valid)
@@ -184,14 +209,28 @@ test("H3 byte 1 preserves access to every declared later terminal", async (): Pr
   // Optional local evidence export is gated by the complete physical checks
   // above. It never supplies saved routes to the solver or snapshot exporter.
   if (process.env.H3_ACCEPTED_OUTPUT_PATH)
-    writeFileSync(process.env.H3_ACCEPTED_OUTPUT_PATH, JSON.stringify({
-      schemaVersion: 1,
-      qualification: "Fresh byte-one solve: sixteen current routes completed; thirty-seven later connections remain pending. Individual access witnesses do not prove simultaneous future routing.",
-      acceptedOutputValidated: true, input, output: solver.getOutput(),
-      nativeSolve: { elapsedMs: nativeElapsedMs, iterations: solver.iterations },
-      pendingRoutingAccessReport: solver.getPendingRoutingAccessReport(),
-      certificateAudit: afterCertificates, legacySampling,
-    }, null, 2))
+    writeFileSync(
+      process.env.H3_ACCEPTED_OUTPUT_PATH,
+      JSON.stringify(
+        {
+          schemaVersion: 1,
+          qualification:
+            "Fresh byte-one solve: sixteen current routes completed; thirty-seven later connections remain pending. Individual access witnesses do not prove simultaneous future routing.",
+          acceptedOutputValidated: true,
+          input,
+          output: solver.getOutput(),
+          nativeSolve: {
+            elapsedMs: nativeElapsedMs,
+            iterations: solver.iterations,
+          },
+          pendingRoutingAccessReport: solver.getPendingRoutingAccessReport(),
+          certificateAudit: afterCertificates,
+          legacySampling,
+        },
+        null,
+        2,
+      ),
+    )
 
   // All 16 copper routes are completed and validated. Green boxes mark
   // certified terminals; dashed guides and access witnesses are note overlays.
@@ -231,7 +270,9 @@ test("H3 byte 1 preserves access to every declared later terminal", async (): Pr
       newlyTrapped.has(pad.pcb_port_id!),
     )
       ? newColor
-      : unavailablePads.length ? existingColor : "#6fa58f"
+      : unavailablePads.length
+        ? existingColor
+        : "#6fa58f"
     const first = connection.pointsToConnect[0]
     // Include every branch of native multi-terminal nets, including their
     // bottom-layer resistor terminals.
@@ -269,8 +310,11 @@ test("H3 byte 1 preserves access to every declared later terminal", async (): Pr
           x2: next.x,
           y2: next.y,
           stroke_width: 0.06,
-          color: newlyTrapped.has(pad.pcb_port_id!) ? newColor
-            : alreadyInaccessible.has(pad.pcb_port_id!) ? existingColor : accessibleColor,
+          color: newlyTrapped.has(pad.pcb_port_id!)
+            ? newColor
+            : alreadyInaccessible.has(pad.pcb_port_id!)
+              ? existingColor
+              : accessibleColor,
         })
       }
     }
@@ -278,7 +322,9 @@ test("H3 byte 1 preserves access to every declared later terminal", async (): Pr
 
   // Show the concrete access paths missed by the legacy finite sampler.
   // These are explicitly dashed note overlays, never future routed copper.
-  const legacyMisses = new Set(after.filter((pad) => !pad.escape).map((pad) => pad.pcbPortId))
+  const legacyMisses = new Set(
+    after.filter((pad) => !pad.escape).map((pad) => pad.pcbPortId),
+  )
   for (const report of afterCertificates.reports) {
     if (!report.pcbPortId || !legacyMisses.has(report.pcbPortId)) continue
     const path = report.witness!.path
@@ -286,18 +332,30 @@ test("H3 byte 1 preserves access to every declared later terminal", async (): Pr
       circuit.push({
         type: "pcb_note_line",
         pcb_note_line_id: "access_witness_" + report.pcbPortId + "_" + index,
-        layer: "top", x1: path[index - 1].x, y1: path[index - 1].y,
-        x2: path[index].x, y2: path[index].y,
-        stroke_width: 0.04, color: "#0284c7", is_dashed: true,
+        layer: "top",
+        x1: path[index - 1].x,
+        y1: path[index - 1].y,
+        x2: path[index].x,
+        y2: path[index].y,
+        stroke_width: 0.04,
+        color: "#0284c7",
+        is_dashed: true,
       })
     const end = path.at(-1)!
-    for (const [axis, delta] of [{ x: 0.08, y: 0 }, { x: 0, y: 0.08 }].entries())
+    for (const [axis, delta] of [
+      { x: 0.08, y: 0 },
+      { x: 0, y: 0.08 },
+    ].entries())
       circuit.push({
         type: "pcb_note_line",
         pcb_note_line_id: "access_exit_" + report.pcbPortId + "_" + axis,
-        layer: "top", x1: end.x - delta.x, y1: end.y - delta.y,
-        x2: end.x + delta.x, y2: end.y + delta.y,
-        stroke_width: 0.04, color: "#0284c7",
+        layer: "top",
+        x1: end.x - delta.x,
+        y1: end.y - delta.y,
+        x2: end.x + delta.x,
+        y2: end.y + delta.y,
+        stroke_width: 0.04,
+        color: "#0284c7",
       })
   }
 
@@ -343,12 +401,16 @@ test("H3 byte 1 preserves access to every declared later terminal", async (): Pr
     minY: board.center.y - board.height / 2,
     maxY: board.center.y + board.height / 2,
   }
-  const title = "Future access preserved: 76/76 terminals have validated witnesses"
+  const title =
+    "Future access preserved: 76/76 terminals have validated witnesses"
   const scope =
     "16/16 current connections; DRC clear; 37 later connections remain pending."
-  const metric = "Legacy finite sampling misses " + legacySampling.afterMissing +
+  const metric =
+    "Legacy finite sampling misses " +
+    legacySampling.afterMissing +
     " exits; cyan witnesses validate those exits (not routed nets)."
-  const legend = "Red/blue: actual copper. Green boxes: validated access. Green dashed: 37 pending, unrouted requests."
+  const legend =
+    "Red/blue: actual copper. Green boxes: validated access. Green dashed: 37 pending, unrouted requests."
   const fullCircuit = [
     ...circuit,
     statusNote({
@@ -366,12 +428,18 @@ test("H3 byte 1 preserves access to every declared later terminal", async (): Pr
       fontSize: 0.42,
     }),
     statusNote({
-      id: "routing_legend_board", text: legend,
-      x: board.center.x, y: boardBounds.maxY + 1.8, fontSize: 0.32,
+      id: "routing_legend_board",
+      text: legend,
+      x: board.center.x,
+      y: boardBounds.maxY + 1.8,
+      fontSize: 0.32,
     }),
     statusNote({
-      id: "routing_sampling_board", text: metric,
-      x: board.center.x, y: boardBounds.maxY + 1.0, fontSize: 0.32,
+      id: "routing_sampling_board",
+      text: metric,
+      x: board.center.x,
+      y: boardBounds.maxY + 1.0,
+      fontSize: 0.32,
     }),
   ]
   const fullOptions = {
@@ -387,31 +455,69 @@ test("H3 byte 1 preserves access to every declared later terminal", async (): Pr
   }
   // Derive the CPU zoom from the native package with the most pads. The old
   // hardcoded crop omitted part of this BGA and put captions over real pads.
-  const cpu = fixture.circuit.filter((element) => element.type === "pcb_component")
-    .map((component) => ({ component,
-      pads: input.obstacles.filter((pad) => pad.componentId === component.pcb_component_id),
-    })).sort((first, second) => second.pads.length - first.pads.length)[0]
-  if (!cpu?.pads.length) throw Error("The native CPU package must have original pad geometry")
+  const cpu = fixture.circuit
+    .filter((element) => element.type === "pcb_component")
+    .map((component) => ({
+      component,
+      pads: input.obstacles.filter(
+        (pad) => pad.componentId === component.pcb_component_id,
+      ),
+    }))
+    .sort((first, second) => second.pads.length - first.pads.length)[0]
+  if (!cpu?.pads.length)
+    throw Error("The native CPU package must have original pad geometry")
   const cpuBounds = cpu.pads.map((pad) => {
-    const angle = (pad.ccwRotationDegrees ?? 0) * Math.PI / 180
-    const halfWidth = pad.shape === "circle" ? pad.width / 2 :
-      (Math.abs(Math.cos(angle)) * pad.width + Math.abs(Math.sin(angle)) * pad.height) / 2
-    const halfHeight = pad.shape === "circle" ? pad.width / 2 :
-      (Math.abs(Math.sin(angle)) * pad.width + Math.abs(Math.cos(angle)) * pad.height) / 2
-    return { minX: pad.center.x - halfWidth, maxX: pad.center.x + halfWidth,
-      minY: pad.center.y - halfHeight, maxY: pad.center.y + halfHeight }
+    const angle = ((pad.ccwRotationDegrees ?? 0) * Math.PI) / 180
+    const halfWidth =
+      pad.shape === "circle"
+        ? pad.width / 2
+        : (Math.abs(Math.cos(angle)) * pad.width +
+            Math.abs(Math.sin(angle)) * pad.height) /
+          2
+    const halfHeight =
+      pad.shape === "circle"
+        ? pad.width / 2
+        : (Math.abs(Math.sin(angle)) * pad.width +
+            Math.abs(Math.cos(angle)) * pad.height) /
+          2
+    return {
+      minX: pad.center.x - halfWidth,
+      maxX: pad.center.x + halfWidth,
+      minY: pad.center.y - halfHeight,
+      maxY: pad.center.y + halfHeight,
+    }
   })
-  const cpuBox = { minX: Math.min(...cpuBounds.map((box) => box.minX)), maxX: Math.max(...cpuBounds.map((box) => box.maxX)),
-    minY: Math.min(...cpuBounds.map((box) => box.minY)), maxY: Math.max(...cpuBounds.map((box) => box.maxY)) }
+  const cpuBox = {
+    minX: Math.min(...cpuBounds.map((box) => box.minX)),
+    maxX: Math.max(...cpuBounds.map((box) => box.maxX)),
+    minY: Math.min(...cpuBounds.map((box) => box.minY)),
+    maxY: Math.max(...cpuBounds.map((box) => box.maxY)),
+  }
   const cpuCenterX = (cpuBox.minX + cpuBox.maxX) / 2
-  const cpuSpan = Math.max(cpuBox.maxX - cpuBox.minX + 1.4, cpuBox.maxY - cpuBox.minY + 3)
-  const cpuSource = fixture.circuit.find((element) => element.type === "source_component" &&
-    element.source_component_id === cpu.component.source_component_id)
-  const cpuLabel = cpuSource?.type === "source_component" ?
-    [cpuSource.name, cpuSource.manufacturer_part_number].filter(Boolean).join(" / ") : "CPU"
+  const cpuSpan = Math.max(
+    cpuBox.maxX - cpuBox.minX + 1.4,
+    cpuBox.maxY - cpuBox.minY + 3,
+  )
+  const cpuSource = fixture.circuit.find(
+    (element) =>
+      element.type === "source_component" &&
+      element.source_component_id === cpu.component.source_component_id,
+  )
+  const cpuLabel =
+    cpuSource?.type === "source_component"
+      ? [cpuSource.name, cpuSource.manufacturer_part_number]
+          .filter(Boolean)
+          .join(" / ")
+      : "CPU"
   const cpuCircuit = [
-    ...circuit.filter((element) => !(element.type === "pcb_note_text" &&
-      element.pcb_note_text_id === "package_" + cpu.component.pcb_component_id)),
+    ...circuit.filter(
+      (element) =>
+        !(
+          element.type === "pcb_note_text" &&
+          element.pcb_note_text_id ===
+            "package_" + cpu.component.pcb_component_id
+        ),
+    ),
     statusNote({
       id: "routing_status_cpu",
       text: cpuLabel + " — 76/76 future accesses validated",
@@ -421,8 +527,7 @@ test("H3 byte 1 preserves access to every declared later terminal", async (): Pr
     }),
     statusNote({
       id: "routing_scope_cpu",
-      text:
-        "16 connected; DRC clear; 37 later nets pending",
+      text: "16 connected; DRC clear; 37 later nets pending",
       x: cpuCenterX,
       y: cpuBox.maxY + 1.45,
       fontSize: 0.17,
@@ -430,20 +535,31 @@ test("H3 byte 1 preserves access to every declared later terminal", async (): Pr
     statusNote({
       id: "routing_legend_cpu",
       text: "Red/blue: copper. Green dashed: pending requests. Green boxes: access.",
-      x: cpuCenterX, y: cpuBox.maxY + 1.0, fontSize: 0.16,
+      x: cpuCenterX,
+      y: cpuBox.maxY + 1.0,
+      fontSize: 0.16,
     }),
     statusNote({
       id: "routing_sampling_cpu",
-      text: "Cyan: " + legacySampling.afterMissing + " verified exits missed by sampling; not routed nets.",
-      x: cpuCenterX, y: cpuBox.maxY + 0.55, fontSize: 0.16,
+      text:
+        "Cyan: " +
+        legacySampling.afterMissing +
+        " verified exits missed by sampling; not routed nets.",
+      x: cpuCenterX,
+      y: cpuBox.maxY + 0.55,
+      fontSize: 0.16,
     }),
   ]
   const cpuOptions = {
     ...svgOptions,
     width: 1400,
     height: 1400,
-    viewport: { minX: cpuCenterX - cpuSpan / 2, maxX: cpuCenterX + cpuSpan / 2,
-      minY: cpuBox.minY - 0.7, maxY: cpuBox.minY - 0.7 + cpuSpan },
+    viewport: {
+      minX: cpuCenterX - cpuSpan / 2,
+      maxX: cpuCenterX + cpuSpan / 2,
+      minY: cpuBox.minY - 0.7,
+      maxY: cpuBox.minY - 0.7 + cpuSpan,
+    },
   }
 
   // Snapshot only the completed, validated copper and labeled request guides.

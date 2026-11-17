@@ -55,15 +55,21 @@ test("independently blocked links of one future connection keep distinct stable 
   ])
   expect(Object.isFrozen(links)).toBe(true)
   for (const link of links) expect(Object.isFrozen(link)).toBe(true)
-  expect(finish(access.getBlockedLinks({ ...input, traces: enclosures }))).toEqual([...links])
+  expect(
+    finish(access.getBlockedLinks({ ...input, traces: enclosures })),
+  ).toEqual([...links])
   for (const [index, enclosure] of enclosures.entries()) {
-    const blocked = finish(access.getBlockedLinks({ ...input, traces: [enclosure] }))
+    const blocked = finish(
+      access.getBlockedLinks({ ...input, traces: [enclosure] }),
+    )
     expect(blocked).toHaveLength(1)
     expect(blocked[0]).toBe(links[index])
   }
   expect(finish(access.getBlockedLinks(input))).toEqual([])
   expect(finish(access.getBaselineLinks())).toBe(links)
-  expect(finish(access.getUncertifiedConnections({ ...input, traces: enclosures }))).toBe(true)
+  expect(
+    finish(access.getUncertifiedConnections({ ...input, traces: enclosures })),
+  ).toBe(true)
   expect(finish(access.getUncertifiedConnections(input))).toBe(false)
   expect(input).toEqual(original)
 })
@@ -74,23 +80,37 @@ test("link scopes use exact original identities and existential answers do not e
   const links = finish(access.getBaselineLinks())
   const candidate = { ...input, traces: enclosures }
   for (const link of links) {
-    const blocked = finish(access.getBlockedLinks(candidate, { links: new Set([link]) }))
+    const blocked = finish(
+      access.getBlockedLinks(candidate, { links: new Set([link]) }),
+    )
     expect(blocked).toHaveLength(1)
     expect(blocked[0]).toBe(link)
   }
-  const first = finish(access.getBlockedLinks(candidate, { stopAfterFirst: true }))
+  const first = finish(
+    access.getBlockedLinks(candidate, { stopAfterFirst: true }),
+  )
   expect(first).toHaveLength(1)
   expect(links.includes(first[0])).toBe(true)
   expect(finish(access.getBlockedLinks(candidate))).toEqual([...links])
-  expect(finish(access.getBlockedLinks(candidate, { links: new Set() }))).toEqual([])
-  expect(() => finish(access.getBlockedLinks(candidate, {
-    links: new Set([structuredClone(links[0])]),
-  }))).toThrow("original baseline link")
+  expect(
+    finish(access.getBlockedLinks(candidate, { links: new Set() })),
+  ).toEqual([])
+  expect(() =>
+    finish(
+      access.getBlockedLinks(candidate, {
+        links: new Set([structuredClone(links[0])]),
+      }),
+    ),
+  ).toThrow("original baseline link")
   const other = new PendingPeerAccess(input, connection)
   const otherLinks = finish(other.getBaselineLinks())
-  expect(() => finish(access.getBlockedLinks(candidate, {
-    links: new Set([otherLinks[0]]),
-  }))).toThrow("original baseline link")
+  expect(() =>
+    finish(
+      access.getBlockedLinks(candidate, {
+        links: new Set([otherLinks[0]]),
+      }),
+    ),
+  ).toThrow("original baseline link")
 })
 
 test("unresolved original peers retain required joins without manufacturing positive baseline links", () => {
@@ -100,12 +120,22 @@ test("unresolved original peers retain required joins without manufacturing posi
   const links = finish(access.getBaselineLinks())
   expect(links).toEqual([{ sourceTerminalIndex: 0, targetTerminalIndex: 1 }])
   expect(finish(access.getBlockedLinks(input))).toEqual([])
-  expect(finish(access.getBlockedLinks({ ...input, traces: enclosures })))
-    .toEqual([...finish(access.getRequiredLinks())])
-  const isolated = new PendingPeerAccess({ ...input, traces: enclosures }, connection)
+  expect(
+    finish(access.getBlockedLinks({ ...input, traces: enclosures })),
+  ).toEqual([...finish(access.getRequiredLinks())])
+  const isolated = new PendingPeerAccess(
+    { ...input, traces: enclosures },
+    connection,
+  )
   expect(finish(isolated.getBaselineLinks())).toEqual([])
-  expect(finish(isolated.getBlockedLinks({ ...input, traces: enclosures }))).toEqual([])
-  expect(finish(isolated.getUncertifiedConnections({ ...input, traces: enclosures }))).toBe(false)
+  expect(
+    finish(isolated.getBlockedLinks({ ...input, traces: enclosures })),
+  ).toEqual([])
+  expect(
+    finish(
+      isolated.getUncertifiedConnections({ ...input, traces: enclosures }),
+    ),
+  ).toBe(false)
 })
 
 test("interleaved or cancelled initializers never replace published baseline link identities", () => {
@@ -133,7 +163,10 @@ test("suspended link checks snapshot selection sets and keep concurrent witnesse
   const access = new PendingPeerAccess(input, connection)
   const links = finish(access.getBaselineLinks())
   const selected = new Set([links[0]])
-  const scoped = access.getBlockedLinks({ ...input, traces: enclosures }, { links: selected })
+  const scoped = access.getBlockedLinks(
+    { ...input, traces: enclosures },
+    { links: selected },
+  )
   expect(scoped.next().done).toBe(false)
   selected.clear()
   selected.add(links[1])
@@ -161,7 +194,13 @@ test("an unknown original baseline cannot publish a partial or empty successful 
   input.minTraceWidth = 0.01
   const access = new PendingPeerAccess(input, connection)
   for (let attempt = 0; attempt < 2; attempt++)
-    expect(() => finish(access.getBaselineLinks())).toThrow(PendingPeerAccessUnknownError)
-  expect(() => finish(access.getBlockedLinks(input))).toThrow(PendingPeerAccessUnknownError)
-  expect(() => finish(access.getUncertifiedConnections(input))).toThrow(PendingPeerAccessUnknownError)
+    expect(() => finish(access.getBaselineLinks())).toThrow(
+      PendingPeerAccessUnknownError,
+    )
+  expect(() => finish(access.getBlockedLinks(input))).toThrow(
+    PendingPeerAccessUnknownError,
+  )
+  expect(() => finish(access.getUncertifiedConnections(input))).toThrow(
+    PendingPeerAccessUnknownError,
+  )
 })

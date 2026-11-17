@@ -16,7 +16,8 @@ export function* pendingClosureFragments({
   maxFragments?: number
 }): Generator<number[]> {
   const degree = (index: number) =>
-    edges.filter(([first, second]) => first === index || second === index).length
+    edges.filter(([first, second]) => first === index || second === index)
+      .length
   const ordered = [...new Set(component)].sort(
     (first, second) => degree(second) - degree(first),
   )

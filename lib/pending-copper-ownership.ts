@@ -15,8 +15,11 @@ export class PendingCopperOwnership {
     for (const obstacle of input.obstacles) this.connect(obstacle.connectedTo)
     for (const connection of [
       ...input.connections,
-      ...(input.pendingRoutingAccess ?? []).flatMap((phase) => phase.connections),
-    ]) this.connect(this.seeds(connection))
+      ...(input.pendingRoutingAccess ?? []).flatMap(
+        (phase) => phase.connections,
+      ),
+    ])
+      this.connect(this.seeds(connection))
     for (const owner of this.parent.keys()) {
       const root = this.root(owner)
       const group = this.groups.get(root) ?? new Set<string>()
@@ -34,10 +37,17 @@ export class PendingCopperOwnership {
 
   private seeds(connection: Connection): string[] {
     return [
-      connection.name, connection.source_trace_id,
-      connection.netConnectionName, connection.rootConnectionName,
-      ...connection.pointsToConnect.flatMap((point) => [point.pointId, point.pcb_port_id]),
-    ].filter((owner): owner is string => typeof owner === "string" && owner.length > 0)
+      connection.name,
+      connection.source_trace_id,
+      connection.netConnectionName,
+      connection.rootConnectionName,
+      ...connection.pointsToConnect.flatMap((point) => [
+        point.pointId,
+        point.pcb_port_id,
+      ]),
+    ].filter(
+      (owner): owner is string => typeof owner === "string" && owner.length > 0,
+    )
   }
 
   private root(owner: string): string {
@@ -52,7 +62,9 @@ export class PendingCopperOwnership {
   }
 
   private connect(identities: readonly string[]): void {
-    const owners = identities.filter((owner) => typeof owner === "string" && owner.length > 0)
+    const owners = identities.filter(
+      (owner) => typeof owner === "string" && owner.length > 0,
+    )
     for (const owner of owners)
       if (!this.parent.has(owner)) {
         this.parent.set(owner, owner)
@@ -60,9 +72,11 @@ export class PendingCopperOwnership {
       }
     if (!owners.length) return
     for (const owner of owners.slice(1)) {
-      let first = this.root(owners[0]), second = this.root(owner)
+      let first = this.root(owners[0]),
+        second = this.root(owner)
       if (first === second) continue
-      if (this.sizes.get(first)! < this.sizes.get(second)!) [first, second] = [second, first]
+      if (this.sizes.get(first)! < this.sizes.get(second)!)
+        [first, second] = [second, first]
       this.parent.set(second, first)
       this.sizes.set(first, this.sizes.get(first)! + this.sizes.get(second)!)
     }
@@ -75,9 +89,15 @@ export class PendingCopperOwnership {
     let prepared: ReadonlySet<string> | undefined
     let onePreparedClass = seeds.length > 0
     for (const owner of seeds) {
-      if (!this.parent.has(owner)) { onePreparedClass = false; break }
+      if (!this.parent.has(owner)) {
+        onePreparedClass = false
+        break
+      }
       const group = this.groups.get(this.root(owner))!
-      if (prepared && prepared !== group) { onePreparedClass = false; break }
+      if (prepared && prepared !== group) {
+        onePreparedClass = false
+        break
+      }
       prepared = group
     }
     // Original declarations and their layer/reverse views share one class.
@@ -87,7 +107,8 @@ export class PendingCopperOwnership {
     for (const owner of seeds) {
       result.add(owner)
       if (this.parent.has(owner))
-        for (const alias of this.groups.get(this.root(owner)) ?? []) result.add(alias)
+        for (const alias of this.groups.get(this.root(owner)) ?? [])
+          result.add(alias)
     }
     this.cached.set(connection, result)
     return result

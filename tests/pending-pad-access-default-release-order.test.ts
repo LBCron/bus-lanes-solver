@@ -9,7 +9,9 @@ import { blockedPendingConnections } from "./fixtures/pending-pad-access"
 test("the default release domain repairs independent access cuts without forcing unary-only routing", () => {
   const { input, previous } = pendingIndependentClosuresFixture()
   const original = structuredClone(previous)
-  expect(blockedPendingConnections(new PendingPadAccess(input), previous.traces)).toHaveLength(2)
+  expect(
+    blockedPendingConnections(new PendingPadAccess(input), previous.traces),
+  ).toHaveLength(2)
   const search = negotiateSurfaceRoutes(input, previous, {
     maxRounds: 1,
     maxExpansions: 100_000,
@@ -23,12 +25,17 @@ test("the default release domain repairs independent access cuts without forcing
   if (!state.value) return
   const result = state.value
   const joined = [...result.retained, ...result.traces].map((trace) =>
-    joinSignalEscapes(trace, result.escapes.filter((escape) =>
-      escape.connection_name === trace.connection_name,
-    )),
+    joinSignalEscapes(
+      trace,
+      result.escapes.filter(
+        (escape) => escape.connection_name === trace.connection_name,
+      ),
+    ),
   )
   expect(joined).toHaveLength(4)
-  expect(blockedPendingConnections(new PendingPadAccess(input), joined)).toEqual([])
+  expect(
+    blockedPendingConnections(new PendingPadAccess(input), joined),
+  ).toEqual([])
   const suppliedConnections = (input.traces ?? []).map((trace) => {
     const first = trace.route[0]
     const last = trace.route.at(-1)!

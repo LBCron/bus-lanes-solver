@@ -44,9 +44,12 @@ test("independent access conflicts can be repaired while other closures remain b
     ).toEqual([])
     expect(
       finish(
-        access.getUncertifiedConnections([...unrelatedPrefix, ...closure.traces], {
-          connection: closure.connection,
-        }),
+        access.getUncertifiedConnections(
+          [...unrelatedPrefix, ...closure.traces],
+          {
+            connection: closure.connection,
+          },
+        ),
       ),
     ).toEqual([closure.connection])
   }

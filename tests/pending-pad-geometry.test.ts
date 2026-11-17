@@ -40,10 +40,7 @@ test("prepared copper retains explicit via spans without applying a non-plated-h
   )
 
   expect(geometry.physical).toEqual(["top", "inner1", "inner2", "bottom"])
-  expect(shapes.map((shape) => shape.layer)).toEqual([
-    "top",
-    "inner1",
-  ])
+  expect(shapes.map((shape) => shape.layer)).toEqual(["top", "inner1"])
   for (const land of shapes) {
     expect(land.radius).toBeCloseTo(0.3, 12)
     expect(land.owners).toEqual(["FOREIGN_NET", "foreign_alias"])
@@ -93,7 +90,9 @@ function compareScenes({
   expect(shared.frame).toEqual(fresh.frame)
   expect(shared.scene.copper).toEqual(fresh.scene.copper)
   expect(
-    shared.scene.copper.every((shape) => geometry.traceSceneCopper.includes(shape)),
+    shared.scene.copper.every((shape) =>
+      geometry.traceSceneCopper.includes(shape),
+    ),
   ).toBe(true)
   const probes: Point[] = [
     { x: 0, y: 0 },
@@ -112,7 +111,9 @@ function compareScenes({
     )
     expect(shared.surfaceExit(point)).toBe(fresh.surfaceExit(point))
     for (const target of geometry.physical)
-      expect(shared.viaSpan(point, target)).toEqual(fresh.viaSpan(point, target))
+      expect(shared.viaSpan(point, target)).toEqual(
+        fresh.viaSpan(point, target),
+      )
   }
 }
 
@@ -161,7 +162,11 @@ test("a prepared union rejects another input even when its geometry compares equ
   expect(
     () =>
       new PendingPadScene(
-        { input: { ...input }, connection: pendingConnection, terminalIndex: 0 },
+        {
+          input: { ...input },
+          connection: pendingConnection,
+          terminalIndex: 0,
+        },
         geometry,
       ),
   ).toThrow("different input")

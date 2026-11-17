@@ -18,7 +18,9 @@ function finish<T>(search: Generator<void, T>): T {
 test("internal peer preservation replaces egress only with a complete original carrier certificate", () => {
   const internal = pendingInternalPeersFixture()
   const internalAccess = new PendingPadAccess(internal.input)
-  const internalReport = finish(internalAccess.getPreservedReport(internal.addedCopper))!
+  const internalReport = finish(
+    internalAccess.getPreservedReport(internal.addedCopper),
+  )!
   expect(internalReport.framedTerminalCount).toBe(0)
   expect(internalReport.peerConnectionCount).toBe(1)
   expect(internalReport.declaredTerminalCount).toBe(2)
@@ -34,9 +36,12 @@ test("internal peer preservation replaces egress only with a complete original c
   expect(originalReport.peerConnectionCount).toBe(0)
   const blocked = finish(stubAccess.getBlockedObligations(stub.addedCopper))
   expect(blocked.length).toBeGreaterThan(0)
-  expect(blocked.every((obligation) => obligation.kind === "terminal")).toBe(true)
-  expect(() => finish(stubAccess.getPreservedReport(stub.addedCopper)))
-    .toThrow("Routing could not certify access")
+  expect(blocked.every((obligation) => obligation.kind === "terminal")).toBe(
+    true,
+  )
+  expect(() => finish(stubAccess.getPreservedReport(stub.addedCopper))).toThrow(
+    "Routing could not certify access",
+  )
   expect(stub.input).toEqual(original)
 })
 
@@ -44,11 +49,16 @@ test("an eligible but disconnected original peer forest retains positive local e
   const { input } = pendingInternalPeersFixture()
   input.pendingRoutingAccess![0].minViaPadDiameter = 20
   input.obstacles.push({
-    type: "rect", center: { x: 0, y: 0 }, width: 0.1, height: 12,
-    layers: ["top"], connectedTo: ["SUPPLIED_SEPARATOR"],
+    type: "rect",
+    center: { x: 0, y: 0 },
+    width: 0.1,
+    height: 12,
+    layers: ["top"],
+    connectedTo: ["SUPPLIED_SEPARATOR"],
   })
   const fence: Trace = {
-    type: "pcb_trace", pcb_trace_id: "left_egress_fence",
+    type: "pcb_trace",
+    pcb_trace_id: "left_egress_fence",
     connection_name: "LEFT_EGRESS_FENCE",
     route: [
       { x: -0.2, y: -0.5, route_type: "wire", layer: "top", width: 0.1 },
@@ -57,10 +67,13 @@ test("an eligible but disconnected original peer forest retains positive local e
       { x: -0.2, y: 0.5, route_type: "wire", layer: "top", width: 0.1 },
     ],
   }
-  expect(new CopperConflictIndex().firstConflict(
-    fixedCopper({ ...input, obstacles: [], traces: [fence] }),
-    fixedCopper(input), 0.1 - 1e-8,
-  )).toBeUndefined()
+  expect(
+    new CopperConflictIndex().firstConflict(
+      fixedCopper({ ...input, obstacles: [], traces: [fence] }),
+      fixedCopper(input),
+      0.1 - 1e-8,
+    ),
+  ).toBeUndefined()
   const access = new PendingPadAccess(input)
   const baseline = finish(access.getPreservedReport([]))!
   expect(baseline.framedTerminalCount).toBe(2)
@@ -74,11 +87,16 @@ test("an eligible but disconnected original peer forest retains positive local e
 test("an unknown internal original carrier search cannot erase egress obligations", () => {
   const { input } = pendingInternalPeersFixture()
   input.pendingRoutingAccess![0].bounds = {
-    minX: -1e8, maxX: 1e8, minY: -1e8, maxY: 1e8,
+    minX: -1e8,
+    maxX: 1e8,
+    minY: -1e8,
+    maxY: 1e8,
   }
   const access = new PendingPadAccess(input)
-  expect(() => finish(access.getUncertifiedConnections([])))
-    .toThrow(PendingPeerAccessUnknownError)
-  expect(() => finish(access.getUncertifiedConnections([])))
-    .toThrow(PendingPeerAccessUnknownError)
+  expect(() => finish(access.getUncertifiedConnections([]))).toThrow(
+    PendingPeerAccessUnknownError,
+  )
+  expect(() => finish(access.getUncertifiedConnections([]))).toThrow(
+    PendingPeerAccessUnknownError,
+  )
 })

@@ -56,13 +56,15 @@ test("pending repair exhaustion stays unknown and publishes no partial route or 
   let output: Trace[] | null | undefined
   let failure: unknown
   try {
-    output = drain(routePendingAccess({
-      input,
-      traces,
-      options: {},
-      maxSteps: 1,
-      access,
-    }))
+    output = drain(
+      routePendingAccess({
+        input,
+        traces,
+        options: {},
+        maxSteps: 1,
+        access,
+      }),
+    )
   } catch (error) {
     failure = error
   }

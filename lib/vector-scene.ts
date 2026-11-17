@@ -392,25 +392,35 @@ export class VectorScene {
     clearances?: ReadonlyMap<Copper, number>
   }): VectorScene {
     return new VectorScene(request.input, request.connection, request.width, {
-      copper: request.copper, owners: request.owners, clearances: request.clearances,
+      copper: request.copper,
+      owners: request.owners,
+      clearances: request.clearances,
     })
   }
   constructor(
     readonly input: SimpleRouteJson,
     readonly connection: Connection,
     readonly width: number,
-    all: Copper[] | { copper: Copper[]; owners: ReadonlySet<string>; clearances?: ReadonlyMap<Copper, number> },
+    all:
+      | Copper[]
+      | {
+          copper: Copper[]
+          owners: ReadonlySet<string>
+          clearances?: ReadonlyMap<Copper, number>
+        },
   ) {
-    this.owners = Array.isArray(all) ? new Set(
-      [
-        connection.name,
-        connection.source_trace_id,
-        ...connection.pointsToConnect.flatMap((p) => [
-          p.pointId,
-          p.pcb_port_id,
-        ]),
-      ].filter((s): s is string => !!s),
-    ) : all.owners
+    this.owners = Array.isArray(all)
+      ? new Set(
+          [
+            connection.name,
+            connection.source_trace_id,
+            ...connection.pointsToConnect.flatMap((p) => [
+              p.pointId,
+              p.pcb_port_id,
+            ]),
+          ].filter((s): s is string => !!s),
+        )
+      : all.owners
     this.copper = (Array.isArray(all) ? all : all.copper).filter(
       (c) =>
         c.layer === connection.pointsToConnect[0].layer &&
@@ -421,7 +431,10 @@ export class VectorScene {
       (input.minTraceToPadEdgeClearance ?? input.defaultObstacleMargin ?? 0.075)
     this.clearanceOverrides = Array.isArray(all) ? undefined : all.clearances
     this.maximumMargin = this.clearanceOverrides
-      ? this.copper.reduce((maximum, copper) => Math.max(maximum, this.marginFor(copper)), this.margin)
+      ? this.copper.reduce(
+          (maximum, copper) => Math.max(maximum, this.marginFor(copper)),
+          this.margin,
+        )
       : this.margin
   }
   /** Explicit pending query policies only; ordinary scenes keep their original
@@ -452,7 +465,14 @@ export class VectorScene {
       this.copperIndex = new CopperIndex(this.copper)
     if (this.copperIndex)
       return !this.copperIndex.some({ minX, maxX, minY, maxY }, (c) =>
-        copperTooClose(a, b, c, this.clearanceOverrides ? this.marginFor(c) - 1e-8 : this.margin - 1e-8),
+        copperTooClose(
+          a,
+          b,
+          c,
+          this.clearanceOverrides
+            ? this.marginFor(c) - 1e-8
+            : this.margin - 1e-8,
+        ),
       )
     for (const c of this.copper) {
       const r = c.rect ?? {
@@ -463,7 +483,17 @@ export class VectorScene {
       }
       if (r.minX > maxX || r.maxX < minX || r.minY > maxY || r.maxY < minY)
         continue
-      if (copperTooClose(a, b, c, this.clearanceOverrides ? this.marginFor(c) - 1e-8 : this.margin - 1e-8)) return false
+      if (
+        copperTooClose(
+          a,
+          b,
+          c,
+          this.clearanceOverrides
+            ? this.marginFor(c) - 1e-8
+            : this.margin - 1e-8,
+        )
+      )
+        return false
     }
     return true
   }
@@ -487,7 +517,9 @@ export class VectorScene {
     for (const c of this.copper) {
       if (c.rect) {
         const r = c.orientedRect?.rect ?? c.rect,
-          m = (this.clearanceOverrides ? this.marginFor(c) : this.margin) + epsilon
+          m =
+            (this.clearanceOverrides ? this.marginFor(c) : this.margin) +
+            epsilon
         const corners = [
           { x: r.minX - m, y: r.minY - m },
           { x: r.minX - m, y: r.maxY + m },
@@ -500,7 +532,10 @@ export class VectorScene {
           else result.push(corner)
         }
       } else {
-        const r = c.radius + (this.clearanceOverrides ? this.marginFor(c) : this.margin) + epsilon
+        const r =
+          c.radius +
+          (this.clearanceOverrides ? this.marginFor(c) : this.margin) +
+          epsilon
         for (const p of distance(c.a, c.b) < 1e-9 ? [c.a] : [c.a, c.b])
           for (const [x, y] of [
             [1, k],

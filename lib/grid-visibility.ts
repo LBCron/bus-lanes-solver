@@ -527,7 +527,9 @@ export class GridVisibilitySearch extends GridHistoryProjector {
         c.radius,
         c.rect,
         c.orientedRect,
-        ...(scene.clearanceOverrides?.has(c) ? [scene.clearanceOverrides.get(c)] : []),
+        ...(scene.clearanceOverrides?.has(c)
+          ? [scene.clearanceOverrides.get(c)]
+          : []),
       ]),
     ])
     let cachedGrid = grids.get(gridKey)
@@ -616,7 +618,9 @@ export class GridVisibilitySearch extends GridHistoryProjector {
       }
       for (const copper of scene.copper) {
         copperStamp++
-        const margin = scene.clearanceOverrides ? scene.marginFor(copper) : scene.margin
+        const margin = scene.clearanceOverrides
+          ? scene.marginFor(copper)
+          : scene.margin
         const entry = copperEntry(copper, margin)
         if (scene.clearanceOverrides?.has(copper)) entry.margin = margin
         const r = margin + copper.radius

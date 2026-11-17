@@ -56,7 +56,9 @@ interface PendingPeerObligation {
 /** Stable physical obligations, independent of the currently failed witness.
  * One connection may have several independently blocked native terminals or
  * baseline peer links, including repeated declarations in future phases. */
-export type PendingAccessObligation = PendingTerminalObligation | PendingPeerObligation
+export type PendingAccessObligation =
+  | PendingTerminalObligation
+  | PendingPeerObligation
 
 type CandidateCopperKey = string
 
@@ -91,86 +93,136 @@ export class PendingPadAccess {
   private readonly terminals: PendingTerminal[]
   private readonly declaredConnections: ReadonlySet<Connection>
   private readonly peers: PendingPeer[] = []
-  private readonly results = new Map<CandidateCopperKey, PendingAccessObligation[]>()
+  private readonly results = new Map<
+    CandidateCopperKey,
+    PendingAccessObligation[]
+  >()
   private readonly declaredObligations = new Set<PendingAccessObligation>()
   private readonly changedViews = new Map<SimpleRouteJson, ChangedInputView[]>()
-  private readonly baselineGeometry = new Map<SimpleRouteJson, PendingPadGeometry>()
+  private readonly baselineGeometry = new Map<
+    SimpleRouteJson,
+    PendingPadGeometry
+  >()
   private ownership?: PendingCopperOwnership
 
   constructor(private readonly input: SimpleRouteJson) {
     validatePendingRoutingAccess(input)
     this.declaredConnections = new Set(
-      (input.pendingRoutingAccess ?? []).flatMap((intent) => intent.connections),
+      (input.pendingRoutingAccess ?? []).flatMap(
+        (intent) => intent.connections,
+      ),
     )
-    this.terminals = (input.pendingRoutingAccess ?? []).flatMap((intent, phaseIndex) => {
-      const future = this.futureInput(intent)
-      return intent.connections.flatMap((connection) => {
-        let geometry = this.baselineGeometry.get(future)
-        if (!geometry) {
-          this.ownership ??= new PendingCopperOwnership(input)
-          geometry = new PendingPadGeometry(future, this.ownership)
-          this.baselineGeometry.set(future, geometry)
-        }
-        const frames = connection.pointsToConnect.map((_, terminalIndex) =>
-          pendingTerminalPackageFrame({
-            input: future,
-            connection,
-            terminalIndex,
-          }, geometry),
-        )
-        if (frames.some((frame) => !frame))
-          this.peers.push({
-            input: future,
-            connection,
-            access: new PendingPeerAccess(future, { connection, ownership: geometry.ownership }),
-            phaseIndex,
-            obligations: new Map(),
-          })
-        const terminals: PendingTerminal[] = connection.pointsToConnect.flatMap((_, terminalIndex) => {
-          if (!frames[terminalIndex]) return []
-          const obligation: PendingTerminalObligation = Object.freeze({
-            kind: "terminal", connection, phaseIndex, terminalIndex,
-          })
-          this.declaredObligations.add(obligation)
-          return [{ input: future, connection, terminalIndex, witnesses: [], obligation }]
+    this.terminals = (input.pendingRoutingAccess ?? []).flatMap(
+      (intent, phaseIndex) => {
+        const future = this.futureInput(intent)
+        return intent.connections.flatMap((connection) => {
+          let geometry = this.baselineGeometry.get(future)
+          if (!geometry) {
+            this.ownership ??= new PendingCopperOwnership(input)
+            geometry = new PendingPadGeometry(future, this.ownership)
+            this.baselineGeometry.set(future, geometry)
+          }
+          const frames = connection.pointsToConnect.map((_, terminalIndex) =>
+            pendingTerminalPackageFrame(
+              {
+                input: future,
+                connection,
+                terminalIndex,
+              },
+              geometry,
+            ),
+          )
+          if (frames.some((frame) => !frame))
+            this.peers.push({
+              input: future,
+              connection,
+              access: new PendingPeerAccess(future, {
+                connection,
+                ownership: geometry.ownership,
+              }),
+              phaseIndex,
+              obligations: new Map(),
+            })
+          const terminals: PendingTerminal[] =
+            connection.pointsToConnect.flatMap((_, terminalIndex) => {
+              if (!frames[terminalIndex]) return []
+              const obligation: PendingTerminalObligation = Object.freeze({
+                kind: "terminal",
+                connection,
+                phaseIndex,
+                terminalIndex,
+              })
+              this.declaredObligations.add(obligation)
+              return [
+                {
+                  input: future,
+                  connection,
+                  terminalIndex,
+                  witnesses: [],
+                  obligation,
+                },
+              ]
+            })
+          // An internal connection may be completed without leaving its package.
+          // Use the same width-expanded field as the native escape predicate.
+          // The alternate criterion is activated only by a complete positive
+          // original carrier certificate, never an empty/disconnected forest.
+          const carriers = effectiveCarrierLayers(future, connection)
+          // A forbidden native layer already needs a manufactured/owned carrier
+          // handoff, which the framed predicate permits inside the field. Only
+          // native carrier layers can introduce the extra field-exit demand.
+          // Explicit multilayer terminals use their entire native layer set.
+          const hasNativeCarrier = connection.pointsToConnect.some((terminal) =>
+            (terminal.layers ?? [terminal.layer]).some((layer) =>
+              carriers.includes(layer),
+            ),
+          )
+          const internal =
+            hasNativeCarrier &&
+            connection.pointsToConnect.length >= 2 &&
+            frames.every(
+              (frame) =>
+                frame &&
+                connection.pointsToConnect.every(
+                  (point) =>
+                    !pendingPointIsOutsidePackage({
+                      point,
+                      frame,
+                      marginMm: signalWidth(future, connection) / 2,
+                    }),
+                ),
+            )
+          if (internal)
+            this.peers.push({
+              input: future,
+              connection,
+              phaseIndex,
+              access: PendingPeerAccess.forInternalPackage(future, {
+                connection,
+                ownership: geometry.ownership,
+              }),
+              obligations: new Map(),
+              internalTerminals: terminals,
+            })
+          return terminals
         })
-        // An internal connection may be completed without leaving its package.
-        // Use the same width-expanded field as the native escape predicate.
-        // The alternate criterion is activated only by a complete positive
-        // original carrier certificate, never an empty/disconnected forest.
-        const carriers = effectiveCarrierLayers(future, connection)
-        // A forbidden native layer already needs a manufactured/owned carrier
-        // handoff, which the framed predicate permits inside the field. Only
-        // native carrier layers can introduce the extra field-exit demand.
-        // Explicit multilayer terminals use their entire native layer set.
-        const hasNativeCarrier = connection.pointsToConnect.some((terminal) =>
-          (terminal.layers ?? [terminal.layer]).some((layer) => carriers.includes(layer)),
-        )
-        const internal = hasNativeCarrier && connection.pointsToConnect.length >= 2 && frames.every((frame) =>
-          frame && connection.pointsToConnect.every((point) =>
-            !pendingPointIsOutsidePackage({ point, frame, marginMm: signalWidth(future, connection) / 2 }),
-          ),
-        )
-        if (internal)
-          this.peers.push({
-            input: future, connection, phaseIndex,
-            access: PendingPeerAccess.forInternalPackage(future, { connection, ownership: geometry.ownership }),
-            obligations: new Map(), internalTerminals: terminals,
-          })
-        return terminals
-      })
-    })
+      },
+    )
   }
 
-  private *resolveInternalPeers(requestedConnection: (connection: Connection) => boolean): Generator<void> {
+  private *resolveInternalPeers(
+    requestedConnection: (connection: Connection) => boolean,
+  ): Generator<void> {
     for (const peer of this.peers) {
       if (!peer.internalTerminals || peer.internalActive !== undefined) continue
       if (!requestedConnection(peer.connection)) continue
       const links = yield* peer.access.getBaselineLinks()
       // A cancelled or unknown search cannot publish an activation decision.
-      peer.internalActive = links.length === peer.connection.pointsToConnect.length - 1
+      peer.internalActive =
+        links.length === peer.connection.pointsToConnect.length - 1
       if (peer.internalActive)
-        for (const terminal of peer.internalTerminals) terminal.suppressed = true
+        for (const terminal of peer.internalTerminals)
+          terminal.suppressed = true
     }
   }
 
@@ -187,7 +239,9 @@ export class PendingPadAccess {
 
   getConnectionOwners(connection: Connection): ReadonlySet<string> {
     if (!this.declaredConnections.has(connection) || !this.ownership)
-      throw Error("Pending ownership query must reference a declared future connection")
+      throw Error(
+        "Pending ownership query must reference a declared future connection",
+      )
     return this.ownership.owners(connection)
   }
 
@@ -197,7 +251,9 @@ export class PendingPadAccess {
     return null
   }
 
-  get unknownCount(): number { return this.uncertifiedSearches }
+  get unknownCount(): number {
+    return this.uncertifiedSearches
+  }
 
   private leaseChangedInput({
     future,
@@ -238,7 +294,10 @@ export class PendingPadAccess {
     additionalTraces: readonly Trace[],
     scope?: PendingAccessQueryScope,
   ): Generator<void, Connection[]> {
-    const uncertified = yield* this.getUncertifiedConnections(additionalTraces, scope)
+    const uncertified = yield* this.getUncertifiedConnections(
+      additionalTraces,
+      scope,
+    )
     if (uncertified.length) throw new PendingAccessSearchUnknownError()
     return []
   }
@@ -258,11 +317,13 @@ export class PendingPadAccess {
     scope?: PendingAccessQueryScope,
   ): Generator<void, PendingAccessObligation[]> {
     const target = scope?.connection
-    const requestedConnections = scope?.connections && new Set(scope.connections)
+    const requestedConnections =
+      scope?.connections && new Set(scope.connections)
     const stopAfterFirst = scope?.stopAfterFirst === true
     const requireCertificates = scope?.requireCertificates === true
     const targetObligation = scope?.obligation
-    const excludedObligations = scope?.excludedObligations && new Set(scope.excludedObligations)
+    const excludedObligations =
+      scope?.excludedObligations && new Set(scope.excludedObligations)
     if (target && !this.declaredConnections.has(target))
       throw Error("Pending access query must reference a declared connection")
     for (const connection of requestedConnections ?? [])
@@ -273,7 +334,9 @@ export class PendingPadAccess {
       ...(excludedObligations ?? []),
     ])
       if (!this.declaredObligations.has(obligation))
-        throw Error("Pending access query must reference declared physical obligations")
+        throw Error(
+          "Pending access query must reference declared physical obligations",
+        )
     const requestedConnection = (connection: Connection) =>
       (!target || connection === target) &&
       (!requestedConnections || requestedConnections.has(connection))
@@ -331,7 +394,10 @@ export class PendingPadAccess {
             geometry = new PendingPadGeometry(terminal.input, this.ownership)
             this.baselineGeometry.set(terminal.input, geometry)
           }
-          terminal.baseline = yield* new PendingPadEscapeCheck(request, geometry).findEscape()
+          terminal.baseline = yield* new PendingPadEscapeCheck(
+            request,
+            geometry,
+          ).findEscape()
           if (terminal.baseline) terminal.witnesses.push(terminal.baseline)
           else this.uncertifiedSearches++
         }
@@ -345,8 +411,10 @@ export class PendingPadAccess {
           continue
         }
         const lease = changedInput(terminal.input)
-        lease.geometry ??= new PendingPadGeometry(lease.input,
-          this.baselineGeometry.get(terminal.input)!.ownership)
+        lease.geometry ??= new PendingPadGeometry(
+          lease.input,
+          this.baselineGeometry.get(terminal.input)!.ownership,
+        )
         const check = new PendingPadEscapeCheck(
           { ...request, input: lease.input },
           lease.geometry,
@@ -366,8 +434,12 @@ export class PendingPadAccess {
       for (const peer of this.peers) {
         if (peer.internalTerminals && !peer.internalActive) continue
         if (!requestedConnection(peer.connection)) continue
-        if (targetObligation && (targetObligation.kind !== "peer" ||
-          targetObligation.connection !== peer.connection || targetObligation.phaseIndex !== peer.phaseIndex))
+        if (
+          targetObligation &&
+          (targetObligation.kind !== "peer" ||
+            targetObligation.connection !== peer.connection ||
+            targetObligation.phaseIndex !== peer.phaseIndex)
+        )
           continue
         if (!newTraces.length && !requireCertificates) continue
         const links = yield* peer.access.getRequiredLinks()
@@ -376,7 +448,10 @@ export class PendingPadAccess {
           let obligation = peer.obligations.get(link)
           if (!obligation) {
             obligation = Object.freeze({
-              kind: "peer", connection: peer.connection, phaseIndex: peer.phaseIndex, link,
+              kind: "peer",
+              connection: peer.connection,
+              phaseIndex: peer.phaseIndex,
+              link,
             })
             peer.obligations.set(link, obligation)
             this.declaredObligations.add(obligation)
@@ -386,7 +461,9 @@ export class PendingPadAccess {
         if (!selected.size) continue
         const { input } = changedInput(peer.input)
         const blockedLinks = yield* peer.access.getBlockedLinks(input, {
-          links: selected, stopAfterFirst, requireCertificates,
+          links: selected,
+          stopAfterFirst,
+          requireCertificates,
         })
         for (const link of blockedLinks) {
           this.uncertifiedSearches++
@@ -401,8 +478,16 @@ export class PendingPadAccess {
       // witness check instead of an approximate or identity-based cache key.
       // Filtered and first-blocker answers do not enumerate the full result
       // set. They must never populate its cache or bypass global acceptance.
-      if (!answer.length && newTraces.length && !target && !requestedConnections && !targetObligation && !excludedObligations &&
-        !stopAfterFirst && key.length <= 262144) {
+      if (
+        !answer.length &&
+        newTraces.length &&
+        !target &&
+        !requestedConnections &&
+        !targetObligation &&
+        !excludedObligations &&
+        !stopAfterFirst &&
+        key.length <= 262144
+      ) {
         if (this.results.size >= 8)
           this.results.delete(this.results.keys().next().value!)
         this.results.set(key, answer)
@@ -421,10 +506,13 @@ export class PendingPadAccess {
   ): Generator<void, PendingRoutingAccessReport | undefined> {
     const groups = this.input.pendingRoutingAccess
     if (!groups?.length) return undefined
-    const blocked = yield* this.getBlockedObligations(traces, { requireCertificates: true })
-    if (blocked.length)
-      throw new PendingAccessSearchUnknownError()
-    const framedTerminals = this.terminals.filter((terminal) => !terminal.suppressed)
+    const blocked = yield* this.getBlockedObligations(traces, {
+      requireCertificates: true,
+    })
+    if (blocked.length) throw new PendingAccessSearchUnknownError()
+    const framedTerminals = this.terminals.filter(
+      (terminal) => !terminal.suppressed,
+    )
     if (framedTerminals.some((terminal) => terminal.baseline === undefined))
       throw Error("Pending terminal baseline validation is incomplete")
     const connections = groups.flatMap((group) => group.connections)
@@ -445,10 +533,16 @@ export class PendingPadAccess {
       ).length,
       // The finite search supplies no certified continuous negative proof.
       baselineInaccessibleFramedTerminalCount: 0,
-      ...(framedTerminals.some(terminal => terminal.baseline === null) ? {
-        baselineUnresolvedFramedTerminalCount: framedTerminals.filter(terminal => terminal.baseline === null).length,
-      } : {}),
-      peerConnectionCount: this.peers.filter((peer) => !peer.internalTerminals || peer.internalActive).length,
+      ...(framedTerminals.some((terminal) => terminal.baseline === null)
+        ? {
+            baselineUnresolvedFramedTerminalCount: framedTerminals.filter(
+              (terminal) => terminal.baseline === null,
+            ).length,
+          }
+        : {}),
+      peerConnectionCount: this.peers.filter(
+        (peer) => !peer.internalTerminals || peer.internalActive,
+      ).length,
       validatedTraceCount: traceIds.size,
       newlyBlockedConnectionNames: [],
     }

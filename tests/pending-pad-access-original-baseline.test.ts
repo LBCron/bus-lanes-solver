@@ -69,8 +69,9 @@ test("recovering an unresolved original does not erase its certificate requireme
 
   const originalAccess = new PendingPadAccess(input)
   expect(blockedPendingConnections(originalAccess, [])).toEqual([])
-  expect(() => finish(originalAccess.getPreservedReport([])))
-    .toThrow(PendingAccessSearchUnknownError)
+  expect(() => finish(originalAccess.getPreservedReport([]))).toThrow(
+    PendingAccessSearchUnknownError,
+  )
 
   // This deliberately rebased oracle is the counterfactual. The production
   // search must continue using originalAccess, not initialize this new baseline.
@@ -87,12 +88,15 @@ test("recovering an unresolved original does not erase its certificate requireme
   expect(after.baselineAccessibleFramedTerminalCount).toBe(0)
   expect(after.baselineInaccessibleFramedTerminalCount).toBe(0)
   expect(after.baselineUnresolvedFramedTerminalCount).toBe(2)
-  expect(blockedPendingConnections(originalAccess, [owned, foreign])).toEqual([pendingConnection])
-  expect(() => finish(originalAccess.getPreservedReport([owned, foreign])))
-    .toThrow(PendingAccessSearchUnknownError)
+  expect(blockedPendingConnections(originalAccess, [owned, foreign])).toEqual([
+    pendingConnection,
+  ])
+  expect(() =>
+    finish(originalAccess.getPreservedReport([owned, foreign])),
+  ).toThrow(PendingAccessSearchUnknownError)
   expect(blockedPendingConnections(originalAccess, [owned])).toEqual([])
-  expect(blockedPendingConnections(originalAccess, [owned, foreign])).toEqual(
-    [pendingConnection],
-  )
+  expect(blockedPendingConnections(originalAccess, [owned, foreign])).toEqual([
+    pendingConnection,
+  ])
   expect(input).toEqual(original)
 })

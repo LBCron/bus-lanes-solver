@@ -27,17 +27,26 @@ export function* routePendingAccess({
   // Negotiation and timing consume planar carriers with owned approaches.
   // Completed native output includes those approaches already: recover their
   // representation without changing manufactured geometry or fixed copper.
-  const knownIds = new Set([...(input.traces ?? []), ...traces].map((trace) => trace.pcb_trace_id))
-  const fixedIds = new Set((input.traces ?? []).map((trace) => trace.pcb_trace_id))
-  const seeds = traces.filter((trace) => !fixedIds.has(trace.pcb_trace_id)).map((trace) => {
-    const connection = input.connections.find((connection) => connection.name === trace.connection_name)
-    if (!connection) return { carrier: trace, escapes: [] }
-    const split = splitCompleteSurfaceTrace(trace, {
-      carrierLayers: signalLayers(input, connection), usedTraceIds: knownIds,
+  const knownIds = new Set(
+    [...(input.traces ?? []), ...traces].map((trace) => trace.pcb_trace_id),
+  )
+  const fixedIds = new Set(
+    (input.traces ?? []).map((trace) => trace.pcb_trace_id),
+  )
+  const seeds = traces
+    .filter((trace) => !fixedIds.has(trace.pcb_trace_id))
+    .map((trace) => {
+      const connection = input.connections.find(
+        (connection) => connection.name === trace.connection_name,
+      )
+      if (!connection) return { carrier: trace, escapes: [] }
+      const split = splitCompleteSurfaceTrace(trace, {
+        carrierLayers: signalLayers(input, connection),
+        usedTraceIds: knownIds,
+      })
+      for (const approach of split.escapes) knownIds.add(approach.pcb_trace_id)
+      return split
     })
-    for (const approach of split.escapes) knownIds.add(approach.pcb_trace_id)
-    return split
-  })
   const joint = yield* runBoundedRouting(
     negotiateSurfaceRoutes(input, {
       native: input,
@@ -48,9 +57,10 @@ export function* routePendingAccess({
     }),
     {
       maxSteps,
-      onExhausted: () => new PendingRoutingWorkBudgetExceeded(
-        "Pending routing repair exhausted its cooperative step budget",
-      ),
+      onExhausted: () =>
+        new PendingRoutingWorkBudgetExceeded(
+          "Pending routing repair exhausted its cooperative step budget",
+        ),
     },
   )
   if (!joint) return access.noSolution()

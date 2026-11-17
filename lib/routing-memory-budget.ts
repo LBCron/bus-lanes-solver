@@ -60,7 +60,9 @@ export class RoutingMemoryBudgetExceeded extends Error {
 export class PendingRoutingWorkBudgetExceeded extends Error {
   readonly code = "search_expansion_budget_exhausted"
 
-  constructor(message = "Pending routing search exhausted its aggregate expansion budget") {
+  constructor(
+    message = "Pending routing search exhausted its aggregate expansion budget",
+  ) {
     super(message)
     this.name = "PendingRoutingWorkBudgetExceeded"
   }

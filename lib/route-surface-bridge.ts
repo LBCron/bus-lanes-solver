@@ -9,7 +9,10 @@ import { joinSignalEscapes } from "./join-signal-escapes"
 import { tuningPathIsSelfClear } from "./length-tuning"
 import { MinHeap } from "./min-heap"
 import { PendingTerminalHomology } from "./pending-terminal-homology"
-import { PendingSurfaceSearch, type PendingSurfacePass } from "./pending-surface-search"
+import {
+  PendingSurfaceSearch,
+  type PendingSurfacePass,
+} from "./pending-surface-search"
 import { PendingAccessSearchUnknownError } from "./pending-access-search-unknown"
 import {
   RoutingMemoryBudget,
@@ -58,7 +61,9 @@ export interface SurfaceBridgeOptions {
   maxGridCells?: number
   /** A complete materialized route must also satisfy any collective physical
    * constraint. Rejected goals leave the ordinary search frontier active. */
-  acceptRoute?: (route: SurfaceBridgeRoute) => Generator<void, boolean | { accepted: boolean; uncertified?: boolean }>
+  acceptRoute?: (
+    route: SurfaceBridgeRoute,
+  ) => Generator<void, boolean | { accepted: boolean; uncertified?: boolean }>
 }
 export interface SurfaceBridgeRoute {
   carrier: Trace
@@ -123,7 +128,9 @@ export function surfaceBridgeEligible(
 
 class RefinePendingSurfaceCuts extends Error {}
 class DiversifyPendingViaCount extends Error {
-  constructor(readonly viaCount: number) { super() }
+  constructor(readonly viaCount: number) {
+    super()
+  }
 }
 
 /** Preserve the legacy search when no pending predicate is supplied. Pending
@@ -135,24 +142,40 @@ export function* routeSurfaceBridge(
   connection: Connection,
   options: SurfaceBridgeOptions = {},
 ): Generator<void, SurfaceBridgeRoute | null> {
-  if (!input.pendingRoutingAccess?.length || !options.acceptRoute ||
-    !options.pendingAccessFeedback || !surfaceBridgeEligible(input, connection))
+  if (
+    !input.pendingRoutingAccess?.length ||
+    !options.acceptRoute ||
+    !options.pendingAccessFeedback ||
+    !surfaceBridgeEligible(input, connection)
+  )
     return yield* routeSurfaceBridgePass({ input, connection, options })
   const maximumExpansions = options.maxExpansions ?? 1_500_000
-  if (!Number.isSafeInteger(maximumExpansions) || maximumExpansions < 0 ||
-    (options.maxVias !== undefined && options.maxVias !== 2 && options.maxVias !== 4))
+  if (
+    !Number.isSafeInteger(maximumExpansions) ||
+    maximumExpansions < 0 ||
+    (options.maxVias !== undefined &&
+      options.maxVias !== 2 &&
+      options.maxVias !== 4)
+  )
     return yield* routeSurfaceBridgePass({ input, connection, options })
   const physical = getCopperLayerNames(input.layerCount)
   const surface = connection.pointsToConnect[0].layer
   const inner = innerCarrier(input)
-  const bridge = inner ?? (surface === physical[0] ? physical.at(-1)! : physical[0])
+  const bridge =
+    inner ?? (surface === physical[0] ? physical.at(-1)! : physical[0])
   const carriers = signalLayers(input, connection)
   const viaCounts = [
     ...(carriers.includes(surface) ? [0] : []),
     ...(carriers.includes(bridge) ? [2] : []),
-    ...(!inner && carriers.includes(bridge) && options.maxVias === 4 ? [4] : []),
+    ...(!inner && carriers.includes(bridge) && options.maxVias === 4
+      ? [4]
+      : []),
   ]
-  const search = new PendingSurfaceSearch({ input, maximumExpansions, viaCounts })
+  const search = new PendingSurfaceSearch({
+    input,
+    maximumExpansions,
+    viaCounts,
+  })
   const runPass = function* (
     pass: PendingSurfacePass,
     allowDiversity: boolean,
@@ -189,19 +212,29 @@ export function* routeSurfaceBridge(
                 learnedCuts = search.activate(cached) || learnedCuts
                 return false
               }
-              let verdict: boolean | { accepted: boolean; uncertified?: boolean }
+              let verdict:
+                | boolean
+                | { accepted: boolean; uncertified?: boolean }
               let callbackUnknown = false
               try {
                 verdict = yield* options.acceptRoute!(route)
               } catch (error) {
-                if (!(error instanceof PendingAccessSearchUnknownError)) throw error
+                if (!(error instanceof PendingAccessSearchUnknownError))
+                  throw error
                 callbackUnknown = true
                 verdict = { accepted: false, uncertified: true }
               }
-              const uncertified = typeof verdict !== "boolean" && verdict.uncertified === true
+              const uncertified =
+                typeof verdict !== "boolean" && verdict.uncertified === true
               if (uncertified) search.uncertified()
-              if (!uncertified && (typeof verdict === "boolean" ? verdict : verdict.accepted)) return true
-              const terminals = callbackUnknown ? [] : options.pendingAccessFeedback!()
+              if (
+                !uncertified &&
+                (typeof verdict === "boolean" ? verdict : verdict.accepted)
+              )
+                return true
+              const terminals = callbackUnknown
+                ? []
+                : options.pendingAccessFeedback!()
               search.reject(key, { terminals, uncertified })
               learnedCuts = search.activate(terminals) || learnedCuts
               return false
@@ -223,8 +256,10 @@ export function* routeSurfaceBridge(
     } catch (error) {
       if (error instanceof DiversifyPendingViaCount)
         rejectedViaCount = error.viaCount
-      else if (error instanceof RoutingMemoryBudgetExceeded ||
-        error instanceof PendingRoutingWorkBudgetExceeded)
+      else if (
+        error instanceof RoutingMemoryBudgetExceeded ||
+        error instanceof PendingRoutingWorkBudgetExceeded
+      )
         search.unknown(error)
       else throw error
     }
@@ -233,8 +268,11 @@ export function* routeSurfaceBridge(
         const result = yield* runPass(pass, false)
         if (result) return result
       } catch (error) {
-        if (!(error instanceof RoutingMemoryBudgetExceeded) &&
-          !(error instanceof PendingRoutingWorkBudgetExceeded)) throw error
+        if (
+          !(error instanceof RoutingMemoryBudgetExceeded) &&
+          !(error instanceof PendingRoutingWorkBudgetExceeded)
+        )
+          throw error
         search.unknown(error)
       }
     }
@@ -631,8 +669,12 @@ function* routeSurfaceBridgePass({
   // scalar-state allocation plus the existing expansion work allocation.
   const labelBytes = 256
   const expansionBudget = options.maxExpansions ?? 1_500_000
-  const memoryLimit = stateCapacity * Float64Array.BYTES_PER_ELEMENT +
-    Math.ceil(Math.max(0, pending?.search.maximumExpansions ?? expansionBudget)) * labelBytes
+  const memoryLimit =
+    stateCapacity * Float64Array.BYTES_PER_ELEMENT +
+    Math.ceil(
+      Math.max(0, pending?.search.maximumExpansions ?? expansionBudget),
+    ) *
+      labelBytes
   const memory = input.pendingRoutingAccess?.length
     ? pending
       ? pending.search.attachMemory(memoryLimit)
@@ -647,16 +689,24 @@ function* routeSurfaceBridgePass({
   let homology: PendingTerminalHomology | undefined
   let enriched: SurfaceLabelCosts | undefined
   try {
-    homology = accountingInput.pendingRoutingAccess?.some((group) => group.connections.length)
+    homology = accountingInput.pendingRoutingAccess?.some(
+      (group) => group.connections.length,
+    )
       ? new PendingTerminalHomology(accountingInput, memory)
       : undefined
-    if (!homology && memory &&
-      !memory.reserve(stateCapacity * Float64Array.BYTES_PER_ELEMENT))
+    if (
+      !homology &&
+      memory &&
+      !memory.reserve(stateCapacity * Float64Array.BYTES_PER_ELEMENT)
+    )
       throw new RoutingMemoryBudgetExceeded()
     const costs = homology ? undefined : new Float64Array(stateCapacity)
     costs?.fill(Infinity)
     enriched = homology
-      ? new SurfaceLabelCosts({ physicalStates: stateCapacity, memory: memory! })
+      ? new SurfaceLabelCosts({
+          physicalStates: stateCapacity,
+          memory: memory!,
+        })
       : undefined
     const dominated = (
       label: Pick<Label, "id" | "signature" | "g" | "routeLength">,
@@ -742,16 +792,25 @@ function* routeSurfaceBridgePass({
             fixed,
             { softTraces, pending: refinePendingSurface },
           )
-          if (result && length(joinSignalEscapes(result.carrier, result.escapes).route) <= maxLength + 1e-8) {
+          if (
+            result &&
+            length(joinSignalEscapes(result.carrier, result.escapes).route) <=
+              maxLength + 1e-8
+          ) {
             let verdict: boolean | { accepted: boolean; uncertified?: boolean }
             try {
-              verdict = options.acceptRoute ? yield* options.acceptRoute(result) : true
+              verdict = options.acceptRoute
+                ? yield* options.acceptRoute(result)
+                : true
             } catch (error) {
-              if (!(error instanceof PendingAccessSearchUnknownError)) throw error
+              if (!(error instanceof PendingAccessSearchUnknownError))
+                throw error
               verdict = { accepted: false, uncertified: true }
             }
-            if (typeof verdict !== "boolean" && verdict.uncertified) uncertifiedAccess = true
-            else if (typeof verdict === "boolean" ? verdict : verdict.accepted) return result
+            if (typeof verdict !== "boolean" && verdict.uncertified)
+              uncertifiedAccess = true
+            else if (typeof verdict === "boolean" ? verdict : verdict.accepted)
+              return result
           }
         }
         pending?.goalExhausted(current.count)
@@ -856,8 +915,11 @@ function* routeSurfaceBridgePass({
       }
       releaseLabel(current)
     }
-    if (queue.length && pending &&
-      (!pending.pass.remaining || !pending.search.remaining))
+    if (
+      queue.length &&
+      pending &&
+      (!pending.pass.remaining || !pending.search.remaining)
+    )
       throw new PendingRoutingWorkBudgetExceeded()
     if (uncertifiedAccess) throw new PendingAccessSearchUnknownError()
     return null
@@ -992,7 +1054,8 @@ function materialize(
   // Keep every avoided ordinary route hard during simplification. Only
   // already crossed provisional routes may still participate in negotiation.
   let refinementCopper = fixed
-  const negotiatedInner = (!!innerCarrier(input) || refinement.pending) && softTraces.length > 0
+  const negotiatedInner =
+    (!!innerCarrier(input) || refinement.pending) && softTraces.length > 0
   if (negotiatedInner) {
     const provisional: Trace = {
       type: "pcb_trace",
