@@ -1,0 +1,26 @@
+name: Capture pending consumer formatting
+
+on:
+  push:
+    branches: [diagnostics/pending-consumer-format-runtime]
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.4
+      - run: bun install
+      - name: Capture canonical formatter bytes and public builds only
+        run: >-
+          bun test --only --timeout 240000
+          tests/collect-published-bus-small.test.ts
+          tests/format-pending-consumer.test.ts

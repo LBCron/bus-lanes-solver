@@ -262,8 +262,9 @@ test.only("TEMP diagnostic: transport exact canonical consumer formatting", asyn
     "--name-only", "-z", manifest.sourceCheckpointCommit, "HEAD"])
     .toString("utf8").split("\0").filter(Boolean))
   for (const diagnostic of manifest.additionalDiagnosticFiles) {
-    assert(diagnostic.path.startsWith("tests/") &&
-      diagnostic.path.endsWith(".test.ts"))
+    assert((diagnostic.path.startsWith("tests/") &&
+      diagnostic.path.endsWith(".test.ts")) ||
+      diagnostic.path === ".github/workflows/pending-consumer-capture.yml")
     assert(!diagnostic.path.includes("\\"))
     assert.equal(diagnostic.path.split("/").filter((part) =>
       part === "" || part === "." || part === "..").length, 0)
