@@ -3,12 +3,21 @@ import { GridVisibilitySearch, type GridRoutingAccess } from "./grid-visibility"
 import { PendingPadScene } from "./pending-pad-escape"
 import { PendingPadGeometry } from "./pending-pad-geometry"
 import { PendingCopperOwnership } from "./pending-copper-ownership"
+import { PendingAccessSearchUnknownError } from "./pending-access-search-unknown"
 import { findSimpleCarrierPath } from "./pending-simple-carrier-path"
 import type { PendingOwnedCarrierAccess, OwnedCarrierTarget } from "./pending-owned-carrier-access"
 import type { Connection, Point, SimpleRouteJson } from "./types"
 import { VectorScene, type Copper } from "./vector-scene"
 
 type LayerPointKey = string
+
+// Original phase metadata and copper are immutable. Multiple future peers in
+// that phase share one retained trace key, rather than copying the whole SRJ
+// or its copper once for every connection.
+const originalTraceKeys = new WeakMap<SimpleRouteJson, string>()
+function traceUnionKey(input: SimpleRouteJson): string {
+  return JSON.stringify((input.traces ?? []).map(trace => JSON.stringify(trace)).sort())
+}
 
 interface PeerWire {
   kind: "wire"
@@ -46,7 +55,8 @@ interface PeerWitness {
   existingConnection?: true
 }
 
-/** One positive connection in the original baseline spanning forest.
+/** One stable original peer obligation. It may have a positive original
+ * witness, or join components whose separation the finite search did not prove.
  * Coordinates and candidate witnesses may change; this obligation does not. */
 export interface PendingPeerLink {
   readonly sourceTerminalIndex: number
@@ -55,7 +65,8 @@ export interface PendingPeerLink {
 
 interface PeerLinkState {
   readonly link: PendingPeerLink
-  witness: PeerWitness
+  readonly baselineUnresolved: boolean
+  witness?: PeerWitness
 }
 
 interface AnchorEdge {
@@ -76,9 +87,7 @@ interface GridAttachment {
 }
 
 /** An unfinished oracle is not evidence that a future connection is blocked. */
-export class PendingPeerAccessUnknownError extends Error {
-  readonly code = "pending_access_search_unknown"
-
+export class PendingPeerAccessUnknownError extends PendingAccessSearchUnknownError {
   constructor(message: string) {
     super(message)
     this.name = "PendingPeerAccessUnknownError"
@@ -682,7 +691,7 @@ class PeerScene {
   }
 
   private assertViaPlacement(steps: readonly PeerStep[]): void {
-    // A graph can prove disconnection without solving all path-history DRC.
+    // A sampled graph can be disconnected without proving continuous absence.
     // A positive witness, however, must not claim two drill holes can overlap.
     const vias = steps.filter(
       (step): step is PeerTransition => step.kind === "new_via",
@@ -752,16 +761,18 @@ class PeerScene {
   }
 }
 
-/** Preserve the baseline peer-connected components of a future connection
- * with at least one unframed terminal. A spanning forest records only positive
- * baseline obligations; already disconnected peers are not new failures.
- * Witnesses are private and never reserve corridors or become output copper. */
+/** Preserve positive original peer connectivity and require certificates for
+ * relations the finite original search could not resolve. A finite graph miss
+ * never proves physical disconnection. Witnesses remain private and never
+ * reserve corridors or become output copper. */
 export class PendingPeerAccess {
   private forest?: PeerLinkState[]
   private links?: readonly PendingPeerLink[]
+  private requiredLinks?: readonly PendingPeerLink[]
   private requireCarrier = false
   private readonly connection: Connection
   private readonly ownership: PendingCopperOwnership
+  private readonly originalTraceKey: string
 
   constructor(
     private readonly input: SimpleRouteJson,
@@ -769,6 +780,27 @@ export class PendingPeerAccess {
   ) {
     this.connection = "pointsToConnect" in request ? request : request.connection
     this.ownership = "pointsToConnect" in request ? new PendingCopperOwnership(input) : request.ownership
+    let traceKey = originalTraceKeys.get(input)
+    if (traceKey === undefined) {
+      traceKey = traceUnionKey(input)
+      originalTraceKeys.set(input, traceKey)
+    }
+    this.originalTraceKey = traceKey
+  }
+
+  /** Exact original copper and policy can establish relational no-new-loss,
+   * but cannot manufacture a positive peer-connection certificate. Normalize
+   * trace ordering only; all geometry, ownership and policy values remain. */
+  private isOriginalUnion(candidate: SimpleRouteJson): boolean {
+    if ((candidate.traces?.length ?? 0) !== (this.input.traces?.length ?? 0)) return false
+    const originalKeys = Object.keys(this.input).filter(key => key !== "traces") as (keyof SimpleRouteJson)[]
+    const candidateKeys = Object.keys(candidate).filter(key => key !== "traces") as (keyof SimpleRouteJson)[]
+    // Reference equality is sufficient under the immutable declaration
+    // contract, and conservative for cloned-but-equal metadata. Check every
+    // property, so unchanged trace copper never masks a changed future rule.
+    if (originalKeys.length !== candidateKeys.length ||
+      originalKeys.some(key => !Object.hasOwn(candidate, key) || candidate[key] !== this.input[key])) return false
+    return candidate.traces === this.input.traces || traceUnionKey(candidate) === this.originalTraceKey
   }
 
   /** Internal package work needs a physical carrier path, rather than an
@@ -807,16 +839,49 @@ export class PendingPeerAccess {
     // first complete original forest; no query may replace its link identities.
     // A resource exception or cancellation above publishes no partial forest.
     if (!this.links) {
-      this.forest = witnesses.map((witness) => ({
+      const positive = witnesses.map((witness): PeerLinkState => ({
         link: Object.freeze({
           sourceTerminalIndex: witness.fromIndex,
           targetTerminalIndex: witness.toIndex,
         }),
+        baselineUnresolved: false,
         witness,
       }))
-      this.links = Object.freeze(this.forest.map((state) => state.link))
+      // Positive components are real connectivity facts. Their missing joins
+      // are unresolved, not inaccessible: retain a stable spanning set of
+      // those joins so final acceptance must positively connect the net.
+      const roots = this.connection.pointsToConnect.map((_, index) => index)
+      const root = (index: number): number => {
+        while (roots[index] !== index) index = roots[index]
+        return index
+      }
+      for (const state of positive) roots[root(state.link.targetTerminalIndex)] = root(state.link.sourceTerminalIndex)
+      const representatives = [...new Set(roots.map((_, index) => root(index)))]
+      const unresolved = representatives.slice(1).map((target): PeerLinkState => ({
+        link: Object.freeze({ sourceTerminalIndex: representatives[0], targetTerminalIndex: target }),
+        baselineUnresolved: true,
+      }))
+      const forest = [...positive, ...unresolved]
+      const links = Object.freeze(positive.map(state => state.link))
+      const requiredLinks = Object.freeze(forest.map(state => state.link))
+      this.forest = forest
+      this.links = links
+      this.requiredLinks = requiredLinks
     }
     return this.links
+  }
+
+  /** Positive original forest plus unresolved component joins. Together they
+   * require a complete future connection without declaring a search miss lost. */
+  *getRequiredLinks(): Generator<void, readonly PendingPeerLink[]> {
+    yield* this.getBaselineLinks()
+    return this.requiredLinks!
+  }
+
+  isBaselineUnresolved(link: PendingPeerLink): boolean {
+    const state = this.forest?.find(candidate => candidate.link === link)
+    if (!state) throw Error("Pending peer query must reference an original baseline link")
+    return state.baselineUnresolved
   }
 
   *getBlockedLinks(
@@ -824,13 +889,21 @@ export class PendingPeerAccess {
     scope?: {
       links?: ReadonlySet<PendingPeerLink>
       stopAfterFirst?: boolean
+      /** Final acceptance needs a positive path even when the union is exactly
+       * unchanged; relational no-new-loss is insufficient evidence. */
+      requireCertificates?: boolean
     },
   ): Generator<void, PendingPeerLink[]> {
     // A caller may reuse its selection set while this cooperative query is
     // suspended. Capture it before baseline initialization can yield.
     const requested = scope?.links ? new Set(scope.links) : undefined
     const stopAfterFirst = scope?.stopAfterFirst === true
-    const links = yield* this.getBaselineLinks()
+    const requireCertificates = scope?.requireCertificates === true
+    // The caller owns an immutable candidate-union lease for this entire
+    // cooperative query. PendingPadAccess snapshots it once before any yield;
+    // copying the complete copper again for every peer would multiply memory.
+    const unchanged = !requireCertificates && this.isOriginalUnion(candidateInput)
+    const links = yield* this.getRequiredLinks()
     for (const link of requested ?? [])
       if (!links.includes(link))
         throw Error("Pending peer query must reference an original baseline link")
@@ -843,13 +916,14 @@ export class PendingPeerAccess {
     })
     const blocked: PendingPeerLink[] = []
     for (const state of selected) {
+      if (state.baselineUnresolved && unchanged && !requireCertificates) continue
       const witness = state.witness
-      if (candidate.witnessIsClear(witness)) continue
+      if (witness && candidate.witnessIsClear(witness)) continue
       const paths = yield* candidate.findPaths({
-        sourceIndex: witness.fromIndex,
-        targetIndices: [witness.toIndex],
+        sourceIndex: state.link.sourceTerminalIndex,
+        targetIndices: [state.link.targetTerminalIndex],
       })
-      const replacement = paths.get(witness.toIndex)
+      const replacement = paths.get(state.link.targetTerminalIndex)
       if (!replacement) {
         blocked.push(state.link)
         if (stopAfterFirst) return blocked
@@ -859,8 +933,14 @@ export class PendingPeerAccess {
   }
 
   *getBlockedConnections(candidateInput: SimpleRouteJson): Generator<void, boolean> {
-    return (yield* this.getBlockedLinks(candidateInput, {
-      stopAfterFirst: true,
-    })).length > 0
+    if (yield* this.getUncertifiedConnections(candidateInput))
+      throw new PendingAccessSearchUnknownError()
+    return false
+  }
+
+  /** A finite search miss demands another candidate or a positive witness;
+   * it never certifies continuous disconnection. */
+  *getUncertifiedConnections(candidateInput: SimpleRouteJson): Generator<void, boolean> {
+    return (yield* this.getBlockedLinks(candidateInput, { stopAfterFirst: true })).length > 0
   }
 }

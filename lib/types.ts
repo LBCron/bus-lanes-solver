@@ -143,6 +143,9 @@ export interface PendingRoutingAccessReport {
   readonly framedTerminalCount: number
   readonly baselineAccessibleFramedTerminalCount: number
   readonly baselineInaccessibleFramedTerminalCount: number
+  /** An original finite miss remains unresolved; accepted changed copper must
+   * nevertheless positively certify its access. Omitted when zero. */
+  readonly baselineUnresolvedFramedTerminalCount?: number
   readonly peerConnectionCount: number
   /** Final accepted output copper, including supplied traces exactly once. */
   readonly validatedTraceCount: number

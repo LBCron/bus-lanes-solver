@@ -63,8 +63,8 @@ test("independently blocked links of one future connection keep distinct stable 
   }
   expect(finish(access.getBlockedLinks(input))).toEqual([])
   expect(finish(access.getBaselineLinks())).toBe(links)
-  expect(finish(access.getBlockedConnections({ ...input, traces: enclosures }))).toBe(true)
-  expect(finish(access.getBlockedConnections(input))).toBe(false)
+  expect(finish(access.getUncertifiedConnections({ ...input, traces: enclosures }))).toBe(true)
+  expect(finish(access.getUncertifiedConnections(input))).toBe(false)
   expect(input).toEqual(original)
 })
 
@@ -93,18 +93,19 @@ test("link scopes use exact original identities and existential answers do not e
   }))).toThrow("original baseline link")
 })
 
-test("baseline-inaccessible peers do not manufacture links or hide a newly blocked baseline link", () => {
+test("unresolved original peers retain required joins without manufacturing positive baseline links", () => {
   const { input, connection, enclosures } = fixture()
   input.traces = [enclosures[1]]
   const access = new PendingPeerAccess(input, connection)
   const links = finish(access.getBaselineLinks())
   expect(links).toEqual([{ sourceTerminalIndex: 0, targetTerminalIndex: 1 }])
   expect(finish(access.getBlockedLinks(input))).toEqual([])
-  expect(finish(access.getBlockedLinks({ ...input, traces: enclosures }))).toEqual([...links])
+  expect(finish(access.getBlockedLinks({ ...input, traces: enclosures })))
+    .toEqual([...finish(access.getRequiredLinks())])
   const isolated = new PendingPeerAccess({ ...input, traces: enclosures }, connection)
   expect(finish(isolated.getBaselineLinks())).toEqual([])
   expect(finish(isolated.getBlockedLinks({ ...input, traces: enclosures }))).toEqual([])
-  expect(finish(isolated.getBlockedConnections({ ...input, traces: enclosures }))).toBe(false)
+  expect(finish(isolated.getUncertifiedConnections({ ...input, traces: enclosures }))).toBe(false)
 })
 
 test("interleaved or cancelled initializers never replace published baseline link identities", () => {
@@ -162,5 +163,5 @@ test("an unknown original baseline cannot publish a partial or empty successful 
   for (let attempt = 0; attempt < 2; attempt++)
     expect(() => finish(access.getBaselineLinks())).toThrow(PendingPeerAccessUnknownError)
   expect(() => finish(access.getBlockedLinks(input))).toThrow(PendingPeerAccessUnknownError)
-  expect(() => finish(access.getBlockedConnections(input))).toThrow(PendingPeerAccessUnknownError)
+  expect(() => finish(access.getUncertifiedConnections(input))).toThrow(PendingPeerAccessUnknownError)
 })

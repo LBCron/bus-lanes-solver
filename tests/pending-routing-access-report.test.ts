@@ -42,7 +42,7 @@ test("preserved-access evidence counts the checked union and rejects a blocked u
   ).toBe(2)
   expect(() =>
     finish(access.getPreservedReport([fixed, upperLeft, lowerRight])),
-  ).toThrow("Final copper blocks access for later routing connections")
+  ).toThrow("Routing could not certify access for later connections")
   expect(input).toEqual(original)
 
   const noIntent = new PendingPadAccess({

@@ -70,8 +70,8 @@ test("existing peer conductivity includes off-carrier wire contacts at segment i
   const { input, connection, wall } = fixture()
   const original = structuredClone(input)
   const access = new PendingPeerAccess(input, connection)
-  expect(finish(access.getBlockedConnections(input))).toBe(false)
-  expect(finish(access.getBlockedConnections({
+  expect(finish(access.getUncertifiedConnections(input))).toBe(false)
+  expect(finish(access.getUncertifiedConnections({
     ...input, traces: [...input.traces!, wall],
   }))).toBe(false)
   expect(input).toEqual(original)
@@ -81,7 +81,7 @@ test("cached fixed components revalidate actual conductor extent, ownership and 
   const { input, connection, wall } = fixture()
   const access = new PendingPeerAccess(input, connection)
   const retained = { ...input, traces: [...input.traces!, wall] }
-  expect(finish(access.getBlockedConnections(retained))).toBe(false)
+  expect(finish(access.getUncertifiedConnections(retained))).toBe(false)
   const variants = [
     (traces: Trace[]) => traces.filter((trace) => trace.pcb_trace_id !== "vertical"),
     (traces: Trace[]) => traces.map((trace) => trace.pcb_trace_id === "vertical"
@@ -99,8 +99,8 @@ test("cached fixed components revalidate actual conductor extent, ownership and 
   ]
   for (const mutate of variants) {
     const traces = mutate(structuredClone(input.traces!))
-    expect(finish(access.getBlockedConnections({ ...input, traces: [...traces, wall] }))).toBe(true)
-    expect(finish(access.getBlockedConnections(retained))).toBe(false)
+    expect(finish(access.getUncertifiedConnections({ ...input, traces: [...traces, wall] }))).toBe(true)
+    expect(finish(access.getUncertifiedConnections(retained))).toBe(false)
   }
 })
 
@@ -108,5 +108,5 @@ test("an already manufactured fixed connection keeps its physical widths under a
   const { input, connection, wall } = fixture()
   connection.width = 0.8
   const access = new PendingPeerAccess(input, connection)
-  expect(finish(access.getBlockedConnections({ ...input, traces: [...input.traces!, wall] }))).toBe(false)
+  expect(finish(access.getUncertifiedConnections({ ...input, traces: [...input.traces!, wall] }))).toBe(false)
 })

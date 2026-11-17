@@ -72,7 +72,7 @@ test("a smaller specific via clearance preserves a demonstrated baseline and its
     const baseline = drain(access.getPreservedReport([]))!
     expect(baseline.baselineAccessibleFramedTerminalCount).toBe(2)
     expect(baseline.baselineInaccessibleFramedTerminalCount).toBe(0)
-    expect(drain(access.getBlockedConnections([candidate])).map(connection => connection.name)).toEqual([pendingConnection.name])
+    expect(drain(access.getUncertifiedConnections([candidate])).map(connection => connection.name)).toEqual([pendingConnection.name])
     expect(input).toEqual(original)
   }
 })

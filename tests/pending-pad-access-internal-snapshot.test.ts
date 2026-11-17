@@ -14,7 +14,7 @@ test("internal baseline activation snapshots candidate copper before its first y
   expect(expected).toEqual([pendingConnection.name])
 
   const access = new PendingPadAccess(input)
-  const suspended = access.getBlockedConnections(addedCopper)
+  const suspended = access.getUncertifiedConnections(addedCopper)
   // No warm-up: this first yield belongs to the original internal-carrier
   // baseline activation, which must not postpone the candidate snapshot.
   expect(suspended.next().done).toBe(false)

@@ -200,7 +200,7 @@ export function blockedPendingConnections(
   access: PendingPadAccess,
   traces: readonly Trace[],
 ): Connection[] {
-  const check = access.getBlockedConnections(traces)
+  const check = access.getUncertifiedConnections(traces)
   let step = check.next()
   while (!step.done) step = check.next()
   return step.value

@@ -37,14 +37,14 @@ test("independent access conflicts can be repaired while other closures remain b
     // obligation is still preserved and must reject its own new obstruction.
     expect(
       finish(
-        access.getBlockedConnections(unrelatedPrefix, {
+        access.getUncertifiedConnections(unrelatedPrefix, {
           connection: closure.connection,
         }),
       ),
     ).toEqual([])
     expect(
       finish(
-        access.getBlockedConnections([...unrelatedPrefix, ...closure.traces], {
+        access.getUncertifiedConnections([...unrelatedPrefix, ...closure.traces], {
           connection: closure.connection,
         }),
       ),

@@ -13,6 +13,7 @@ import { routeAnglesAreConventional } from "./route-angle-validation"
 import { busLengthReports, pairLengthReports } from "./route-lengths"
 import { exhaustedRoutingResult, runBoundedRouting, type RoutingStepLimit } from "./run-bounded-routing"
 import { PendingRoutingWorkBudgetExceeded, RoutingMemoryBudgetExceeded } from "./routing-memory-budget"
+import { PendingAccessSearchUnknownError } from "./pending-access-search-unknown"
 import { shortenPairApproaches } from "./shorten-pair-approaches"
 import { tuneGeneratedOrdinaryEscapes } from "./tune-generated-ordinary-escapes"
 import { tuneGeneratedPairEscapes } from "./tune-generated-pair-escapes"
@@ -283,7 +284,7 @@ export function* finishSurfaceTiming(
       ),
     }
   } catch (error) {
-    if (hasPending && (error instanceof PendingRoutingWorkBudgetExceeded || error instanceof RoutingMemoryBudgetExceeded))
+    if (hasPending && (error instanceof PendingRoutingWorkBudgetExceeded || error instanceof RoutingMemoryBudgetExceeded || error instanceof PendingAccessSearchUnknownError))
       throw error
     return outcomes.noSolution()
   }

@@ -68,7 +68,7 @@ test("pending repair exhaustion stays unknown and publishes no partial route or 
   }
   expect(input).toEqual(original)
   expect(() => drain(access.getPreservedReport(traces))).toThrow(
-    "Final copper blocks access for later routing connections",
+    "Routing could not certify access for later connections",
   )
   expect(failure).toBeInstanceOf(PendingRoutingWorkBudgetExceeded)
   if (failure instanceof PendingRoutingWorkBudgetExceeded)

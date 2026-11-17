@@ -33,7 +33,7 @@ test("independent terminal obligations keep stable identity while connection res
   expect(all.every((obligation) => obligation.kind === "terminal" && obligation.connection === connection)).toBe(true)
   expect(new Set(all.map((obligation) => obligation.kind === "terminal" ? obligation.terminalIndex : -1)))
     .toEqual(new Set([0, 1]))
-  expect(finish(access.getBlockedConnections(previous.traces))).toEqual([connection])
+  expect(finish(access.getUncertifiedConnections(previous.traces))).toEqual([connection])
 
   const prefix = [...closures[1].traces, closures[0].traces[0]]
   const existing = finish(access.getBlockedObligations(prefix))
@@ -69,7 +69,7 @@ test("peer-link obligations expose stable original links through the same physic
   if (obligation.kind !== "peer") return
   expect(obligation.link).toEqual({ sourceTerminalIndex: 0, targetTerminalIndex: 1 })
   expect(finish(access.getBlockedObligations(candidate, { obligation }))[0]).toBe(obligation)
-  expect(finish(access.getBlockedConnections(candidate))).toEqual([pendingConnection])
+  expect(finish(access.getUncertifiedConnections(candidate))).toEqual([pendingConnection])
   expect(finish(access.getBlockedObligations(candidate, {
     excludedObligations: new Set([obligation]), stopAfterFirst: true,
   }))).toEqual([])

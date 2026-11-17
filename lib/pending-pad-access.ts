@@ -10,6 +10,7 @@ import { PendingPeerAccess, type PendingPeerLink } from "./pending-peer-access"
 import { signalWidth } from "./repair-bus-dogbones"
 import { effectiveCarrierLayers } from "./effective-carrier-layers"
 import { validatePendingRoutingAccess } from "./validate-pending-routing-access"
+import { PendingAccessSearchUnknownError } from "./pending-access-search-unknown"
 import type {
   Connection,
   PendingRoutingAccess,
@@ -71,9 +72,11 @@ interface ChangedInputLease {
 }
 
 interface PendingAccessQueryScope {
+  /** Relational unchanged-prefix answers do not supply final certificates. */
+  requireCertificates?: boolean
   connection?: Connection
   connections?: ReadonlySet<Connection>
-  /** An existential query may reject on one proven blocker. A successful
+  /** An existential query may reject on one uncertified obligation. A successful
    * empty answer still requires every requested obligation to be checked. */
   stopAfterFirst?: boolean
   obligation?: PendingAccessObligation
@@ -84,6 +87,7 @@ interface PendingAccessQueryScope {
  * are cheap to revalidate, while blocked witnesses are searched again against
  * the union of candidate copper. Nothing here is inserted into output traces. */
 export class PendingPadAccess {
+  private uncertifiedSearches = 0
   private readonly terminals: PendingTerminal[]
   private readonly declaredConnections: ReadonlySet<Connection>
   private readonly peers: PendingPeer[] = []
@@ -187,6 +191,14 @@ export class PendingPadAccess {
     return this.ownership.owners(connection)
   }
 
+  /** Uncertified repair demands are not continuous impossibility proofs. */
+  noSolution(): null {
+    if (this.uncertifiedSearches) throw new PendingAccessSearchUnknownError()
+    return null
+  }
+
+  get unknownCount(): number { return this.uncertifiedSearches }
+
   private leaseChangedInput({
     future,
     traces,
@@ -226,6 +238,17 @@ export class PendingPadAccess {
     additionalTraces: readonly Trace[],
     scope?: PendingAccessQueryScope,
   ): Generator<void, Connection[]> {
+    const uncertified = yield* this.getUncertifiedConnections(additionalTraces, scope)
+    if (uncertified.length) throw new PendingAccessSearchUnknownError()
+    return []
+  }
+
+  /** Conservative repair demands, not continuous negative certificates.
+   * Search may try other candidates; final evidence must be positive. */
+  *getUncertifiedConnections(
+    additionalTraces: readonly Trace[],
+    scope?: PendingAccessQueryScope,
+  ): Generator<void, Connection[]> {
     const blocked = yield* this.getBlockedObligations(additionalTraces, scope)
     return [...new Set(blocked.map((obligation) => obligation.connection))]
   }
@@ -237,6 +260,7 @@ export class PendingPadAccess {
     const target = scope?.connection
     const requestedConnections = scope?.connections && new Set(scope.connections)
     const stopAfterFirst = scope?.stopAfterFirst === true
+    const requireCertificates = scope?.requireCertificates === true
     const targetObligation = scope?.obligation
     const excludedObligations = scope?.excludedObligations && new Set(scope.excludedObligations)
     if (target && !this.declaredConnections.has(target))
@@ -309,9 +333,17 @@ export class PendingPadAccess {
           }
           terminal.baseline = yield* new PendingPadEscapeCheck(request, geometry).findEscape()
           if (terminal.baseline) terminal.witnesses.push(terminal.baseline)
+          else this.uncertifiedSearches++
         }
-        if (!terminal.baseline) continue
-        if (!newTraces.length) continue
+        // Exact unchanged copper preserves a relation without certifying that
+        // access exists. Final evidence cannot use this unchanged exception.
+        if (!newTraces.length && !requireCertificates) continue
+        if (!newTraces.length && terminal.baseline) continue
+        if (!newTraces.length) {
+          blocked.add(terminal.obligation)
+          if (stopAfterFirst) return [terminal.obligation]
+          continue
+        }
         const lease = changedInput(terminal.input)
         lease.geometry ??= new PendingPadGeometry(lease.input,
           this.baselineGeometry.get(terminal.input)!.ownership)
@@ -325,6 +357,7 @@ export class PendingPadAccess {
           terminal.witnesses.push(escape)
           if (terminal.witnesses.length > 8) terminal.witnesses.shift()
         } else {
+          this.uncertifiedSearches++
           blocked.add(terminal.obligation)
           if (stopAfterFirst) return [terminal.obligation]
         }
@@ -336,8 +369,8 @@ export class PendingPadAccess {
         if (targetObligation && (targetObligation.kind !== "peer" ||
           targetObligation.connection !== peer.connection || targetObligation.phaseIndex !== peer.phaseIndex))
           continue
-        if (!newTraces.length) continue
-        const links = yield* peer.access.getBaselineLinks()
+        if (!newTraces.length && !requireCertificates) continue
+        const links = yield* peer.access.getRequiredLinks()
         const selected = new Set<PendingPeerLink>()
         for (const link of links) {
           let obligation = peer.obligations.get(link)
@@ -353,9 +386,10 @@ export class PendingPadAccess {
         if (!selected.size) continue
         const { input } = changedInput(peer.input)
         const blockedLinks = yield* peer.access.getBlockedLinks(input, {
-          links: selected, stopAfterFirst,
+          links: selected, stopAfterFirst, requireCertificates,
         })
         for (const link of blockedLinks) {
+          this.uncertifiedSearches++
           const obligation = peer.obligations.get(link)!
           blocked.add(obligation)
           if (stopAfterFirst) return [obligation]
@@ -367,7 +401,7 @@ export class PendingPadAccess {
       // witness check instead of an approximate or identity-based cache key.
       // Filtered and first-blocker answers do not enumerate the full result
       // set. They must never populate its cache or bypass global acceptance.
-      if (!target && !requestedConnections && !targetObligation && !excludedObligations &&
+      if (!answer.length && newTraces.length && !target && !requestedConnections && !targetObligation && !excludedObligations &&
         !stopAfterFirst && key.length <= 262144) {
         if (this.results.size >= 8)
           this.results.delete(this.results.keys().next().value!)
@@ -387,9 +421,9 @@ export class PendingPadAccess {
   ): Generator<void, PendingRoutingAccessReport | undefined> {
     const groups = this.input.pendingRoutingAccess
     if (!groups?.length) return undefined
-    const blocked = yield* this.getBlockedConnections(traces)
+    const blocked = yield* this.getBlockedObligations(traces, { requireCertificates: true })
     if (blocked.length)
-      throw Error("Final copper blocks access for later routing connections")
+      throw new PendingAccessSearchUnknownError()
     const framedTerminals = this.terminals.filter((terminal) => !terminal.suppressed)
     if (framedTerminals.some((terminal) => terminal.baseline === undefined))
       throw Error("Pending terminal baseline validation is incomplete")
@@ -409,9 +443,11 @@ export class PendingPadAccess {
       baselineAccessibleFramedTerminalCount: framedTerminals.filter(
         (terminal) => terminal.baseline !== null,
       ).length,
-      baselineInaccessibleFramedTerminalCount: framedTerminals.filter(
-        (terminal) => terminal.baseline === null,
-      ).length,
+      // The finite search supplies no certified continuous negative proof.
+      baselineInaccessibleFramedTerminalCount: 0,
+      ...(framedTerminals.some(terminal => terminal.baseline === null) ? {
+        baselineUnresolvedFramedTerminalCount: framedTerminals.filter(terminal => terminal.baseline === null).length,
+      } : {}),
       peerConnectionCount: this.peers.filter((peer) => !peer.internalTerminals || peer.internalActive).length,
       validatedTraceCount: traceIds.size,
       newlyBlockedConnectionNames: [],

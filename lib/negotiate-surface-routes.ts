@@ -134,9 +134,9 @@ export function* negotiateSurfaceRoutes(
     ))
     return required.size === restoringIndices.size ? undefined : required
   })
-  // Frozen copper is an impossibility certificate only when every remaining
-  // conductor is foreign. A mutable owned route can restore a carrier handoff
-  // using its current phase's dimensions, independently of future new vias.
+  // Uncertified frozen copper cannot be repaired by foreign additions. This
+  // finite miss remains UNKNOWN, not an impossibility certificate. Owned
+  // additions may manufacture a carrier handoff under their current rules.
   const frozenBlocked = native.pendingRoutingAccess?.length
     ? new Set(yield* access.getBlockedObligations(frozenJoined))
     : new Set<PendingAccessObligation>()
@@ -145,8 +145,12 @@ export function* negotiateSurfaceRoutes(
       (obligation) => !restoringIndices.get(obligation.connection)?.length,
     )
   )
-    return null
+    return access.noSolution()
   const outcomes = new CandidateSearchOutcomes()
+  const noSolution = () => {
+    outcomes.noSolution()
+    return access.noSolution()
+  }
   let best: Array<Candidate | null> = []
   const pendingMemo = native.pendingRoutingAccess?.length
     ? new OwnedCandidateMemo<Candidate>({
@@ -383,6 +387,7 @@ export function* negotiateSurfaceRoutes(
     // remain domain choices; the complete union is checked by the CSP above.
     let rejectedTerminals: import("./types").Terminal[] = []
     const previousUnknowns = outcomes.unknownCount
+    const previousAccessUnknowns = access.unknownCount
     const result = yield* outcomes.run(
       routeSurfaceBridge(input, reversed, {
         gridStep: useHistory ? 0.1 : undefined,
@@ -392,6 +397,7 @@ export function* negotiateSurfaceRoutes(
         pendingAccessFeedback: () => rejectedTerminals,
         acceptRoute: native.pendingRoutingAccess?.length
           ? function* (route) {
+              rejectedTerminals = []
               // Validate against the original baseline, with the complete
               // immutable prefix for this search. Other closures repair its
               // pre-existing conflicts; another mutable owned variable may
@@ -409,14 +415,14 @@ export function* negotiateSurfaceRoutes(
                   obligation.connection.pointsToConnect[terminalIndex],
                 )
               })
-              return !blocked.length
+              return { accepted: !blocked.length, uncertified: blocked.length > 0 }
             }
           : undefined,
       }),
     )
     if (!result) {
       // An exhausted branch is unresolved, not a cached absence of a route.
-      if (outcomes.unknownCount === previousUnknowns) {
+      if (outcomes.unknownCount === previousUnknowns && access.unknownCount === previousAccessUnknowns) {
         if (pendingMemo) pendingMemo.set(key, null)
         else searches.set(key, null)
       }
@@ -485,7 +491,7 @@ export function* negotiateSurfaceRoutes(
           viaPenalty: 2,
           maxExpansions: options.maxInitialExpansions ?? 1500000,
         })
-      if (!current[index]) return outcomes.noSolution()
+      if (!current[index]) return noSolution()
       yield
     }
     selected = yield* select()
@@ -604,7 +610,7 @@ export function* negotiateSurfaceRoutes(
           }
         }
         if (!repaired || (yield* inspect(current)).violationCount >= state.violationCount)
-          return outcomes.noSolution()
+          return noSolution()
         continue
       }
       let repaired = false
@@ -632,12 +638,12 @@ export function* negotiateSurfaceRoutes(
             break
           }
         }
-        if (!expanded) return outcomes.noSolution()
-      } else if (!repaired) return outcomes.noSolution()
+        if (!expanded) return noSolution()
+      } else if (!repaired) return noSolution()
       if ((yield* inspect(current)).violationCount >= state.violationCount)
-        return outcomes.noSolution()
+        return noSolution()
     }
-    if ((yield* inspect(current)).violationCount) return outcomes.noSolution()
+    if ((yield* inspect(current)).violationCount) return noSolution()
     return yield* finishSelection(current as Candidate[])
   } finally {
     pendingMemo?.dispose()

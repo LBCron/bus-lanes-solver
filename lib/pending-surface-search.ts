@@ -6,6 +6,7 @@ import {
   PendingRoutingWorkBudgetExceeded,
 } from "./routing-memory-budget"
 import type { SimpleRouteJson, Terminal } from "./types"
+import { PendingAccessSearchUnknownError } from "./pending-access-search-unknown"
 
 export interface PendingSurfacePass {
   remaining: number
@@ -15,6 +16,7 @@ export interface PendingSurfacePass {
 interface RejectedSurfaceRoute {
   terminals: Terminal[]
   bytes: number
+  uncertified?: boolean
 }
 
 /** Bounded guidance for one immutable native candidate query. Accounting cuts
@@ -32,6 +34,7 @@ export class PendingSurfaceSearch {
   private cutBytes = 0
   private readonly headerBytes = 512
   private lastUnknown?: Error
+  private accessUnknown?: PendingAccessSearchUnknownError
 
   constructor({
     input,
@@ -90,6 +93,11 @@ export class PendingSurfaceSearch {
 
   unknown(error: Error): void {
     this.lastUnknown = error
+  }
+
+  uncertified(): void {
+    this.accessUnknown ??= new PendingAccessSearchUnknownError()
+    this.lastUnknown = this.accessUnknown
   }
 
   noSolution(): null {
@@ -171,7 +179,13 @@ export class PendingSurfaceSearch {
     return this.rejected.get(key)?.terminals
   }
 
-  reject(key: string, terminals: readonly Terminal[]): void {
+  rejectionWasUncertified(key: string): boolean {
+    return this.rejected.get(key)?.uncertified === true
+  }
+
+  reject(key: string, result: readonly Terminal[] | { terminals: readonly Terminal[]; uncertified: boolean }): void {
+    const terminals = "terminals" in result ? result.terminals : result
+    const uncertified = "terminals" in result && result.uncertified
     if (!this.memory || this.rejected.has(key)) return
     const bytes = 128 + key.length * 2 + terminals.length * 192
     const limit = Math.min(1024 * 1024, Math.floor(this.memory.maxBytes / 8))
@@ -189,6 +203,7 @@ export class PendingSurfaceSearch {
     this.memoBytes += bytes
     this.rejected.set(key, {
       bytes,
+      ...(uncertified ? { uncertified: true } : {}),
       terminals: terminals.map((terminal) => ({
         ...terminal,
         layers: terminal.layers?.slice(),

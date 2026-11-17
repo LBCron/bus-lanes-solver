@@ -59,7 +59,7 @@ test("interleaved physical access checks agree with independent sequential scene
   const access = new PendingPadAccess(input)
   expect(blockedPendingConnections(access, [])).toEqual([])
   const searches = candidates.map((candidate) =>
-    access.getBlockedConnections(candidate),
+    access.getUncertifiedConnections(candidate),
   )
   // Both scenes remain live together; the second check must not replace the
   // first scene's copper or borrow its active flood-search parent buffers.
@@ -79,13 +79,13 @@ test("cancelling one live check permits reuse while another check remains active
   )
   const access = new PendingPadAccess(input)
   expect(blockedPendingConnections(access, [])).toEqual([])
-  const cancelled = access.getBlockedConnections(blocked)
-  const survivor = access.getBlockedConnections(clear)
+  const cancelled = access.getUncertifiedConnections(blocked)
+  const survivor = access.getUncertifiedConnections(clear)
   expect(cancelled.next().done).toBe(false)
   expect(survivor.next().done).toBe(false)
   expect(cancelled.return([]).done).toBe(true)
 
-  const reused = access.getBlockedConnections(replacement)
+  const reused = access.getUncertifiedConnections(replacement)
   expect(reused.next().done).toBe(false)
   expect(finishInterleaved([survivor, reused]).map(names)).toEqual(reference)
   expect({ input, blocked, clear, replacement }).toEqual(original)
@@ -102,7 +102,7 @@ test("a suspended check snapshots candidate copper before caller mutation and re
   expect(referenceCaptured).toEqual(["DDR_STROBE"])
   const access = new PendingPadAccess(input)
   expect(blockedPendingConnections(access, [])).toEqual([])
-  const suspended = access.getBlockedConnections(candidate)
+  const suspended = access.getUncertifiedConnections(candidate)
   expect(suspended.next().done).toBe(false)
 
   // Keep the original trace, route array and vertex objects. A caller may

@@ -10,6 +10,7 @@ import { tuningPathIsSelfClear } from "./length-tuning"
 import { MinHeap } from "./min-heap"
 import { PendingTerminalHomology } from "./pending-terminal-homology"
 import { PendingSurfaceSearch, type PendingSurfacePass } from "./pending-surface-search"
+import { PendingAccessSearchUnknownError } from "./pending-access-search-unknown"
 import {
   RoutingMemoryBudget,
   RoutingMemoryBudgetExceeded,
@@ -57,7 +58,7 @@ export interface SurfaceBridgeOptions {
   maxGridCells?: number
   /** A complete materialized route must also satisfy any collective physical
    * constraint. Rejected goals leave the ordinary search frontier active. */
-  acceptRoute?: (route: SurfaceBridgeRoute) => Generator<void, boolean>
+  acceptRoute?: (route: SurfaceBridgeRoute) => Generator<void, boolean | { accepted: boolean; uncertified?: boolean }>
 }
 export interface SurfaceBridgeRoute {
   carrier: Trace
@@ -184,12 +185,24 @@ export function* routeSurfaceBridge(
               const cached = search.rejection(key)
               if (cached) {
                 repeatedGeometry = true
+                if (search.rejectionWasUncertified(key)) search.uncertified()
                 learnedCuts = search.activate(cached) || learnedCuts
                 return false
               }
-              if (yield* options.acceptRoute!(route)) return true
-              const terminals = options.pendingAccessFeedback!()
-              search.reject(key, terminals)
+              let verdict: boolean | { accepted: boolean; uncertified?: boolean }
+              let callbackUnknown = false
+              try {
+                verdict = yield* options.acceptRoute!(route)
+              } catch (error) {
+                if (!(error instanceof PendingAccessSearchUnknownError)) throw error
+                callbackUnknown = true
+                verdict = { accepted: false, uncertified: true }
+              }
+              const uncertified = typeof verdict !== "boolean" && verdict.uncertified === true
+              if (uncertified) search.uncertified()
+              if (!uncertified && (typeof verdict === "boolean" ? verdict : verdict.accepted)) return true
+              const terminals = callbackUnknown ? [] : options.pendingAccessFeedback!()
+              search.reject(key, { terminals, uncertified })
               learnedCuts = search.activate(terminals) || learnedCuts
               return false
             },
@@ -243,6 +256,7 @@ function* routeSurfaceBridgePass({
   options,
   pending,
 }: SurfaceBridgePassRequest): Generator<void, SurfaceBridgeRoute | null> {
+  let uncertifiedAccess = false
   const physical = getCopperLayerNames(input.layerCount)
   if (physical.length < 2 || connection.pointsToConnect.length !== 2)
     return null
@@ -728,13 +742,17 @@ function* routeSurfaceBridgePass({
             fixed,
             { softTraces, pending: refinePendingSurface },
           )
-          if (
-            result &&
-            length(joinSignalEscapes(result.carrier, result.escapes).route) <=
-              maxLength + 1e-8 &&
-            (!options.acceptRoute || (yield* options.acceptRoute(result)))
-          )
-            return result
+          if (result && length(joinSignalEscapes(result.carrier, result.escapes).route) <= maxLength + 1e-8) {
+            let verdict: boolean | { accepted: boolean; uncertified?: boolean }
+            try {
+              verdict = options.acceptRoute ? yield* options.acceptRoute(result) : true
+            } catch (error) {
+              if (!(error instanceof PendingAccessSearchUnknownError)) throw error
+              verdict = { accepted: false, uncertified: true }
+            }
+            if (typeof verdict !== "boolean" && verdict.uncertified) uncertifiedAccess = true
+            else if (typeof verdict === "boolean" ? verdict : verdict.accepted) return result
+          }
         }
         pending?.goalExhausted(current.count)
       }
@@ -841,6 +859,7 @@ function* routeSurfaceBridgePass({
     if (queue.length && pending &&
       (!pending.pass.remaining || !pending.search.remaining))
       throw new PendingRoutingWorkBudgetExceeded()
+    if (uncertifiedAccess) throw new PendingAccessSearchUnknownError()
     return null
   } finally {
     if (memory) {

@@ -1,6 +1,7 @@
 import { expect, test } from "bun:test"
 import { CopperConflictIndex } from "../lib/copper-conflict-index"
 import { PendingPadAccess } from "../lib/pending-pad-access"
+import { PendingAccessSearchUnknownError } from "../lib/pending-access-search-unknown"
 import type { Trace } from "../lib/types"
 import { fixedCopper } from "../lib/vector-scene"
 import { blockedPendingConnections } from "./fixtures/pending-pad-access"
@@ -12,7 +13,7 @@ function finish<T>(steps: Generator<void, T>): T {
   return step.value
 }
 
-test("a stable prefix cannot create new obligations by recovering originally inaccessible terminals", () => {
+test("recovering an unresolved original does not erase its certificate requirement or rebase its status", () => {
   const { input, frozen, owned, pendingConnection } =
     pendingOwnedRecoveryFixture("name")
   input.traces = frozen
@@ -67,9 +68,9 @@ test("a stable prefix cannot create new obligations by recovering originally ina
   ).toBeUndefined()
 
   const originalAccess = new PendingPadAccess(input)
-  const originalReport = finish(originalAccess.getPreservedReport([]))!
-  expect(originalReport.baselineAccessibleFramedTerminalCount).toBe(0)
-  expect(originalReport.baselineInaccessibleFramedTerminalCount).toBe(2)
+  expect(blockedPendingConnections(originalAccess, [])).toEqual([])
+  expect(() => finish(originalAccess.getPreservedReport([])))
+    .toThrow(PendingAccessSearchUnknownError)
 
   // This deliberately rebased oracle is the counterfactual. The production
   // search must continue using originalAccess, not initialize this new baseline.
@@ -82,12 +83,16 @@ test("a stable prefix cannot create new obligations by recovering originally ina
     ),
   ).toEqual([pendingConnection.name])
 
-  expect(blockedPendingConnections(originalAccess, [owned, foreign])).toEqual(
-    [],
-  )
+  const after = finish(originalAccess.getPreservedReport([owned]))!
+  expect(after.baselineAccessibleFramedTerminalCount).toBe(0)
+  expect(after.baselineInaccessibleFramedTerminalCount).toBe(0)
+  expect(after.baselineUnresolvedFramedTerminalCount).toBe(2)
+  expect(blockedPendingConnections(originalAccess, [owned, foreign])).toEqual([pendingConnection])
+  expect(() => finish(originalAccess.getPreservedReport([owned, foreign])))
+    .toThrow(PendingAccessSearchUnknownError)
   expect(blockedPendingConnections(originalAccess, [owned])).toEqual([])
   expect(blockedPendingConnections(originalAccess, [owned, foreign])).toEqual(
-    [],
+    [pendingConnection],
   )
   expect(input).toEqual(original)
 })

@@ -137,9 +137,9 @@ test("an unframed future terminal must retain an actual peer, beyond one-width m
   connection.pointsToConnect[0].x = 0
   connection.pointsToConnect[1].x = 2
   const access = new PendingPeerAccess(input, connection)
-  expect(finish(access.getBlockedConnections(input))).toBe(false)
+  expect(finish(access.getUncertifiedConnections(input))).toBe(false)
   expect(
-    finish(access.getBlockedConnections({ ...input, traces: [ring()] })),
+    finish(access.getUncertifiedConnections({ ...input, traces: [ring()] })),
   ).toBe(true)
 })
 
@@ -156,9 +156,9 @@ test("an unlabelled large owned pad cannot supply a false local escape", () => {
     connectedTo: [connection.name],
   })
   const access = new PendingPeerAccess(input, connection)
-  expect(finish(access.getBlockedConnections(input))).toBe(false)
+  expect(finish(access.getUncertifiedConnections(input))).toBe(false)
   expect(
-    finish(access.getBlockedConnections({ ...input, traces: [ring(1)] })),
+    finish(access.getUncertifiedConnections({ ...input, traces: [ring(1)] })),
   ).toBe(true)
 })
 
@@ -168,7 +168,7 @@ test("all peers may legitimately stay inside one closed island without any board
   connection.pointsToConnect[1].x = 0.2
   const access = new PendingPeerAccess(input, connection)
   expect(
-    finish(access.getBlockedConnections({ ...input, traces: [ring()] })),
+    finish(access.getUncertifiedConnections({ ...input, traces: [ring()] })),
   ).toBe(false)
 })
 
@@ -180,9 +180,9 @@ test("four peers split into two reachable pairs still lose their baseline compon
     layer: "top",
   }))
   const access = new PendingPeerAccess(input, connection)
-  expect(finish(access.getBlockedConnections(input))).toBe(false)
+  expect(finish(access.getUncertifiedConnections(input))).toBe(false)
   expect(
-    finish(access.getBlockedConnections({ ...input, traces: [wall()] })),
+    finish(access.getUncertifiedConnections({ ...input, traces: [wall()] })),
   ).toBe(true)
 })
 
@@ -195,10 +195,10 @@ test("already separated peers do not hide a newly divided baseline component", (
   ]
   input.traces = [wall()]
   const access = new PendingPeerAccess(input, connection)
-  expect(finish(access.getBlockedConnections(input))).toBe(false)
+  expect(finish(access.getUncertifiedConnections(input))).toBe(false)
   expect(
     finish(
-      access.getBlockedConnections({
+      access.getUncertifiedConnections({
         ...input,
         traces: [...input.traces, wall({ horizontal: true, id: "new_wall" })],
       }),
@@ -212,14 +212,14 @@ test("unframed collective trapping is checked against the full candidate union",
   input.obstacles = input.obstacles.map(({ componentId, ...obstacle }) => obstacle)
   const access = new PendingPeerAccess(input, pendingConnection)
   expect(
-    finish(access.getBlockedConnections({ ...input, traces: [upperLeft] })),
+    finish(access.getUncertifiedConnections({ ...input, traces: [upperLeft] })),
   ).toBe(false)
   expect(
-    finish(access.getBlockedConnections({ ...input, traces: [lowerRight] })),
+    finish(access.getUncertifiedConnections({ ...input, traces: [lowerRight] })),
   ).toBe(false)
   expect(
     finish(
-      access.getBlockedConnections({
+      access.getUncertifiedConnections({
         ...input,
         traces: [upperLeft, lowerRight],
       }),
@@ -251,15 +251,15 @@ test("peer connectivity uses the future bus width through a real clearance bottl
   }
   const narrow = new PendingPeerAccess(input, connection)
   expect(
-    finish(narrow.getBlockedConnections({ ...input, traces: [narrowing] })),
+    finish(narrow.getUncertifiedConnections({ ...input, traces: [narrowing] })),
   ).toBe(false)
   input.buses = [
     { busId: "future_bus", connectionNames: [connection.name], traceWidth: 0.4 },
   ]
   const wide = new PendingPeerAccess(input, connection)
-  expect(finish(wide.getBlockedConnections(input))).toBe(false)
+  expect(finish(wide.getUncertifiedConnections(input))).toBe(false)
   expect(
-    finish(wide.getBlockedConnections({ ...input, traces: [narrowing] })),
+    finish(wide.getUncertifiedConnections({ ...input, traces: [narrowing] })),
   ).toBe(true)
 })
 
@@ -271,14 +271,14 @@ test("a legal via must continue to the opposite-layer peer rather than end in a 
   const bottomWall = wall({ layer: "bottom", id: "bottom_wall" })
   const access = new PendingPeerAccess(input, connection)
   expect(
-    finish(access.getBlockedConnections({ ...input, traces: [topWall] })),
+    finish(access.getUncertifiedConnections({ ...input, traces: [topWall] })),
   ).toBe(false)
   expect(
-    finish(access.getBlockedConnections({ ...input, traces: [bottomWall] })),
+    finish(access.getUncertifiedConnections({ ...input, traces: [bottomWall] })),
   ).toBe(false)
   expect(
     finish(
-      access.getBlockedConnections({
+      access.getUncertifiedConnections({
         ...input,
         traces: [topWall, bottomWall],
       }),
@@ -312,10 +312,10 @@ test("an existing owned via remains conductive when a new coincident via cannot 
   ]
   const supplied = JSON.stringify(input.traces)
   const access = new PendingPeerAccess(input, connection)
-  expect(finish(access.getBlockedConnections(input))).toBe(false)
+  expect(finish(access.getUncertifiedConnections(input))).toBe(false)
   expect(
     finish(
-      access.getBlockedConnections({
+      access.getUncertifiedConnections({
         ...input,
         traces: [...input.traces, wall({ layer: "bottom" })],
       }),
@@ -332,11 +332,11 @@ test("declared native terminal layers provide physical continuity without a new 
   connection.pointsToConnect[1].layer = "bottom"
   const access = new PendingPeerAccess(input, connection)
   expect(
-    finish(access.getBlockedConnections({ ...input, traces: [wall()] })),
+    finish(access.getUncertifiedConnections({ ...input, traces: [wall()] })),
   ).toBe(false)
   expect(
     finish(
-      access.getBlockedConnections({
+      access.getUncertifiedConnections({
         ...input,
         traces: [wall({ layer: "bottom" })],
       }),
@@ -354,10 +354,10 @@ test("cached access cannot keep a candidate-owned via that was removed from the 
   const bottomWall = wall({ layer: "bottom" })
   input.traces = [leftVia]
   const access = new PendingPeerAccess(input, connection)
-  expect(finish(access.getBlockedConnections(input))).toBe(false)
+  expect(finish(access.getUncertifiedConnections(input))).toBe(false)
   expect(
     finish(
-      access.getBlockedConnections({
+      access.getUncertifiedConnections({
         ...input,
         traces: [leftVia, bottomWall, rightVia],
       }),
@@ -365,7 +365,7 @@ test("cached access cannot keep a candidate-owned via that was removed from the 
   ).toBe(false)
   expect(
     finish(
-      access.getBlockedConnections({ ...input, traces: [leftVia, bottomWall] }),
+      access.getUncertifiedConnections({ ...input, traces: [leftVia, bottomWall] }),
     ),
   ).toBe(true)
 })
@@ -390,10 +390,10 @@ test("cached off-carrier conductivity must still exist with its actual extent an
   input.traces = [leftVia, rightVia]
   const topWall = wall()
   const access = new PendingPeerAccess(input, connection)
-  expect(finish(access.getBlockedConnections(input))).toBe(false)
+  expect(finish(access.getUncertifiedConnections(input))).toBe(false)
   expect(
     finish(
-      access.getBlockedConnections({
+      access.getUncertifiedConnections({
         ...input,
         traces: [leftVia, rightVia, topWall, bridge],
       }),
@@ -403,7 +403,7 @@ test("cached off-carrier conductivity must still exist with its actual extent an
   bridge.route[1].x = -0.4
   expect(
     finish(
-      access.getBlockedConnections({
+      access.getUncertifiedConnections({
         ...input,
         traces: [leftVia, rightVia, topWall, bridge],
       }),
@@ -431,7 +431,7 @@ test("unframed peer trapping is invariant under board-space rotation and transla
     }))
     const access = new PendingPeerAccess(input, connection)
     expect(
-      finish(access.getBlockedConnections({ ...input, traces: [closed] })),
+      finish(access.getUncertifiedConnections({ ...input, traces: [closed] })),
     ).toBe(true)
   }
 })
@@ -449,9 +449,9 @@ test("the pending-access wrapper protects an unlabelled pad using real peer conn
     connectedTo: [connection.name],
   })
   const access = integratedAccess(input)
-  expect(finish(access.getBlockedConnections([]))).toEqual([])
+  expect(finish(access.getUncertifiedConnections([]))).toEqual([])
   expect(
-    finish(access.getBlockedConnections([ring(1)])).map((peer) => peer.name),
+    finish(access.getUncertifiedConnections([ring(1)])).map((peer) => peer.name),
   ).toEqual([connection.name])
 })
 
@@ -464,7 +464,7 @@ test("the pending-access wrapper preserves the whole multi-peer component", () =
   }))
   const access = integratedAccess(input)
   expect(
-    finish(access.getBlockedConnections([wall()])).map((peer) => peer.name),
+    finish(access.getUncertifiedConnections([wall()])).map((peer) => peer.name),
   ).toEqual([connection.name])
 })
 
@@ -473,11 +473,11 @@ test("grid exhaustion propagates instead of becoming disconnected or accepted", 
   input.bounds = { minX: -100, maxX: 100, minY: -100, maxY: 100 }
   input.minTraceWidth = 0.01
   const access = new PendingPeerAccess(input, connection)
-  expect(() => finish(access.getBlockedConnections(input))).toThrow(
+  expect(() => finish(access.getUncertifiedConnections(input))).toThrow(
     PendingPeerAccessUnknownError,
   )
   const wrapper = integratedAccess(input)
-  expect(() => finish(wrapper.getBlockedConnections([wall()]))).toThrow(
+  expect(() => finish(wrapper.getUncertifiedConnections([wall()]))).toThrow(
     PendingPeerAccessUnknownError,
   )
 })

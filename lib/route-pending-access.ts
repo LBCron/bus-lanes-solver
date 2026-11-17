@@ -23,7 +23,7 @@ export function* routePendingAccess({
   maxSteps: number
   access: PendingPadAccess
 }): Generator<void, Trace[] | null> {
-  if (!(yield* access.getBlockedConnections(traces)).length) return traces
+  if (!(yield* access.getBlockedObligations(traces)).length) return traces
   // Negotiation and timing consume planar carriers with owned approaches.
   // Completed native output includes those approaches already: recover their
   // representation without changing manufactured geometry or fixed copper.
@@ -53,7 +53,7 @@ export function* routePendingAccess({
       ),
     },
   )
-  if (!joint) return null
+  if (!joint) return access.noSolution()
   const finished = yield* finishGeneratedSurfaceCarriers({
     input,
     carriers: [...joint.retained, ...joint.traces],
@@ -63,8 +63,8 @@ export function* routePendingAccess({
   })
   if (
     !finished ||
-    (yield* access.getBlockedConnections(finished.traces)).length
+    (yield* access.getBlockedObligations(finished.traces)).length
   )
-    return null
+    return access.noSolution()
   return finished.traces
 }

@@ -19,7 +19,7 @@ function finish<Result>(search: Generator<void, Result>): Result {
 }
 
 function blocked(input: SimpleRouteJson, traces: readonly Trace[]): string[] {
-  return finish(new PendingPadAccess(input).getBlockedConnections(traces))
+  return finish(new PendingPadAccess(input).getUncertifiedConnections(traces))
     .map((connection) => connection.name)
 }
 
@@ -168,11 +168,11 @@ test("a cached egress witness cannot retain an owned current route removed from 
   const restored = { ...structuredClone(mutable), pcb_trace_id: "restored_owned_egress" }
   const alias = { ...structuredClone(mutable), pcb_trace_id: "aliased_owned_egress", connection_name: "RENAMED_CURRENT_BRANCH" }
   const observed = [
-    finish(access.getBlockedConnections([...addedCopper, mutable])),
-    finish(access.getBlockedConnections(addedCopper)),
-    finish(access.getBlockedConnections([...addedCopper, restored])),
-    finish(access.getBlockedConnections([...addedCopper, alias])),
-    finish(access.getBlockedConnections(addedCopper)),
+    finish(access.getUncertifiedConnections([...addedCopper, mutable])),
+    finish(access.getUncertifiedConnections(addedCopper)),
+    finish(access.getUncertifiedConnections([...addedCopper, restored])),
+    finish(access.getUncertifiedConnections([...addedCopper, alias])),
+    finish(access.getUncertifiedConnections(addedCopper)),
   ].map((connections) => connections.map((connection) => connection.name))
   expect({ input, addedCopper }).toEqual(original)
   expect(observed).toEqual([[], [pendingConnection.name], [], [], [pendingConnection.name]])

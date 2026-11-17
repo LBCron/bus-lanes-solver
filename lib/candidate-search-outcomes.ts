@@ -1,10 +1,11 @@
 import { RoutingMemoryBudgetExceeded, PendingRoutingWorkBudgetExceeded } from "./routing-memory-budget"
+import { PendingAccessSearchUnknownError } from "./pending-access-search-unknown"
 
-/** Resource exhaustion leaves a candidate unknown. Continue the caller's
- * existing domain, and report the last resource error if no candidate solves. */
+/** Resource limits and uncertified access leave a candidate unknown. Continue
+ * the existing domain; a later positive candidate can still solve it. */
 export class CandidateSearchOutcomes {
   private resourceUnknowns = 0
-  private lastResourceError?: RoutingMemoryBudgetExceeded | PendingRoutingWorkBudgetExceeded
+  private lastResourceError?: RoutingMemoryBudgetExceeded | PendingRoutingWorkBudgetExceeded | PendingAccessSearchUnknownError
 
   get unknownCount(): number {
     return this.resourceUnknowns
@@ -14,7 +15,7 @@ export class CandidateSearchOutcomes {
     try {
       return yield* search
     } catch (error) {
-      if (!(error instanceof RoutingMemoryBudgetExceeded) && !(error instanceof PendingRoutingWorkBudgetExceeded)) throw error
+      if (!(error instanceof RoutingMemoryBudgetExceeded) && !(error instanceof PendingRoutingWorkBudgetExceeded) && !(error instanceof PendingAccessSearchUnknownError)) throw error
       this.resourceUnknowns++
       this.lastResourceError = error
       return null

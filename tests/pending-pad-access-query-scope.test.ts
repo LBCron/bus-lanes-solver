@@ -57,26 +57,26 @@ test("scoped deletion questions equal the global membership result across phases
       .map((subset) => ({ subset, access: new PendingPadAccess(input) }))
     let foundBlocked = false
     for (const candidate of candidates) {
-      const global = finish(reference.getBlockedConnections(candidate))
+      const global = finish(reference.getUncertifiedConnections(candidate))
       foundBlocked ||= global.length > 0
-      const existential = finish(partialFirst.getBlockedConnections(candidate, { stopAfterFirst: true }))
+      const existential = finish(partialFirst.getUncertifiedConnections(candidate, { stopAfterFirst: true }))
       expect(existential.length > 0).toBe(global.length > 0)
       expect(existential.length).toBeLessThanOrEqual(1)
       expect(existential.every((connection) => global.includes(connection))).toBe(true)
       for (const target of targets)
-        expect(finish(partialFirst.getBlockedConnections(candidate, { connection: target })))
+        expect(finish(partialFirst.getUncertifiedConnections(candidate, { connection: target })))
           .toEqual(global.includes(target) ? [target] : [])
       // A partial result must never be cached as complete scene evidence.
-      expect(finish(partialFirst.getBlockedConnections(candidate))).toEqual(global)
+      expect(finish(partialFirst.getUncertifiedConnections(candidate))).toEqual(global)
       // A complete cached result must still be filtered by exact identity.
       for (const target of targets)
-        expect(finish(partialFirst.getBlockedConnections(candidate, { connection: target })))
+        expect(finish(partialFirst.getUncertifiedConnections(candidate, { connection: target })))
           .toEqual(global.includes(target) ? [target] : [])
       for (const { subset, access } of subsets) {
-        const first = finish(access.getBlockedConnections(candidate, { connections: subset, stopAfterFirst: true }))
+        const first = finish(access.getUncertifiedConnections(candidate, { connections: subset, stopAfterFirst: true }))
         expect(first.length > 0).toBe(global.some((connection) => subset.has(connection)))
         expect(first.every((connection) => subset.has(connection) && global.includes(connection))).toBe(true)
-        expect(finish(access.getBlockedConnections(candidate))).toEqual(global)
+        expect(finish(access.getUncertifiedConnections(candidate))).toEqual(global)
       }
     }
     expect(foundBlocked).toBe(true)
@@ -96,11 +96,11 @@ test("scoped and global checks remain independent while their union leases are i
   ]
   const original = structuredClone({ input, requests })
   const expected = requests.map(({ traces, ...scope }) => finish(
-    new PendingPadAccess(input).getBlockedConnections(traces, scope),
+    new PendingPadAccess(input).getUncertifiedConnections(traces, scope),
   ))
   const access = new PendingPadAccess(input)
-  finish(access.getBlockedConnections([]))
-  const searches = requests.map(({ traces, ...scope }) => access.getBlockedConnections(
+  finish(access.getUncertifiedConnections([]))
+  const searches = requests.map(({ traces, ...scope }) => access.getUncertifiedConnections(
     traces, scope,
   ))
   const answers: Array<Connection[] | undefined> = searches.map(() => undefined)
@@ -111,17 +111,17 @@ test("scoped and global checks remain independent while their union leases are i
       if (result.done) answers[index] = result.value
     }
   expect(answers).toEqual(expected)
-  expect(finish(access.getBlockedConnections([upperLeft, lowerRight])))
-    .toEqual(finish(new PendingPadAccess(input).getBlockedConnections([upperLeft, lowerRight])))
+  expect(finish(access.getUncertifiedConnections([upperLeft, lowerRight])))
+    .toEqual(finish(new PendingPadAccess(input).getUncertifiedConnections([upperLeft, lowerRight])))
   expect({ input, requests }).toEqual(original)
 }, 15_000)
 
 test("a query scope must reference an exact connection owned by the access request", () => {
   const { input, targets } = fixture()
   const access = new PendingPadAccess(input)
-  expect(() => finish(access.getBlockedConnections([], { connection: structuredClone(targets[0]) })))
+  expect(() => finish(access.getUncertifiedConnections([], { connection: structuredClone(targets[0]) })))
     .toThrow("declared connection")
-  expect(() => finish(access.getBlockedConnections([], {
+  expect(() => finish(access.getUncertifiedConnections([], {
     connections: new Set([structuredClone(targets[0])]), stopAfterFirst: true,
   }))).toThrow("declared connections")
 })
@@ -137,7 +137,7 @@ test("an unfinished requested obligation propagates from an existential query", 
     group.minTraceWidth = 0.01
   }
   const access = new PendingPadAccess(input)
-  expect(() => finish(access.getBlockedConnections([upperLeft], {
+  expect(() => finish(access.getUncertifiedConnections([upperLeft], {
     connections: new Set([targets[2]]), stopAfterFirst: true,
   }))).toThrow(PendingPeerAccessUnknownError)
 })
@@ -145,12 +145,12 @@ test("an unfinished requested obligation propagates from an existential query", 
 test("a suspended scoped query retains its requested connection set", () => {
   const { input, targets, upperLeft, lowerRight } = fixture()
   const candidate = [upperLeft, lowerRight]
-  const expected = finish(new PendingPadAccess(input).getBlockedConnections(candidate, {
+  const expected = finish(new PendingPadAccess(input).getUncertifiedConnections(candidate, {
     connections: new Set([targets[1]]), stopAfterFirst: true,
   }))
   expect(expected).toEqual([])
   const scope = { connections: new Set([targets[1]]), stopAfterFirst: true }
-  const search = new PendingPadAccess(input).getBlockedConnections(candidate, scope)
+  const search = new PendingPadAccess(input).getUncertifiedConnections(candidate, scope)
   expect(search.next().done).toBe(false)
   scope.connections.clear()
   scope.connections.add(targets[0])

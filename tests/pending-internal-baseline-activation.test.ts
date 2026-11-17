@@ -36,7 +36,7 @@ test("internal peer preservation replaces egress only with a complete original c
   expect(blocked.length).toBeGreaterThan(0)
   expect(blocked.every((obligation) => obligation.kind === "terminal")).toBe(true)
   expect(() => finish(stubAccess.getPreservedReport(stub.addedCopper)))
-    .toThrow("Final copper blocks access")
+    .toThrow("Routing could not certify access")
   expect(stub.input).toEqual(original)
 })
 
@@ -77,8 +77,8 @@ test("an unknown internal original carrier search cannot erase egress obligation
     minX: -1e8, maxX: 1e8, minY: -1e8, maxY: 1e8,
   }
   const access = new PendingPadAccess(input)
-  expect(() => finish(access.getBlockedConnections([])))
+  expect(() => finish(access.getUncertifiedConnections([])))
     .toThrow(PendingPeerAccessUnknownError)
-  expect(() => finish(access.getBlockedConnections([])))
+  expect(() => finish(access.getUncertifiedConnections([])))
     .toThrow(PendingPeerAccessUnknownError)
 })

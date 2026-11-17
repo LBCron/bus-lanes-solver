@@ -2,6 +2,7 @@ import { effectiveCarrierLayers } from "./effective-carrier-layers"
 import { PendingPadAccess } from "./pending-pad-access"
 import { routePendingAccess } from "./route-pending-access"
 import { RoutingMemoryBudgetExceeded, PendingRoutingWorkBudgetExceeded } from "./routing-memory-budget"
+import { PendingAccessSearchUnknownError } from "./pending-access-search-unknown"
 import { PendingPeerAccessUnknownError } from "./pending-peer-access"
 import { InvalidPendingRoutingAccess } from "./validate-pending-routing-access"
 import { nativeGroupsEligible, routeNativeGroups } from "./route-native-groups"
@@ -129,6 +130,7 @@ function pendingRoutingFailureCode(error: unknown): string | null {
   if (
     error instanceof RoutingMemoryBudgetExceeded ||
     error instanceof PendingRoutingWorkBudgetExceeded ||
+    error instanceof PendingAccessSearchUnknownError ||
     error instanceof PendingPeerAccessUnknownError
   )
     return error.code
@@ -273,7 +275,7 @@ export class BusLanesPipelineSolver extends BaseSolver {
               )
                 continue
               if (
-                (yield* this.pendingAccess.getBlockedConnections(complete))
+                (yield* this.pendingAccess.getBlockedObligations(complete))
                   .length
               )
                 continue
@@ -378,7 +380,7 @@ export class BusLanesPipelineSolver extends BaseSolver {
                     validator.tryFinalAcceptance()
                 }
                 if (
-                  (yield* this.pendingAccess.getBlockedConnections(complete))
+                  (yield* this.pendingAccess.getBlockedObligations(complete))
                     .length
                 )
                   continue
