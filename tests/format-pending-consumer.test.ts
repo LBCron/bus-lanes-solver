@@ -119,6 +119,33 @@ function optionalArrowParameter(
     !parameter.dotDotDotToken && !parameter.initializer && !parameter.modifiers?.length
 }
 
+// In a generator, TypeScript 5.9.3 parses `x => x` with YieldContext on
+// the parameter and its identifier, but `(x) => x` without that context bit.
+// Binding consults these bits for the reserved names yield/await; exclude both
+// decoded names, async arrows and every non-simple parameter. Only this exact
+// parser artifact is transparent. Arrow/body flags and all other flags survive.
+function generatorArrowParameterFlags(
+  ts: typeof TypeScript,
+  node: TypeScript.Node,
+): TypeScript.NodeFlags {
+  const parameter = ts.isParameter(node) ? node
+    : ts.isIdentifier(node) && ts.isParameter(node.parent) && node.parent.name === node
+      ? node.parent : undefined
+  if (!parameter || !ts.isIdentifier(parameter.name) ||
+    parameter.name.text === "yield" || parameter.name.text === "await") return node.flags
+  const arrow = parameter.parent
+  if (!ts.isArrowFunction(arrow) || !optionalArrowParameter(ts, arrow) ||
+    arrow.flags !== ts.NodeFlags.YieldContext ||
+    (node.flags !== 0 && node.flags !== ts.NodeFlags.YieldContext)) return node.flags
+  let boundary: TypeScript.Node | undefined = arrow.parent
+  while (boundary && !ts.isFunctionLike(boundary)) boundary = boundary.parent
+  if (!boundary || !(ts.isFunctionDeclaration(boundary) ||
+    ts.isFunctionExpression(boundary) || ts.isMethodDeclaration(boundary)) ||
+    !boundary.asteriskToken ||
+    boundary.modifiers?.some((modifier) => modifier.kind === ts.SyntaxKind.AsyncKeyword)) return node.flags
+  return ts.NodeFlags.None
+}
+
 function blockStatements(
   ts: typeof TypeScript,
   request: { block: TypeScript.Block; source: TypeScript.SourceFile },
@@ -182,7 +209,7 @@ function structuralAst(
         (child) => structuralAst(ts, child, source))
     } else if (value === null || typeof value === "string" ||
       typeof value === "number" || typeof value === "boolean") {
-      result[key] = value as Primitive
+      result[key] = key === "flags" ? generatorArrowParameterFlags(ts, node) : value as Primitive
     } else {
       throw new Error(`Unclassified AST field ${ts.SyntaxKind[node.kind]}.${key}`)
     }
@@ -468,6 +495,77 @@ export function verifyReturnParenthesesNormalization(ts: typeof TypeScript): voi
     'function f() { return tag`a`; }')
 }
 
+export function verifyGeneratorArrowParameterNormalization(ts: typeof TypeScript): void {
+  const structure = (text: string): string =>
+    sourceStructure(ts, "generator-parameter-proof.ts", Buffer.from(text))
+  const equal = (before: string, after: string): void =>
+    assert.equal(structure(before), structure(after))
+  const different = (before: string, after: string): void =>
+    assert.notEqual(structure(before), structure(after))
+  equal("function* f() { const cb = x => x; /* after */ }",
+    "function* f() { const cb = (x) => x; /* after */ }")
+  equal("class C { *f() { return items.map(x => x); } }",
+    "class C { *f() { return items.map((x) => x); } }")
+  equal("const f = function* () { yield items.map(x => x); }",
+    "const f = function* () { yield items.map((x) => x); }")
+  equal("function* f() { const cb = \\u0078 => x; }",
+    "function* f() { const cb = (\\u0078) => x; }")
+  different("function* f() { const cb = async x => x; }",
+    "function* f() { const cb = async (x) => x; }")
+  different("async function* f() { const cb = x => x; }",
+    "async function* f() { const cb = (x) => x; }")
+  different("function* f() { const cb = await => await; }",
+    "function* f() { const cb = (await) => await; }")
+  different("function* f() { const cb = \\u0061wait => await; }",
+    "function* f() { const cb = (\\u0061wait) => await; }")
+  different("function* f() { const cb = x => x; }",
+    "function f() { const cb = (x) => x; }")
+  different("function* f() { const cb = x => x; }",
+    "function* f() { const cb = (x: number) => x; }")
+  different("function* f() { const cb = x => x; }",
+    "function* f() { const cb = (x = 1) => x; }")
+  different("function* f() { const cb = x => x; }",
+    "function* f() { const cb = (x) => x + 1; }")
+  different("function* f() { const cb = /* @ts-ignore */ x => x; }",
+    "function* f() { const cb = /* @ts-ignore */\n(x) => x; }")
+  for (const name of ["yield", "\\u0079ield"]) {
+    for (const parameter of [name, `(${name})`]) {
+      assert.throws(() => structure(`function* f() { const cb = ${parameter} => 1; }`))
+    }
+  }
+  const parse = (text: string): TypeScript.SourceFile =>
+    ts.createSourceFile("generator-flags-proof.ts", text, ts.ScriptTarget.Latest, true)
+  const arrowIn = (source: TypeScript.SourceFile): TypeScript.ArrowFunction => {
+    let found: TypeScript.ArrowFunction | undefined
+    const visit = (node: TypeScript.Node): void => {
+      if (ts.isArrowFunction(node)) found = node
+      ts.forEachChild(node, visit)
+    }
+    visit(source)
+    assert(found)
+    return found
+  }
+  // Other context flags, the arrow's flags, and the body's flags must not be
+  // normalized even when the enclosing function is a generator.
+  for (const target of ["parameter", "name", "arrow", "body"] as const) {
+    const source = parse("function* f() { const cb = x => x; }")
+    const arrow = arrowIn(source)
+    const node = target === "parameter" ? arrow.parameters[0]
+      : target === "name" ? arrow.parameters[0].name
+      : target === "arrow" ? arrow : arrow.body
+    const before = JSON.stringify(structuralAst(ts, source, source))
+    ;(node as { flags: TypeScript.NodeFlags }).flags |= ts.NodeFlags.AwaitContext
+    assert.notEqual(JSON.stringify(structuralAst(ts, source, source)), before)
+  }
+  for (const parameter of ["(x: number)", "(x = 1)", "(...x)", "({ x })", "(x, y)"]) {
+    const source = parse(`function* f() { const cb = ${parameter} => x; }`)
+    const arrow = arrowIn(source)
+    const node = arrow.parameters[0]
+    ;(node as { flags: TypeScript.NodeFlags }).flags = ts.NodeFlags.YieldContext
+    assert.equal(generatorArrowParameterFlags(ts, node), ts.NodeFlags.YieldContext)
+  }
+}
+
 type StructuralDifference = {
   path: string
   before: string
@@ -642,6 +740,7 @@ test("TEMP diagnostic: transport exact canonical consumer formatting", async () 
   const ts = require("typescript") as typeof TypeScript
   assert.equal(ts.version, "5.9.3")
   verifyReturnParenthesesNormalization(ts)
+  verifyGeneratorArrowParameterNormalization(ts)
   verifyCompactDifferenceDiagnostics()
   const biomePackagePath = require.resolve("@biomejs/biome/package.json")
   const biomePackage = JSON.parse(readFileSync(biomePackagePath, "utf8"))
@@ -750,8 +849,8 @@ test("TEMP diagnostic: transport exact canonical consumer formatting", async () 
         `Ignored/native/provenance source changed: ${path}`)
     }
     if (rejections.length) {
-      // Evaluate every source first. Failure output includes explicit rejected
-      // inspection bytes for semantic review; no accepted source packet is emitted.
+      // Evaluate every source first. Only compact failure descriptions and
+      // hashes are emitted; no source packet is accepted or printed on failure.
       const diagnostics = rejections.map((rejection) =>
         marker + "_REJECTED " + JSON.stringify(rejection)).join("\n") + "\n" +
         marker + "_REJECTED_SUMMARY " + JSON.stringify({ status: "rejected",
@@ -760,50 +859,10 @@ test("TEMP diagnostic: transport exact canonical consumer formatting", async () 
           checkedUnchangedStructure: checked.length,
           diagnosticHead: git(repositoryRoot, ["rev-parse", "HEAD"]).toString("utf8").trim(),
           inputManifestSha256: sha256(manifestBytes),
-          noAcceptedSourcePacketsEmitted: true, untrustedRejectedByteInspection: true }) + "\n"
+          noFormattedSourcePacketsEmitted: true }) + "\n"
       assert(Buffer.byteLength(diagnostics) <= 128 * 1024,
         "Compact rejection diagnostics exceed their bound")
-      const reviewMarker = "PENDING_CONSUMER_REJECTED_FORMAT_INSPECTION_V1"
-      const reviewLines = [reviewMarker + "_BEGIN " + JSON.stringify({
-        status: "rejected-for-semantic-review", acceptedForApplication: false,
-        sourceCheckpointCommit: manifest.sourceCheckpointCommit,
-        diagnosticHead: git(repositoryRoot, ["rev-parse", "HEAD"]).toString("utf8").trim(),
-        inputManifestSha256: sha256(manifestBytes),
-        rejectedFiles: rejections.length,
-      })]
-      let inspectedFiles = 0
-      for (const rejection of rejections) {
-        if (!rejection.afterSha256) continue
-        const source = saved.find((entry) => entry.path === rejection.path)
-        assert(source, "Rejected review path is not a selected source")
-        const after = readFileSync(source.absolutePath)
-        assert.equal(sha256(after), rejection.afterSha256)
-        const compressed = gzipSync(after, { level: 9 })
-        assert(gunzipSync(compressed).equals(after))
-        const encoded = compressed.toString("base64")
-        const parts = Math.ceil(encoded.length / chunkCharacters)
-        reviewLines.push(reviewMarker + "_FILE " + JSON.stringify({
-          status: "rejected-for-semantic-review", acceptedForApplication: false,
-          path: source.path, beforeSha256: source.beforeSha256,
-          afterSha256: sha256(after), afterBytes: after.length,
-          gzipSha256: sha256(compressed), gzipBytes: compressed.length,
-          base64Characters: encoded.length, parts,
-        }))
-        for (let part = 0; part < parts; part++) {
-          const payload = encoded.slice(part * chunkCharacters, (part + 1) * chunkCharacters)
-          reviewLines.push(reviewMarker + "_CHUNK " + JSON.stringify({ path: source.path,
-            part, parts, payloadSha256: sha256(payload), payload }))
-        }
-        inspectedFiles++
-      }
-      const reviewBody = reviewLines.join("\n") + "\n"
-      const review = reviewBody + reviewMarker + "_END " + JSON.stringify({
-        status: "rejected-for-semantic-review", acceptedForApplication: false,
-        inspectedFiles, bodySha256: sha256(reviewBody) }) + "\n"
-      const rejectedOutput = diagnostics + review
-      assert(Buffer.byteLength(rejectedOutput) <= maximumOutputBytes,
-        "Untrusted rejected-source inspection exceeds bound; no output emitted")
-      assert.equal(await Bun.write(Bun.stdout, rejectedOutput), Buffer.byteLength(rejectedOutput))
+      assert.equal(await Bun.write(Bun.stdout, diagnostics), Buffer.byteLength(diagnostics))
       assert.fail(`Canonical formatting rejected ${rejections.length}/${saved.length} sources; see compact rejection records`)
     }
     assert.equal(checked.length, saved.length)
@@ -855,8 +914,8 @@ test("TEMP diagnostic: transport exact canonical consumer formatting", async () 
     verified = true
   } finally {
     // Failed verification restores the exact bytes and remains a failed test.
-    // Rejected inspection bytes remain untrusted and unapplied. No accepted
-    // source packet is emitted when any source fails verification.
+    // Only bounded rejection diagnostics may precede a failure. No partial or
+    // unverified source bytes are emitted or accepted as formatted source.
     if (!verified) {
       for (const source of saved) writeFileSync(source.absolutePath, source.before)
     }
