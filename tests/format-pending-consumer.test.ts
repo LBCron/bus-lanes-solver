@@ -58,6 +58,21 @@ const parserMetadata = new Set([
   "endFlowNode", "returnFlowNode",
 ])
 
+// A formatter may surround the entire value of a return statement with
+// parentheses to wrap it across lines. Only this outer chain is transparent:
+// parentheses inside calls, optional chains, directives, and operators retain
+// their exact AST representation.
+function returnValue(
+  ts: typeof TypeScript,
+  node: TypeScript.ReturnStatement,
+): TypeScript.Expression | undefined {
+  let expression = node.expression
+  while (expression && ts.isParenthesizedExpression(expression)) {
+    expression = expression.expression
+  }
+  return expression
+}
+
 function structuralAst(
   ts: typeof TypeScript,
   node: TypeScript.Node,
@@ -85,7 +100,11 @@ function structuralAst(
     const value = (node as AstNode)[key]
     if (value === undefined) continue
     if (children.has(value as TypeScript.Node)) {
-      result[key] = structuralAst(ts, value as TypeScript.Node, source)
+      const child = ts.isReturnStatement(node) && key === "expression"
+        ? returnValue(ts, node)
+        : value as TypeScript.Node
+      assert(child)
+      result[key] = structuralAst(ts, child, source)
     } else if (childArrays.has(value as TypeScript.NodeArray<TypeScript.Node>)) {
       result[key] = Array.from(value as TypeScript.NodeArray<TypeScript.Node>,
         (child) => structuralAst(ts, child, source))
@@ -119,9 +138,22 @@ function preservedComments(
   source: TypeScript.SourceFile,
 ): StructuralValue {
   const leaves: { kind: number; start: number; end: number }[] = []
+  const transparentReturnParentheses = new Set<number>()
   const visit = (node: TypeScript.Node): void => {
     if (node.kind >= ts.SyntaxKind.FirstJSDocNode &&
       node.kind <= ts.SyntaxKind.LastJSDocNode) return
+    if (ts.isReturnStatement(node)) {
+      let expression = node.expression
+      while (expression && ts.isParenthesizedExpression(expression)) {
+        const open = expression.getFirstToken(source)
+        const close = expression.getLastToken(source)
+        assert(open?.kind === ts.SyntaxKind.OpenParenToken)
+        assert(close?.kind === ts.SyntaxKind.CloseParenToken)
+        transparentReturnParentheses.add(open.getStart(source))
+        transparentReturnParentheses.add(close.getStart(source))
+        expression = expression.expression
+      }
+    }
     const children = node.getChildren(source)
     if (children.length) {
       for (const child of children) visit(child)
@@ -143,9 +175,11 @@ function preservedComments(
     boundary = []
     hasComment = false
   }
-  for (const leaf of [...leaves,
+  const withEof = [...leaves,
     { kind: ts.SyntaxKind.EndOfFileToken, start: source.text.length,
-      end: source.text.length }]) {
+      end: source.text.length }]
+  for (let index = 0; index < withEof.length; index++) {
+    const leaf = withEof[index]
     assert(leaf.start >= previousEnd, "Overlapping parser token spans")
     // Only gaps between parser-token spans are scanned. A regexp, template, or
     // JSX text containing comment-like characters remains an indivisible leaf.
@@ -166,14 +200,22 @@ function preservedComments(
       if (/@ts-(?:ignore|expect-error)\b/.test(text)) {
         // Moving a suppression onto/off the target code's line can change
         // typechecking despite an otherwise identical code AST and comment.
+        let targetIndex = index
+        while (transparentReturnParentheses.has(withEof[targetIndex].start)) {
+          targetIndex++
+        }
         comment.nextTokenLineDistance =
-          source.getLineAndCharacterOfPosition(leaf.start).line -
+          source.getLineAndCharacterOfPosition(withEof[targetIndex].start).line -
           source.getLineAndCharacterOfPosition(
             previousEnd + scanner.getTextPos()).line
       }
       boundary.push(comment)
     }
     previousEnd = leaf.end
+    // Do not shift comment anchors for the same transparent return wrappers.
+    // Comments before and inside a wrapper still anchor to the same next
+    // significant token, and suppression line distances remain checked.
+    if (transparentReturnParentheses.has(leaf.start)) continue
     if (leaf.kind === ts.SyntaxKind.CommaToken ||
       leaf.kind === ts.SyntaxKind.SemicolonToken) {
       // Unrelated trailing separators must not shift every later comment's
@@ -207,6 +249,42 @@ function sourceStructure(
     `Parse diagnostics in ${path}: ${diagnostics.map((d) => d.code).join(",")}`)
   return JSON.stringify({ ast: structuralAst(ts, source, source),
     comments: preservedComments(ts, source) })
+}
+
+export function verifyReturnParenthesesNormalization(ts: typeof TypeScript): void {
+  const structure = (text: string): string =>
+    sourceStructure(ts, "return-parentheses-proof.ts", Buffer.from(text))
+  const equal = (before: string, after: string): void =>
+    assert.equal(structure(before), structure(after))
+  const different = (before: string, after: string): void =>
+    assert.notEqual(structure(before), structure(after))
+
+  equal("function f() { return !a || b !== 1 || c !== d; /* after */ }",
+    "function f() { return (\n !a || b !== 1 || c !== d\n ); /* after */ }")
+  equal("function f() { return (a, b); }",
+    "function f() { return (((a, b))); }")
+  equal("function f() { return a?.b; }", "function f() { return (a?.b); }")
+  equal("function f() { return /* keep */ a; }",
+    "function f() { return (/* keep */ a); }")
+  equal("function f() { return /* @ts-ignore */ a; }",
+    "function f() { return (/* @ts-ignore */ a); }")
+  different("function f() { return (a || b) && c; }",
+    "function f() { return a || (b && c); }")
+  different("function f() { return (a?.b).c; }",
+    "function f() { return a?.b.c; }")
+  different("function f() { return (a?.b)(); }",
+    "function f() { return a?.b(); }")
+  different('function f() { "use strict"; return this; }',
+    'function f() { ("use strict"); return this; }')
+  different("function f() { return a; }", "function f() { return\n(a); }")
+  different("function f() { return /* first */ a; }",
+    "function f() { return /* changed */ (a); }")
+  different("function f() { return (/* @ts-ignore */ a); }",
+    "function f() { return (/* @ts-ignore */\n a); }")
+  different('function f() { return "\\x61"; }',
+    'function f() { return "a"; }')
+  different('function f() { return tag`\\x61`; }',
+    'function f() { return tag`a`; }')
 }
 
 function git(repositoryRoot: string, args: string[]): Buffer {
@@ -294,6 +372,7 @@ test("TEMP diagnostic: transport exact canonical consumer formatting", async () 
   const require = createRequire(resolve(repositoryRoot, "package.json"))
   const ts = require("typescript") as typeof TypeScript
   assert.equal(ts.version, "5.9.3")
+  verifyReturnParenthesesNormalization(ts)
   const biomePackagePath = require.resolve("@biomejs/biome/package.json")
   const biomePackage = JSON.parse(readFileSync(biomePackagePath, "utf8"))
   assert.equal(biomePackage.name, "@biomejs/biome")
