@@ -1,3 +1,4 @@
+import { pendingPackageExits } from "./pending-lane-certificates"
 import { pruneCandidateDomains } from "./prune-candidate-domains"
 import { explicitlyAllowsCarrierLayer } from "./effective-carrier-layers"
 import { getCopperLayerNames } from "@tscircuit/fanout-solver"
@@ -220,6 +221,17 @@ function existingSignalSite(
   )
   const clearance =
     native.minTraceToPadEdgeClearance ?? native.defaultObstacleMargin ?? 0.075
+  const hasTimingConstraints =
+    Boolean(native.differentialPairs?.length) ||
+    Boolean(native.buses?.some((bus) =>
+      bus.maxLength !== undefined ||
+      bus.minLength !== undefined ||
+      bus.maxLengthSkew !== undefined,
+    ))
+  let pendingExits: Copper[] = []
+  if (!hasTimingConstraints && native.traces?.length) {
+    pendingExits = yield* pendingPackageExits(native, hard)
+  }
   if (
     new CopperConflictIndex().firstConflict(
       escapeCopper,
@@ -447,8 +459,8 @@ export function* negotiateSignalSites(
             scene,
             local.pointsToConnect[0],
             local.pointsToConnect[1],
-            [],
-            0,
+            pendingExits,
+            10,
             undefined,
             { checkReachability: true, maxLength },
           )
@@ -660,7 +672,7 @@ export function* negotiateSignalSites(
     visits.set(connection.name, visit + 1)
     routed.delete(connection.name)
     const others = [...routed.values()],
-      soft = others.flatMap((option) => option.copper)
+      soft = [...others.flatMap((option) => option.copper), ...pendingExits]
     let best: Candidate | undefined
     for (let k = 0; k < Math.min(choices.length, 4); k++) {
       const option = choices[(visit * 4 + k) % choices.length],
