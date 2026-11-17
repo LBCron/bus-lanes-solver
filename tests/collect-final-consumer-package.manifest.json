@@ -1,0 +1,12 @@
+{
+  "sourceCommit": "e6c3ffd80983afc3bfc570b7d9618a0001e79505",
+  "sourceTree": "fd0a59e152dff9c207697e673a6caaa3f23cbc4f",
+  "officialBuildRecord": "https://github.com/tscircuit/bus-lanes-solver/actions/runs/44200806456/job/134454058588",
+  "archiveUrl": "https://pkg.pr.new/tscircuit/bus-lanes-solver/@tscircuit/bus-lanes-solver@e6c3ffd",
+  "packageName": "@tscircuit/bus-lanes-solver",
+  "packageVersion": "0.0.61",
+  "logicCommit": "f5519b9a06ebf76e3fcc2b52270dd193422180b6",
+  "ownerManifestSha256": "18d6d4f3821bbb95497c566651b2186930f6bf6643154dba13ef2fd0d2ea0106",
+  "maxArchiveBytes": 2097152,
+  "rawSegmentBytes": 65536
+}
