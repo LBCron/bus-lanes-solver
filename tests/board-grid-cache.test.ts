@@ -5,6 +5,38 @@ import { GridVisibilitySearch } from "../lib/grid-visibility"
 import { VectorScene, copperTooClose, type Copper } from "../lib/vector-scene"
 import { boardOutlineInput } from "./fixtures/board-outline"
 
+test("records cache reuse across alternating search bounds", () => {
+  const input = boardOutlineInput()
+  const step = 0.2
+  const xs = Float64Array.from({ length: 51 }, (_, x) => -5 + x * step)
+  const ys = Float64Array.from({ length: 41 }, (_, y) => -4 + y * step)
+  const full = { input, copperRadiusMm: 0.05, xs, ys, step }
+  const narrow = { ...full, xs: xs.slice(10, -10) }
+  const predicate = spyOn(boardOutline, "boardSegmentIsClear")
+  try {
+    const fullBoard = getBoardGrid(full)
+    const narrowBoard = getBoardGrid(narrow)
+    predicate.mockClear()
+    const repeatedFullBoard = getBoardGrid(full)
+    const repeatedNarrowBoard = getBoardGrid(narrow)
+    expect(repeatedFullBoard).toEqual(fullBoard)
+    expect(repeatedNarrowBoard).toEqual(narrowBoard)
+    expect({
+      repeatedPointChecks: predicate.mock.calls.length,
+      reusedFullGrid: repeatedFullBoard === fullBoard,
+      reusedNarrowGrid: repeatedNarrowBoard === narrowBoard,
+    }).toMatchInlineSnapshot(`
+      {
+        "repeatedPointChecks": 0,
+        "reusedFullGrid": true,
+        "reusedNarrowGrid": true,
+      }
+    `)
+  } finally {
+    predicate.mockRestore()
+  }
+})
+
 test("copper changes reuse board occupancy without retaining stale copper or clearance", () => {
   const input = boardOutlineInput()
   const connection = input.connections[0]

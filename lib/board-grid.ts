@@ -1,13 +1,12 @@
 import { boardSegmentIsClear } from "./board-outline"
 import type { SimpleRouteJson } from "./types"
 
-// Keep only the most recent board raster per request, independently of copper.
+type BoardGridKey = string
+
+// Retain board rasters across search bounds, independently of copper.
 // Oversized rasters are used by their caller without retaining another copy.
-const boardGrids = new WeakMap<
-  SimpleRouteJson,
-  { key: string; blocked: Uint8Array }
->()
-const maxBoardGridBytes = 8 * 1024 * 1024
+const boardGrids = new WeakMap<SimpleRouteJson, Map<BoardGridKey, Uint8Array>>()
+const maxBoardGridBytes = 16 * 1024 * 1024
 
 /** Read-only board occupancy in board-world mm; callers copy it before marking copper. */
 export function getBoardGrid({
@@ -23,7 +22,7 @@ export function getBoardGrid({
   ys: Float64Array
   step: number
 }): Uint8Array {
-  const key = JSON.stringify([
+  const key: BoardGridKey = JSON.stringify([
     xs[0],
     ys[0],
     xs.length,
@@ -34,8 +33,13 @@ export function getBoardGrid({
     input.outline,
     input.minBoardEdgeClearance,
   ])
-  const previous = boardGrids.get(input)
-  if (previous?.key === key) return previous.blocked
+  const grids = boardGrids.get(input) ?? new Map<BoardGridKey, Uint8Array>()
+  const previous = grids.get(key)
+  if (previous) {
+    grids.delete(key)
+    grids.set(key, previous)
+    return previous
+  }
   const blocked = new Uint8Array(xs.length * ys.length)
   for (let y = 0; y < ys.length; y++)
     for (let x = 0; x < xs.length; x++) {
@@ -50,7 +54,18 @@ export function getBoardGrid({
       )
         blocked[x + y * xs.length] = 1
     }
-  if (blocked.byteLength <= maxBoardGridBytes)
-    boardGrids.set(input, { key, blocked })
+  if (blocked.byteLength <= maxBoardGridBytes) {
+    let retained = [...grids.values()].reduce(
+      (sum, grid) => sum + grid.byteLength,
+      0,
+    )
+    while (retained + blocked.byteLength > maxBoardGridBytes && grids.size) {
+      const oldest = grids.keys().next().value!
+      retained -= grids.get(oldest)!.byteLength
+      grids.delete(oldest)
+    }
+    grids.set(key, blocked)
+    boardGrids.set(input, grids)
+  }
   return blocked
 }
