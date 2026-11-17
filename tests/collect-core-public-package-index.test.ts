@@ -59,6 +59,7 @@ const packages: readonly PublicPackage[] = [
   },
   { name: "react", version: "19.1.0" },
   { name: "@tscircuit/fanout-solver", version: "0.0.83" },
+  { name: "jscad-electronics", version: "0.0.243" },
 ]
 
 const maximumArchiveBytes = 2 * 1024 * 1024
@@ -243,8 +244,8 @@ function transportBody(metadata: Record<string, unknown>, bytes: Buffer): string
 }
 
 test("indexed Core public transport rejects implicit and out-of-range selection", () => {
-  assert.equal(packages.length, 25)
-  assert.equal(new Set(packages.map((entry) => entry.name + "@" + entry.version)).size, 25)
+  assert.equal(packages.length, 26)
+  assert.equal(new Set(packages.map((entry) => entry.name + "@" + entry.version)).size, 26)
   assert.equal(boundedIndex("0", 18), 0)
   assert.equal(boundedIndex("17", 18), 17)
   for (const bad of [undefined, "", "00", "-1", "18", "1.0", "NaN", "0;1"]) {

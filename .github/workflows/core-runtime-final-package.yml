@@ -1,0 +1,25 @@
+name: Capture exact CAD runtime dependency
+
+on:
+  push:
+    branches:
+      - diagnostics/core-runtime-final-package
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.4
+      - name: Capture exact jscad-electronics package
+        env:
+          PENDING_ACCESS_PACKAGE_INDEX: 25
+        run: bun test --timeout 180000 tests/collect-core-public-package-index.test.ts
