@@ -57,9 +57,9 @@ jobs:
             (
               cd "$checkout"
               if [[ -f bun.lock || -f bun.lockb ]]; then
-                bun install --config "$RUNNER_TEMP/cache-gallery-bunfig.toml" --frozen-lockfile --ignore-scripts
+                bun install --config="$RUNNER_TEMP/cache-gallery-bunfig.toml" --frozen-lockfile --ignore-scripts
               else
-                bun install --config "$RUNNER_TEMP/cache-gallery-bunfig.toml" --ignore-scripts
+                bun install --config="$RUNNER_TEMP/cache-gallery-bunfig.toml" --ignore-scripts
               fi
               git diff --exit-code -- lib scripts package.json bunfig.toml
             )
