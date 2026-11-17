@@ -1,0 +1,136 @@
+name: AM3352 cache head gallery
+
+on:
+  push:
+    branches: [bench/am3352-cache-gallery-3209]
+
+permissions:
+  contents: read
+
+env:
+  BUN_JSC_forceRAMSize: "2147483648"
+  BUN_JSC_miniVMHeapGrowthFactor: "1.05"
+
+jobs:
+  solve:
+    name: Gallery native ${{ matrix.sample }}
+    runs-on: blacksmith-4vcpu-ubuntu-2404
+    timeout-minutes: 80
+    strategy:
+      fail-fast: false
+      max-parallel: 11
+      matrix:
+        sample: [control, control-inner1, right, left, above, inner-layers, inner-layers-right, inner-layers-left, inner-layers-above, inner-layers-complete-ca, outer-layers]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: diagnostic
+          persist-credentials: false
+          sparse-checkout: experiments/cache-gallery
+      - name: Checkout pinned trusted PR-base harness
+        uses: actions/checkout@v4
+        with:
+          ref: 39154c9830acff7432f89fec6395f3dcb91f91fa
+          path: base
+          persist-credentials: false
+      - name: Checkout pinned qualified solver
+        uses: actions/checkout@v4
+        with:
+          ref: d47b57c26e6d173d83a76adb5147f38c81623045
+          path: head
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.0
+      - name: Install matching runtimes before timing
+        run: |
+          test "$(git -C base rev-parse HEAD)" = 39154c9830acff7432f89fec6395f3dcb91f91fa
+          test "$(git -C head rev-parse HEAD)" = d47b57c26e6d173d83a76adb5147f38c81623045
+          cmp base/package.json head/package.json
+          for checkout in base head; do
+            (
+              cd "$checkout"
+              if [[ -f bun.lock || -f bun.lockb ]]; then
+                bun install --frozen-lockfile --ignore-scripts
+              else
+                bun install --ignore-scripts
+              fi
+              git diff --exit-code -- lib scripts package.json
+            )
+          done
+          cmp base/bun.lock head/bun.lock
+      - name: Fresh head solve with unchanged trusted worker and 3600-second budget
+        env:
+          SAMPLE: ${{ matrix.sample }}
+        run: bun diagnostic/experiments/cache-gallery/run-head.ts "$SAMPLE" "$GITHUB_WORKSPACE"
+      - name: Retain accepted native output and all failure reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: am3352-cache-head-native-${{ matrix.sample }}
+          path: results/${{ matrix.sample }}/
+          if-no-files-found: error
+          retention-days: 14
+
+  gallery:
+    name: Export all eleven accepted native boards
+    needs: solve
+    if: always()
+    runs-on: blacksmith-4vcpu-ubuntu-2404
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: diagnostic
+          persist-credentials: false
+          sparse-checkout: experiments/cache-gallery
+      - uses: actions/checkout@v4
+        with:
+          ref: 39154c9830acff7432f89fec6395f3dcb91f91fa
+          path: base
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: am3352-cache-head-native-*
+          path: native-artifacts
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.0
+      - name: Require all fresh workers and one exact resolved dependency graph
+        env:
+          MATRIX_RESULT: ${{ needs.solve.result }}
+        run: |
+          test "$MATRIX_RESULT" = success
+          python3 - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          root = Path("native-artifacts")
+          expected = json.loads(Path("base/scripts/pr-benchmark/samples.json").read_text())
+          assert len(expected) == len(set(expected)) == 11
+          assert sorted(path.name for path in root.iterdir()) == sorted("am3352-cache-head-native-" + name for name in expected)
+          common = None
+          for name in expected:
+              path = root / ("am3352-cache-head-native-" + name)
+              report = json.loads((path / "worker.json").read_text())
+              assert report["accepted"] and report["sample"] == name
+              assert report["controllerSha"] == "39154c9830acff7432f89fec6395f3dcb91f91fa"
+              assert report["solverSha"] == "d47b57c26e6d173d83a76adb5147f38c81623045"
+              lock = (path / "runtime.bun.lock").read_bytes()
+              assert hashlib.sha256(lock).hexdigest() == report["lockSha256"]
+              if common is None:
+                  common = lock
+              assert lock == common, "Resolved dependencies differ across native gallery workers"
+          Path("base/bun.lock").write_bytes(common)
+          PY
+      - name: Install the captured exact renderer and checker dependencies
+        working-directory: base
+        run: bun install --frozen-lockfile --ignore-scripts
+      - name: Validate all native outputs before exporting any image
+        run: bun diagnostic/experiments/cache-gallery/export-gallery.ts "$GITHUB_WORKSPACE"
+      - name: Preserve only the fully accepted gallery
+        uses: actions/upload-artifact@v4
+        with:
+          name: am3352-cache-accepted-gallery
+          path: gallery/
+          if-no-files-found: error
+          retention-days: 30
