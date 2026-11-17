@@ -12,6 +12,9 @@ export interface Terminal extends Point {
 export interface Connection {
   name: string
   source_trace_id?: string
+  /** Explicit electrical net/root identities used by sectioned native nets. */
+  netConnectionName?: string
+  rootConnectionName?: string
   pointsToConnect: Terminal[]
   nominalTraceWidth?: number
   width?: number
@@ -56,6 +59,8 @@ export interface Trace {
 }
 export interface Obstacle {
   type?: string
+  /** Explicit physical NON-PLATED hole marker emitted by Core's SRJ producer. */
+  isNonPlatedHole?: boolean
   componentId?: string
   shape?: "circle"
   ccwRotationDegrees?: number

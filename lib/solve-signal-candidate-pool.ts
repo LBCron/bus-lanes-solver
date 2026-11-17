@@ -27,6 +27,7 @@ export interface SignalCandidatePoolOptions<T> {
   maxSearchNodes?: number
   maxSupportChecks?: number
   acceptSelection?: (selection: T[]) => Generator<void, boolean>
+  onSearchExhausted?: () => Error
 }
 
 interface CandidateSearchState<T> {
@@ -34,6 +35,7 @@ interface CandidateSearchState<T> {
   acceptSelection: SignalCandidatePoolOptions<T>["acceptSelection"]
   maxSearchNodes: number
   nodes: number
+  exhausted: boolean
   selected: T[]
   assigned: Uint8Array
 }
@@ -44,20 +46,26 @@ export function* solveSignalCandidatePoolSteps<T>({
   maxSearchNodes = 4000,
   maxSupportChecks = 1_000_000,
   acceptSelection,
+  onSearchExhausted,
 }: SignalCandidatePoolOptions<T>): Generator<void, T[] | null> {
   const initial = pruneCandidateDomains(domains, compatible, maxSupportChecks)
   if (!initial) return null
-  return yield* visitSignalCandidateDomains({
+  const state: CandidateSearchState<T> = {
+    compatible,
+    acceptSelection,
+    maxSearchNodes,
+    nodes: 0,
+    exhausted: false,
+    selected: new Array(initial.length),
+    assigned: new Uint8Array(initial.length),
+  }
+  const answer = yield* visitSignalCandidateDomains({
     remaining: initial,
-    state: {
-      compatible,
-      acceptSelection,
-      maxSearchNodes,
-      nodes: 0,
-      selected: new Array(initial.length),
-      assigned: new Uint8Array(initial.length),
-    },
+    state,
   })
+  if (!answer && state.exhausted && onSearchExhausted)
+    throw onSearchExhausted()
+  return answer
 }
 
 function* visitSignalCandidateDomains<T>({
@@ -69,7 +77,10 @@ function* visitSignalCandidateDomains<T>({
 }): Generator<void, T[] | null> {
   const { assigned, selected, compatible, acceptSelection, maxSearchNodes } =
     state
-  if (++state.nodes > maxSearchNodes) return null
+  if (++state.nodes > maxSearchNodes) {
+    state.exhausted = true
+    return null
+  }
   let next = -1
   for (let index = 0; index < remaining.length; index++) {
     if (assigned[index]) continue
@@ -81,7 +92,8 @@ function* visitSignalCandidateDomains<T>({
     const answer = selected.slice()
     return !acceptSelection || (yield* acceptSelection(answer)) ? answer : null
   }
-  for (const candidate of remaining[next]) {
+  for (let candidateIndex = 0; candidateIndex < remaining[next].length; candidateIndex++) {
+    const candidate = remaining[next][candidateIndex]
     selected[next] = candidate
     assigned[next] = 1
     const filtered = remaining.map((domain, index) =>
@@ -96,7 +108,12 @@ function* visitSignalCandidateDomains<T>({
       : yield* visitSignalCandidateDomains({ remaining: filtered, state })
     if (answer) return answer
     assigned[next] = 0
-    if (state.nodes >= maxSearchNodes) break
+    if (state.nodes >= maxSearchNodes) {
+      // Reaching the cap on the last completely checked choice is a finite
+      // negative result; only skipped choices leave this search unresolved.
+      if (candidateIndex + 1 < remaining[next].length) state.exhausted = true
+      break
+    }
   }
   return null
 }

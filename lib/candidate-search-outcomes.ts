@@ -1,22 +1,22 @@
-import { RoutingMemoryBudgetExceeded } from "./routing-memory-budget"
+import { RoutingMemoryBudgetExceeded, PendingRoutingWorkBudgetExceeded } from "./routing-memory-budget"
 
 /** Resource exhaustion leaves a candidate unknown. Continue the caller's
  * existing domain, and report the last resource error if no candidate solves. */
 export class CandidateSearchOutcomes {
-  private memoryUnknowns = 0
-  private lastMemoryError?: RoutingMemoryBudgetExceeded
+  private resourceUnknowns = 0
+  private lastResourceError?: RoutingMemoryBudgetExceeded | PendingRoutingWorkBudgetExceeded
 
   get unknownCount(): number {
-    return this.memoryUnknowns
+    return this.resourceUnknowns
   }
 
   *run<T>(search: Generator<void, T | null>): Generator<void, T | null> {
     try {
       return yield* search
     } catch (error) {
-      if (!(error instanceof RoutingMemoryBudgetExceeded)) throw error
-      this.memoryUnknowns++
-      this.lastMemoryError = error
+      if (!(error instanceof RoutingMemoryBudgetExceeded) && !(error instanceof PendingRoutingWorkBudgetExceeded)) throw error
+      this.resourceUnknowns++
+      this.lastResourceError = error
       return null
     } finally {
       search.return(null)
@@ -24,7 +24,7 @@ export class CandidateSearchOutcomes {
   }
 
   noSolution(): null {
-    if (this.lastMemoryError) throw this.lastMemoryError
+    if (this.lastResourceError) throw this.lastResourceError
     return null
   }
 }

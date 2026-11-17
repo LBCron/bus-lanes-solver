@@ -3,6 +3,7 @@ import { signalLayers } from "./flexible-signal-state"
 import { negotiateSurfaceRoutes } from "./negotiate-surface-routes"
 import { PendingPadAccess } from "./pending-pad-access"
 import { runBoundedRouting } from "./run-bounded-routing"
+import { PendingRoutingWorkBudgetExceeded } from "./routing-memory-budget"
 import { splitCompleteSurfaceTrace } from "./split-complete-surface-trace"
 import type { SimpleRouteJson, SolverOptions, Trace } from "./types"
 
@@ -45,7 +46,12 @@ export function* routePendingAccess({
       retained: [],
       traces: seeds.map((seed) => seed.carrier),
     }),
-    maxSteps,
+    {
+      maxSteps,
+      onExhausted: () => new PendingRoutingWorkBudgetExceeded(
+        "Pending routing repair exhausted its cooperative step budget",
+      ),
+    },
   )
   if (!joint) return null
   const finished = yield* finishGeneratedSurfaceCarriers({

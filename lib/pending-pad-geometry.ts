@@ -2,9 +2,10 @@ import { getCopperLayerNames } from "@tscircuit/fanout-solver"
 import { getPackagePadFrame, type PackagePadFrame } from "./package-pad-frame"
 import { packageApproachRegions } from "./package-approach-regions"
 import { PendingOwnedCarrierAccess } from "./pending-owned-carrier-access"
+import { PendingCopperOwnership } from "./pending-copper-ownership"
 import { pendingViaDimensions } from "./pending-via-dimensions"
 import type { Connection, Obstacle, Point, SimpleRouteJson, Via } from "./types"
-import { fixedCopper, type Copper } from "./vector-scene"
+import { fixedCopper, VectorScene, type Copper } from "./vector-scene"
 
 type ComponentId = string
 
@@ -54,44 +55,34 @@ export class PendingPadGeometry {
   readonly viaDiameter: number
   readonly holeDiameter: number
   readonly landingInput: SimpleRouteJson
-  readonly holeInput?: SimpleRouteJson
   readonly componentPads: Obstacle[]
   readonly frameByComponent: ReadonlyMap<ComponentId, PackagePadFrame>
   private readonly captured: SimpleRouteJson
   private readonly ownedAccess = new Map<Connection, PendingOwnedCarrierAccess>()
+  private readonly wireClearances = new Map<Copper, number>()
+  private readonly viaClearances = new Map<Copper, number>()
 
-  constructor(private readonly input: SimpleRouteJson) {
+  constructor(private readonly input: SimpleRouteJson,
+    readonly ownership = new PendingCopperOwnership(input)) {
+    ownership.assertMatches(input)
     this.captured = { ...input }
     this.physical = getCopperLayerNames(input.layerCount)
     const padClearance =
       input.minTraceToPadEdgeClearance ?? input.defaultObstacleMargin ?? 0.075
-    const holes: Copper[] = (input.traces ?? []).flatMap((trace) =>
-      trace.route.flatMap((point) => {
-        if (point.route_type !== "via") return []
-        const from = this.physical.indexOf(point.from_layer)
-        const to = this.physical.indexOf(point.to_layer)
-        const layers =
-          point.layers ??
-          this.physical.slice(Math.min(from, to), Math.max(from, to) + 1)
-        return layers.map((layer) => ({
-          a: point,
-          b: point,
-          layer,
-          radius:
-            (point.via_hole_diameter ?? input.minViaHoleDiameter ?? 0.15) / 2 +
-            Math.max(
-              0,
-              (input.minTraceToHoleEdgeClearance ?? 0) - padClearance,
-            ),
-          owners: [trace.connection_name, trace.source_trace_id].filter(
-            (owner): owner is string => !!owner,
-          ),
-        }))
-      }),
-    )
-    this.copper = fixedCopper(input)
-    this.traceSceneCopper = [...this.copper, ...holes]
-    this.padCopper = fixedCopper({ ...input, traces: [] })
+    const hasNonPlatedHoles = input.obstacles.some(obstacle => obstacle.isNonPlatedHole === true)
+    const padInput = { ...input, traces: [] }
+    this.padCopper = hasNonPlatedHoles ? input.obstacles.flatMap(obstacle => {
+      const shapes = fixedCopper({ ...padInput, obstacles: [obstacle] })
+      if (obstacle.isNonPlatedHole === true) for (const shape of shapes) {
+        // Keep explicit source provenance, even if unrelated pads reuse the
+        // same Point object. Neither coordinates nor allocation imply class.
+        this.wireClearances.set(shape, input.minTraceToHoleEdgeClearance ?? padClearance)
+        // Preserve physical-hole exclusion for via land, without applying a
+        // trace-only or SMT-pad-only positive clearance to that other class.
+        this.viaClearances.set(shape, 0)
+      }
+      return shapes
+    }) : fixedCopper(padInput)
     const dimensions = pendingViaDimensions(input)
     this.viaDiameter = dimensions.padDiameter
     this.holeDiameter = dimensions.holeDiameter
@@ -100,6 +91,8 @@ export class PendingPadGeometry {
     )
     const viaPoints = new Set<Point>(this.oldVias)
     this.traceCopper = fixedCopper({ ...input, obstacles: [] })
+    this.copper = [...this.padCopper, ...this.traceCopper]
+    this.traceSceneCopper = this.copper
     this.wireCopper = this.traceCopper.filter((shape) => !isViaPad(shape, viaPoints))
     this.padsAndVias = [
       ...this.padCopper,
@@ -107,23 +100,18 @@ export class PendingPadGeometry {
     ]
     this.landingInput = {
       ...input,
-      minTraceToPadEdgeClearance: Math.max(
+      // The via-specific declaration overrides the generic pad rule, including
+      // an explicit zero. A routing phase must not strengthen declared SRJ
+      // fabrication rules by combining independent clearances with MAX.
+      minTraceToPadEdgeClearance:
         input.minViaEdgeToPadEdgeClearance ??
-          input.minTraceToPadEdgeClearance ??
-          input.defaultObstacleMargin ??
-          0.075,
-        input.minPadEdgeToPadEdgeClearance ?? 0,
-      ),
+        input.minPadEdgeToPadEdgeClearance ??
+        input.minTraceToPadEdgeClearance ??
+        input.defaultObstacleMargin ??
+        0.075,
     }
-    if (
-      (input.minTraceToHoleEdgeClearance ?? 0) + this.holeDiameter / 2 >
-      padClearance + this.viaDiameter / 2
-    )
-      this.holeInput = {
-        ...input,
-        minTraceToPadEdgeClearance: input.minTraceToHoleEdgeClearance,
-      }
-    this.componentPads = input.obstacles.filter((pad) => pad.componentId)
+    const packageInput = hasNonPlatedHoles ? { ...input, obstacles: input.obstacles.filter(obstacle => obstacle.isNonPlatedHole !== true) } : input
+    this.componentPads = packageInput.obstacles.filter((pad) => pad.componentId)
     const components = new Map<ComponentId, Obstacle[]>()
     for (const pad of this.componentPads) {
       const componentId = pad.componentId!
@@ -131,7 +119,7 @@ export class PendingPadGeometry {
       pads.push(pad)
       components.set(componentId, pads)
     }
-    const regions = packageApproachRegions(input, 0)
+    const regions = packageApproachRegions(packageInput, 0)
     const frames = new Map<ComponentId, PackagePadFrame>()
     for (const [index, [componentId, pads]] of [...components].entries())
       frames.set(componentId, getPackagePadFrame(pads, regions[index].pads))
@@ -150,10 +138,30 @@ export class PendingPadGeometry {
         ownedCopper: this.copper,
         ownedTraceCopper: this.traceCopper,
         ownedVias: this.oldVias,
+        owners: this.ownership.owners(connection),
       })
       this.ownedAccess.set(connection, access)
     }
     return access
+  }
+
+  createScene(request: {
+    input?: SimpleRouteJson
+    connection: Connection
+    width: number
+    copper: Copper[]
+    kind?: "wire" | "via-land"
+  }): VectorScene {
+    this.assertMatches(this.input)
+    const input = request.input ?? this.input
+    this.ownership.assertMatches(input)
+    return VectorScene.withOwnership({
+      input, connection: request.connection, width: request.width, copper: request.copper,
+      owners: this.ownership.owners(request.connection),
+      clearances: this.wireClearances.size
+        ? request.kind === "via-land" ? this.viaClearances : this.wireClearances
+        : undefined,
+    })
   }
 
   /** Constant-size identity/rule validation. Copper was prepared once;

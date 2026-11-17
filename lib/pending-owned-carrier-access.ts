@@ -1,5 +1,6 @@
 import { applyToPoint } from "transformation-matrix"
 import { getCopperLayerNames } from "@tscircuit/fanout-solver"
+import { PendingCopperOwnership } from "./pending-copper-ownership"
 import type { Connection, Point, SimpleRouteJson, Via } from "./types"
 import { clearanceToCopper, type Copper } from "./vector-scene"
 
@@ -32,6 +33,7 @@ interface OwnedCarrierInput {
   ownedCopper: readonly Copper[]
   ownedTraceCopper: readonly Copper[]
   ownedVias: readonly Via[]
+  owners?: ReadonlySet<string>
 }
 
 function corners(copper: Copper): Point[] {
@@ -87,18 +89,9 @@ export class PendingOwnedCarrierAccess {
     ownedCopper,
     ownedTraceCopper,
     ownedVias,
+    owners = new PendingCopperOwnership(input).owners(connection),
   }: OwnedCarrierInput) {
     this.connection = connection
-    const owners = new Set(
-      [
-        connection.name,
-        connection.source_trace_id,
-        ...connection.pointsToConnect.flatMap((point) => [
-          point.pointId,
-          point.pcb_port_id,
-        ]),
-      ].filter((owner): owner is string => !!owner),
-    )
     const owned = (shape: Copper) =>
       shape.owners.some((owner) => owners.has(owner))
     const traceCopper = ownedTraceCopper.filter(owned)
@@ -227,6 +220,45 @@ export class PendingOwnedCarrierAccess {
         radius: 0,
       })].some((root) => source.has(root)),
     )
+  }
+
+  /** An already manufactured conductor may have physically left its package
+   * before this phase. No new future-width attachment is needed to establish
+   * that existing egress. Probe exact support points along the field normals:
+   * rectangle corners and capsule/circle extrema cover the field's four
+   * half-spaces, including rotated packages and finite conductor widths. */
+  findOutsideContact({
+    from,
+    carrierLayers,
+    directions,
+    isOutside,
+  }: {
+    from: OwnedCarrierTarget
+    carrierLayers: readonly string[]
+    directions: readonly Point[]
+    isOutside(point: Point): boolean
+  }): OwnedCarrierTarget | undefined {
+    if (!this.hasTraceCopper) return undefined
+    const source = this.contacts({ point: from.point, layers: [from.layer], radius: 0 })
+    if (!source.size) return undefined
+    for (const [index, copper] of this.copper.entries()) {
+      if (!source.has(this.roots[index]) || !carrierLayers.includes(copper.layer)) continue
+      const points = corners(copper)
+      if (!copper.rect)
+        for (const direction of directions) {
+          const norm = Math.hypot(direction.x, direction.y)
+          if (!norm) continue
+          for (const endpoint of [copper.a, copper.b])
+            points.push({
+              x: endpoint.x + copper.radius * direction.x / norm,
+              y: endpoint.y + copper.radius * direction.y / norm,
+            })
+        }
+      for (const point of points)
+        if (isOutside(point))
+          return { point: { x: point.x, y: point.y }, layer: copper.layer }
+    }
+    return undefined
   }
 
   /** Use the caller's existing routing domain. Exact conductor anchors also

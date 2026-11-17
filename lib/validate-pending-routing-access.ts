@@ -119,11 +119,9 @@ function validateGroup({
     if (names.has(connection.name))
       fail(`${connectionPath}.name`, "duplicates another future connection")
     names.add(connection.name)
-    if (
-      connection.source_trace_id !== undefined &&
-      typeof connection.source_trace_id !== "string"
-    )
-      fail(`${connectionPath}.source_trace_id`, "must be a string")
+    for (const field of ["source_trace_id", "netConnectionName", "rootConnectionName"] as const)
+      if (connection[field] !== undefined && typeof connection[field] !== "string")
+        fail(`${connectionPath}.${field}`, "must be a string")
     for (const field of ["nominalTraceWidth", "width"] as const) {
       const value = connection[field]
       if (value !== undefined) positive(value, `${connectionPath}.${field}`)

@@ -5,6 +5,7 @@ import {
   type PendingPadEscape,
 } from "./pending-pad-escape"
 import { PendingPadGeometry } from "./pending-pad-geometry"
+import { PendingCopperOwnership } from "./pending-copper-ownership"
 import { PendingPeerAccess, type PendingPeerLink } from "./pending-peer-access"
 import { signalWidth } from "./repair-bus-dogbones"
 import { effectiveCarrierLayers } from "./effective-carrier-layers"
@@ -90,6 +91,7 @@ export class PendingPadAccess {
   private readonly declaredObligations = new Set<PendingAccessObligation>()
   private readonly changedViews = new Map<SimpleRouteJson, ChangedInputView[]>()
   private readonly baselineGeometry = new Map<SimpleRouteJson, PendingPadGeometry>()
+  private ownership?: PendingCopperOwnership
 
   constructor(private readonly input: SimpleRouteJson) {
     validatePendingRoutingAccess(input)
@@ -101,7 +103,8 @@ export class PendingPadAccess {
       return intent.connections.flatMap((connection) => {
         let geometry = this.baselineGeometry.get(future)
         if (!geometry) {
-          geometry = new PendingPadGeometry(future)
+          this.ownership ??= new PendingCopperOwnership(input)
+          geometry = new PendingPadGeometry(future, this.ownership)
           this.baselineGeometry.set(future, geometry)
         }
         const frames = connection.pointsToConnect.map((_, terminalIndex) =>
@@ -115,7 +118,7 @@ export class PendingPadAccess {
           this.peers.push({
             input: future,
             connection,
-            access: new PendingPeerAccess(future, connection),
+            access: new PendingPeerAccess(future, { connection, ownership: geometry.ownership }),
             phaseIndex,
             obligations: new Map(),
           })
@@ -147,7 +150,7 @@ export class PendingPadAccess {
         if (internal)
           this.peers.push({
             input: future, connection, phaseIndex,
-            access: PendingPeerAccess.forInternalPackage(future, connection),
+            access: PendingPeerAccess.forInternalPackage(future, { connection, ownership: geometry.ownership }),
             obligations: new Map(), internalTerminals: terminals,
           })
         return terminals
@@ -176,6 +179,12 @@ export class PendingPadAccess {
       differentialPairs: undefined,
       pendingRoutingAccess: undefined,
     }
+  }
+
+  getConnectionOwners(connection: Connection): ReadonlySet<string> {
+    if (!this.declaredConnections.has(connection) || !this.ownership)
+      throw Error("Pending ownership query must reference a declared future connection")
+    return this.ownership.owners(connection)
   }
 
   private leaseChangedInput({
@@ -295,7 +304,7 @@ export class PendingPadAccess {
         if (terminal.baseline === undefined) {
           let geometry = this.baselineGeometry.get(terminal.input)
           if (!geometry) {
-            geometry = new PendingPadGeometry(terminal.input)
+            geometry = new PendingPadGeometry(terminal.input, this.ownership)
             this.baselineGeometry.set(terminal.input, geometry)
           }
           terminal.baseline = yield* new PendingPadEscapeCheck(request, geometry).findEscape()
@@ -304,7 +313,8 @@ export class PendingPadAccess {
         if (!terminal.baseline) continue
         if (!newTraces.length) continue
         const lease = changedInput(terminal.input)
-        lease.geometry ??= new PendingPadGeometry(lease.input)
+        lease.geometry ??= new PendingPadGeometry(lease.input,
+          this.baselineGeometry.get(terminal.input)!.ownership)
         const check = new PendingPadEscapeCheck(
           { ...request, input: lease.input },
           lease.geometry,

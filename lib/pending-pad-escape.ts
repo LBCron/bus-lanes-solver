@@ -5,6 +5,7 @@ import { acquireGridScratch } from "./grid-scratch"
 import { distance } from "./geometry"
 import type { PackagePadFrame } from "./package-pad-frame"
 import { PendingPadGeometry } from "./pending-pad-geometry"
+import { PendingCopperOwnership } from "./pending-copper-ownership"
 import type {
   PendingOwnedCarrierAccess,
   PreparedOwnedCarrierTargets,
@@ -23,6 +24,7 @@ export interface PendingPadEscape {
   layer: string
   via?: { point: Point; layers: string[] }
   ownedCarrier?: { point: Point; layer: string }
+  existingEgress?: { point: Point; layer: string }
   existingCompleteConnection?: true
 }
 
@@ -85,9 +87,9 @@ export class PendingPadScene {
         layer: this.terminal.layer,
       })),
     }
-    this.scene = new VectorScene(
-      input, terminalConnection, this.width, geometry.traceSceneCopper,
-    )
+    this.scene = geometry.createScene({
+      input, connection: terminalConnection, width: this.width, copper: geometry.traceSceneCopper,
+    })
     const pad = componentPadAtTerminal({
       input,
       terminal: this.terminal,
@@ -110,15 +112,11 @@ export class PendingPadScene {
         })),
       }
       const scenes = [
-        new VectorScene(input, layered, this.viaDiameter, geometry.wireCopper),
-        new VectorScene(
-          geometry.landingInput, layered, this.viaDiameter, geometry.padsAndVias,
-        ),
+        geometry.createScene({ input, connection: layered, width: this.viaDiameter, copper: geometry.wireCopper, kind: "via-land" }),
+        geometry.createScene({
+          input: geometry.landingInput, connection: layered, width: this.viaDiameter, copper: geometry.padsAndVias, kind: "via-land",
+        }),
       ]
-      if (geometry.holeInput)
-        scenes.push(new VectorScene(
-          geometry.holeInput, layered, this.holeDiameter, geometry.wireCopper,
-        ))
       return scenes
     })
   }
@@ -137,14 +135,36 @@ export class PendingPadScene {
     return this.ownedAccess.hasExistingCompleteConnection(this.request.terminalIndex)
   }
 
+  existingEgress(): { point: Point; layer: string } | undefined {
+    const frame = this.frame
+    if (!frame || !this.ownedAccess.anchors.length) return undefined
+    const { a, b, c, d } = frame.packageToBoard
+    return this.ownedAccess.findOutsideContact({
+      from: { point: this.terminal, layer: this.terminal.layer },
+      carrierLayers: this.carrierLayers,
+      directions: [{ x: a, y: b }, { x: -a, y: -b }, { x: c, y: d }, { x: -c, y: -d }],
+      // A pad defining the field merely touches its boundary. Ignore numeric
+      // round-trip noise when proving that old copper actually crosses it.
+      isOutside: (point) => pendingPointIsOutsidePackage({ point, frame, marginMm: 1e-8 }),
+    })
+  }
+
+  existingEgressIsClear(target: { point: Point; layer: string }): boolean {
+    return !!this.frame && this.carrierLayers.includes(target.layer) &&
+      pendingPointIsOutsidePackage({ point: target.point, frame: this.frame, marginMm: 1e-8 }) &&
+      this.ownedAccess.connectedContacts({
+        from: { point: this.terminal, layer: this.terminal.layer }, to: target,
+      })
+  }
+
   private carrierScene(layer: string): VectorScene {
     let scene = this.carrierScenes.get(layer)
     if (!scene) {
       const { input, connection } = this.request
-      scene = new VectorScene(input, {
+      scene = this.geometry.createScene({ input, connection: {
         ...connection,
         pointsToConnect: connection.pointsToConnect.map((point) => ({ ...point, layer })),
-      }, this.width, this.geometry.traceSceneCopper)
+      }, width: this.width, copper: this.geometry.traceSceneCopper })
       this.carrierScenes.set(layer, scene)
     }
     return scene
@@ -213,10 +233,7 @@ export class PendingPadScene {
    * carrier-policy validation; this also supports reverse native approaches. */
   viaSpan(point: Point, target: string): string[] | undefined {
     const { input } = this.request
-    const holeClearance = Math.max(
-      input.minViaHoleEdgeToViaHoleEdgeClearance ?? 0.1,
-      input.minPlatedHoleDrillEdgeToDrillEdgeClearance ?? 0,
-    )
+    const holeClearance = input.minViaHoleEdgeToViaHoleEdgeClearance ?? 0.1
     const from = this.physical.indexOf(this.terminal.layer)
     if (target === this.terminal.layer || !this.physical.includes(target))
       return undefined
@@ -229,7 +246,7 @@ export class PendingPadScene {
       this.padCopper.some(
         (pad) =>
           span.includes(pad.layer) &&
-          copperTooClose(point, point, pad, this.viaDiameter / 2 - 1e-8),
+          copperTooClose(point, point, pad, this.holeDiameter / 2 - 1e-8),
       )
     )
       return undefined
@@ -298,7 +315,7 @@ export function pendingTerminalHasPackage(request: PendingPadRequest): boolean {
     input,
     terminal,
     layers: terminal.layers ?? [terminal.layer],
-    owners: new VectorScene(input, connection, input.minTraceWidth, []).owners,
+    owners: new PendingCopperOwnership(input).owners(connection),
   })
 }
 
@@ -311,7 +328,7 @@ export function pendingTerminalPackageFrame(
   const terminal = connection.pointsToConnect[terminalIndex]
   const pad = componentPadAtTerminal({
     input, terminal, layers: terminal.layers ?? [terminal.layer],
-    owners: new VectorScene(input, connection, input.minTraceWidth, []).owners,
+    owners: geometry.ownership.owners(connection),
   })
   return pad?.componentId ? geometry.frameByComponent.get(pad.componentId) : undefined
 }
@@ -349,6 +366,8 @@ export class PendingPadEscapeCheck {
     const scene = this.sceneForLayer(escape.layer)
     if (escape.existingCompleteConnection)
       return scene.hasExistingCompleteConnection()
+    if (escape.existingEgress)
+      return scene.existingEgressIsClear(escape.existingEgress)
     if (
       !scene.scene.visible(escape.path[0], escape.path[0]) ||
       !scene.scene.pathVisible(escape.path)
@@ -403,6 +422,9 @@ function* findPendingPadLayerEscape(
   const terminal = scene.terminal
   if (scene.hasExistingCompleteConnection())
     return { path: [terminal], layer: terminal.layer, existingCompleteConnection: true }
+  const existingEgress = scene.existingEgress()
+  if (existingEgress)
+    return { path: [terminal], layer: terminal.layer, existingEgress }
   yield* scene.prepareOwnedCarrierTargets()
   const directCarrier = scene.ownedCarrier(terminal)
   if (directCarrier && scene.scene.visible(terminal, terminal))

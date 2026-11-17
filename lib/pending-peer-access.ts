@@ -2,6 +2,7 @@ import { distance, length, segmentDistance, simplify } from "./geometry"
 import { GridVisibilitySearch, type GridRoutingAccess } from "./grid-visibility"
 import { PendingPadScene } from "./pending-pad-escape"
 import { PendingPadGeometry } from "./pending-pad-geometry"
+import { PendingCopperOwnership } from "./pending-copper-ownership"
 import { findSimpleCarrierPath } from "./pending-simple-carrier-path"
 import type { PendingOwnedCarrierAccess, OwnedCarrierTarget } from "./pending-owned-carrier-access"
 import type { Connection, Point, SimpleRouteJson } from "./types"
@@ -161,12 +162,12 @@ class PeerScene {
 
   constructor(
     readonly input: SimpleRouteJson,
-    request: { connection: Connection; requireCarrier: boolean },
+    request: { connection: Connection; requireCarrier: boolean; ownership?: PendingCopperOwnership },
   ) {
     const { connection, requireCarrier } = request
     this.connection = connection
     this.requireCarrier = requireCarrier
-    this.geometry = new PendingPadGeometry(input)
+    this.geometry = new PendingPadGeometry(input, request.ownership)
     const first = new PendingPadScene({ input, connection, terminalIndex: 0 }, this.geometry)
     this.layers = first.physical
     this.widthMm = first.width
@@ -482,12 +483,10 @@ class PeerScene {
       const wireScene =
         widthMm === this.widthMm
           ? scene.scene
-          : new VectorScene(
-              this.input,
-              scene.scene.connection,
-              widthMm,
-              scene.scene.copper,
-            )
+          : this.geometry.createScene({
+              input: this.input, connection: scene.scene.connection,
+              width: widthMm, copper: scene.scene.copper,
+            })
       return (
         wireScene.visible(step.path[0], step.path[0]) &&
         wireScene.pathVisible(step.path)
@@ -688,10 +687,7 @@ class PeerScene {
     const vias = steps.filter(
       (step): step is PeerTransition => step.kind === "new_via",
     )
-    const holeClearanceMm = Math.max(
-      this.input.minViaHoleEdgeToViaHoleEdgeClearance ?? 0.1,
-      this.input.minPlatedHoleDrillEdgeToDrillEdgeClearance ?? 0,
-    )
+    const holeClearanceMm = this.input.minViaHoleEdgeToViaHoleEdgeClearance ?? 0.1
     for (const [index, via] of vias.entries())
       if (
         vias.slice(index + 1).some(
@@ -764,17 +760,23 @@ export class PendingPeerAccess {
   private forest?: PeerLinkState[]
   private links?: readonly PendingPeerLink[]
   private requireCarrier = false
+  private readonly connection: Connection
+  private readonly ownership: PendingCopperOwnership
 
   constructor(
     private readonly input: SimpleRouteJson,
-    private readonly connection: Connection,
-  ) {}
+    request: Connection | { connection: Connection; ownership: PendingCopperOwnership },
+  ) {
+    this.connection = "pointsToConnect" in request ? request : request.connection
+    this.ownership = "pointsToConnect" in request ? new PendingCopperOwnership(input) : request.ownership
+  }
 
   /** Internal package work needs a physical carrier path, rather than an
    * arbitrary walk on native approach layers. Activation is decided from the
    * complete original baseline by PendingPadAccess. */
-  static forInternalPackage(input: SimpleRouteJson, connection: Connection): PendingPeerAccess {
-    const access = new PendingPeerAccess(input, connection)
+  static forInternalPackage(input: SimpleRouteJson,
+    request: Connection | { connection: Connection; ownership: PendingCopperOwnership }): PendingPeerAccess {
+    const access = new PendingPeerAccess(input, request)
     access.requireCarrier = true
     return access
   }
@@ -784,7 +786,7 @@ export class PendingPeerAccess {
     const witnesses: PeerWitness[] = []
     if (this.connection.pointsToConnect.length >= 2) {
       const baseline = new PeerScene(this.input, {
-        connection: this.connection, requireCarrier: this.requireCarrier,
+        connection: this.connection, requireCarrier: this.requireCarrier, ownership: this.ownership,
       })
       const assigned = new Set<number>()
       for (const sourceIndex of this.connection.pointsToConnect.keys()) {
@@ -837,7 +839,7 @@ export class PendingPeerAccess {
     )
     if (!selected.length) return []
     const candidate = new PeerScene(candidateInput, {
-      connection: this.connection, requireCarrier: this.requireCarrier,
+      connection: this.connection, requireCarrier: this.requireCarrier, ownership: this.ownership,
     })
     const blocked: PendingPeerLink[] = []
     for (const state of selected) {

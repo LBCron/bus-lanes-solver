@@ -15,6 +15,7 @@ import { solveSignalCandidatePoolSteps } from "./solve-signal-candidate-pool"
 import { PendingPadAccess, type PendingAccessObligation } from "./pending-pad-access"
 import { pendingClosureFragments } from "./pending-closure-fragments"
 import { CandidateSearchOutcomes } from "./candidate-search-outcomes"
+import { PendingRoutingWorkBudgetExceeded } from "./routing-memory-budget"
 import { OwnedCandidateMemo } from "./owned-candidate-memo"
 import type { Connection, SimpleRouteJson, Trace, Wire } from "./types"
 import { fixedCopper, type Copper } from "./vector-scene"
@@ -122,7 +123,7 @@ export function* negotiateSurfaceRoutes(
       // The physical oracle's exact aliases define which emitted conductors
       // are owned. Shared ownership can add an existing manufactured handoff,
       // so those variables are not monotone obstructions.
-      const owners = new VectorScene(native, connection, native.minTraceWidth, []).owners
+      const owners = access.getConnectionOwners(connection)
       restoringIndices.set(connection, mutableOwners.flatMap((aliases, index) =>
         [...aliases].some((alias) => owners.has(alias)) ? [index] : [],
       ))
@@ -282,7 +283,7 @@ export function* negotiateSurfaceRoutes(
     compatible,
     restoringIndices,
   }
-  const select = () =>
+  const select = () => outcomes.run(
     solveSignalCandidatePoolSteps({
       domains,
       compatible,
@@ -292,7 +293,13 @@ export function* negotiateSurfaceRoutes(
         ? (values) =>
             acceptSurfaceSelection({ context: selectionContext, values })
         : undefined,
-    })
+      onSearchExhausted: selectionContext.hasPending
+        ? () => new PendingRoutingWorkBudgetExceeded(
+            "Pending routing selection exhausted its candidate node budget",
+          )
+        : undefined,
+    }),
+  )
   const preferredVias = (index: number): 2 | 4 =>
     frozen.size > paired.size &&
     !timed.has(targets[index].name) &&
@@ -374,6 +381,7 @@ export function* negotiateSurfaceRoutes(
     }
     // Only hard, unaffected copper participates here. Other movable routes
     // remain domain choices; the complete union is checked by the CSP above.
+    let rejectedTerminals: import("./types").Terminal[] = []
     const previousUnknowns = outcomes.unknownCount
     const result = yield* outcomes.run(
       routeSurfaceBridge(input, reversed, {
@@ -381,6 +389,7 @@ export function* negotiateSurfaceRoutes(
         ...settings,
         history,
         softTraces: soft,
+        pendingAccessFeedback: () => rejectedTerminals,
         acceptRoute: native.pendingRoutingAccess?.length
           ? function* (route) {
               // Validate against the original baseline, with the complete
@@ -392,6 +401,14 @@ export function* negotiateSurfaceRoutes(
                 ...(input.traces ?? []),
                 joinSignalEscapes(route.carrier, route.escapes),
               ], { connections: requiredConnections, excludedObligations, stopAfterFirst: true })
+              rejectedTerminals = blocked.flatMap((obligation) => {
+                const indices = obligation.kind === "terminal"
+                  ? [obligation.terminalIndex]
+                  : [obligation.link.sourceTerminalIndex, obligation.link.targetTerminalIndex]
+                return indices.map((terminalIndex) =>
+                  obligation.connection.pointsToConnect[terminalIndex],
+                )
+              })
               return !blocked.length
             }
           : undefined,

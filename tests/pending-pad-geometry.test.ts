@@ -28,7 +28,7 @@ function foreignVia(): Trace {
   }
 }
 
-test("prepared copper retains explicit barrel spans and the drill-edge exclusion", () => {
+test("prepared copper retains explicit via spans without applying a non-plated-hole rule", () => {
   const { input } = pendingPadAccessFixture()
   input.layerCount = 4
   input.minTraceToHoleEdgeClearance = 0.4
@@ -43,13 +43,10 @@ test("prepared copper retains explicit barrel spans and the drill-edge exclusion
   expect(shapes.map((shape) => shape.layer)).toEqual([
     "top",
     "inner1",
-    "top",
-    "inner1",
   ])
-  // 0.1 mm drill radius + (0.4 - 0.1) mm extra drill-edge exclusion.
-  for (const hole of shapes.slice(2)) {
-    expect(hole.radius).toBeCloseTo(0.4, 12)
-    expect(hole.owners).toEqual(["FOREIGN_NET", "foreign_alias"])
+  for (const land of shapes) {
+    expect(land.radius).toBeCloseTo(0.3, 12)
+    expect(land.owners).toEqual(["FOREIGN_NET", "foreign_alias"])
   }
   if (via.route_type !== "via") throw Error("Fixture must provide a via")
   expect(geometry.oldVias).toEqual([via])
@@ -57,21 +54,21 @@ test("prepared copper retains explicit barrel spans and the drill-edge exclusion
   expect(geometry.wireCopper).toEqual([])
 })
 
-test("prepared landing and drill scenes keep pad-only rules separate from wire rules", () => {
+test("prepared landing scenes keep via-pad rules separate from ordinary wire and NPTH rules", () => {
   const { input } = pendingPadAccessFixture()
   input.minViaEdgeToPadEdgeClearance = 0.3
   input.minPadEdgeToPadEdgeClearance = 0.4
   input.minTraceToHoleEdgeClearance = 0.4
   const geometry = new PendingPadGeometry(input)
-  expect(geometry.landingInput.minTraceToPadEdgeClearance).toBe(0.4)
-  expect(geometry.holeInput?.minTraceToPadEdgeClearance).toBe(0.4)
+  // Via-specific rules override generic pads; the NPTH rule is not a new-via
+  // drill exclusion and does not alter the ordinary wire policy.
+  expect(geometry.landingInput.minTraceToPadEdgeClearance).toBe(0.3)
   expect(input.minTraceToPadEdgeClearance).toBe(0.1)
 
   const ordinary = new PendingPadGeometry({
     ...input,
     minTraceToHoleEdgeClearance: 0.1,
   })
-  expect(ordinary.holeInput).toBeUndefined()
   expect(ordinary.viaDiameter).toBe(0.4)
   expect(ordinary.holeDiameter).toBe(0.2)
 })

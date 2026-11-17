@@ -9,9 +9,11 @@ import { joinSignalEscapes } from "./join-signal-escapes"
 import { tuningPathIsSelfClear } from "./length-tuning"
 import { MinHeap } from "./min-heap"
 import { PendingTerminalHomology } from "./pending-terminal-homology"
+import { PendingSurfaceSearch, type PendingSurfacePass } from "./pending-surface-search"
 import {
   RoutingMemoryBudget,
   RoutingMemoryBudgetExceeded,
+  PendingRoutingWorkBudgetExceeded,
 } from "./routing-memory-budget"
 import { SurfaceLabelCosts } from "./surface-label-costs"
 import { reduceOrdinaryTurns } from "./reduce-ordinary-turns"
@@ -21,6 +23,7 @@ import { maximumCarrierLength } from "./route-lengths"
 import type {
   Connection,
   Point,
+  Terminal,
   SimpleRouteJson,
   Trace,
   Via,
@@ -30,6 +33,10 @@ import { fixedCopper, VectorScene } from "./vector-scene"
 import { connectors } from "./vector-visibility"
 
 export interface SurfaceBridgeOptions {
+  /** Original blocked terminals from the immutable pending-access predicate.
+   * Supplying feedback opts into physical-goal memoization and bounded cuts. */
+  pendingAccessFeedback?: () => readonly Terminal[]
+
   /** Accumulated congestion cost on the native pad and carrier planes. */
   history?: {
     bounds: SimpleRouteJson["bounds"]
@@ -56,6 +63,20 @@ export interface SurfaceBridgeRoute {
   carrier: Trace
   escapes: Trace[]
 }
+interface PendingBridgePass {
+  search: PendingSurfaceSearch
+  pass: PendingSurfacePass
+  accountingInput: SimpleRouteJson
+  goalExhausted: (viaCount: number) => void
+}
+
+interface SurfaceBridgePassRequest {
+  input: SimpleRouteJson
+  connection: Connection
+  options: SurfaceBridgeOptions
+  pending?: PendingBridgePass
+}
+
 interface Label {
   id: number
   cell: number
@@ -99,17 +120,129 @@ export function surfaceBridgeEligible(
   )
 }
 
+class RefinePendingSurfaceCuts extends Error {}
+class DiversifyPendingViaCount extends Error {
+  constructor(readonly viaCount: number) { super() }
+}
+
+/** Preserve the legacy search when no pending predicate is supplied. Pending
+ * queries learn only accounting cuts from concrete rejected physical goals;
+ * a repeated rejected materialization also releases the other via-count domains.
+ * No hard future corridor or manufactured copper is inserted into the input. */
+export function* routeSurfaceBridge(
+  input: SimpleRouteJson,
+  connection: Connection,
+  options: SurfaceBridgeOptions = {},
+): Generator<void, SurfaceBridgeRoute | null> {
+  if (!input.pendingRoutingAccess?.length || !options.acceptRoute ||
+    !options.pendingAccessFeedback || !surfaceBridgeEligible(input, connection))
+    return yield* routeSurfaceBridgePass({ input, connection, options })
+  const maximumExpansions = options.maxExpansions ?? 1_500_000
+  if (!Number.isSafeInteger(maximumExpansions) || maximumExpansions < 0 ||
+    (options.maxVias !== undefined && options.maxVias !== 2 && options.maxVias !== 4))
+    return yield* routeSurfaceBridgePass({ input, connection, options })
+  const physical = getCopperLayerNames(input.layerCount)
+  const surface = connection.pointsToConnect[0].layer
+  const inner = innerCarrier(input)
+  const bridge = inner ?? (surface === physical[0] ? physical.at(-1)! : physical[0])
+  const carriers = signalLayers(input, connection)
+  const viaCounts = [
+    ...(carriers.includes(surface) ? [0] : []),
+    ...(carriers.includes(bridge) ? [2] : []),
+    ...(!inner && carriers.includes(bridge) && options.maxVias === 4 ? [4] : []),
+  ]
+  const search = new PendingSurfaceSearch({ input, maximumExpansions, viaCounts })
+  const runPass = function* (
+    pass: PendingSurfacePass,
+    allowDiversity: boolean,
+  ): Generator<void, SurfaceBridgeRoute | null> {
+    while (pass.remaining && search.remaining) {
+      let learnedCuts = false
+      let repeatedGeometry = false
+      const pending: PendingBridgePass = {
+        search,
+        pass,
+        accountingInput: search.accountingInput(),
+        goalExhausted: (viaCount) => {
+          // Try every physical normalization variant before invalidating the
+          // frontier. Its signatures must remain fixed for its whole lifetime.
+          if (learnedCuts) throw new RefinePendingSurfaceCuts()
+          if (allowDiversity && repeatedGeometry)
+            throw new DiversifyPendingViaCount(viaCount)
+        },
+      }
+      try {
+        return yield* routeSurfaceBridgePass({
+          input,
+          connection,
+          pending,
+          options: {
+            ...options,
+            maxExpansions: Math.min(pass.remaining, search.remaining),
+            acceptRoute: function* (route) {
+              const key = search.routeKey(route)
+              const cached = search.rejection(key)
+              if (cached) {
+                repeatedGeometry = true
+                learnedCuts = search.activate(cached) || learnedCuts
+                return false
+              }
+              if (yield* options.acceptRoute!(route)) return true
+              const terminals = options.pendingAccessFeedback!()
+              search.reject(key, terminals)
+              learnedCuts = search.activate(terminals) || learnedCuts
+              return false
+            },
+          },
+        })
+      } catch (error) {
+        if (error instanceof RefinePendingSurfaceCuts) continue
+        throw error
+      }
+    }
+    throw new PendingRoutingWorkBudgetExceeded()
+  }
+  let rejectedViaCount = 0
+  try {
+    try {
+      const result = yield* runPass(search.initialPass(), true)
+      if (result) return result
+    } catch (error) {
+      if (error instanceof DiversifyPendingViaCount)
+        rejectedViaCount = error.viaCount
+      else if (error instanceof RoutingMemoryBudgetExceeded ||
+        error instanceof PendingRoutingWorkBudgetExceeded)
+        search.unknown(error)
+      else throw error
+    }
+    for (const pass of search.passes(rejectedViaCount)) {
+      try {
+        const result = yield* runPass(pass, false)
+        if (result) return result
+      } catch (error) {
+        if (!(error instanceof RoutingMemoryBudgetExceeded) &&
+          !(error instanceof PendingRoutingWorkBudgetExceeded)) throw error
+        search.unknown(error)
+      }
+    }
+    return search.noSolution()
+  } finally {
+    search.dispose()
+  }
+}
+
 /** Search the native pad plane and the permitted carrier plane. An inner
  * carrier keeps pad-layer approaches local to their native packages. A surface
  * path may hand off anywhere through manufactured barrels; its owned
  * approaches retain any later transitions and may span the board.
  * Input copper stays immutable and hard. Optional soft copper adds search cost;
  * callers must resolve any remaining negotiated conflicts before acceptance. */
-export function* routeSurfaceBridge(
-  input: SimpleRouteJson,
-  connection: Connection,
-  options: SurfaceBridgeOptions = {},
-): Generator<void, SurfaceBridgeRoute | null> {
+function* routeSurfaceBridgePass({
+  input,
+  connection,
+  options,
+  pending,
+}: SurfaceBridgePassRequest): Generator<void, SurfaceBridgeRoute | null> {
   const physical = getCopperLayerNames(input.layerCount)
   if (physical.length < 2 || connection.pointsToConnect.length !== 2)
     return null
@@ -484,36 +617,45 @@ export function* routeSurfaceBridge(
   // scalar-state allocation plus the existing expansion work allocation.
   const labelBytes = 256
   const expansionBudget = options.maxExpansions ?? 1_500_000
+  const memoryLimit = stateCapacity * Float64Array.BYTES_PER_ELEMENT +
+    Math.ceil(Math.max(0, pending?.search.maximumExpansions ?? expansionBudget)) * labelBytes
   const memory = input.pendingRoutingAccess?.length
-    ? new RoutingMemoryBudget(
-        stateCapacity * Float64Array.BYTES_PER_ELEMENT +
-          Math.ceil(Math.max(0, expansionBudget)) * labelBytes,
-      )
+    ? pending
+      ? pending.search.attachMemory(memoryLimit)
+      : new RoutingMemoryBudget(memoryLimit)
     : undefined
+  const accountingInput = pending?.accountingInput ?? input
+  const requiredVias = pending?.pass.requiredVias
+  const transitionLimit = requiredVias ?? maxVias
+  const heuristic = (cell: number, count: number) =>
+    distance(point(cell), pads[1]) +
+    Math.max(0, (requiredVias ?? 0) - count) * viaPenalty
   let homology: PendingTerminalHomology | undefined
   let enriched: SurfaceLabelCosts | undefined
   try {
-    homology = input.pendingRoutingAccess?.length
-      ? new PendingTerminalHomology(input, memory)
+    homology = accountingInput.pendingRoutingAccess?.some((group) => group.connections.length)
+      ? new PendingTerminalHomology(accountingInput, memory)
       : undefined
+    if (!homology && memory &&
+      !memory.reserve(stateCapacity * Float64Array.BYTES_PER_ELEMENT))
+      throw new RoutingMemoryBudgetExceeded()
     const costs = homology ? undefined : new Float64Array(stateCapacity)
     costs?.fill(Infinity)
-    enriched = memory
-      ? new SurfaceLabelCosts({ physicalStates: stateCapacity, memory })
+    enriched = homology
+      ? new SurfaceLabelCosts({ physicalStates: stateCapacity, memory: memory! })
       : undefined
     const dominated = (
       label: Pick<Label, "id" | "signature" | "g" | "routeLength">,
     ) =>
       homology ? enriched!.dominates(label) : label.g >= costs![label.id] - 1e-9
     const rememberLabel = (label: Label) => {
-      if (!homology) {
-        costs![label.id] = label.g
-        return
+      if (!homology) costs![label.id] = label.g
+      if (memory) {
+        if (!memory.reserve(labelBytes)) throw new RoutingMemoryBudgetExceeded()
+        label.references = 1
+        if (label.parent) label.parent.references!++
       }
-      if (!memory!.reserve(labelBytes)) throw new RoutingMemoryBudgetExceeded()
-      label.references = 1
-      if (label.parent) label.parent.references!++
-      enriched!.remember(label)
+      enriched?.remember(label)
     }
     const releaseLabel = (label: Label) => {
       if (!memory) return
@@ -541,7 +683,7 @@ export function* routeSurfaceBridge(
         count: 0,
         g,
         routeLength: g,
-        f: g + distance(point(cell), pads[1]),
+        f: g + heuristic(cell, 0),
         attachment,
         signature,
       }
@@ -559,33 +701,42 @@ export function* routeSurfaceBridge(
         releaseLabel(current)
         continue
       }
-      if (++expanded % 64 === 0) yield
+      expanded++
+      pending?.search.expand(pending.pass)
+      if (expanded % 64 === 0) yield
       if (
         current.count % 2 === 0 &&
+        (requiredVias === undefined || current.count === requiredVias) &&
         carrierLayers.includes(current.count === 0 ? surface : bridge) &&
         attachments[1].has(current.cell)
       ) {
-        const result = materialize(
-          current,
-          attachments[1].get(current.cell)!,
-          point,
-          input,
-          connection,
-          layers,
-          physical,
-          width,
-          diameter,
-          hole,
-          fixed,
-          softTraces,
+        const variants = [Boolean(pending), false].filter(
+          (value, index, values) => index === 0 || value !== values[0],
         )
-        if (
-          result &&
-          length(joinSignalEscapes(result.carrier, result.escapes).route) <=
-            maxLength + 1e-8 &&
-          (!options.acceptRoute || (yield* options.acceptRoute(result)))
-        )
-          return result
+        for (const refinePendingSurface of variants) {
+          const result = materialize(
+            current,
+            attachments[1].get(current.cell)!,
+            point,
+            input,
+            connection,
+            layers,
+            physical,
+            width,
+            diameter,
+            hole,
+            fixed,
+            { softTraces, pending: refinePendingSurface },
+          )
+          if (
+            result &&
+            length(joinSignalEscapes(result.carrier, result.escapes).route) <=
+              maxLength + 1e-8 &&
+            (!options.acceptRoute || (yield* options.acceptRoute(result)))
+          )
+            return result
+        }
+        pending?.goalExhausted(current.count)
       }
       const x = current.cell % columns,
         y = Math.floor(current.cell / columns),
@@ -630,7 +781,7 @@ export function* routeSurfaceBridge(
           count: current.count,
           g,
           routeLength,
-          f: g + distance(point(cell), pads[1]),
+          f: g + heuristic(cell, current.count),
           firstVia: current.firstVia,
           viaCells: current.viaCells,
           parent: current,
@@ -641,7 +792,7 @@ export function* routeSurfaceBridge(
       }
       if (
         carrierLayers.includes(bridge) &&
-        current.count < maxVias &&
+        current.count < transitionLimit &&
         withinEscape(current.cell, current.count + 1) &&
         landing(current.cell) &&
         (current.viaCells ?? []).every(
@@ -674,7 +825,7 @@ export function* routeSurfaceBridge(
             count,
             g,
             routeLength: current.routeLength,
-            f: g + distance(point(current.cell), pads[1]),
+            f: g + heuristic(current.cell, count),
             firstVia,
             viaCells: [...(current.viaCells ?? []), current.cell],
             parent: current,
@@ -687,13 +838,17 @@ export function* routeSurfaceBridge(
       }
       releaseLabel(current)
     }
+    if (queue.length && pending &&
+      (!pending.pass.remaining || !pending.search.remaining))
+      throw new PendingRoutingWorkBudgetExceeded()
     return null
   } finally {
     if (memory) {
       queue.clear()
       enriched?.dispose()
       homology?.dispose()
-      memory.release(memory.usedBytes)
+      if (pending) pending.search.releasePassMemory()
+      else memory.release(memory.usedBytes)
     }
   }
 }
@@ -779,8 +934,9 @@ function materialize(
   diameter: number,
   hole: number,
   fixed: ReturnType<typeof fixedCopper>,
-  softTraces: Trace[] = [],
+  refinement: { softTraces?: Trace[]; pending?: boolean } = {},
 ): SurfaceBridgeRoute | null {
+  const softTraces = refinement.softTraces ?? []
   const chain: Label[] = []
   for (let label: Label | undefined = found; label; label = label.parent)
     chain.push(label)
@@ -817,7 +973,7 @@ function materialize(
   // Keep every avoided ordinary route hard during simplification. Only
   // already crossed provisional routes may still participate in negotiation.
   let refinementCopper = fixed
-  const negotiatedInner = !!innerCarrier(input) && softTraces.length > 0
+  const negotiatedInner = (!!innerCarrier(input) || refinement.pending) && softTraces.length > 0
   if (negotiatedInner) {
     const provisional: Trace = {
       type: "pcb_trace",

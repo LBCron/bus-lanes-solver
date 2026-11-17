@@ -111,7 +111,7 @@ test("via-to-pad rules do not impose a pad-only margin on an existing wire", () 
   }
 })
 
-test("a new future drill must clear an existing wire under the hole-edge rule", () => {
+test("a non-plated-hole rule does not impose a plated-via drill to wire exclusion", () => {
   const { input, pendingConnection, escape } = viaWireScene()
   input.pendingRoutingAccess![0].minTraceToHoleEdgeClearance = 0.4
   const future = { ...input, ...input.pendingRoutingAccess![0] }
@@ -121,8 +121,8 @@ test("a new future drill must clear an existing wire under the hole-edge rule", 
     terminalIndex: 0,
   }
 
-  // Copper clears by 0.2 mm, while the drill edge clears by 0.3 mm. The
-  // future 0.4 mm drill rule must reject a landing the annulus rule accepts.
+  // Copper clears by 0.2 mm. Both objects are plated conductors, so changing
+  // the separate NPTH-to-trace rule does not change this legal transition.
   expect(
     pendingPadEscapeIsClear(
       {
@@ -132,5 +132,5 @@ test("a new future drill must clear an existing wire under the hole-edge rule", 
       escape,
     ),
   ).toBe(true)
-  expect(pendingPadEscapeIsClear(request, escape)).toBe(false)
+  expect(pendingPadEscapeIsClear(request, escape)).toBe(true)
 })

@@ -55,3 +55,13 @@ export class RoutingMemoryBudgetExceeded extends Error {
     this.name = "RoutingMemoryBudgetExceeded"
   }
 }
+
+/** A bounded frontier remains unresolved; work exhaustion is not absence. */
+export class PendingRoutingWorkBudgetExceeded extends Error {
+  readonly code = "search_expansion_budget_exhausted"
+
+  constructor(message = "Pending routing search exhausted its aggregate expansion budget") {
+    super(message)
+    this.name = "PendingRoutingWorkBudgetExceeded"
+  }
+}
