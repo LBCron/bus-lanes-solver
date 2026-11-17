@@ -139,9 +139,17 @@ function preservedComments(
 ): StructuralValue {
   const leaves: { kind: number; start: number; end: number }[] = []
   const transparentReturnParentheses = new Set<number>()
+  const leadingTypeOperators = new Set<number>()
   const visit = (node: TypeScript.Node): void => {
     if (node.kind >= ts.SyntaxKind.FirstJSDocNode &&
       node.kind <= ts.SyntaxKind.LastJSDocNode) return
+    if (ts.isUnionTypeNode(node) || ts.isIntersectionTypeNode(node)) {
+      const first = node.getFirstToken(source)
+      if (first?.kind === ts.SyntaxKind.BarToken ||
+        first?.kind === ts.SyntaxKind.AmpersandToken) {
+        leadingTypeOperators.add(first.getStart(source))
+      }
+    }
     if (ts.isReturnStatement(node)) {
       let expression = node.expression
       while (expression && ts.isParenthesizedExpression(expression)) {
@@ -216,7 +224,8 @@ function preservedComments(
     // Comments before and inside a wrapper still anchor to the same next
     // significant token, and suppression line distances remain checked.
     if (transparentReturnParentheses.has(leaf.start)) continue
-    if (leaf.kind === ts.SyntaxKind.CommaToken ||
+    if (leadingTypeOperators.has(leaf.start) ||
+      leaf.kind === ts.SyntaxKind.CommaToken ||
       leaf.kind === ts.SyntaxKind.SemicolonToken) {
       // Unrelated trailing separators must not shift every later comment's
       // anchor. At a comment-bearing boundary their order is still preserved.
@@ -268,6 +277,14 @@ export function verifyReturnParenthesesNormalization(ts: typeof TypeScript): voi
     "function f() { return (/* keep */ a); }")
   equal("function f() { return /* @ts-ignore */ a; }",
     "function f() { return (/* @ts-ignore */ a); }")
+  equal("type T = A | B; /* after */ type U = C;",
+    "type T =\n | A\n | B; /* after */ type U = C;")
+  equal("type T = A & B; /* after */ type U = C;",
+    "type T =\n & A\n & B; /* after */ type U = C;")
+  different("type T = A | B; /* after */ type U = C;",
+    "type T = A & B; /* after */ type U = C;")
+  different("type T = /* keep */ A | B;",
+    "type T = A | /* keep */ B;")
   different("function f() { return (a || b) && c; }",
     "function f() { return a || (b && c); }")
   different("function f() { return (a?.b).c; }",
@@ -285,6 +302,59 @@ export function verifyReturnParenthesesNormalization(ts: typeof TypeScript): voi
     'function f() { return "a"; }')
   different('function f() { return tag`\\x61`; }',
     'function f() { return tag`a`; }')
+}
+
+type StructuralDifference = {
+  path: string
+  before: string
+  after: string
+}
+
+function compactValue(value: unknown): string {
+  if (value === undefined) return "undefined"
+  if (value !== null && typeof value === "object") {
+    if (Array.isArray(value)) return `array(length=${value.length})`
+    const object = value as Record<string, unknown>
+    return `object(keys=${Object.keys(object).slice(0, 8).join(",")};kind=${object.kind ?? "none"})`
+  }
+  const encoded = JSON.stringify(value)
+  return encoded.length <= 180 ? encoded : encoded.slice(0, 177) + "..."
+}
+
+function firstStructuralDifference(
+  before: unknown,
+  after: unknown,
+  path = "$",
+): StructuralDifference | undefined {
+  if (Object.is(before, after)) return undefined
+  if (before === null || after === null || typeof before !== "object" ||
+    typeof after !== "object" || Array.isArray(before) !== Array.isArray(after)) {
+    return { path: path.slice(0, 700), before: compactValue(before), after: compactValue(after) }
+  }
+  const previous = before as Record<string, unknown>
+  const current = after as Record<string, unknown>
+  if (Array.isArray(before) && Array.isArray(after) && before.length !== after.length) {
+    return { path: (path + ".length").slice(0, 700),
+      before: String(before.length), after: String(after.length) }
+  }
+  const keys = [...new Set([...Object.keys(previous), ...Object.keys(current)])].sort()
+  for (const key of keys) {
+    const difference = firstStructuralDifference(previous[key], current[key],
+      path + "." + key)
+    if (difference) return difference
+  }
+  return undefined
+}
+
+export function verifyCompactDifferenceDiagnostics(): void {
+  assert.equal(firstStructuralDifference({ a: [1, 2] }, { a: [1, 2] }), undefined)
+  assert.deepEqual(firstStructuralDifference({ ast: { kind: 1 } }, { ast: { kind: 2 } }),
+    { path: "$.ast.kind", before: "1", after: "2" })
+  assert.deepEqual(firstStructuralDifference({ a: [] }, { a: {} }),
+    { path: "$.a", before: "array(length=0)", after: "object(keys=;kind=none)" })
+  assert.deepEqual(firstStructuralDifference({ a: [] }, { a: [0] }),
+    { path: "$.a.length", before: "0", after: "1" })
+  assert(compactValue("a".repeat(10_000)).length <= 180)
 }
 
 function git(repositoryRoot: string, args: string[]): Buffer {
@@ -373,6 +443,7 @@ test("TEMP diagnostic: transport exact canonical consumer formatting", async () 
   const ts = require("typescript") as typeof TypeScript
   assert.equal(ts.version, "5.9.3")
   verifyReturnParenthesesNormalization(ts)
+  verifyCompactDifferenceDiagnostics()
   const biomePackagePath = require.resolve("@biomejs/biome/package.json")
   const biomePackage = JSON.parse(readFileSync(biomePackagePath, "utf8"))
   assert.equal(biomePackage.name, "@biomejs/biome")
@@ -427,7 +498,71 @@ test("TEMP diagnostic: transport exact canonical consumer formatting", async () 
   try {
     // Only the canonical formatter is invoked: no lint/check unsafe fixes,
     // config overrides, alternate versions, or extra input paths.
-    for (const source of saved) runBiome(["format", "--write", source.path])
+    const rejections: {
+      path: string
+      status: "rejected"
+      stage: string
+      beforeSha256: string
+      afterSha256?: string
+      difference?: StructuralDifference
+      error?: string
+    }[] = []
+    const rejectedPaths = new Set<string>()
+    for (const source of saved) {
+      try {
+        runBiome(["format", "--write", source.path])
+      } catch (error) {
+        rejectedPaths.add(source.path)
+        rejections.push({ path: source.path, status: "rejected", stage: "format-write",
+          beforeSha256: source.beforeSha256,
+          error: (error instanceof Error ? error.message : String(error)).slice(0, 700) })
+      }
+    }
+    const checked: { source: SavedSource; after: Buffer; afterStructure: string }[] = []
+    for (const source of saved) {
+      if (rejectedPaths.has(source.path)) continue
+      let after: Buffer | undefined
+      try {
+        runBiome(["format", source.path])
+        after = readFileSync(source.absolutePath)
+        const afterStructure = sourceStructure(ts, source.path, after)
+        const difference = firstStructuralDifference(JSON.parse(source.beforeStructure),
+          JSON.parse(afterStructure))
+        if (difference) {
+          rejections.push({ path: source.path, status: "rejected", stage: "structure-or-comments",
+            beforeSha256: source.beforeSha256, afterSha256: sha256(after), difference })
+          continue
+        }
+        if (source.kind === "json-value") {
+          assert.deepEqual(JSON.parse(after.toString("utf8")),
+            JSON.parse(source.before.toString("utf8")))
+        }
+        checked.push({ source, after, afterStructure })
+      } catch (error) {
+        rejections.push({ path: source.path, status: "rejected", stage: "format-or-structure-build",
+          beforeSha256: source.beforeSha256,
+          afterSha256: after ? sha256(after) : undefined,
+          error: (error instanceof Error ? error.message : String(error)).slice(0, 700) })
+      }
+    }
+    assert(readFileSync(configPath).equals(configBefore), "Biome config changed")
+    if (rejections.length) {
+      // Evaluate every source first. Only compact failure descriptions and
+      // hashes are emitted; no source packet is accepted or printed on failure.
+      const diagnostics = rejections.map((rejection) =>
+        marker + "_REJECTED " + JSON.stringify(rejection)).join("\n") + "\n" +
+        marker + "_REJECTED_SUMMARY " + JSON.stringify({ status: "rejected",
+          files: saved.length, rejectedFiles: rejections.length,
+          checkedUnchangedStructure: checked.length,
+          diagnosticHead: git(repositoryRoot, ["rev-parse", "HEAD"]).toString("utf8").trim(),
+          inputManifestSha256: sha256(manifestBytes),
+          noFormattedSourcePacketsEmitted: true }) + "\n"
+      assert(Buffer.byteLength(diagnostics) <= 128 * 1024,
+        "Compact rejection diagnostics exceed their bound")
+      assert.equal(await Bun.write(Bun.stdout, diagnostics), Buffer.byteLength(diagnostics))
+      assert.fail(`Canonical formatting rejected ${rejections.length}/${saved.length} sources; see compact rejection records`)
+    }
+    assert.equal(checked.length, saved.length)
     const header = { schema: manifest.schema, repository: manifest.repository,
       sourceCheckpointCommit: manifest.sourceCheckpointCommit,
       diagnosticHead: git(repositoryRoot, ["rev-parse", "HEAD"]).toString("utf8").trim(),
@@ -440,16 +575,7 @@ test("TEMP diagnostic: transport exact canonical consumer formatting", async () 
     let changedFiles = 0
     let rawBytes = 0
     let gzipBytes = 0
-    for (const source of saved) {
-      runBiome(["format", source.path])
-      const after = readFileSync(source.absolutePath)
-      const afterStructure = sourceStructure(ts, source.path, after)
-      assert.equal(afterStructure, source.beforeStructure,
-        `Structure/comment change in ${source.path}; formatted bytes rejected`)
-      if (source.kind === "json-value") {
-        assert.deepEqual(JSON.parse(after.toString("utf8")),
-          JSON.parse(source.before.toString("utf8")))
-      }
+    for (const { source, after, afterStructure } of checked) {
       const changed = !after.equals(source.before)
       if (changed) changedFiles++
       rawBytes += after.length
@@ -483,7 +609,8 @@ test("TEMP diagnostic: transport exact canonical consumer formatting", async () 
     verified = true
   } finally {
     // Failed verification restores the exact bytes and remains a failed test.
-    // No partial/unverified output is emitted or accepted as formatted source.
+    // Only bounded rejection diagnostics may precede a failure. No partial or
+    // unverified source bytes are emitted or accepted as formatted source.
     if (!verified) {
       for (const source of saved) writeFileSync(source.absolutePath, source.before)
     }
