@@ -11,8 +11,8 @@
   "additionalDiagnosticFiles": [
     {
       "path": "tests/collect-published-bus-small.test.ts",
-      "sha256": "1a2b8dc321330759ac75409694bd22328fab3882cc9ca700067e5430274909a2",
-      "bytes": 6507
+      "sha256": "5409b1893e3f1ea53bb9373cf3575618b6941624179a883490ba006624ee071e",
+      "bytes": 6512
     }
   ],
   "files": [

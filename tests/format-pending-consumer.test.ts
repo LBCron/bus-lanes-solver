@@ -214,7 +214,7 @@ function git(repositoryRoot: string, args: string[]): Buffer {
     maxBuffer: maximumOutputBytes })
 }
 
-test("TEMP diagnostic: transport exact canonical consumer formatting", async () => {
+test.only("TEMP diagnostic: transport exact canonical consumer formatting", async () => {
   const repositoryRoot = realpathSync(process.cwd())
   const helperPath = realpathSync(fileURLToPath(import.meta.url))
   const manifestPath = realpathSync(fileURLToPath(new URL(

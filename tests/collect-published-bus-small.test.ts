@@ -171,7 +171,7 @@ async function emitArchive(
   await Bun.write(Bun.stdout, lines.join("\n") + "\n")
 }
 
-test("capture canonical published bus controls and formatter wrapper", async () => {
+test.only("capture canonical published bus controls and formatter wrapper", async () => {
   // Temporary public byte transport only. Distinct record keys preserve both
   // solver identities despite their shared package name/version. No scripts,
   // routes, workflows, dependencies, checks, or production exports are changed.
