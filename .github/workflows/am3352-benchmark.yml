@@ -1,6 +1,10 @@
-name: Review validated A13 fix controls
+name: Review validated centered-grid controls
 on:
   workflow_dispatch:
+    inputs:
+      source_ref:
+        required: true
+        type: string
 permissions:
   contents: read
   actions: read
@@ -18,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: aa0c68b66cb0e80d7aa3bc3f11dfd0ce052cc901
+          ref: ${{ inputs.source_ref }}
           persist-credentials: false
       - uses: oven-sh/setup-bun@v2
         with:
@@ -41,7 +45,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: aa0c68b66cb0e80d7aa3bc3f11dfd0ce052cc901
+          ref: ${{ inputs.source_ref }}
           persist-credentials: false
       - uses: oven-sh/setup-bun@v2
         with:
@@ -66,42 +70,26 @@ jobs:
           await exportAm3352RoutedSnapshots(candidates,'gallery')
           TS
           bun gallery.private.ts
-          python3 - <<'PY'
-          import pathlib,gzip,base64,json
-          for p in sorted(pathlib.Path('gallery').glob('*.svg')):
-            print('GALLERY_JSON='+json.dumps({'name':p.name,'gzipBase64':base64.b64encode(gzip.compress(p.read_bytes())).decode()},separators=(',',':')))
-          PY
-      - name: Wait for final paired comparison
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          for audit_attempt in $(seq 1 180); do
-            state=$(gh api repos/tscircuit/bus-lanes-solver/actions/runs/43955037625 --jq '.status')
-            if [ "$state" = completed ]; then exit 0; fi
-            sleep 15
-          done
-          exit 1
-      - uses: actions/download-artifact@v4
-        with:
-          pattern: am3352-*
-          run-id: 43955037625
-          github-token: ${{ github.token }}
-          path: reports
-      - name: Print exact final comparison and reports
-        run: |
-          cat reports/am3352-comparison/comparison.md
-          python3 - <<'PY'
-          import pathlib,json
-          reports=[]
-          for p in sorted(pathlib.Path('reports').rglob('*.json')):
-            r=json.loads(p.read_text())
-            if 'sample' in r and 'metadata' in r: reports.append(r)
-          assert len(reports)==11,len(reports)
-          print('PAIRS_JSON='+json.dumps(reports,separators=(',',':')))
-          PY
       - uses: actions/upload-artifact@v4
         with:
-          name: validated-controls-and-comparison
-          path: |
-            gallery/
-            reports/
+          name: validated-centered-grid-gallery
+          path: gallery/
+  image:
+    needs: collect
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        sample: [control, control-inner1, right, left, above, inner-layers, inner-layers-right, inner-layers-left, inner-layers-above, inner-layers-complete-ca, outer-layers]
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: validated-centered-grid-gallery
+          path: gallery
+      - env:
+          SAMPLE: ${{ matrix.sample }}
+        run: |
+          python3 - <<'PYCODE'
+          import pathlib,base64,gzip,json,os
+          p=pathlib.Path('gallery')/(os.environ['SAMPLE']+'-solved.svg')
+          print('GALLERY_JSON='+json.dumps({'name':p.name,'gzipBase64':base64.b64encode(gzip.compress(p.read_bytes())).decode()},separators=(',',':')))
+          PYCODE
