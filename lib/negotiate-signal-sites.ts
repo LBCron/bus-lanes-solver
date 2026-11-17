@@ -221,17 +221,6 @@ function existingSignalSite(
   )
   const clearance =
     native.minTraceToPadEdgeClearance ?? native.defaultObstacleMargin ?? 0.075
-  const hasTimingConstraints =
-    Boolean(native.differentialPairs?.length) ||
-    Boolean(native.buses?.some((bus) =>
-      bus.maxLength !== undefined ||
-      bus.minLength !== undefined ||
-      bus.maxLengthSkew !== undefined,
-    ))
-  let pendingExits: Copper[] = []
-  if (!hasTimingConstraints && native.traces?.length) {
-    pendingExits = yield* pendingPackageExits(native, hard)
-  }
   if (
     new CopperConflictIndex().firstConflict(
       escapeCopper,
@@ -321,6 +310,17 @@ export function* negotiateSignalSites(
     projectors = new Map<string, GridHistoryProjector>()
   const clearance =
     native.minTraceToPadEdgeClearance ?? native.defaultObstacleMargin ?? 0.075
+  const hasTimingConstraints =
+    Boolean(native.differentialPairs?.length) ||
+    Boolean(native.buses?.some((bus) =>
+      bus.maxLength !== undefined ||
+      bus.minLength !== undefined ||
+      bus.maxLengthSkew !== undefined,
+    ))
+  let pendingExits: Copper[] = []
+  if (!hasTimingConstraints && native.traces?.length) {
+    pendingExits = yield* pendingPackageExits(native, hard)
+  }
   for (const connection of base.connections) {
     const previous = options.retainExistingRoutes
       ? existingSignalSite(
