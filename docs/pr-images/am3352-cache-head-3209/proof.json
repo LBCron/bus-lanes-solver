@@ -1,0 +1,351 @@
+{
+  "solverSha": "d47b57c26e6d173d83a76adb5147f38c81623045",
+  "controllerSha": "39154c9830acff7432f89fec6395f3dcb91f91fa",
+  "diagnosticSha": "c465ed5292b92a7205f128c58d592e8af3a6c289",
+  "productionSourceSha256": "0bf8b997b9731cb786bc6977a0767e52f25f08341d248b9c728bb1c17a3ec0cd",
+  "freshRun": {
+    "id": 44066617824,
+    "url": "https://github.com/tscircuit/bus-lanes-solver/actions/runs/44066617824",
+    "runner": "blacksmith-4vcpu-ubuntu-2404",
+    "bun": "1.4.0",
+    "solverBudgetSeconds": 3600,
+    "processDeadlineSeconds": 3720,
+    "acceptedSamples": 11,
+    "signalsPerSample": 47,
+    "preservedFixedPowerTracesPerSample": 161,
+    "allConnectivityDrcBusMatchingAndPairCouplingPassed": true,
+    "lockSha256": "16a38bf01b40a7ac9cafa2adad598f8bdf788c88d2fb8b23f649aaffe992acdb"
+  },
+  "originalImageArtifact": {
+    "id": 14321940904,
+    "url": "https://github.com/tscircuit/bus-lanes-solver/actions/runs/44066617824/artifacts/14321940904",
+    "sha256": "c8335d15a13da0ab67a61905258e7dd1d10563c36d00f13f3742b0a26f96b314",
+    "bytes": 9936083,
+    "expiresAt": "2026-12-17T10:50:28Z",
+    "includes": "All 11 original SVGs, all 11 original PNGs and full native validation proof"
+  },
+  "standardPairedBenchmark": {
+    "runId": 44063802500,
+    "url": "https://github.com/tscircuit/bus-lanes-solver/actions/runs/44063802500",
+    "acceptedBase": 11,
+    "acceptedHead": 11,
+    "galleryInputAndAllNonTimingFieldsEqualPairedHead": 11,
+    "comparisonLimit": "The paired benchmark does not retain native route bytes; no cross-run copper byte equality or gallery speedup is claimed."
+  },
+  "priorSetupOnlyAttempts": [
+    {
+      "runId": 44064978153,
+      "freshSolves": 0,
+      "reason": "Repository Bun config disabled lockfile saving; required lock capture failed before routing."
+    },
+    {
+      "runId": 44065901170,
+      "freshSolves": 0,
+      "reason": "Separated --config argument was parsed as a dependency; corrected to --config=PATH before routing."
+    }
+  ],
+  "inspection": {
+    "method": "Viewed each original CI PNG and a separate raster of its original SVG using installed native Resvg. No solver code imported or run locally.",
+    "imagePairsInspected": 11,
+    "note": "Original PNG and SVG typography differs. The existing PNG exporter omits the <= glyph; validation and README state the actual maximum skew limits."
+  },
+  "samples": [
+    {
+      "sample": "control",
+      "png": {
+        "name": "control-solved.png",
+        "bytes": 306287,
+        "sha256": "811ee038058ce10218683cf4f714e6857b2923f186222ab5263266e59e614014"
+      },
+      "svg": {
+        "name": "control-solved.svg",
+        "bytes": 5240222,
+        "sha256": "8fb01931c2be93f0ea067ad49fd8ef47762c25f68c042bbcfece2ffcb2828e80"
+      },
+      "dimensions": [
+        2200,
+        1560
+      ],
+      "inputSha256": "b7a4e9d09a22fe0ed131a544548b14eef20fbf4e88b6dc6ffaa11ca44e6bfe59",
+      "nativeSha256": "4421da8e4a038cec2f937ced9ee47d7be6cea8d541442b7ecccaebafffd30b44",
+      "routeSha256": "bb34f5e5f09ed044b1dc504f473a022542985f390f37dce66a1bb9a24d22d8e1",
+      "outputSha256": "b2f47e40e9a92d1a3d38ff06846583266520ce7646c90b57c3609029f0cb721e",
+      "nativeJobId": 133981813704,
+      "nativeArtifactId": 14320552663,
+      "pairedReportSha256": "6a251c644d15c08b78fc70ab806a8d07de45a5219dcdd98e9fe97b4ab8d8ab97",
+      "inputAndAllNonTimingFieldsEqualPairedHead": true,
+      "pngAndSvgIndividuallyInspected": true,
+      "visualInspection": "RAM below CPU; inner1/inner2/bottom carry 19/16/12 signals. Copper agrees across PNG/SVG; no clipping or blank routed panels."
+    },
+    {
+      "sample": "control-inner1",
+      "png": {
+        "name": "control-inner1-solved.png",
+        "bytes": 188722,
+        "sha256": "4f71f56ef7a05a6f3cc8ab14e7d75f43352a83c01e58a9a8e18e66d583bf87bc"
+      },
+      "svg": {
+        "name": "control-inner1-solved.svg",
+        "bytes": 6875737,
+        "sha256": "e885b86aaaf2e36da4a7948f1c0dedb53cde9bc2f38c8cefe7dcf32702621077"
+      },
+      "dimensions": [
+        2200,
+        1085
+      ],
+      "inputSha256": "14b5b318540ce7bac367cf22338abd7f9fffd2f7ce6c2a12f903116f50ca9bde",
+      "nativeSha256": "9ce3a2c9fd22e08a829120b7020ce0959fe8bf50cfc731f3f57e637682c22c0b",
+      "routeSha256": "1b37583111f459b29f52e735cfbdba7a12bc1dcd9271c8270068af7bc083ab63",
+      "outputSha256": "411e867f531d9ad6936b2f29f213202c10211e6958d1e2b63fa681a08fceae4f",
+      "nativeJobId": 133981813697,
+      "nativeArtifactId": 14320803111,
+      "pairedReportSha256": "1a798568cf805b97e44b7c83680afe8a552a738b91a270560447ed5cebf92750",
+      "inputAndAllNonTimingFieldsEqualPairedHead": true,
+      "pngAndSvgIndividuallyInspected": true,
+      "visualInspection": "RAM below CPU; all 47 carriers on inner1; extended fixed fanouts remain visible. Copper agrees across PNG/SVG; no clipping or blank routed panels."
+    },
+    {
+      "sample": "right",
+      "png": {
+        "name": "right-solved.png",
+        "bytes": 82447,
+        "sha256": "f3722abc3b2f9f1b68650d5185f938436147ab304656a932156579afdef658a2"
+      },
+      "svg": {
+        "name": "right-solved.svg",
+        "bytes": 6569391,
+        "sha256": "ad196e276bd4b9625f3dc0a18cc80206c22f0fc5e46908a853c918f1d870e8cd"
+      },
+      "dimensions": [
+        2200,
+        392
+      ],
+      "inputSha256": "78c22c8d818ee2c2abe2eec9c6b6e408161a9d0eaf09afbafc3242e71e8f5778",
+      "nativeSha256": "9c3e9d5b761dba882899239297c8beabffd76d68cc1fa323b35babe0c33f1fbc",
+      "routeSha256": "e5425c2f8570920acf830f0f635f8d4d820e0c23e80d65e808bc47fd60381eb8",
+      "outputSha256": "8089e52a66f8730846b41bd71e07006be7d4a80ecb3393ee70b8ee3b678794aa",
+      "nativeJobId": 133981813651,
+      "nativeArtifactId": 14320642036,
+      "pairedReportSha256": "ce8c3602508a170482b17bb4631f33e27fb646bf1dede91707faaff6722f8c5c",
+      "inputAndAllNonTimingFieldsEqualPairedHead": true,
+      "pngAndSvgIndividuallyInspected": true,
+      "visualInspection": "RAM right of CPU; inner1/inner2/bottom carry 21/18/8 signals. Copper agrees across PNG/SVG; no clipping or blank routed panels."
+    },
+    {
+      "sample": "left",
+      "png": {
+        "name": "left-solved.png",
+        "bytes": 82216,
+        "sha256": "42cebd55f4a15fb4db1c5b3c0e95b803a728fe7b39b89751e9f9c570e3c21777"
+      },
+      "svg": {
+        "name": "left-solved.svg",
+        "bytes": 8813399,
+        "sha256": "3c7f689cab2c6348d21e335222b8f5113e570d832bdf8b41bf3b74c93e473f73"
+      },
+      "dimensions": [
+        2200,
+        360
+      ],
+      "inputSha256": "6042ca0f0889a983a6ccf8f929a6a46b18cc57134e1b9f3b49c19063b936caa5",
+      "nativeSha256": "19cb9709341808dd66093636ba7c204e4af0577c20d54bae1a3e38f7ce32012d",
+      "routeSha256": "885c31418903a5963dd0e35a21a3307b45a57f9f6440ceda271063f261715ed6",
+      "outputSha256": "1d9e826182f23b6571ea4b258ef4f3ff1d8da7b612db1706ae8e1c3a76708b57",
+      "nativeJobId": 133981813567,
+      "nativeArtifactId": 14320258696,
+      "pairedReportSha256": "73eaef96fa14bcd6b96357f54da5105376459974785bd6acc765ede1dc4eeb53",
+      "inputAndAllNonTimingFieldsEqualPairedHead": true,
+      "pngAndSvgIndividuallyInspected": true,
+      "visualInspection": "RAM left of CPU; inner1/inner2/bottom carry 18/20/9 signals. Copper agrees across PNG/SVG; no clipping or blank routed panels."
+    },
+    {
+      "sample": "above",
+      "png": {
+        "name": "above-solved.png",
+        "bytes": 341234,
+        "sha256": "b5f785f1b1ecb3115dc6cac59c94f1cc55c8aa60a6a62dd463c49097b1e712c5"
+      },
+      "svg": {
+        "name": "above-solved.svg",
+        "bytes": 7458033,
+        "sha256": "6be5b96f85af4fcfcbb4c5eee06cd94959c3aa63abca900d12980db689425206"
+      },
+      "dimensions": [
+        2200,
+        1507
+      ],
+      "inputSha256": "20fc884f08accd368e4ce049ab3fc180a1926f425787a504dbc4040f651bfa69",
+      "nativeSha256": "ca60e05960e0816018358cb742c729909bf0b76380ea5a616b146e08e386ef24",
+      "routeSha256": "49941b99bed35d97e1e09e5133ae10a01be8c4619d9162d057d0d94b4549b8c8",
+      "outputSha256": "f92c09863afb3de9352a41fc274dfc9ab2cb514e316f20e34874408bb6c43403",
+      "nativeJobId": 133981813502,
+      "nativeArtifactId": 14321550296,
+      "pairedReportSha256": "3d77e5ef9bfdba9b32c6cb2463941271fb28b85c65599a7d734af2934121b87d",
+      "inputAndAllNonTimingFieldsEqualPairedHead": true,
+      "pngAndSvgIndividuallyInspected": true,
+      "visualInspection": "RAM above CPU; inner1/inner2/bottom carry 18/15/14 signals. Copper agrees across PNG/SVG; no clipping or blank routed panels."
+    },
+    {
+      "sample": "inner-layers",
+      "png": {
+        "name": "inner-layers-solved.png",
+        "bytes": 294864,
+        "sha256": "69377065f2c849a08976dad9588dd6ed682b6af65eba4ec3505f5d367d2437a3"
+      },
+      "svg": {
+        "name": "inner-layers-solved.svg",
+        "bytes": 5295621,
+        "sha256": "c5b46fa14cf59e08008a1be7ba47744e02fbdf52c739e8548d1f0aa0aa5a63e0"
+      },
+      "dimensions": [
+        2200,
+        1544
+      ],
+      "inputSha256": "1b91e6c5207e4b7e132aa5ac246e94777f926c7beab8675adf0356634b8280ad",
+      "nativeSha256": "874de73218111f900c07d8186a3978768d32417eefc3a5514e2607b4a3a5b2c8",
+      "routeSha256": "a41d8fddb48f29c7afc14b310f43f60a7bcebf8dc135934ada19bb915b7ed01c",
+      "outputSha256": "d7fe9b29fd21b96f1eff5cd77c46a133384b9ba97558f852d0ea742330c7bd6e",
+      "nativeJobId": 133981813247,
+      "nativeArtifactId": 14321265645,
+      "pairedReportSha256": "963f601ad6c61ab70161291d5cc41fd9a965cce41a72dbd7260dc22ede414e57",
+      "inputAndAllNonTimingFieldsEqualPairedHead": true,
+      "pngAndSvgIndividuallyInspected": true,
+      "visualInspection": "RAM below CPU; 24/23 carriers on inner1/inner2. Copper agrees across PNG/SVG; no clipping or blank routed panels."
+    },
+    {
+      "sample": "inner-layers-right",
+      "png": {
+        "name": "inner-layers-right-solved.png",
+        "bytes": 94663,
+        "sha256": "9f14118c44621cded9aa6bb8730d33fe918be854eadb7c4c8662f0a46aeefdda"
+      },
+      "svg": {
+        "name": "inner-layers-right-solved.svg",
+        "bytes": 5597624,
+        "sha256": "96af1f98b12e039b211e7c5ed460761d1c83375857dbf126fc3d302e0c395ae4"
+      },
+      "dimensions": [
+        2200,
+        419
+      ],
+      "inputSha256": "2eaf3dedcd84fbfed10262f4d4c99370a0ca00a7a060f87b7a1cdcba9de37a8e",
+      "nativeSha256": "a9fd724d2e61420abbf9437be49ec16bc8fab53f64b6f4cf752c28108158eed9",
+      "routeSha256": "c28c979cdf908ed68b8fc3d8567c48aab87969fed96401edb7dd66e7b001cf57",
+      "outputSha256": "a8bb161673255bc78f3bdca62a7dc62da251cef655752d5fa61f67f65d2af109",
+      "nativeJobId": 133981813656,
+      "nativeArtifactId": 14321091052,
+      "pairedReportSha256": "f0e3c1da29aa30001e79999c05d13c54a249735e9eceaf7566f0cb43544aec42",
+      "inputAndAllNonTimingFieldsEqualPairedHead": true,
+      "pngAndSvgIndividuallyInspected": true,
+      "visualInspection": "RAM right of CPU; 22/25 carriers on inner1/inner2. Copper agrees across PNG/SVG; no clipping or blank routed panels."
+    },
+    {
+      "sample": "inner-layers-left",
+      "png": {
+        "name": "inner-layers-left-solved.png",
+        "bytes": 93099,
+        "sha256": "d004f64b7620372b8881eb69480b0240df43f8cd95d4c3a83d06d32a43bc5319"
+      },
+      "svg": {
+        "name": "inner-layers-left-solved.svg",
+        "bytes": 9546811,
+        "sha256": "a251550f1f14dc1fe12dfadab17d44eb5e180130ede50f874ea701ae8b204b76"
+      },
+      "dimensions": [
+        2200,
+        399
+      ],
+      "inputSha256": "1c3db8ee018bc90df7fbbb0c198c42efcc0ca948a6a213338650cf81a51f7ab2",
+      "nativeSha256": "2fe1ac7386d30d51470e2708c533ba2b8786cb7bac98aea05bcd259f1e5c27c6",
+      "routeSha256": "18e48acbde1be203a8904c023773e4639b6867f9daba61aeed6c242bffa0d9b5",
+      "outputSha256": "d44fef9b293b058815e1914028c78c605869f31cb71e2528a1556430e33f942a",
+      "nativeJobId": 133981813596,
+      "nativeArtifactId": 14320119155,
+      "pairedReportSha256": "73bd4fad223430f70ed2c7b7ca905caa55f6f52bd22cfef9fa97cf289a8175dc",
+      "inputAndAllNonTimingFieldsEqualPairedHead": true,
+      "pngAndSvgIndividuallyInspected": true,
+      "visualInspection": "RAM left of CPU; 28/19 carriers on inner1/inner2. Copper agrees across PNG/SVG; no clipping or blank routed panels."
+    },
+    {
+      "sample": "inner-layers-above",
+      "png": {
+        "name": "inner-layers-above-solved.png",
+        "bytes": 265869,
+        "sha256": "dbdab10b144c64bc60be42584d232db7e23c7306d62d92402960c57e41ffed8a"
+      },
+      "svg": {
+        "name": "inner-layers-above-solved.svg",
+        "bytes": 8645984,
+        "sha256": "8d9f50dd364b31020084d412d976dd2c9afdd40a5cc6b3ba29bc41070ba0e8b6"
+      },
+      "dimensions": [
+        2200,
+        1247
+      ],
+      "inputSha256": "68a86ef74f8ec9628954e909464c009d98fb2c902a6376e20b3a32d4b5cff555",
+      "nativeSha256": "d8e5376a35722d42f620c229b204919ca90073566eb2ab49c05b64e3058bdaec",
+      "routeSha256": "261b1b22daa95786c390652e7537b700375ee35075be5c3e9affc638b1037030",
+      "outputSha256": "6cfda2b1c220204fb8f1d6755ae55901e8824011927b3ad8ad8c1e3ec02cb9cd",
+      "nativeJobId": 133981813625,
+      "nativeArtifactId": 14320392858,
+      "pairedReportSha256": "8ed49f7c7e1258b5d7d02d9898be087f6408c8edd61d91059b56cadf2a4bba98",
+      "inputAndAllNonTimingFieldsEqualPairedHead": true,
+      "pngAndSvgIndividuallyInspected": true,
+      "visualInspection": "RAM above CPU; 21/26 carriers on inner1/inner2. Copper agrees across PNG/SVG; no clipping or blank routed panels."
+    },
+    {
+      "sample": "inner-layers-complete-ca",
+      "png": {
+        "name": "inner-layers-complete-ca-solved.png",
+        "bytes": 166091,
+        "sha256": "8d42fb6dd4142834d1971ff1b756f88e91288fc428783599647ad808a3640185"
+      },
+      "svg": {
+        "name": "inner-layers-complete-ca-solved.svg",
+        "bytes": 15906880,
+        "sha256": "ecee94b1761214a68d691d762ff1aec7d91b4f0507d148318bf924fc3118abe9"
+      },
+      "dimensions": [
+        2200,
+        806
+      ],
+      "inputSha256": "a6def279fa2d3356a66ee94b1760a76eebb6c6d8e605005ce5903bd2fbca8776",
+      "nativeSha256": "a64565264c6f64c54ea81e69ab0c53b2cb543170b9af0a550cc6d11f6d01cb28",
+      "routeSha256": "adacd86dfa7ca920645749a5126b892c9dcb402c31c63ecb5d9dd0d6114a9110",
+      "outputSha256": "6fb432b77d449f987de3a5d5f89dd07396b1331524c875ae0cef6892e646c32f",
+      "nativeJobId": 133981814192,
+      "nativeArtifactId": 14321261158,
+      "pairedReportSha256": "8f6f1be10ef64d8e45a42957fccb3bb85f3e2df9ca598cb1c331b52b4aaa05f0",
+      "inputAndAllNonTimingFieldsEqualPairedHead": true,
+      "pngAndSvgIndividuallyInspected": true,
+      "visualInspection": "RAM below CPU; 19/28 carriers on inner1/inner2; three bus groups matched. Copper agrees across PNG/SVG; no clipping or blank routed panels."
+    },
+    {
+      "sample": "outer-layers",
+      "png": {
+        "name": "outer-layers-solved.png",
+        "bytes": 185173,
+        "sha256": "716ab2b56349756cbe6b1d49bcc53cdbc762d3044bb7a412cd87214d208f7722"
+      },
+      "svg": {
+        "name": "outer-layers-solved.svg",
+        "bytes": 7104059,
+        "sha256": "4df7b191a5529607e5044ed501a1eb08be223e982805c1f35e812491e02a802b"
+      },
+      "dimensions": [
+        2200,
+        1123
+      ],
+      "inputSha256": "de3fd915f3c7d8c9bf4fd3c9b197596ba5e08c1be328f9c5223d7ab78736588f",
+      "nativeSha256": "ae3fbd27f8dc5c598110d1702bf24bd009b730c9bfe9f2bf48a953c42291fe77",
+      "routeSha256": "2b59d2a0b652bd6d572f04f18c31e3fde498f67707f981be32703370be10964f",
+      "outputSha256": "24ce481727a20ba7f497efe5355628d8468c1df610466333e36a4ba6ff84b48f",
+      "nativeJobId": 133981813487,
+      "nativeArtifactId": 14319794647,
+      "pairedReportSha256": "46b4748e28e364bcf22c8331f1651ee8082235fe1080e341635421d90f6cc26e",
+      "inputAndAllNonTimingFieldsEqualPairedHead": true,
+      "pngAndSvgIndividuallyInspected": true,
+      "visualInspection": "RAM below CPU; 8 top and 39 bottom carriers; inner layers contain fixed vias only. Copper agrees across PNG/SVG; no clipping or blank routed panels."
+    }
+  ]
+}
