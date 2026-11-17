@@ -44,6 +44,12 @@ jobs:
           bun-version: 1.4.0
       - name: Install matching runtimes before timing
         run: |
+          cat > "$RUNNER_TEMP/cache-gallery-bunfig.toml" <<'TOML'
+          [install]
+          saveTextLockfile = true
+          [install.lockfile]
+          save = true
+          TOML
           test "$(git -C base rev-parse HEAD)" = 39154c9830acff7432f89fec6395f3dcb91f91fa
           test "$(git -C head rev-parse HEAD)" = d47b57c26e6d173d83a76adb5147f38c81623045
           cmp base/package.json head/package.json
@@ -51,11 +57,11 @@ jobs:
             (
               cd "$checkout"
               if [[ -f bun.lock || -f bun.lockb ]]; then
-                bun install --frozen-lockfile --ignore-scripts
+                bun install --config "$RUNNER_TEMP/cache-gallery-bunfig.toml" --frozen-lockfile --ignore-scripts
               else
-                bun install --ignore-scripts
+                bun install --config "$RUNNER_TEMP/cache-gallery-bunfig.toml" --ignore-scripts
               fi
-              git diff --exit-code -- lib scripts package.json
+              git diff --exit-code -- lib scripts package.json bunfig.toml
             )
           done
           cmp base/bun.lock head/bun.lock
