@@ -1124,8 +1124,9 @@ export class BusLanesPipelineSolver extends BaseSolver {
     // Untimed buses try ordinary lane routing first; retain surface-site search
     // on the first retry when that simpler allocation cannot complete.
     let surfaceRoutingAttempt = 0
-    if (!hasTimingConstraints) surfaceRoutingAttempt = 1
-    const needsSharedSurfaceRouting = buses.length > 1 || hasMaxBusLength
+    if (!hasTimingConstraints && !usedNativeFallback) surfaceRoutingAttempt = 1
+    const needsSharedSurfaceRouting =
+      buses.length > 1 || hasMaxBusLength || usedNativeFallback
     if (
       this.attempt === surfaceRoutingAttempt &&
       this.options.smoothTuning &&
