@@ -1,0 +1,31 @@
+name: Temporary AM3352 pending-access evidence
+
+"on":
+  push:
+    branches:
+      - diagnostics/pending-consumer-final-am3352
+
+permissions:
+  contents: read
+
+concurrency:
+  group: am3352-pending-access-evidence-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      BUN_JSC_forceRAMSize: "2147483648"
+      BUN_JSC_miniVMHeapGrowthFactor: "1.05"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.0
+      - name: Capture fresh paired solves, RSS and validated galleries
+        run: bun run ./scripts/diagnostics/capture-am3352-evidence.ts
