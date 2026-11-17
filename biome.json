@@ -11,7 +11,8 @@
       "!cosmos-export/**",
       "!node_modules/**",
       "!dist/**",
-      "!.cache/**"
+      "!.cache/**",
+      "!test-timings.json"
     ]
   },
   "formatter": { "indentStyle": "space" },

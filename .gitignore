@@ -11,3 +11,4 @@ cosmos-export
 dist
 
 *.tgz
+.bun-test-plan
