@@ -637,15 +637,15 @@
     },
     {
       "path": "tsconfig.json",
-      "sha256": "5b44d91089789e3ad7fb2de4e1428664ff3d799304a07748a614a1412ca1fcba",
-      "bytes": 387,
-      "gitBlobSha1": "fa81477317a5c7aa146a80ab60dde43405caf434"
+      "sha256": "dffe0485e0cc6dc125a60b2df0411733c28258cdf062caa7ee46e768603b57fb",
+      "bytes": 386,
+      "gitBlobSha1": "49e1ceb03591a333009df20fd69ff0b5defee4f5"
     },
     {
       "path": "bunfig.toml",
-      "sha256": "438584a0803e6e74070f4b3e7bfbd19e48a331849355d0e2ffeea3079f61ddd4",
-      "bytes": 68,
-      "gitBlobSha1": "a6be7843b287576862f2c04926726837d40577ed"
+      "sha256": "64a8ce5ffa24407b70511ad48e0beea97b671074a2cdf908e049dfa981c07462",
+      "bytes": 67,
+      "gitBlobSha1": "7a207416ba4f6be4a49809494673e64cfb8636ad"
     }
   ]
 }
