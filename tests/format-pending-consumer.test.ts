@@ -91,6 +91,53 @@ function bitwiseExponentValue(
     ? expression : undefined
 }
 
+// *, / and % are left-associative at the same precedence. A wrapper around
+// their already-left child changes no grouping, evaluation order or IEEE-754
+// operation order. Right operands and every inner grouping remain untouched.
+function multiplicativeLeftValue(
+  ts: typeof TypeScript,
+  node: TypeScript.BinaryExpression,
+): TypeScript.Expression | undefined {
+  const multiplicative = (kind: TypeScript.SyntaxKind): boolean =>
+    kind === ts.SyntaxKind.AsteriskToken || kind === ts.SyntaxKind.SlashToken ||
+    kind === ts.SyntaxKind.PercentToken
+  if (!multiplicative(node.operatorToken.kind)) return undefined
+  let expression = node.left
+  while (ts.isParenthesizedExpression(expression)) expression = expression.expression
+  return ts.isBinaryExpression(expression) && multiplicative(expression.operatorToken.kind)
+    ? expression : undefined
+}
+
+function optionalArrowParameter(
+  ts: typeof TypeScript,
+  node: TypeScript.ArrowFunction,
+): boolean {
+  if (node.parameters.length !== 1 ||
+    node.modifiers?.some((modifier) => modifier.kind === ts.SyntaxKind.AsyncKeyword)) return false
+  const parameter = node.parameters[0]
+  return ts.isIdentifier(parameter.name) && !parameter.type && !parameter.questionToken &&
+    !parameter.dotDotDotToken && !parameter.initializer && !parameter.modifiers?.length
+}
+
+function blockStatements(
+  ts: typeof TypeScript,
+  request: { block: TypeScript.Block; source: TypeScript.SourceFile },
+): readonly TypeScript.Statement[] {
+  const { block, source } = request
+  return block.statements.filter((statement, index) => {
+    if (!ts.isEmptyStatement(statement)) return true
+    const next = block.statements[index + 1]
+    if (!next || !ts.isExpressionStatement(next) ||
+      !ts.isBinaryExpression(next.expression) ||
+      next.expression.operatorToken.kind !== ts.SyntaxKind.EqualsToken ||
+      next.expression.getFirstToken(source)?.kind !== ts.SyntaxKind.OpenParenToken) return true
+    // This standalone no-op is followed by an assignment, which cannot be a
+    // directive. Empty loop/if/labeled bodies are different AST roles and are
+    // never removed. A prologue string following an empty remains significant.
+    return false
+  })
+}
+
 function structuralAst(
   ts: typeof TypeScript,
   node: TypeScript.Node,
@@ -122,11 +169,16 @@ function structuralAst(
         ? returnValue(ts, node)
         : ts.isBinaryExpression(node) && key === "right"
           ? bitwiseExponentValue(ts, node) ?? value as TypeScript.Node
+        : ts.isBinaryExpression(node) && key === "left"
+          ? multiplicativeLeftValue(ts, node) ?? value as TypeScript.Node
         : value as TypeScript.Node
       assert(child)
       result[key] = structuralAst(ts, child, source)
     } else if (childArrays.has(value as TypeScript.NodeArray<TypeScript.Node>)) {
-      result[key] = Array.from(value as TypeScript.NodeArray<TypeScript.Node>,
+      const nodes = ts.isBlock(node) && key === "statements"
+        ? blockStatements(ts, { block: node, source })
+        : value as TypeScript.NodeArray<TypeScript.Node>
+      result[key] = Array.from(nodes,
         (child) => structuralAst(ts, child, source))
     } else if (value === null || typeof value === "string" ||
       typeof value === "number" || typeof value === "boolean") {
@@ -158,7 +210,7 @@ function preservedComments(
   source: TypeScript.SourceFile,
 ): StructuralValue {
   const leaves: { kind: number; start: number; end: number }[] = []
-  const transparentReturnParentheses = new Set<number>()
+  const transparentExpressionParentheses = new Set<number>()
   const leadingTypeOperators = new Set<number>()
   const visit = (node: TypeScript.Node): void => {
     if (node.kind >= ts.SyntaxKind.FirstJSDocNode &&
@@ -177,8 +229,8 @@ function preservedComments(
         const close = expression.getLastToken(source)
         assert(open?.kind === ts.SyntaxKind.OpenParenToken)
         assert(close?.kind === ts.SyntaxKind.CloseParenToken)
-        transparentReturnParentheses.add(open.getStart(source))
-        transparentReturnParentheses.add(close.getStart(source))
+        transparentExpressionParentheses.add(open.getStart(source))
+        transparentExpressionParentheses.add(close.getStart(source))
         expression = expression.expression
       }
     }
@@ -189,9 +241,29 @@ function preservedComments(
         const close = expression.getLastToken(source)
         assert(open?.kind === ts.SyntaxKind.OpenParenToken)
         assert(close?.kind === ts.SyntaxKind.CloseParenToken)
-        transparentReturnParentheses.add(open.getStart(source))
-        transparentReturnParentheses.add(close.getStart(source))
+        transparentExpressionParentheses.add(open.getStart(source))
+        transparentExpressionParentheses.add(close.getStart(source))
         expression = expression.expression
+      }
+    }
+    if (ts.isBinaryExpression(node) && multiplicativeLeftValue(ts, node)) {
+      let expression = node.left
+      while (ts.isParenthesizedExpression(expression)) {
+        const open = expression.getFirstToken(source)
+        const close = expression.getLastToken(source)
+        assert(open?.kind === ts.SyntaxKind.OpenParenToken)
+        assert(close?.kind === ts.SyntaxKind.CloseParenToken)
+        transparentExpressionParentheses.add(open.getStart(source))
+        transparentExpressionParentheses.add(close.getStart(source))
+        expression = expression.expression
+      }
+    }
+    if (ts.isArrowFunction(node) && optionalArrowParameter(ts, node)) {
+      for (const child of node.getChildren(source)) {
+        if (child.kind === ts.SyntaxKind.OpenParenToken ||
+          child.kind === ts.SyntaxKind.CloseParenToken) {
+          transparentExpressionParentheses.add(child.getStart(source))
+        }
       }
     }
     const children = node.getChildren(source)
@@ -241,7 +313,7 @@ function preservedComments(
         // Moving a suppression onto/off the target code's line can change
         // typechecking despite an otherwise identical code AST and comment.
         let targetIndex = index
-        while (transparentReturnParentheses.has(withEof[targetIndex].start)) {
+        while (transparentExpressionParentheses.has(withEof[targetIndex].start)) {
           targetIndex++
         }
         comment.nextTokenLineDistance =
@@ -255,7 +327,7 @@ function preservedComments(
     // Do not shift comment anchors for the same transparent return wrappers.
     // Comments before and inside a wrapper still anchor to the same next
     // significant token, and suppression line distances remain checked.
-    if (transparentReturnParentheses.has(leaf.start)) continue
+    if (transparentExpressionParentheses.has(leaf.start)) continue
     if (leadingTypeOperators.has(leaf.start) ||
       leaf.kind === ts.SyntaxKind.CommaToken ||
       leaf.kind === ts.SyntaxKind.SemicolonToken) {
@@ -327,6 +399,56 @@ export function verifyReturnParenthesesNormalization(ts: typeof TypeScript): voi
     "function f() { return (mask & 2 ** index) + 1; }")
   different("function f() { return mask & ((2 ** index) ** next); }",
     "function f() { return mask & (2 ** (index ** next)); }")
+  equal("function f() { return a * b / c; /* after */ }",
+    "function f() { return (a * b) / c; /* after */ }")
+  equal("function f() { return a / b * c; }",
+    "function f() { return (a / b) * c; }")
+  equal("function f() { return a % b / c; }",
+    "function f() { return (a % b) / c; }")
+  equal("function f() { return (a + b) * c / d; }",
+    "function f() { return ((a + b) * c) / d; }")
+  different("function f() { return a * (b / c); }",
+    "function f() { return (a * b) / c; }")
+  different("function f() { return a / (b * c); }",
+    "function f() { return (a / b) * c; }")
+  different("function f() { return (a + b) * c; }",
+    "function f() { return a + b * c; }")
+  equal("const f = x => x; /* after */", "const f = (x) => x; /* after */")
+  // Async parameter wrappers alter TypeScript's AwaitContext parser flags;
+  // retain that conservative distinction instead of discarding context flags.
+  different("const f = async x => x; /* after */", "const f = async (x) => x; /* after */")
+  different("const f = x => x", "const f = (x = 1) => x")
+  different("const f = (x: number) => x", "const f = (x: string) => x")
+  different("const f = x => x", "const f = ({ x }) => x")
+  different("const f = x => x", "const f = (...x) => x")
+  different("const f = x => x", "const f = (x, y) => x")
+  different("const f = async\nx => x", "const f = async (x) => x")
+  equal("function f() { (item as Wire).x = 1 }",
+    "function f() { ;(item as Wire).x = 1 }")
+  different('function f() { ;"use strict"; (item as Wire).x = 1 }',
+    'function f() { "use strict"; (item as Wire).x = 1 }')
+  different("function f() { while (ok); (item as Wire).x = 1 }",
+    "function f() { while (ok) (item as Wire).x = 1 }")
+  different("function f() { label:; (item as Wire).x = 1 }",
+    "function f() { label: (item as Wire).x = 1 }")
+  different("function f() { call()\n(item as Wire).x = 1 }",
+    "function f() { call(); (item as Wire).x = 1 }")
+  different("function f() { ; }", "function f() { }")
+  different("function f() { ;x = 1 }", "function f() { x = 1 }")
+  different("const f = /* @ts-ignore */ x => x",
+    "const f = /* @ts-ignore */\n(x) => x")
+  for (const text of ["const f = (x: number) => x", "const f = (x = 1) => x",
+    "const f = (...x) => x", "const f = ({ x }) => x", "const f = (x, y) => x",
+    "const f = async (x) => x"]) {
+    const source = ts.createSourceFile("parameter-guard.ts", text, ts.ScriptTarget.Latest, true)
+    let parameterCheck: boolean | undefined
+    const find = (node: TypeScript.Node): void => {
+      if (ts.isArrowFunction(node)) parameterCheck = optionalArrowParameter(ts, node)
+      ts.forEachChild(node, find)
+    }
+    find(source)
+    assert.equal(parameterCheck, false)
+  }
   different("function f() { return (a || b) && c; }",
     "function f() { return a || (b && c); }")
   different("function f() { return (a?.b).c; }",
@@ -628,8 +750,8 @@ test("TEMP diagnostic: transport exact canonical consumer formatting", async () 
         `Ignored/native/provenance source changed: ${path}`)
     }
     if (rejections.length) {
-      // Evaluate every source first. Failure output is explicitly rejected and
-      // includes bounded untrusted bytes for semantic review, never application.
+      // Evaluate every source first. Only compact failure descriptions and
+      // hashes are emitted; no source packet is accepted or printed on failure.
       const diagnostics = rejections.map((rejection) =>
         marker + "_REJECTED " + JSON.stringify(rejection)).join("\n") + "\n" +
         marker + "_REJECTED_SUMMARY " + JSON.stringify({ status: "rejected",
@@ -638,51 +760,10 @@ test("TEMP diagnostic: transport exact canonical consumer formatting", async () 
           checkedUnchangedStructure: checked.length,
           diagnosticHead: git(repositoryRoot, ["rev-parse", "HEAD"]).toString("utf8").trim(),
           inputManifestSha256: sha256(manifestBytes),
-          noAcceptedSourcePacketsEmitted: true,
-          untrustedRejectedByteInspection: true }) + "\n"
+          noFormattedSourcePacketsEmitted: true }) + "\n"
       assert(Buffer.byteLength(diagnostics) <= 128 * 1024,
         "Compact rejection diagnostics exceed their bound")
-      const reviewMarker = "PENDING_CONSUMER_REJECTED_FORMAT_INSPECTION_V1"
-      const reviewLines = [reviewMarker + "_BEGIN " + JSON.stringify({
-        status: "rejected-for-semantic-review", acceptedForApplication: false,
-        sourceCheckpointCommit: manifest.sourceCheckpointCommit,
-        diagnosticHead: git(repositoryRoot, ["rev-parse", "HEAD"]).toString("utf8").trim(),
-        inputManifestSha256: sha256(manifestBytes),
-        rejectedFiles: rejections.length,
-      })]
-      let inspectedFiles = 0
-      for (const rejection of rejections) {
-        if (!rejection.afterSha256) continue
-        const source = saved.find((entry) => entry.path === rejection.path)
-        assert(source, "Rejected review path is not a selected source")
-        const after = readFileSync(source.absolutePath)
-        assert.equal(sha256(after), rejection.afterSha256)
-        const compressed = gzipSync(after, { level: 9 })
-        assert(gunzipSync(compressed).equals(after))
-        const encoded = compressed.toString("base64")
-        const parts = Math.ceil(encoded.length / chunkCharacters)
-        reviewLines.push(reviewMarker + "_FILE " + JSON.stringify({
-          status: "rejected-for-semantic-review", acceptedForApplication: false,
-          path: source.path, beforeSha256: source.beforeSha256,
-          afterSha256: sha256(after), afterBytes: after.length,
-          gzipSha256: sha256(compressed), gzipBytes: compressed.length,
-          base64Characters: encoded.length, parts,
-        }))
-        for (let part = 0; part < parts; part++) {
-          const payload = encoded.slice(part * chunkCharacters, (part + 1) * chunkCharacters)
-          reviewLines.push(reviewMarker + "_CHUNK " + JSON.stringify({ path: source.path,
-            part, parts, payloadSha256: sha256(payload), payload }))
-        }
-        inspectedFiles++
-      }
-      const reviewBody = reviewLines.join("\n") + "\n"
-      const review = reviewBody + reviewMarker + "_END " + JSON.stringify({
-        status: "rejected-for-semantic-review", acceptedForApplication: false,
-        inspectedFiles, bodySha256: sha256(reviewBody) }) + "\n"
-      const rejectedOutput = diagnostics + review
-      assert(Buffer.byteLength(rejectedOutput) <= maximumOutputBytes,
-        "Untrusted rejected-source inspection exceeds bound; no output emitted")
-      assert.equal(await Bun.write(Bun.stdout, rejectedOutput), Buffer.byteLength(rejectedOutput))
+      assert.equal(await Bun.write(Bun.stdout, diagnostics), Buffer.byteLength(diagnostics))
       assert.fail(`Canonical formatting rejected ${rejections.length}/${saved.length} sources; see compact rejection records`)
     }
     assert.equal(checked.length, saved.length)
@@ -734,8 +815,8 @@ test("TEMP diagnostic: transport exact canonical consumer formatting", async () 
     verified = true
   } finally {
     // Failed verification restores the exact bytes and remains a failed test.
-    // Rejected inspection bytes are explicitly untrusted and cannot be applied.
-    // No accepted source packet is emitted when any source fails verification.
+    // Only bounded rejection diagnostics may precede a failure. No partial or
+    // unverified source bytes are emitted or accepted as formatted source.
     if (!verified) {
       for (const source of saved) writeFileSync(source.absolutePath, source.before)
     }
