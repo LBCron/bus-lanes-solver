@@ -16,8 +16,8 @@
     },
     {
       "path": ".github/workflows/pending-consumer-capture.yml",
-      "sha256": "9ce97df4d4df9303b6cf90c02e822a0943e0620c9dcc2bfd5bce243914fd503f",
-      "bytes": 637
+      "sha256": "0a6f2576ae5e57d5fe50c803f04add17dbbe5b25acef76844e17c7cdc63c39f9",
+      "bytes": 592
     }
   ],
   "files": [
