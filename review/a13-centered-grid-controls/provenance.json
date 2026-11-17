@@ -1,0 +1,73 @@
+{
+  "sourceCommit": "b410bda0f902ae0a0f01366fe889a2abb0e94127",
+  "galleryWorkflow": "https://github.com/tscircuit/bus-lanes-solver/actions/runs/44035484915",
+  "pairedWorkflow": "https://github.com/tscircuit/bus-lanes-solver/actions/runs/44035191021",
+  "samples": [
+    {
+      "name": "above",
+      "inputSha256": "20fc884f08accd368e4ce049ab3fc180a1926f425787a504dbc4040f651bfa69",
+      "iterations": 101425,
+      "validationIdentical": true
+    },
+    {
+      "name": "control",
+      "inputSha256": "b7a4e9d09a22fe0ed131a544548b14eef20fbf4e88b6dc6ffaa11ca44e6bfe59",
+      "iterations": 50026,
+      "validationIdentical": true
+    },
+    {
+      "name": "control-inner1",
+      "inputSha256": "14b5b318540ce7bac367cf22338abd7f9fffd2f7ce6c2a12f903116f50ca9bde",
+      "iterations": 98842,
+      "validationIdentical": true
+    },
+    {
+      "name": "inner-layers",
+      "inputSha256": "1b91e6c5207e4b7e132aa5ac246e94777f926c7beab8675adf0356634b8280ad",
+      "iterations": 123306,
+      "validationIdentical": true
+    },
+    {
+      "name": "inner-layers-above",
+      "inputSha256": "68a86ef74f8ec9628954e909464c009d98fb2c902a6376e20b3a32d4b5cff555",
+      "iterations": 323178,
+      "validationIdentical": true
+    },
+    {
+      "name": "inner-layers-complete-ca",
+      "inputSha256": "a6def279fa2d3356a66ee94b1760a76eebb6c6d8e605005ce5903bd2fbca8776",
+      "iterations": 72633,
+      "validationIdentical": true
+    },
+    {
+      "name": "inner-layers-left",
+      "inputSha256": "1c3db8ee018bc90df7fbbb0c198c42efcc0ca948a6a213338650cf81a51f7ab2",
+      "iterations": 246079,
+      "validationIdentical": true
+    },
+    {
+      "name": "inner-layers-right",
+      "inputSha256": "2eaf3dedcd84fbfed10262f4d4c99370a0ca00a7a060f87b7a1cdcba9de37a8e",
+      "iterations": 159784,
+      "validationIdentical": true
+    },
+    {
+      "name": "left",
+      "inputSha256": "6042ca0f0889a983a6ccf8f929a6a46b18cc57134e1b9f3b49c19063b936caa5",
+      "iterations": 82820,
+      "validationIdentical": true
+    },
+    {
+      "name": "outer-layers",
+      "inputSha256": "de3fd915f3c7d8c9bf4fd3c9b197596ba5e08c1be328f9c5223d7ab78736588f",
+      "iterations": 4174041,
+      "validationIdentical": true
+    },
+    {
+      "name": "right",
+      "inputSha256": "78c22c8d818ee2c2abe2eec9c6b6e408161a9d0eaf09afbafc3242e71e8f5778",
+      "iterations": 51405,
+      "validationIdentical": true
+    }
+  ]
+}
