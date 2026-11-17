@@ -21,6 +21,6 @@ jobs:
       - run: bun install
       - name: Capture canonical formatter bytes and public builds only
         run: >-
-          bun test --only --timeout 240000
+          bun test --timeout 240000
           tests/collect-published-bus-small.test.ts
           tests/format-pending-consumer.test.ts
