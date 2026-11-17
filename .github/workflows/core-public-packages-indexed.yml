@@ -1,0 +1,31 @@
+name: Capture indexed public Core packages
+
+on:
+  push:
+    branches:
+      - diagnostics/core-public-packages-indexed
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    name: capture (${{ matrix.package_index }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        package_index: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.4
+      - name: Capture one verified public package
+        env:
+          PENDING_ACCESS_PACKAGE_INDEX: ${{ matrix.package_index }}
+        run: bun test --timeout 180000 tests/collect-core-public-package-index.test.ts
