@@ -174,13 +174,26 @@ export function* routeFreshSurfaceSeeds(
   options: SolverOptions,
   seedOptions: SurfaceSeedOptions = {},
 ): Generator<void | SurfaceRoutingSeed, FlexibleSignalState | null> {
-  const busNames = new Set(native.buses?.flatMap((bus) => bus.connectionNames))
   const pairNames = new Set(
     native.differentialPairs?.flatMap((pair) => pair.connectionNames),
   )
-  const timingNames = new Set(busNames)
+  const timedBusNames = new Set(
+    native.buses
+      ?.filter((bus) => {
+        const hasLengthConstraints =
+          bus.minLength !== undefined ||
+          bus.maxLength !== undefined ||
+          bus.maxLengthSkew !== undefined
+        const hasPairMembers = bus.connectionNames.some((name) =>
+          pairNames.has(name),
+        )
+        return hasLengthConstraints || hasPairMembers
+      })
+      .flatMap((bus) => bus.connectionNames),
+  )
+  const timingNames = new Set(timedBusNames)
   for (const pair of native.differentialPairs ?? [])
-    if (pair.connectionNames.some((name) => busNames.has(name)))
+    if (pair.connectionNames.some((name) => timedBusNames.has(name)))
       for (const name of pair.connectionNames) timingNames.add(name)
   const timing = scopeInput(native, timingNames)
   const timingPairs = new Set(
