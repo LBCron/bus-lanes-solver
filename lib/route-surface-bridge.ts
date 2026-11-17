@@ -8,6 +8,12 @@ import { generatedEscapeHolesConflict } from "./expanded-signal-sites"
 import { joinSignalEscapes } from "./join-signal-escapes"
 import { tuningPathIsSelfClear } from "./length-tuning"
 import { MinHeap } from "./min-heap"
+import { PendingTerminalHomology } from "./pending-terminal-homology"
+import {
+  RoutingMemoryBudget,
+  RoutingMemoryBudgetExceeded,
+} from "./routing-memory-budget"
+import { SurfaceLabelCosts } from "./surface-label-costs"
 import { reduceOrdinaryTurns } from "./reduce-ordinary-turns"
 import { signalWidth } from "./repair-bus-dogbones"
 import { routeAnglesAreConventional } from "./route-angle-validation"
@@ -42,6 +48,9 @@ export interface SurfaceBridgeOptions {
   maxVias?: number
   /** Raster memory budget; defaults to one million and is capped at four million cells. */
   maxGridCells?: number
+  /** A complete materialized route must also satisfy any collective physical
+   * constraint. Rejected goals leave the ordinary search frontier active. */
+  acceptRoute?: (route: SurfaceBridgeRoute) => Generator<void, boolean>
 }
 export interface SurfaceBridgeRoute {
   carrier: Trace
@@ -59,6 +68,8 @@ interface Label {
   parent?: Label
   attachment?: Point[]
   via?: boolean
+  signature?: number
+  references?: number
 }
 
 /** A single inner carrier uses the native pad layer only for local escapes. */
@@ -465,128 +476,226 @@ export function* routeSurfaceBridge(
       phase++
     return phase * size + cell
   }
-  const queue = new MinHeap<Label>(),
-    costs = new Float64Array(size * maxVias * 2)
-  costs.fill(Infinity)
-  for (const [cell, attachment] of attachments[0]) {
-    const g = length(attachment)
-    if (g > maxLength + 1e-8) continue
-    costs[cell] = g
-    queue.push({
-      id: cell,
-      cell,
-      count: 0,
-      g,
-      routeLength: g,
-      f: g + distance(point(cell), pads[1]),
-      attachment,
-    })
-  }
-  let expanded = 0
-  while (queue.length && expanded < (options.maxExpansions ?? 1_500_000)) {
-    const current = queue.pop()
-    if (current.g > costs[current.id] + 1e-9) continue
-    if (++expanded % 64 === 0) yield
-    if (
-      current.count % 2 === 0 &&
-      carrierLayers.includes(current.count === 0 ? surface : bridge) &&
-      attachments[1].has(current.cell)
-    ) {
-      const result = materialize(
-        current,
-        attachments[1].get(current.cell)!,
-        point,
-        input,
-        connection,
-        layers,
-        physical,
-        width,
-        diameter,
-        hole,
-        fixed,
-        softTraces,
+  const queue = new MinHeap<Label>()
+  const stateCapacity = size * maxVias * 2
+  // Conservative managed-label allowance: scalar/reference fields and object
+  // header, a four-via history array, and a queue reference. This is accounted
+  // search storage, not an OS RSS promise. The limit follows the existing
+  // scalar-state allocation plus the existing expansion work allocation.
+  const labelBytes = 256
+  const expansionBudget = options.maxExpansions ?? 1_500_000
+  const memory = input.pendingRoutingAccess?.length
+    ? new RoutingMemoryBudget(
+        stateCapacity * Float64Array.BYTES_PER_ELEMENT +
+          Math.ceil(Math.max(0, expansionBudget)) * labelBytes,
       )
-      if (
-        result &&
-        length(joinSignalEscapes(result.carrier, result.escapes).route) <=
-          maxLength + 1e-8
-      )
-        return result
+    : undefined
+  let homology: PendingTerminalHomology | undefined
+  let enriched: SurfaceLabelCosts | undefined
+  try {
+    homology = input.pendingRoutingAccess?.length
+      ? new PendingTerminalHomology(input, memory)
+      : undefined
+    const costs = homology ? undefined : new Float64Array(stateCapacity)
+    costs?.fill(Infinity)
+    enriched = memory
+      ? new SurfaceLabelCosts({ physicalStates: stateCapacity, memory })
+      : undefined
+    const dominated = (
+      label: Pick<Label, "id" | "signature" | "g" | "routeLength">,
+    ) =>
+      homology ? enriched!.dominates(label) : label.g >= costs![label.id] - 1e-9
+    const rememberLabel = (label: Label) => {
+      if (!homology) {
+        costs![label.id] = label.g
+        return
+      }
+      if (!memory!.reserve(labelBytes)) throw new RoutingMemoryBudgetExceeded()
+      label.references = 1
+      if (label.parent) label.parent.references!++
+      enriched!.remember(label)
     }
-    const x = current.cell % columns,
-      y = Math.floor(current.cell / columns),
-      layer = current.count % 2
-    for (let direction = 0; direction < directions.length; direction++) {
-      const [dx, dy] = directions[direction],
-        nx = x + dx,
-        ny = y + dy
-      if (nx < 0 || nx >= columns || ny < 0 || ny >= rows) continue
-      const cell = nx + ny * columns,
-        id = labelId(current.count, cell, current.firstVia),
-        span = step * (dx && dy ? Math.SQRT2 : 1),
-        routeLength = current.routeLength + span,
-        g =
-          current.g +
-          span * edgeCostFactor(layer, current.cell, direction, cell)
-      if (
-        routeLength > maxLength + 1e-8 ||
-        !withinEscape(cell, current.count) ||
-        g >= costs[id] - 1e-9 ||
-        !edgeVisible(layer, current.cell, direction, cell)
-      )
-        continue
-      costs[id] = g
-      queue.push({
-        id,
-        cell,
-        count: current.count,
-        g,
-        routeLength,
-        f: g + distance(point(cell), pads[1]),
-        firstVia: current.firstVia,
-        viaCells: current.viaCells,
-        parent: current,
-      })
-    }
-    if (
-      carrierLayers.includes(bridge) &&
-      current.count < maxVias &&
-      withinEscape(current.cell, current.count + 1) &&
-      landing(current.cell) &&
-      (current.viaCells ?? []).every(
-        (cell) =>
-          distance(point(cell), point(current.cell)) >=
-          hole + holeClearance - 1e-8,
-      ) &&
-      (current.firstVia === undefined ||
-        distance(point(current.firstVia), point(current.cell)) >=
-          hole + holeClearance - 1e-8)
-    ) {
-      const count = current.count + 1,
-        firstVia =
-          current.count % 2 === 0
-            ? current.cell
-            : (current.firstVia ?? current.cell),
-        id = labelId(count, current.cell, firstVia),
-        g = current.g + viaPenalty + landingPenalty(current.cell)
-      if (g < costs[id] - 1e-9) {
-        costs[id] = g
-        queue.push({
-          id,
-          cell: current.cell,
-          count,
-          g,
-          routeLength: current.routeLength,
-          f: g + distance(point(current.cell), pads[1]),
-          firstVia,
-          viaCells: [...(current.viaCells ?? []), current.cell],
-          parent: current,
-          via: true,
-        })
+    const releaseLabel = (label: Label) => {
+      if (!memory) return
+      let current: Label | undefined = label
+      while (current) {
+        if (--current.references! > 0) return
+        memory.release(labelBytes)
+        current = current.parent
       }
     }
+    for (const [cell, attachment] of attachments[0]) {
+      const g = length(attachment)
+      if (g > maxLength + 1e-8) continue
+      let signature = homology?.empty
+      for (let index = 1; homology && index < attachment.length; index++)
+        signature = homology.extend({
+          signature: signature!,
+          layer: surface,
+          start: attachment[index - 1],
+          end: attachment[index],
+        })
+      const label: Label = {
+        id: cell,
+        cell,
+        count: 0,
+        g,
+        routeLength: g,
+        f: g + distance(point(cell), pads[1]),
+        attachment,
+        signature,
+      }
+      rememberLabel(label)
+      queue.push(label)
+    }
+    let expanded = 0
+    while (queue.length && expanded < expansionBudget) {
+      const current = queue.pop()
+      if (
+        homology
+          ? !enriched!.contains(current)
+          : current.g > costs![current.id] + 1e-9
+      ) {
+        releaseLabel(current)
+        continue
+      }
+      if (++expanded % 64 === 0) yield
+      if (
+        current.count % 2 === 0 &&
+        carrierLayers.includes(current.count === 0 ? surface : bridge) &&
+        attachments[1].has(current.cell)
+      ) {
+        const result = materialize(
+          current,
+          attachments[1].get(current.cell)!,
+          point,
+          input,
+          connection,
+          layers,
+          physical,
+          width,
+          diameter,
+          hole,
+          fixed,
+          softTraces,
+        )
+        if (
+          result &&
+          length(joinSignalEscapes(result.carrier, result.escapes).route) <=
+            maxLength + 1e-8 &&
+          (!options.acceptRoute || (yield* options.acceptRoute(result)))
+        )
+          return result
+      }
+      const x = current.cell % columns,
+        y = Math.floor(current.cell / columns),
+        layer = current.count % 2
+      for (let direction = 0; direction < directions.length; direction++) {
+        const [dx, dy] = directions[direction],
+          nx = x + dx,
+          ny = y + dy
+        if (nx < 0 || nx >= columns || ny < 0 || ny >= rows) continue
+        const cell = nx + ny * columns,
+          id = labelId(current.count, cell, current.firstVia),
+          span = step * (dx && dy ? Math.SQRT2 : 1),
+          routeLength = current.routeLength + span,
+          g =
+            current.g +
+            span * edgeCostFactor(layer, current.cell, direction, cell)
+        if (
+          routeLength > maxLength + 1e-8 ||
+          !withinEscape(cell, current.count)
+        )
+          continue
+        let signature: number | undefined
+        if (homology) {
+          // Impossible physical edges cannot introduce a path class. Avoid
+          // interning signatures for blocked or out-of-domain transitions.
+          if (!edgeVisible(layer, current.cell, direction, cell)) continue
+          signature = homology.extend({
+            signature: current.signature!,
+            layer: layers[layer],
+            start: point(current.cell),
+            end: point(cell),
+          })
+          if (dominated({ id, signature, g, routeLength })) continue
+        } else if (
+          dominated({ id, g, routeLength }) ||
+          !edgeVisible(layer, current.cell, direction, cell)
+        )
+          continue
+        const label: Label = {
+          id,
+          cell,
+          count: current.count,
+          g,
+          routeLength,
+          f: g + distance(point(cell), pads[1]),
+          firstVia: current.firstVia,
+          viaCells: current.viaCells,
+          parent: current,
+          signature,
+        }
+        rememberLabel(label)
+        queue.push(label)
+      }
+      if (
+        carrierLayers.includes(bridge) &&
+        current.count < maxVias &&
+        withinEscape(current.cell, current.count + 1) &&
+        landing(current.cell) &&
+        (current.viaCells ?? []).every(
+          (cell) =>
+            distance(point(cell), point(current.cell)) >=
+            hole + holeClearance - 1e-8,
+        ) &&
+        (current.firstVia === undefined ||
+          distance(point(current.firstVia), point(current.cell)) >=
+            hole + holeClearance - 1e-8)
+      ) {
+        const count = current.count + 1,
+          firstVia =
+            current.count % 2 === 0
+              ? current.cell
+              : (current.firstVia ?? current.cell),
+          id = labelId(count, current.cell, firstVia),
+          g = current.g + viaPenalty + landingPenalty(current.cell)
+        if (
+          !dominated({
+            id,
+            signature: current.signature,
+            g,
+            routeLength: current.routeLength,
+          })
+        ) {
+          const label: Label = {
+            id,
+            cell: current.cell,
+            count,
+            g,
+            routeLength: current.routeLength,
+            f: g + distance(point(current.cell), pads[1]),
+            firstVia,
+            viaCells: [...(current.viaCells ?? []), current.cell],
+            parent: current,
+            via: true,
+            signature: current.signature,
+          }
+          rememberLabel(label)
+          queue.push(label)
+        }
+      }
+      releaseLabel(current)
+    }
+    return null
+  } finally {
+    if (memory) {
+      queue.clear()
+      enriched?.dispose()
+      homology?.dispose()
+      memory.release(memory.usedBytes)
+    }
   }
-  return null
 }
 
 /** Retain the requested resolution while the whole raster fits the memory

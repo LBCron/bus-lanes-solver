@@ -7,6 +7,7 @@ import { getCopperLayerNames } from "@tscircuit/fanout-solver"
 import {
   BusLanesPipelineSolver,
   type Connection,
+  type PendingRoutingAccess,
   type SimpleRouteJson,
 } from "../lib"
 import { expectConnectedAndClear } from "./fixtures/expect-connected-and-clear"
@@ -30,20 +31,36 @@ const fixture = JSON.parse(
   ).toString("utf8"),
 ) as Fixture
 
+// Projected from the captured native remaining phase; its own physical rules
+// are documented beside this file. The original byte1 fixture is unchanged.
+const pendingRoutingAccess = JSON.parse(
+  readFileSync(new URL(
+    "./fixtures/h3-pending-pad-escapes/pending-routing-access.json",
+    import.meta.url,
+  ), "utf8"),
+) as PendingRoutingAccess[]
+
 type PendingPad = { pcbPortId: string; escape: PadEscape }
 
 /** Every native terminal of every connection the next phase has to route. */
 function getPendingPads(input: SimpleRouteJson): PendingPad[] {
-  return fixture.pendingConnections.flatMap((connection) =>
+  return input.pendingRoutingAccess!.flatMap((intent) =>
+    intent.connections.flatMap((connection) =>
     connection.pointsToConnect.map((point, end) => ({
       pcbPortId: point.pcb_port_id!,
       escape: getPadEscape({
-        input,
+        input: {
+          ...intent,
+          layerCount: input.layerCount,
+          obstacles: input.obstacles,
+          traces: input.traces,
+        },
         connection,
         end,
         viaTargetLayer: "bottom",
       }),
     })),
+    ),
   )
 }
 
@@ -83,16 +100,38 @@ const svgOptions = {
 
 // Board coordinates in mm, +X right, +Y up. The H3 CPU is on the left and the
 // DDR3 RAM on the right of this two-layer board.
-test("H3 byte 1 leaves pads of later connections without an escape", async (): Promise<void> => {
+test("H3 byte 1 preserves access to every declared later terminal", async (): Promise<void> => {
   // Core hands each phase request to the solver without options.
-  const input = fixture.byte1Request
+  const input = { ...fixture.byte1Request, pendingRoutingAccess }
+  expect(pendingRoutingAccess.flatMap((intent) => intent.connections))
+    .toEqual(fixture.pendingConnections)
   const original = structuredClone(input)
   const before = getPendingPads(input)
   const solver = new BusLanesPipelineSolver(input)
-  solver.solve()
+  // Supervise default-options stepping with the benchmark's observation
+  // deadline. An unfinished solve fails before any snapshot is exported.
+  const deadline = performance.now() + 300_000
+  let observedSteps = 0
+  while (!solver.solved && !solver.failed && performance.now() < deadline) {
+    solver.step()
+    if (++observedSteps % 2_048 === 0) await Bun.sleep(0)
+  }
   expect(input).toEqual(original)
+  if (!solver.solved && !solver.failed)
+    throw Error("Native H3 routing is unresolved after the 300-second observation deadline")
   expect(solver.error).toBeNull()
   expect(solver.solved).toBe(true)
+  expect(solver.getPendingRoutingAccessReport()).toEqual({
+    outcome: "preserved",
+    declaredConnectionCount: 37,
+    declaredTerminalCount: 76,
+    framedTerminalCount: 76,
+    baselineAccessibleFramedTerminalCount: 76,
+    baselineInaccessibleFramedTerminalCount: 0,
+    peerConnectionCount: 0,
+    validatedTraceCount: 16,
+    newlyBlockedConnectionNames: [],
+  })
   const traces = solver.getOutput().traces
   expect(traces).toHaveLength(16)
   expect(traces.slice(0, 8)).toEqual(original.traces!)
@@ -121,25 +160,9 @@ test("H3 byte 1 leaves pads of later connections without an escape", async (): P
     .filter((pad) => !beforeByPortId.get(pad.pcbPortId)!.escape && pad.escape)
     .map((pad) => pad.pcbPortId)
 
-  expect(trappedPorts).toEqual([
-    "pcb_port_391",
-    "pcb_port_345",
-    "pcb_port_329",
-    "pcb_port_361",
-    "pcb_port_69",
-    "pcb_port_407",
-    "pcb_port_408",
-    "pcb_port_409",
-    "pcb_port_381",
-    "pcb_port_51",
-    "pcb_port_27",
-    "pcb_port_20",
-    "pcb_port_226",
-    "pcb_port_364",
-    "pcb_port_32",
-    "pcb_port_363",
-    "pcb_port_260",
-  ])
+  expect(initiallyInaccessiblePorts).toEqual([])
+  expect(trappedPorts).toEqual([])
+  expect(alreadyInaccessiblePorts).toEqual([])
 
   // All 16 routes drawn are completed and validated. Boxes mark unavailable
   // native terminals; dashed lines are pending requests, never routed copper.
@@ -167,18 +190,18 @@ test("H3 byte 1 leaves pads of later connections without an escape", async (): P
   const alreadyInaccessible = new Set(alreadyInaccessiblePorts)
   const newColor = "#1d4ed8"
   const existingColor = "#b45309"
+  const accessibleColor = "#047857"
   for (const connection of fixture.pendingConnections) {
     const unavailablePads = connection.pointsToConnect.filter(
       (pad) =>
         newlyTrapped.has(pad.pcb_port_id!) ||
         alreadyInaccessible.has(pad.pcb_port_id!),
     )
-    if (!unavailablePads.length) continue
     const guideColor = unavailablePads.some((pad) =>
       newlyTrapped.has(pad.pcb_port_id!),
     )
       ? newColor
-      : existingColor
+      : unavailablePads.length ? existingColor : accessibleColor
     const first = connection.pointsToConnect[0]
     // Include every branch of native multi-terminal nets, including their
     // bottom-layer resistor terminals.
@@ -197,7 +220,7 @@ test("H3 byte 1 leaves pads of later connections without an escape", async (): P
         is_dashed: true,
       })
     }
-    for (const pad of unavailablePads) {
+    for (const pad of connection.pointsToConnect) {
       const half = 0.26
       const corners = [
         { x: pad.x - half, y: pad.y - half },
@@ -209,14 +232,15 @@ test("H3 byte 1 leaves pads of later connections without an escape", async (): P
         const next = corners[(index + 1) % corners.length]
         circuit.push({
           type: "pcb_note_line",
-          pcb_note_line_id: "unavailable_" + pad.pcb_port_id + "_" + index,
+          pcb_note_line_id: "pending_access_" + pad.pcb_port_id + "_" + index,
           layer: "top",
           x1: corner.x,
           y1: corner.y,
           x2: next.x,
           y2: next.y,
           stroke_width: 0.06,
-          color: newlyTrapped.has(pad.pcb_port_id!) ? newColor : existingColor,
+          color: newlyTrapped.has(pad.pcb_port_id!) ? newColor
+            : alreadyInaccessible.has(pad.pcb_port_id!) ? existingColor : accessibleColor,
         })
       }
     }
@@ -265,11 +289,11 @@ test("H3 byte 1 leaves pads of later connections without an escape", async (): P
     maxY: board.center.y + board.height / 2,
   }
   const title =
-    "FAILED future access: " +
+    "PRESERVED future access: " +
     trappedPorts.length +
-    " newly trapped pads (blue); " +
+    " newly trapped pads; green boxes retain access; " +
     alreadyInaccessiblePorts.length +
-    " already inaccessible (amber)"
+    " already inaccessible"
   const scope =
     "16 completed routes validated; 37 later connections remain unrouted. " +
     "All 76 native terminals checked; dashed lines are requests."
@@ -305,7 +329,7 @@ test("H3 byte 1 leaves pads of later connections without an escape", async (): P
     ...circuit,
     statusNote({
       id: "routing_status_cpu",
-      text: "FAILED: " + trappedPorts.length + " newly trapped pads (blue)",
+      text: "PASS: " + trappedPorts.length + " newly trapped pads; access in green",
       x: -4.2,
       y: 6.45,
       fontSize: 0.115,
@@ -314,7 +338,7 @@ test("H3 byte 1 leaves pads of later connections without an escape", async (): P
       id: "routing_scope_cpu",
       text:
         alreadyInaccessiblePorts.length +
-        " already inaccessible (amber); only 16 completed routes",
+        " already inaccessible; 16 completed routes; dashed lines pending",
       x: -4.2,
       y: 6.2,
       fontSize: 0.095,
@@ -337,4 +361,4 @@ test("H3 byte 1 leaves pads of later connections without an escape", async (): P
     snapshotName: "cpu",
     svgOptions: cpuOptions,
   })
-}, 900_000)
+}, 360_000)
