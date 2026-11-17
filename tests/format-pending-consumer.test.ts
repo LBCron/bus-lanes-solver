@@ -73,6 +73,23 @@ function returnValue(
   return expression
 }
 
+// Exponentiation binds more tightly than bitwise AND, OR, or XOR. Biome may
+// add readability parentheses to exactly that right-hand expression. Preserve
+// all grouping inside the exponentiation, including its associativity.
+function bitwiseExponentValue(
+  ts: typeof TypeScript,
+  node: TypeScript.BinaryExpression,
+): TypeScript.Expression | undefined {
+  if (node.operatorToken.kind !== ts.SyntaxKind.AmpersandToken &&
+    node.operatorToken.kind !== ts.SyntaxKind.BarToken &&
+    node.operatorToken.kind !== ts.SyntaxKind.CaretToken) return undefined
+  let expression = node.right
+  while (ts.isParenthesizedExpression(expression)) expression = expression.expression
+  return ts.isBinaryExpression(expression) &&
+    expression.operatorToken.kind === ts.SyntaxKind.AsteriskAsteriskToken
+    ? expression : undefined
+}
+
 function structuralAst(
   ts: typeof TypeScript,
   node: TypeScript.Node,
@@ -102,6 +119,8 @@ function structuralAst(
     if (children.has(value as TypeScript.Node)) {
       const child = ts.isReturnStatement(node) && key === "expression"
         ? returnValue(ts, node)
+        : ts.isBinaryExpression(node) && key === "right"
+          ? bitwiseExponentValue(ts, node) ?? value as TypeScript.Node
         : value as TypeScript.Node
       assert(child)
       result[key] = structuralAst(ts, child, source)
@@ -153,6 +172,18 @@ function preservedComments(
     if (ts.isReturnStatement(node)) {
       let expression = node.expression
       while (expression && ts.isParenthesizedExpression(expression)) {
+        const open = expression.getFirstToken(source)
+        const close = expression.getLastToken(source)
+        assert(open?.kind === ts.SyntaxKind.OpenParenToken)
+        assert(close?.kind === ts.SyntaxKind.CloseParenToken)
+        transparentReturnParentheses.add(open.getStart(source))
+        transparentReturnParentheses.add(close.getStart(source))
+        expression = expression.expression
+      }
+    }
+    if (ts.isBinaryExpression(node) && bitwiseExponentValue(ts, node)) {
+      let expression = node.right
+      while (ts.isParenthesizedExpression(expression)) {
         const open = expression.getFirstToken(source)
         const close = expression.getLastToken(source)
         assert(open?.kind === ts.SyntaxKind.OpenParenToken)
@@ -285,6 +316,16 @@ export function verifyReturnParenthesesNormalization(ts: typeof TypeScript): voi
     "type T = A & B; /* after */ type U = C;")
   different("type T = /* keep */ A | B;",
     "type T = A | /* keep */ B;")
+  equal("function f() { return mask & 2 ** index; /* after */ }",
+    "function f() { return mask & (2 ** index); /* after */ }")
+  equal("function f() { return mask | 2 ** index; /* after */ }",
+    "function f() { return mask | (2 ** index); /* after */ }")
+  equal("function f() { return mask ^ 2 ** index; /* after */ }",
+    "function f() { return mask ^ (2 ** index); /* after */ }")
+  different("function f() { return mask & (2 ** index + 1); }",
+    "function f() { return (mask & 2 ** index) + 1; }")
+  different("function f() { return mask & ((2 ** index) ** next); }",
+    "function f() { return mask & (2 ** (index ** next)); }")
   different("function f() { return (a || b) && c; }",
     "function f() { return a || (b && c); }")
   different("function f() { return (a?.b).c; }",
