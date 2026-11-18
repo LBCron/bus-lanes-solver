@@ -44,6 +44,12 @@ ordinary bus signals on their existing layers, accounting for width, clearance,
 immutable copper and paired routes. It uses at most 4,096 coarse cells and four
 negotiation sweeps, then supplies soft spatial costs for supplementary searches.
 
+The planner is eligible only when the entire request has no bus length/skew
+constraints and no differential pairs. Coarse lane width alone does not account
+for future tuning banks or coupling refinement; changing an untimed neighbor can
+also consume a matched bus's tuning space. Such requests retain the established
+matching-aware search. Core's untimed DQ phases remain eligible.
+
 Ordinary routes and the active rip-up/history order are retained. Guided searches
 run only on the planned layer, when an ordinary route conflicts, during the first
 two contention retries, with at most 128 batches of 500 grid expansions each.

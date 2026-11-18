@@ -98,6 +98,18 @@ export function* planBusCorridors(
 ): Generator<void, Map<string, BusCorridorGuide>> {
   const guides = new Map<string, BusCorridorGuide>()
   const members = new Set(input.buses?.flatMap((bus) => bus.connectionNames))
+  // Coarse lane demand does not yet include space for length-tuning banks.
+  // Keep matched cohorts on their existing matching-aware search objective.
+  if (
+    input.differentialPairs?.length ||
+    input.buses?.some(
+      (bus) =>
+        bus.minLength !== undefined ||
+        bus.maxLength !== undefined ||
+        bus.maxLengthSkew !== undefined,
+    )
+  )
+    return guides
   const pending = connections.filter((connection) =>
     members.has(connection.name),
   )
