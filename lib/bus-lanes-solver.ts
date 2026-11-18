@@ -62,6 +62,7 @@ import { layerColor } from "./layer-colors"
 export class BusLanesSolver extends BaseSolver {
   readonly input: SimpleRouteJson
   readonly options: SolverOptions
+  private readonly negotiateUntimedBus: boolean
   phase = "validate"
   failureCode: string | null = null
   traces: Trace[] = []
@@ -101,6 +102,23 @@ export class BusLanesSolver extends BaseSolver {
     super()
     this.input = structuredClone(input)
     this.options = options
+    const names = new Set(
+      input.connections.map((connection) => connection.name),
+    )
+    this.negotiateUntimedBus =
+      !input.differentialPairs?.length &&
+      !!input.buses?.length &&
+      !input.buses.some(
+        (bus) =>
+          bus.minLength !== undefined ||
+          bus.maxLength !== undefined ||
+          bus.maxLengthSkew !== undefined,
+      ) &&
+      input.buses.some(
+        (bus) =>
+          new Set(bus.connectionNames.filter((name) => names.has(name))).size >=
+          8,
+      )
     this.MAX_ITERATIONS = options.maxSearchIterations ?? 200000
   }
   /** Start an ordinary fresh solve with a different package-entry topology.
@@ -299,9 +317,9 @@ export class BusLanesSolver extends BaseSolver {
     this.phase = "route"
     this.startLane()
   }
-  // Small independent buses still need paired topology negotiation, just as
-  // movable dogbone handoffs need layer negotiation. A fixed pair corridor
-  // cannot be repaired by retrying only the ordinary lanes' order.
+  // Untimed byte-sized buses need joint space allocation even on one carrier.
+  // Serial winding retries can otherwise delay a necessary carrier change.
+  // Matched and paired requests retain their established eligibility.
   private get useNegotiation() {
     return (
       this.options.denseSearch &&
@@ -309,7 +327,8 @@ export class BusLanesSolver extends BaseSolver {
         independentBusGroups(this.input) !== null ||
         this.input.connections.some(
           (c) => (this.terminalLayers.get(c.name)?.length ?? 0) > 1,
-        ))
+        ) ||
+        this.negotiateUntimedBus)
     )
   }
   private coupledPairs() {

@@ -36,6 +36,14 @@ these sources.
 
 ## Solver scope
 
+Untimed buses with at least eight requested members now enter joint negotiation
+even when their current handoffs share one carrier. The existing dense-search
+option remains required. Small fixed-carrier buses previously stayed in serial
+winding-order retries, which could spend most of the request budget before a
+needed carrier change. Matched and paired requests retain their prior activation
+rules. The A64 third data-byte reproduction exercises this public pipeline path
+and checks that the supplied copper and accepted route geometry are preserved.
+
 The planning seam is `negotiateLanes`, after fanout has provided reachable
 handoffs. A cheap first detailed sweep establishes whether signals actually
 compete: coarse tile overflow alone can overestimate contention between legal
