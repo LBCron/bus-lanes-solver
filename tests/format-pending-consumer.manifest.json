@@ -1,0 +1,63 @@
+{
+  "schema": "pending-consumer-canonical-format/v1",
+  "repository": "tscircuit/bus-lanes-solver",
+  "stackBasePullRequest": 213,
+  "sourceCheckpointCommit": "083c6a097d00062ad638ef231c620f2341657f6e",
+  "sourceCheckpointTree": "7f8924f96343cc96aeee709b1c2161ec7c0e3141",
+  "publishManifestSha256": "79a41e29ea47c32a6fd31e87f4e7d5b535e62363b80c1bf1df130aeefbf323df",
+  "publishManifestBase64": "ewogICJzY2hlbWEiOiAicGVuZGluZy10ZXN0LXN1cGVydmlzaW9uLW93bmVyL3YxIiwKICAicmVwb3NpdG9yeSI6ICJ0c2NpcmN1aXQvYnVzLWxhbmVzLXNvbHZlciIsCiAgImJhc2VDb21taXQiOiAiZTZjM2ZmZDgwOTgzYWZjM2JmYzU3MGI3ZDk2MThhMDAwMWU3OTUwNSIsCiAgImJhc2VUcmVlIjogImZkMGE1OWUxNTJkZmY5YzIwNzY5N2U2NzNhNmNhYWEzZjIzY2JjNGYiLAogICJwcm9kdWN0aW9uRmlsZUNvdW50IjogMCwKICAidGVzdEhlbHBlckFuZEZpeHR1cmVDb3VudCI6IDIsCiAgInNuYXBzaG90Q291bnQiOiAwLAogICJmaWxlcyI6IFsKICAgIHsKICAgICAgInJlcG9zaXRvcnlQYXRoIjogInRlc3RzL3BlbmRpbmctcGFkLWFjY2Vzcy1xdWVyeS1zY29wZS50ZXN0LnRzIiwKICAgICAgImJ5dGVzIjogODUxOCwKICAgICAgInNoYTI1NiI6ICIxYzQwODczMzIyZGJmNzFhMWY3MGRiY2JlNDQyZDE1ZjMzMDA4YWQzZDA1MjcxZjFiYWNiNmVmMTNkNTE0ZDBiIiwKICAgICAgImdpdEJsb2JTaGExIjogIjcyNDczOTcyZDQ3OGRlZDgyOGRmYTBjMGE0MDUyZjJhNGI3MDgxZmUiLAogICAgICAiYmFzZUJsb2JTaGExIjogImExOGY3ZTRkNjBjZjk2Nzg1NGE0ZDlmZGQ5NDg1NmYxNmJiOTRjNzUiLAogICAgICAib3BlcmF0aW9uIjogInJlcGxhY2UiLAogICAgICAibW9kZSI6ICIxMDA2NDQiCiAgICB9LAogICAgewogICAgICAicmVwb3NpdG9yeVBhdGgiOiAidGVzdHMvcm91dGUtcGVuZGluZy1zZWVkLWNvbnRyYWN0LnRlc3QudHMiLAogICAgICAiYnl0ZXMiOiA0OTM4LAogICAgICAic2hhMjU2IjogImVjOTdiNGM3NWMwMjA1MDU4MTM3NjQwNDhiZWM3MDRlOWE3OWZjY2EyODkwZDI1MjA2MjBkZjY5YTc0OGMxZWMiLAogICAgICAiZ2l0QmxvYlNoYTEiOiAiNmE3NDUzZDFjN2MwZmQ3N2Y2YzhmYmQwOTg1MTYyYzRmYjk4ZGJiYSIsCiAgICAgICJiYXNlQmxvYlNoYTEiOiAiYzE2NDkxYzZlYzhjOTA1ODkyMjYxMzZlNjZkOGM5MGQ0N2NmZThiYyIsCiAgICAgICJvcGVyYXRpb24iOiAicmVwbGFjZSIsCiAgICAgICJtb2RlIjogIjEwMDY0NCIKICAgIH0KICBdLAogICJzY29wZSI6ICJUZXN0IHN1cGVydmlzaW9uIG9ubHkuIEFsbCB0aHJlZSByb3RhdGlvbnMvZml2ZSB1bmlvbnMvYWxsIGFzc2VydGlvbnMvMTUwMDBtcyBwZXIgcm90YXRpb24gYW5kIHRoZSBleGlzdGluZzUwMDAwMCBnZW5lcmF0b3IgZG9tYWluIHN0ZXBzIGFyZSByZXRhaW5lZC4gTm8gcHJvZHVjdGlvbiwgZml4dHVyZSwgc25hcHNob3QsIGNvbmZpZ3VyYXRpb24sIG9yIG5vcm1hbCB3b3JrZmxvdyBjaGFuZ2VzLiIKfQo=",
+  "biomeConfigSha256": "bfb880d704d64bcadada7beec2386117877ec76d35095093405d6af61e380854",
+  "biomeVersion": "2.5.15",
+  "typescriptVersion": "5.9.3",
+  "additionalDiagnosticFiles": [
+    {
+      "path": ".github/workflows/pending-test-supervision-format.yml",
+      "sha256": "ae139b5b4c2d8c286982551f4e95a3250edd07e042a5469fbd916753475195df",
+      "bytes": 3050
+    }
+  ],
+  "files": [
+    {
+      "path": "tests/pending-pad-access-query-scope.test.ts",
+      "beforeSha256": "1c40873322dbf71a1f70dbcbe442d15f33008ad3d05271f1bacb6ef13d514d0b",
+      "beforeBytes": 8518
+    },
+    {
+      "path": "tests/route-pending-seed-contract.test.ts",
+      "beforeSha256": "ec97b4c75c020505813764048bec704e9a79fcca2890d2520620df69a748c1ec",
+      "beforeBytes": 4938
+    }
+  ],
+  "immutableFiles": [
+    {
+      "path": "package.json",
+      "sha256": "36552a7f1a599cecf9ec84a278e2002b8f15ebb65544a18b9ac65a7ecfd1c94d",
+      "bytes": 2183,
+      "gitBlobSha1": "76c8eb77bcbbeb02e3fb39fc3721c246fa133314"
+    },
+    {
+      "path": "biome.json",
+      "sha256": "bfb880d704d64bcadada7beec2386117877ec76d35095093405d6af61e380854",
+      "bytes": 510,
+      "gitBlobSha1": "f0548e87d5663116c0850af5ebfe44a316f622c7"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "dffe0485e0cc6dc125a60b2df0411733c28258cdf062caa7ee46e768603b57fb",
+      "bytes": 386,
+      "gitBlobSha1": "49e1ceb03591a333009df20fd69ff0b5defee4f5"
+    },
+    {
+      "path": "bunfig.toml",
+      "sha256": "64a8ce5ffa24407b70511ad48e0beea97b671074a2cdf908e049dfa981c07462",
+      "bytes": 67,
+      "gitBlobSha1": "7a207416ba4f6be4a49809494673e64cfb8636ad"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "e3f9ad2533428d9473f0fdd155ca8b9aa026468f07949c4d228d1e50045d00f0",
+      "bytes": 6161,
+      "gitBlobSha1": "df6edb09aa0f118f06449f7996e062f7d63dd694"
+    }
+  ]
+}

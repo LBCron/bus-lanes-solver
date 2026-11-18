@@ -1,0 +1,64 @@
+name: Capture pending test supervision formatting
+
+on:
+  push:
+    branches:
+      - diagnostics/pending-test-supervision-format
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.4
+      - run: bun install
+      - run: bun test --timeout 240000 tests/format-pending-consumer.test.ts
+      - run: bun test --timeout 120000 tests/pending-pad-access-query-scope.test.ts tests/route-pending-seed-contract.test.ts
+        env:
+          BUN_JSC_forceRAMSize: "2147483648"
+          BUN_JSC_miniVMHeapGrowthFactor: "1.05"
+      - run: bun run typecheck
+      - name: Print bounded canonical UTF8 packets after all checks
+        run: |
+          bun -e '
+          import assert from "node:assert/strict"
+          import { createHash } from "node:crypto"
+          import { execFileSync } from "node:child_process"
+          import { readFileSync } from "node:fs"
+          import { createRequire } from "node:module"
+          import { dirname, resolve } from "node:path"
+          const require = createRequire(resolve("package.json"))
+          const packagePath = require.resolve("@biomejs/biome/package.json")
+          const pkg = JSON.parse(readFileSync(packagePath, "utf8"))
+          assert.equal(pkg.version, "2.5.15")
+          const binary = resolve(dirname(packagePath), typeof pkg.bin === "string" ? pkg.bin : pkg.bin.biome)
+          const paths = ["tests/pending-pad-access-query-scope.test.ts", "tests/route-pending-seed-contract.test.ts"]
+          const before = paths.map(path => readFileSync(path))
+          execFileSync(process.execPath, [binary, "format", "--write", ...paths], { maxBuffer: 65536, stdio: "pipe" })
+          const records = paths.map((path, index) => {
+            const bytes = readFileSync(path)
+            assert(bytes.equals(before[index]), "Canonical bytes changed after guard/tests/types; no packets")
+            const content = bytes.toString("utf8")
+            assert(Buffer.from(content, "utf8").equals(bytes))
+            return { schema: "pending-test-supervision-canonical-utf8/v1",
+              sourceCommit: "083c6a097d00062ad638ef231c620f2341657f6e",
+              sourceTree: "7f8924f96343cc96aeee709b1c2161ec7c0e3141",
+              path, bytes: bytes.length, sha256: createHash("sha256").update(bytes).digest("hex"),
+              gitBlobSha1: createHash("sha1").update(Buffer.concat([
+                Buffer.from("blob " + bytes.length + String.fromCharCode(0)), bytes,
+              ])).digest("hex"), content }
+          })
+          assert(records.reduce((sum, record) => sum + record.bytes, 0) <= 16384)
+          const output = records.map(record => "PENDING_SUPERVISION_CANONICAL_UTF8_V1 " + JSON.stringify(record)).join("\n") + "\n"
+          assert(Buffer.byteLength(output) <= 65536)
+          process.stdout.write(output)
+          '
