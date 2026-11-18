@@ -37,10 +37,21 @@ these sources.
 ## Solver scope
 
 The planning seam is `negotiateLanes`, after fanout has provided reachable
-handoffs and before detailed grid searches commit ordinary traces. It receives
-the current request's signals, immutable copper and paired routes. The planner
-accounts for signal width and clearance on a bounded coarse grid, negotiates
-overloaded resources, then supplies soft spatial costs to detailed searches.
+handoffs. A cheap first detailed sweep establishes whether signals actually
+compete: coarse tile overflow alone can overestimate contention between legal
+parallel tracks. If competition remains, the planner allocates space for all
+ordinary bus signals on their existing layers, accounting for width, clearance,
+immutable copper and paired routes. It uses at most 4,096 coarse cells and four
+negotiation sweeps, then supplies soft spatial costs for supplementary searches.
+
+Ordinary routes and the active rip-up/history order are retained. Guided searches
+run only on the planned layer, when an ordinary route conflicts, during the first
+two contention retries, with at most 128 batches of 500 grid expansions each.
+Guided paths enter the candidate pool; they can change output only through a
+complete compatible assignment. They never displace an ordinary active route
+merely because a coarse plan prefers another region. Guide factories retain only
+the compact distance field, path and geometry, releasing planning scenes and
+occupancy arrays before detailed negotiation resumes.
 The detailed router retains continuous geometry checks and its ordinary final
 acceptance criteria. A guide is search geometry, never routed copper or evidence
 of completion.

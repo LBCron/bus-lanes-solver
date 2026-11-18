@@ -10,8 +10,8 @@ import { length } from "./geometry"
 import { RouteConflictIndex } from "./route-conflict-index"
 import { reduceOrdinaryTurns } from "./reduce-ordinary-turns"
 import { repairLaneClosures } from "./repair-lane-closures"
-import { planBusCorridors } from "./plan-bus-corridors"
-import type { SimpleRouteJson, Connection, Trace, Wire } from "./types"
+import { planBusCorridors, type BusCorridorGuide } from "./plan-bus-corridors"
+import type { SimpleRouteJson, Connection, Trace, Wire, Point } from "./types"
 
 /** Queue-based rip-up routing adapted from the reference's negotiate-fine.ts.
  * Supplied copper and generated paired corridors remain fixed. Runtime candidate
@@ -106,40 +106,10 @@ export function* negotiateLanes(
     return copper
   }
   const pairedCopper = paired.flatMap(getCopper)
-  // Negotiate coarse space for all lanes before committing detailed tracks.
-  // These guides are preferences; fixed copper and the physical length limits
-  // remain authoritative, and repeated visits gradually release the preference.
-  const planning = planBusCorridors(
-    input,
-    connections.filter((connection) => !pairedNames.has(connection.name)),
-    [...fixed, ...pairedCopper],
-    widths,
-    terminalLayers,
-  )
-  let planned = planning.next()
-  try {
-    while (!planned.done) {
-      yield paired
-      planned = planning.next()
-    }
-  } finally {
-    if (!planned.done) planning.return(new Map())
-  }
-  const guides = planned.value!
-  const guideLengths = new Map(
-    [...guides].map(([name, guide]) => [name, length([...guide.path])]),
-  )
+  let planningStarted = false
+  let guides = new Map<string, BusCorridorGuide>()
   const visits = new Map<string, number>()
-  const queue = [...units].sort((a, b) => {
-    if (a.pair || b.pair) return Number(!a.pair) - Number(!b.pair)
-    const first = guides.get(a.connections[0].name),
-      second = guides.get(b.connections[0].name)
-    if (!first && !second) return 0
-    return (
-      (guideLengths.get(b.connections[0].name) ?? 0) -
-      (guideLengths.get(a.connections[0].name) ?? 0)
-    )
-  })
+  const queue = [...units]
   let bestCount = 0,
     lastProgress = 0,
     pairRefresh = 0,
@@ -151,6 +121,35 @@ export function* negotiateLanes(
     iteration < 12000 && queue.length;
     iteration++
   ) {
+    // Coarse overflow can overestimate contention between legal parallel lanes.
+    // Keep the cheap first sweep, then plan all lanes together if it leaves
+    // unresolved conflicts. Repeated detailed visits release these soft guides.
+    if (!planningStarted && iteration >= units.length) {
+      planningStarted = true
+      const planning = planBusCorridors(
+        input,
+        connections.filter((connection) => !pairedNames.has(connection.name)),
+        [
+          ...fixed,
+          ...pairedCopper,
+          ...[...routed.values()]
+            .filter((trace) => pairedNames.has(trace.connection_name!))
+            .flatMap(getCopper),
+        ],
+        widths,
+        terminalLayers,
+      )
+      let planned = planning.next()
+      try {
+        while (!planned.done) {
+          yield [...paired, ...routed.values()]
+          planned = planning.next()
+        }
+      } finally {
+        if (!planned.done) planning.return(new Map())
+      }
+      guides = planned.value!
+    }
     const pass = Math.floor(iteration / Math.max(1, connections.length / 4))
     const congestionPenalty = 10 + pass * 4
     // A locked pair corridor can impose a poor topology on the entire bus.
@@ -236,9 +235,6 @@ export function* negotiateLanes(
       const width = widths.get(connection.name)!,
         layer = connection.pointsToConnect[0].layer
       const guide = guides.get(connection.name)
-      const guideCost = guide
-        ? (x: number, y: number): number => guide.costAt(x, y, layer) / visit
-        : undefined
       routed.delete(connection.name)
       const routedLanes = [...routed.values()]
       const progressRoutes = [...paired, ...routedLanes]
@@ -341,7 +337,6 @@ export function* negotiateLanes(
             maximumCarrierLength(input, connection.name),
           ),
           checkReachability,
-          costAt: guideCost,
         },
       )
       if (!histories.has(layer))
@@ -373,10 +368,6 @@ export function* negotiateLanes(
                     maximumCarrierLength(input, connection.name),
                   ),
                   checkReachability,
-                  costAt: guide
-                    ? (x: number, y: number): number =>
-                        guide.costAt(x, y, candidateLayer) / visit
-                    : undefined,
                 },
               )
         if (!histories.has(candidateLayer))
@@ -438,6 +429,59 @@ export function* negotiateLanes(
         }
         if (!candidateSearch.solved) continue
         const paths = [candidateSearch.result]
+        let guidedPath: Point[] | undefined
+        // Keep the ordinary route in the candidate domain. A coarse guide is
+        // an alternative topology, not evidence that a legal shorter lane is
+        // bad. Bound the extra fine work to the first two contention retries.
+        const ordinaryHits =
+          guide?.layer === candidateLayer && visit > 1 && visit <= 3
+            ? [...routed.values()].filter(
+                (other) =>
+                  (other.route[0] as Wire).layer === candidateLayer &&
+                  conflicts.firstConflict(
+                    candidateSearch.result,
+                    other.route,
+                    (width + (other.route[0] as Wire).width) / 2 +
+                      clearance -
+                      1e-8,
+                  ),
+              ).length
+            : 0
+        if (guide && ordinaryHits > 0) {
+          const guided = new GridVisibilitySearch(
+            candidateScene,
+            connection.pointsToConnect[0],
+            connection.pointsToConnect[1],
+            [...routedCopper, ...pendingCopper],
+            congestionPenalty,
+            histories.get(candidateLayer),
+            {
+              maxLength: limits.get(connection.name),
+              paretoLength: Number.isFinite(
+                maximumCarrierLength(input, connection.name),
+              ),
+              checkReachability,
+              costAt: (x: number, y: number): number =>
+                guide.costAt(x, y, candidateLayer) / Math.max(1, visit - 1),
+            },
+          )
+          try {
+            for (
+              let step = 0;
+              !guided.solved && !guided.failed && step < 128;
+              step++
+            ) {
+              guided.step()
+              yield progressRoutes
+            }
+            if (guided.solved) {
+              guidedPath = guided.result
+              paths.push(guidedPath)
+            }
+          } finally {
+            guided.cancel()
+          }
+        }
         if (visit > 1 && visit % 2 === 0 && limits.has(connection.name)) {
           const [a, b] = connection.pointsToConnect
           const vertical = Math.abs(b.y - a.y) >= Math.abs(b.x - a.x)
@@ -524,7 +568,10 @@ export function* negotiateLanes(
             },
           }
           candidates.add(connection.name, [choice.trace])
-          if (!bestChoice || score < bestChoice.score) bestChoice = choice
+          // Guides can finish a complete compatible assignment through the
+          // pool, but do not perturb the active rip-up/history trajectory.
+          if (path !== guidedPath && (!bestChoice || score < bestChoice.score))
+            bestChoice = choice
         }
       }
       if (!bestChoice) {

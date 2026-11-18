@@ -31,6 +31,59 @@ const directions = [-1, 0, 1].flatMap((dy) =>
     .map((dx) => ({ dx, dy, length: Math.hypot(dx, dy) })),
 )
 
+/** Isolate guide lifetime from the planner's scenes, occupancy and history. */
+function createBusCorridorGuide({
+  guideLayer,
+  path,
+  ends,
+  distances,
+  bounds,
+  step,
+  nx,
+  ny,
+}: {
+  guideLayer: string
+  path: Point[]
+  ends: Bounds[]
+  distances: Float64Array
+  bounds: Bounds
+  step: number
+  nx: number
+  ny: number
+}): BusCorridorGuide {
+  return {
+    layer: guideLayer,
+    path,
+    costAt(x: number, y: number, layer: string): number {
+      if (layer !== guideLayer) return 0
+      let taper = 1
+      for (const box of ends) {
+        const away = Math.hypot(
+          Math.max(box.minX - x, 0, x - box.maxX),
+          Math.max(box.minY - y, 0, y - box.maxY),
+        )
+        taper = Math.min(taper, away / (2 * step))
+      }
+      if (taper <= 0) return 0
+      const rawX = (x - bounds.minX) / step
+      const rawY = (y - bounds.minY) / step
+      const gx = Math.max(0, Math.min(nx - 1, rawX))
+      const gy = Math.max(0, Math.min(ny - 1, rawY))
+      const ix = Math.min(nx - 2, Math.floor(gx))
+      const iy = Math.min(ny - 2, Math.floor(gy))
+      const fx = gx - ix,
+        fy = gy - iy
+      const d =
+        distances[ix + iy * nx] * (1 - fx) * (1 - fy) +
+        distances[ix + 1 + iy * nx] * fx * (1 - fy) +
+        distances[ix + (iy + 1) * nx] * (1 - fx) * fy +
+        distances[ix + 1 + (iy + 1) * nx] * fx * fy
+      const away = d + Math.hypot(rawX - gx, rawY - gy)
+      return taper * Math.min(0.75, Math.max(0, away - 0.5) / 2)
+    },
+  }
+}
+
 /** Plan physical lane demand before detailed routing, including lanes within a
  * single bus. A small coarse negotiation spreads overloaded corridors; exact
  * copper routing remains responsible for escape geometry and acceptance.
@@ -329,37 +382,19 @@ export function* planBusCorridors(
         heap.push({ id, f: next })
       }
     }
-    guides.set(lane.connection.name, {
-      layer: lane.layer,
-      path: path.map(point),
-      costAt(x: number, y: number, layer: string): number {
-        if (layer !== lane.layer) return 0
-        let taper = 1
-        for (const box of lane.ends) {
-          const away = Math.hypot(
-            Math.max(box.minX - x, 0, x - box.maxX),
-            Math.max(box.minY - y, 0, y - box.maxY),
-          )
-          taper = Math.min(taper, away / (2 * step))
-        }
-        if (taper <= 0) return 0
-        const rawX = (x - bounds.minX) / step
-        const rawY = (y - bounds.minY) / step
-        const gx = Math.max(0, Math.min(nx - 1, rawX))
-        const gy = Math.max(0, Math.min(ny - 1, rawY))
-        const ix = Math.min(nx - 2, Math.floor(gx))
-        const iy = Math.min(ny - 2, Math.floor(gy))
-        const fx = gx - ix,
-          fy = gy - iy
-        const d =
-          distances[ix + iy * nx] * (1 - fx) * (1 - fy) +
-          distances[ix + 1 + iy * nx] * fx * (1 - fy) +
-          distances[ix + (iy + 1) * nx] * (1 - fx) * fy +
-          distances[ix + 1 + (iy + 1) * nx] * fx * fy
-        const away = d + Math.hypot(rawX - gx, rawY - gy)
-        return taper * Math.min(0.75, Math.max(0, away - 0.5) / 2)
-      },
-    })
+    guides.set(
+      lane.connection.name,
+      createBusCorridorGuide({
+        guideLayer: lane.layer,
+        path: path.map(point),
+        ends: lane.ends,
+        distances,
+        bounds,
+        step,
+        nx,
+        ny,
+      }),
+    )
     yield
   }
   return guides
