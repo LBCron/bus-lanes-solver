@@ -1,0 +1,45 @@
+{
+  "baseRevision": "202b034659fb96bad44d11b8190f4044b675116f",
+  "head": "working tree supplement-only integration: unchanged queue, guided choices excluded from current bestChoice",
+  "runtime": "1.4.3",
+  "yieldBudget": 10000,
+  "fixture": "5/8/16 evenly spaced legal lanes, fixed 0.8mm central aperture, wall extent scales with lane span",
+  "results": [
+    {
+      "revision": "base",
+      "lanes": 16,
+      "guideCount": 16,
+      "planningYields": 0,
+      "yields": 2227,
+      "yieldBudget": 10000,
+      "reportedIterations": 311,
+      "progressReports": 311,
+      "completed": true,
+      "returnedNull": false,
+      "budgetExhausted": false,
+      "connections": 16,
+      "bestPartial": 16,
+      "drcValid": true,
+      "totalCopperLengthMm": 138.32510088513317,
+      "longestRouteMm": 13.261017305526643
+    },
+    {
+      "revision": "head",
+      "lanes": 16,
+      "guideCount": 16,
+      "planningYields": 20,
+      "yields": 2318,
+      "yieldBudget": 10000,
+      "reportedIterations": 311,
+      "progressReports": 311,
+      "completed": true,
+      "returnedNull": false,
+      "budgetExhausted": false,
+      "connections": 16,
+      "bestPartial": 16,
+      "drcValid": true,
+      "totalCopperLengthMm": 138.32510088513317,
+      "longestRouteMm": 13.261017305526643
+    }
+  ]
+}

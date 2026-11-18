@@ -1,0 +1,48 @@
+{
+  "checkedDate": "2026-11-18",
+  "method": "curl public primary URLs; pdftotext -layout for NXP/TI; manual relevant-text inspection",
+  "redistribution": "PDF/HTML source copies remain local; synthesis and verification manifest may be published",
+  "sources": [
+    {
+      "title": "NXP AN5097 Rev. 2, July 2019",
+      "url": "https://community.nxp.com/pwmxy87654/attachments/pwmxy87654/imx-processors/231241/1/AN5097%20Hardware%20and%20Layout%20Design%20Considerations%20for%20DDR4%20SDRAM%20Memory%20Interfaces.pdf",
+      "retrievalStatus": "direct PDF retrieved; relevant checklist and sections text inspected",
+      "retrievedContentSha256": "2856c36e72624ec2164228a7bb36ce65f2e48b7897f3254e82fd20c24f78d942"
+    },
+    {
+      "title": "TI SPRAD06C, March 2025 revision",
+      "url": "https://www.ti.com/lit/an/sprad06c/sprad06c.pdf",
+      "retrievalStatus": "direct PDF retrieved; sections 2.5, 2.6, 2.15 and 2.17 text inspected",
+      "retrievedContentSha256": "cfb8615c463d79ce2b8b2d7d011b502c8a1f08b4e5d2d1294ae97c62249d7e72"
+    },
+    {
+      "title": "Automatic bus planner for dense PCBs, DAC2009",
+      "url": "https://experts.illinois.edu/en/publications/automatic-bus-planner-for-dense-pcbs/",
+      "retrievalStatus": "publication metadata and abstract directly retrieved and inspected",
+      "retrievedContentSha256": "479e7be20bfe15c41612b7dfcfc02ca266ee921a07be1877df547ba50bfba564"
+    },
+    {
+      "title": "An ILP-based automatic bus planner for dense PCBs, ASPDAC2013",
+      "url": "https://experts.illinois.edu/en/publications/an-ilp-based-automatic-bus-planner-for-dense-pcbs/",
+      "retrievalStatus": "publication metadata and abstract directly retrieved and inspected",
+      "retrievedContentSha256": "fef5e9c35e2e094957c7aaabdb52003550c6d548a6e8cae7f5cdd5e995f4b89c"
+    },
+    {
+      "title": "OpenROAD Global Routing documentation",
+      "url": "https://openroad.readthedocs.io/en/latest/main/openroad/grt/README.html",
+      "retrievalStatus": "direct HTML retrieved; global routing, capacity adjustment and guide descriptions inspected",
+      "retrievedContentSha256": "24091804e99ec2e46c36386ad75620c2af7f1385e915d7dc8399eca13886dacb"
+    },
+    {
+      "title": "AMD UG583 General Memory Routing Guidelines",
+      "url": "https://docs.amd.com/r/en-US/ug583-ultrascale-pcb-design/General-Memory-Routing-Guidelines",
+      "retrievalStatus": "JavaScript application shell returned; no independent final body text verification",
+      "retrievedContentSha256": "70ca86919ff2ff9e522eaf6de3915830102c0392e584bb6b72eef1b19cd80b51"
+    },
+    {
+      "title": "PathFinder",
+      "url": "https://janders.eecg.utoronto.ca/1387_2015/readings/pathfinder.pdf",
+      "retrievalStatus": "HTTP403 during final verification; no newly inspected full text"
+    }
+  ]
+}

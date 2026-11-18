@@ -1,0 +1,2884 @@
+{
+  "sourceHead": "190325da97253ad7951f9dfd3b0046b4afcb5395",
+  "sourceMain": "202b034659fb96bad44d11b8190f4044b675116f",
+  "scope": "Postprocessing fresh completed core byte-stage outputs; XY route-polyline lengths include supplied fanout portions belonging to each current requested signal and exclude vertical via barrel delay. No matching tolerance or pair acceptance is inferred.",
+  "allTwentyFiveCompletedByteMetricsUnchanged": true,
+  "scriptSha256": "5a033be604b40705110a1092a5bce96742f8ce4073f27abdbec1a3cfc3aff7f3",
+  "rows": [
+    {
+      "circuit": "h3",
+      "phase": "byte0",
+      "unchanged": true,
+      "main": [
+        {
+          "busId": "DDR_BUS_byte0",
+          "signals": [
+            {
+              "connectionName": "source_net_26",
+              "traceCount": 1,
+              "copperMm": 13.164776172483363
+            },
+            {
+              "connectionName": "source_net_27",
+              "traceCount": 1,
+              "copperMm": 12.019811676125629
+            },
+            {
+              "connectionName": "source_net_34",
+              "traceCount": 1,
+              "copperMm": 14.17196305114832
+            },
+            {
+              "connectionName": "source_net_35",
+              "traceCount": 1,
+              "copperMm": 13.472825248283474
+            },
+            {
+              "connectionName": "source_net_36",
+              "traceCount": 1,
+              "copperMm": 12.965718467096925
+            },
+            {
+              "connectionName": "source_net_37",
+              "traceCount": 1,
+              "copperMm": 18.69816600338188
+            },
+            {
+              "connectionName": "source_net_38",
+              "traceCount": 1,
+              "copperMm": 19.472510721788623
+            },
+            {
+              "connectionName": "source_net_39",
+              "traceCount": 1,
+              "copperMm": 15.254196098181948
+            }
+          ],
+          "totalCopperMm": 119.21996743849014,
+          "minimumSignalMm": 12.019811676125629,
+          "maximumSignalMm": 19.472510721788623,
+          "maxMinSkewMm": 7.452699045662994,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ],
+      "head": [
+        {
+          "busId": "DDR_BUS_byte0",
+          "signals": [
+            {
+              "connectionName": "source_net_26",
+              "traceCount": 1,
+              "copperMm": 13.164776172483363
+            },
+            {
+              "connectionName": "source_net_27",
+              "traceCount": 1,
+              "copperMm": 12.019811676125629
+            },
+            {
+              "connectionName": "source_net_34",
+              "traceCount": 1,
+              "copperMm": 14.17196305114832
+            },
+            {
+              "connectionName": "source_net_35",
+              "traceCount": 1,
+              "copperMm": 13.472825248283474
+            },
+            {
+              "connectionName": "source_net_36",
+              "traceCount": 1,
+              "copperMm": 12.965718467096925
+            },
+            {
+              "connectionName": "source_net_37",
+              "traceCount": 1,
+              "copperMm": 18.69816600338188
+            },
+            {
+              "connectionName": "source_net_38",
+              "traceCount": 1,
+              "copperMm": 19.472510721788623
+            },
+            {
+              "connectionName": "source_net_39",
+              "traceCount": 1,
+              "copperMm": 15.254196098181948
+            }
+          ],
+          "totalCopperMm": 119.21996743849014,
+          "minimumSignalMm": 12.019811676125629,
+          "maximumSignalMm": 19.472510721788623,
+          "maxMinSkewMm": 7.452699045662994,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ]
+    },
+    {
+      "circuit": "h3",
+      "phase": "byte1",
+      "unchanged": true,
+      "main": [
+        {
+          "busId": "DDR_BUS_byte1",
+          "signals": [
+            {
+              "connectionName": "source_net_28",
+              "traceCount": 1,
+              "copperMm": 9.189707222854885
+            },
+            {
+              "connectionName": "source_net_29",
+              "traceCount": 1,
+              "copperMm": 27.843771988004146
+            },
+            {
+              "connectionName": "source_net_30",
+              "traceCount": 1,
+              "copperMm": 35.1650168104318
+            },
+            {
+              "connectionName": "source_net_31",
+              "traceCount": 1,
+              "copperMm": 19.299001851281687
+            },
+            {
+              "connectionName": "source_net_32",
+              "traceCount": 1,
+              "copperMm": 30.593915429207872
+            },
+            {
+              "connectionName": "source_net_33",
+              "traceCount": 1,
+              "copperMm": 10.94107787680552
+            },
+            {
+              "connectionName": "source_net_40",
+              "traceCount": 1,
+              "copperMm": 12.855849872932655
+            },
+            {
+              "connectionName": "source_net_41",
+              "traceCount": 1,
+              "copperMm": 28.696910476809517
+            }
+          ],
+          "totalCopperMm": 174.58525152832806,
+          "minimumSignalMm": 9.189707222854885,
+          "maximumSignalMm": 35.1650168104318,
+          "maxMinSkewMm": 25.975309587576916,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ],
+      "head": [
+        {
+          "busId": "DDR_BUS_byte1",
+          "signals": [
+            {
+              "connectionName": "source_net_28",
+              "traceCount": 1,
+              "copperMm": 9.189707222854885
+            },
+            {
+              "connectionName": "source_net_29",
+              "traceCount": 1,
+              "copperMm": 27.843771988004146
+            },
+            {
+              "connectionName": "source_net_30",
+              "traceCount": 1,
+              "copperMm": 35.1650168104318
+            },
+            {
+              "connectionName": "source_net_31",
+              "traceCount": 1,
+              "copperMm": 19.299001851281687
+            },
+            {
+              "connectionName": "source_net_32",
+              "traceCount": 1,
+              "copperMm": 30.593915429207872
+            },
+            {
+              "connectionName": "source_net_33",
+              "traceCount": 1,
+              "copperMm": 10.94107787680552
+            },
+            {
+              "connectionName": "source_net_40",
+              "traceCount": 1,
+              "copperMm": 12.855849872932655
+            },
+            {
+              "connectionName": "source_net_41",
+              "traceCount": 1,
+              "copperMm": 28.696910476809517
+            }
+          ],
+          "totalCopperMm": 174.58525152832806,
+          "minimumSignalMm": 9.189707222854885,
+          "maximumSignalMm": 35.1650168104318,
+          "maxMinSkewMm": 25.975309587576916,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ]
+    },
+    {
+      "circuit": "a64",
+      "phase": "byte0",
+      "unchanged": true,
+      "main": [
+        {
+          "busId": "DDR_BUS_byte0",
+          "signals": [
+            {
+              "connectionName": "source_net_26",
+              "traceCount": 1,
+              "copperMm": 18.759902576697307
+            },
+            {
+              "connectionName": "source_net_27",
+              "traceCount": 1,
+              "copperMm": 14.7645706961199
+            },
+            {
+              "connectionName": "source_net_38",
+              "traceCount": 1,
+              "copperMm": 15.153048327204925
+            },
+            {
+              "connectionName": "source_net_49",
+              "traceCount": 1,
+              "copperMm": 19.171424945612284
+            },
+            {
+              "connectionName": "source_net_52",
+              "traceCount": 1,
+              "copperMm": 14.415180361560887
+            },
+            {
+              "connectionName": "source_net_53",
+              "traceCount": 1,
+              "copperMm": 16.545941546018376
+            },
+            {
+              "connectionName": "source_net_54",
+              "traceCount": 1,
+              "copperMm": 20.15279579551076
+            },
+            {
+              "connectionName": "source_net_55",
+              "traceCount": 1,
+              "copperMm": 18.822034611053265
+            }
+          ],
+          "totalCopperMm": 137.7848988597777,
+          "minimumSignalMm": 14.415180361560887,
+          "maximumSignalMm": 20.15279579551076,
+          "maxMinSkewMm": 5.7376154339498715,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ],
+      "head": [
+        {
+          "busId": "DDR_BUS_byte0",
+          "signals": [
+            {
+              "connectionName": "source_net_26",
+              "traceCount": 1,
+              "copperMm": 18.759902576697307
+            },
+            {
+              "connectionName": "source_net_27",
+              "traceCount": 1,
+              "copperMm": 14.7645706961199
+            },
+            {
+              "connectionName": "source_net_38",
+              "traceCount": 1,
+              "copperMm": 15.153048327204925
+            },
+            {
+              "connectionName": "source_net_49",
+              "traceCount": 1,
+              "copperMm": 19.171424945612284
+            },
+            {
+              "connectionName": "source_net_52",
+              "traceCount": 1,
+              "copperMm": 14.415180361560887
+            },
+            {
+              "connectionName": "source_net_53",
+              "traceCount": 1,
+              "copperMm": 16.545941546018376
+            },
+            {
+              "connectionName": "source_net_54",
+              "traceCount": 1,
+              "copperMm": 20.15279579551076
+            },
+            {
+              "connectionName": "source_net_55",
+              "traceCount": 1,
+              "copperMm": 18.822034611053265
+            }
+          ],
+          "totalCopperMm": 137.7848988597777,
+          "minimumSignalMm": 14.415180361560887,
+          "maximumSignalMm": 20.15279579551076,
+          "maxMinSkewMm": 5.7376154339498715,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ]
+    },
+    {
+      "circuit": "a64",
+      "phase": "byte1",
+      "unchanged": true,
+      "main": [
+        {
+          "busId": "DDR_BUS_byte1",
+          "signals": [
+            {
+              "connectionName": "source_net_28",
+              "traceCount": 1,
+              "copperMm": 18.78416664540924
+            },
+            {
+              "connectionName": "source_net_29",
+              "traceCount": 1,
+              "copperMm": 18.70553136786134
+            },
+            {
+              "connectionName": "source_net_30",
+              "traceCount": 1,
+              "copperMm": 15.380321271695363
+            },
+            {
+              "connectionName": "source_net_31",
+              "traceCount": 1,
+              "copperMm": 19.440315713447205
+            },
+            {
+              "connectionName": "source_net_32",
+              "traceCount": 1,
+              "copperMm": 22.986390389196394
+            },
+            {
+              "connectionName": "source_net_33",
+              "traceCount": 1,
+              "copperMm": 12.502438661763938
+            },
+            {
+              "connectionName": "source_net_56",
+              "traceCount": 1,
+              "copperMm": 18.009902576697307
+            },
+            {
+              "connectionName": "source_net_57",
+              "traceCount": 1,
+              "copperMm": 18.934166645409242
+            }
+          ],
+          "totalCopperMm": 144.74323327148002,
+          "minimumSignalMm": 12.502438661763938,
+          "maximumSignalMm": 22.986390389196394,
+          "maxMinSkewMm": 10.483951727432457,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ],
+      "head": [
+        {
+          "busId": "DDR_BUS_byte1",
+          "signals": [
+            {
+              "connectionName": "source_net_28",
+              "traceCount": 1,
+              "copperMm": 18.78416664540924
+            },
+            {
+              "connectionName": "source_net_29",
+              "traceCount": 1,
+              "copperMm": 18.70553136786134
+            },
+            {
+              "connectionName": "source_net_30",
+              "traceCount": 1,
+              "copperMm": 15.380321271695363
+            },
+            {
+              "connectionName": "source_net_31",
+              "traceCount": 1,
+              "copperMm": 19.440315713447205
+            },
+            {
+              "connectionName": "source_net_32",
+              "traceCount": 1,
+              "copperMm": 22.986390389196394
+            },
+            {
+              "connectionName": "source_net_33",
+              "traceCount": 1,
+              "copperMm": 12.502438661763938
+            },
+            {
+              "connectionName": "source_net_56",
+              "traceCount": 1,
+              "copperMm": 18.009902576697307
+            },
+            {
+              "connectionName": "source_net_57",
+              "traceCount": 1,
+              "copperMm": 18.934166645409242
+            }
+          ],
+          "totalCopperMm": 144.74323327148002,
+          "minimumSignalMm": 12.502438661763938,
+          "maximumSignalMm": 22.986390389196394,
+          "maxMinSkewMm": 10.483951727432457,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ]
+    },
+    {
+      "circuit": "a64",
+      "phase": "byte2",
+      "unchanged": true,
+      "main": [
+        {
+          "busId": "DDR_BUS_byte2",
+          "signals": [
+            {
+              "connectionName": "source_net_34",
+              "traceCount": 1,
+              "copperMm": 23.246331609103873
+            },
+            {
+              "connectionName": "source_net_35",
+              "traceCount": 1,
+              "copperMm": 17.97462383033891
+            },
+            {
+              "connectionName": "source_net_36",
+              "traceCount": 1,
+              "copperMm": 17.641649682150177
+            },
+            {
+              "connectionName": "source_net_37",
+              "traceCount": 1,
+              "copperMm": 14.611009658668886
+            },
+            {
+              "connectionName": "source_net_39",
+              "traceCount": 1,
+              "copperMm": 15.959738498103533
+            },
+            {
+              "connectionName": "source_net_40",
+              "traceCount": 1,
+              "copperMm": 12.93320893226064
+            },
+            {
+              "connectionName": "source_net_41",
+              "traceCount": 1,
+              "copperMm": 11.065727476031007
+            },
+            {
+              "connectionName": "source_net_42",
+              "traceCount": 1,
+              "copperMm": 14.189186891491195
+            }
+          ],
+          "totalCopperMm": 127.62147657814823,
+          "minimumSignalMm": 11.065727476031007,
+          "maximumSignalMm": 23.246331609103873,
+          "maxMinSkewMm": 12.180604133072865,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ],
+      "head": [
+        {
+          "busId": "DDR_BUS_byte2",
+          "signals": [
+            {
+              "connectionName": "source_net_34",
+              "traceCount": 1,
+              "copperMm": 23.246331609103873
+            },
+            {
+              "connectionName": "source_net_35",
+              "traceCount": 1,
+              "copperMm": 17.97462383033891
+            },
+            {
+              "connectionName": "source_net_36",
+              "traceCount": 1,
+              "copperMm": 17.641649682150177
+            },
+            {
+              "connectionName": "source_net_37",
+              "traceCount": 1,
+              "copperMm": 14.611009658668886
+            },
+            {
+              "connectionName": "source_net_39",
+              "traceCount": 1,
+              "copperMm": 15.959738498103533
+            },
+            {
+              "connectionName": "source_net_40",
+              "traceCount": 1,
+              "copperMm": 12.93320893226064
+            },
+            {
+              "connectionName": "source_net_41",
+              "traceCount": 1,
+              "copperMm": 11.065727476031007
+            },
+            {
+              "connectionName": "source_net_42",
+              "traceCount": 1,
+              "copperMm": 14.189186891491195
+            }
+          ],
+          "totalCopperMm": 127.62147657814823,
+          "minimumSignalMm": 11.065727476031007,
+          "maximumSignalMm": 23.246331609103873,
+          "maxMinSkewMm": 12.180604133072865,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ]
+    },
+    {
+      "circuit": "a64",
+      "phase": "byte3",
+      "unchanged": true,
+      "main": [
+        {
+          "busId": "DDR_BUS_byte3",
+          "signals": [
+            {
+              "connectionName": "source_net_43",
+              "traceCount": 1,
+              "copperMm": 7.823852319315824
+            },
+            {
+              "connectionName": "source_net_44",
+              "traceCount": 1,
+              "copperMm": 8.657716446627527
+            },
+            {
+              "connectionName": "source_net_45",
+              "traceCount": 1,
+              "copperMm": 8.670458146424476
+            },
+            {
+              "connectionName": "source_net_46",
+              "traceCount": 1,
+              "copperMm": 7.000609665440971
+            },
+            {
+              "connectionName": "source_net_47",
+              "traceCount": 1,
+              "copperMm": 7.463961030678918
+            },
+            {
+              "connectionName": "source_net_48",
+              "traceCount": 1,
+              "copperMm": 8.387635433949859
+            },
+            {
+              "connectionName": "source_net_50",
+              "traceCount": 1,
+              "copperMm": 7.168986283848335
+            },
+            {
+              "connectionName": "source_net_51",
+              "traceCount": 1,
+              "copperMm": 9.6311183182043
+            }
+          ],
+          "totalCopperMm": 64.8043376444902,
+          "minimumSignalMm": 7.000609665440971,
+          "maximumSignalMm": 9.6311183182043,
+          "maxMinSkewMm": 2.6305086527633286,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ],
+      "head": [
+        {
+          "busId": "DDR_BUS_byte3",
+          "signals": [
+            {
+              "connectionName": "source_net_43",
+              "traceCount": 1,
+              "copperMm": 7.823852319315824
+            },
+            {
+              "connectionName": "source_net_44",
+              "traceCount": 1,
+              "copperMm": 8.657716446627527
+            },
+            {
+              "connectionName": "source_net_45",
+              "traceCount": 1,
+              "copperMm": 8.670458146424476
+            },
+            {
+              "connectionName": "source_net_46",
+              "traceCount": 1,
+              "copperMm": 7.000609665440971
+            },
+            {
+              "connectionName": "source_net_47",
+              "traceCount": 1,
+              "copperMm": 7.463961030678918
+            },
+            {
+              "connectionName": "source_net_48",
+              "traceCount": 1,
+              "copperMm": 8.387635433949859
+            },
+            {
+              "connectionName": "source_net_50",
+              "traceCount": 1,
+              "copperMm": 7.168986283848335
+            },
+            {
+              "connectionName": "source_net_51",
+              "traceCount": 1,
+              "copperMm": 9.6311183182043
+            }
+          ],
+          "totalCopperMm": 64.8043376444902,
+          "minimumSignalMm": 7.000609665440971,
+          "maximumSignalMm": 9.6311183182043,
+          "maxMinSkewMm": 2.6305086527633286,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ]
+    },
+    {
+      "circuit": "stmp157",
+      "phase": "byte0",
+      "unchanged": true,
+      "main": [
+        {
+          "busId": "DDR_BUS_byte0",
+          "signals": [
+            {
+              "connectionName": "source_net_24",
+              "traceCount": 1,
+              "copperMm": 13.701219330881967
+            },
+            {
+              "connectionName": "source_net_25",
+              "traceCount": 1,
+              "copperMm": 11.438477631085014
+            },
+            {
+              "connectionName": "source_net_36",
+              "traceCount": 1,
+              "copperMm": 12.763961030678917
+            },
+            {
+              "connectionName": "source_net_47",
+              "traceCount": 1,
+              "copperMm": 14.169848480983491
+            },
+            {
+              "connectionName": "source_net_50",
+              "traceCount": 1,
+              "copperMm": 13.232590180780441
+            },
+            {
+              "connectionName": "source_net_51",
+              "traceCount": 1,
+              "copperMm": 12.432590180780444
+            },
+            {
+              "connectionName": "source_net_52",
+              "traceCount": 1,
+              "copperMm": 13.291168824543131
+            },
+            {
+              "connectionName": "source_net_53",
+              "traceCount": 1,
+              "copperMm": 13.038477631085014
+            }
+          ],
+          "totalCopperMm": 104.06833329081842,
+          "minimumSignalMm": 11.438477631085014,
+          "maximumSignalMm": 14.169848480983491,
+          "maxMinSkewMm": 2.731370849898477,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ],
+      "head": [
+        {
+          "busId": "DDR_BUS_byte0",
+          "signals": [
+            {
+              "connectionName": "source_net_24",
+              "traceCount": 1,
+              "copperMm": 13.701219330881967
+            },
+            {
+              "connectionName": "source_net_25",
+              "traceCount": 1,
+              "copperMm": 11.438477631085014
+            },
+            {
+              "connectionName": "source_net_36",
+              "traceCount": 1,
+              "copperMm": 12.763961030678917
+            },
+            {
+              "connectionName": "source_net_47",
+              "traceCount": 1,
+              "copperMm": 14.169848480983491
+            },
+            {
+              "connectionName": "source_net_50",
+              "traceCount": 1,
+              "copperMm": 13.232590180780441
+            },
+            {
+              "connectionName": "source_net_51",
+              "traceCount": 1,
+              "copperMm": 12.432590180780444
+            },
+            {
+              "connectionName": "source_net_52",
+              "traceCount": 1,
+              "copperMm": 13.291168824543131
+            },
+            {
+              "connectionName": "source_net_53",
+              "traceCount": 1,
+              "copperMm": 13.038477631085014
+            }
+          ],
+          "totalCopperMm": 104.06833329081842,
+          "minimumSignalMm": 11.438477631085014,
+          "maximumSignalMm": 14.169848480983491,
+          "maxMinSkewMm": 2.731370849898477,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ]
+    },
+    {
+      "circuit": "stmp157",
+      "phase": "byte1",
+      "unchanged": true,
+      "main": [
+        {
+          "busId": "DDR_BUS_byte1",
+          "signals": [
+            {
+              "connectionName": "source_net_26",
+              "traceCount": 1,
+              "copperMm": 10.264590898655449
+            },
+            {
+              "connectionName": "source_net_27",
+              "traceCount": 1,
+              "copperMm": 9.949747468305821
+            },
+            {
+              "connectionName": "source_net_28",
+              "traceCount": 1,
+              "copperMm": 11.412489168102772
+            },
+            {
+              "connectionName": "source_net_29",
+              "traceCount": 1,
+              "copperMm": 10.371145155800482
+            },
+            {
+              "connectionName": "source_net_30",
+              "traceCount": 1,
+              "copperMm": 10.143860018001252
+            },
+            {
+              "connectionName": "source_net_31",
+              "traceCount": 1,
+              "copperMm": 12.045832926597923
+            },
+            {
+              "connectionName": "source_net_54",
+              "traceCount": 1,
+              "copperMm": 10.61248916810277
+            },
+            {
+              "connectionName": "source_net_55",
+              "traceCount": 1,
+              "copperMm": 15.12372346949491
+            }
+          ],
+          "totalCopperMm": 89.92387827306138,
+          "minimumSignalMm": 9.949747468305821,
+          "maximumSignalMm": 15.12372346949491,
+          "maxMinSkewMm": 5.173976001189089,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ],
+      "head": [
+        {
+          "busId": "DDR_BUS_byte1",
+          "signals": [
+            {
+              "connectionName": "source_net_26",
+              "traceCount": 1,
+              "copperMm": 10.264590898655449
+            },
+            {
+              "connectionName": "source_net_27",
+              "traceCount": 1,
+              "copperMm": 9.949747468305821
+            },
+            {
+              "connectionName": "source_net_28",
+              "traceCount": 1,
+              "copperMm": 11.412489168102772
+            },
+            {
+              "connectionName": "source_net_29",
+              "traceCount": 1,
+              "copperMm": 10.371145155800482
+            },
+            {
+              "connectionName": "source_net_30",
+              "traceCount": 1,
+              "copperMm": 10.143860018001252
+            },
+            {
+              "connectionName": "source_net_31",
+              "traceCount": 1,
+              "copperMm": 12.045832926597923
+            },
+            {
+              "connectionName": "source_net_54",
+              "traceCount": 1,
+              "copperMm": 10.61248916810277
+            },
+            {
+              "connectionName": "source_net_55",
+              "traceCount": 1,
+              "copperMm": 15.12372346949491
+            }
+          ],
+          "totalCopperMm": 89.92387827306138,
+          "minimumSignalMm": 9.949747468305821,
+          "maximumSignalMm": 15.12372346949491,
+          "maxMinSkewMm": 5.173976001189089,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ]
+    },
+    {
+      "circuit": "stmp157",
+      "phase": "byte2",
+      "unchanged": true,
+      "main": [
+        {
+          "busId": "DDR_BUS_byte2",
+          "signals": [
+            {
+              "connectionName": "source_net_32",
+              "traceCount": 1,
+              "copperMm": 22.115436272369344
+            },
+            {
+              "connectionName": "source_net_33",
+              "traceCount": 1,
+              "copperMm": 28.59475395468971
+            },
+            {
+              "connectionName": "source_net_34",
+              "traceCount": 1,
+              "copperMm": 28.967448427553474
+            },
+            {
+              "connectionName": "source_net_35",
+              "traceCount": 1,
+              "copperMm": 21.346298679765205
+            },
+            {
+              "connectionName": "source_net_37",
+              "traceCount": 1,
+              "copperMm": 23.103983850907287
+            },
+            {
+              "connectionName": "source_net_38",
+              "traceCount": 1,
+              "copperMm": 31.7634772867158
+            },
+            {
+              "connectionName": "source_net_39",
+              "traceCount": 1,
+              "copperMm": 23.414927829866727
+            },
+            {
+              "connectionName": "source_net_40",
+              "traceCount": 1,
+              "copperMm": 23.593115526325786
+            }
+          ],
+          "totalCopperMm": 202.89944182819335,
+          "minimumSignalMm": 21.346298679765205,
+          "maximumSignalMm": 31.7634772867158,
+          "maxMinSkewMm": 10.417178606950596,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ],
+      "head": [
+        {
+          "busId": "DDR_BUS_byte2",
+          "signals": [
+            {
+              "connectionName": "source_net_32",
+              "traceCount": 1,
+              "copperMm": 22.115436272369344
+            },
+            {
+              "connectionName": "source_net_33",
+              "traceCount": 1,
+              "copperMm": 28.59475395468971
+            },
+            {
+              "connectionName": "source_net_34",
+              "traceCount": 1,
+              "copperMm": 28.967448427553474
+            },
+            {
+              "connectionName": "source_net_35",
+              "traceCount": 1,
+              "copperMm": 21.346298679765205
+            },
+            {
+              "connectionName": "source_net_37",
+              "traceCount": 1,
+              "copperMm": 23.103983850907287
+            },
+            {
+              "connectionName": "source_net_38",
+              "traceCount": 1,
+              "copperMm": 31.7634772867158
+            },
+            {
+              "connectionName": "source_net_39",
+              "traceCount": 1,
+              "copperMm": 23.414927829866727
+            },
+            {
+              "connectionName": "source_net_40",
+              "traceCount": 1,
+              "copperMm": 23.593115526325786
+            }
+          ],
+          "totalCopperMm": 202.89944182819335,
+          "minimumSignalMm": 21.346298679765205,
+          "maximumSignalMm": 31.7634772867158,
+          "maxMinSkewMm": 10.417178606950596,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ]
+    },
+    {
+      "circuit": "stmp157",
+      "phase": "byte3",
+      "unchanged": true,
+      "main": [
+        {
+          "busId": "DDR_BUS_byte3",
+          "signals": [
+            {
+              "connectionName": "source_net_41",
+              "traceCount": 1,
+              "copperMm": 9.563961030678911
+            },
+            {
+              "connectionName": "source_net_42",
+              "traceCount": 1,
+              "copperMm": 10.03259018078044
+            },
+            {
+              "connectionName": "source_net_43",
+              "traceCount": 1,
+              "copperMm": 9.232590180780443
+            },
+            {
+              "connectionName": "source_net_44",
+              "traceCount": 1,
+              "copperMm": 11.163961030678916
+            },
+            {
+              "connectionName": "source_net_45",
+              "traceCount": 1,
+              "copperMm": 10.36396103067892
+            },
+            {
+              "connectionName": "source_net_46",
+              "traceCount": 1,
+              "copperMm": 10.953956592789657
+            },
+            {
+              "connectionName": "source_net_48",
+              "traceCount": 1,
+              "copperMm": 9.291168824543131
+            },
+            {
+              "connectionName": "source_net_49",
+              "traceCount": 1,
+              "copperMm": 8.101219330881964
+            }
+          ],
+          "totalCopperMm": 78.70340820181238,
+          "minimumSignalMm": 8.101219330881964,
+          "maximumSignalMm": 11.163961030678916,
+          "maxMinSkewMm": 3.062741699796952,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ],
+      "head": [
+        {
+          "busId": "DDR_BUS_byte3",
+          "signals": [
+            {
+              "connectionName": "source_net_41",
+              "traceCount": 1,
+              "copperMm": 9.563961030678911
+            },
+            {
+              "connectionName": "source_net_42",
+              "traceCount": 1,
+              "copperMm": 10.03259018078044
+            },
+            {
+              "connectionName": "source_net_43",
+              "traceCount": 1,
+              "copperMm": 9.232590180780443
+            },
+            {
+              "connectionName": "source_net_44",
+              "traceCount": 1,
+              "copperMm": 11.163961030678916
+            },
+            {
+              "connectionName": "source_net_45",
+              "traceCount": 1,
+              "copperMm": 10.36396103067892
+            },
+            {
+              "connectionName": "source_net_46",
+              "traceCount": 1,
+              "copperMm": 10.953956592789657
+            },
+            {
+              "connectionName": "source_net_48",
+              "traceCount": 1,
+              "copperMm": 9.291168824543131
+            },
+            {
+              "connectionName": "source_net_49",
+              "traceCount": 1,
+              "copperMm": 8.101219330881964
+            }
+          ],
+          "totalCopperMm": 78.70340820181238,
+          "minimumSignalMm": 8.101219330881964,
+          "maximumSignalMm": 11.163961030678916,
+          "maxMinSkewMm": 3.062741699796952,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ]
+    },
+    {
+      "circuit": "orangecrab",
+      "phase": "byte0",
+      "unchanged": true,
+      "main": [
+        {
+          "busId": "DDR_BUS_byte0",
+          "signals": [
+            {
+              "connectionName": "source_net_24",
+              "traceCount": 1,
+              "copperMm": 12.766295797497717
+            },
+            {
+              "connectionName": "source_net_25",
+              "traceCount": 1,
+              "copperMm": 10.617767660073886
+            },
+            {
+              "connectionName": "source_net_32",
+              "traceCount": 1,
+              "copperMm": 12.73492494759924
+            },
+            {
+              "connectionName": "source_net_33",
+              "traceCount": 1,
+              "copperMm": 9.110660878887339
+            },
+            {
+              "connectionName": "source_net_34",
+              "traceCount": 1,
+              "copperMm": 12.483453085023124
+            },
+            {
+              "connectionName": "source_net_35",
+              "traceCount": 1,
+              "copperMm": 8.795815169695237
+            },
+            {
+              "connectionName": "source_net_36",
+              "traceCount": 1,
+              "copperMm": 13.03492494759925
+            },
+            {
+              "connectionName": "source_net_37",
+              "traceCount": 1,
+              "copperMm": 9.09581516969524
+            }
+          ],
+          "totalCopperMm": 88.63965765607102,
+          "minimumSignalMm": 8.795815169695237,
+          "maximumSignalMm": 13.03492494759925,
+          "maxMinSkewMm": 4.239109777904014,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ],
+      "head": [
+        {
+          "busId": "DDR_BUS_byte0",
+          "signals": [
+            {
+              "connectionName": "source_net_24",
+              "traceCount": 1,
+              "copperMm": 12.766295797497717
+            },
+            {
+              "connectionName": "source_net_25",
+              "traceCount": 1,
+              "copperMm": 10.617767660073886
+            },
+            {
+              "connectionName": "source_net_32",
+              "traceCount": 1,
+              "copperMm": 12.73492494759924
+            },
+            {
+              "connectionName": "source_net_33",
+              "traceCount": 1,
+              "copperMm": 9.110660878887339
+            },
+            {
+              "connectionName": "source_net_34",
+              "traceCount": 1,
+              "copperMm": 12.483453085023124
+            },
+            {
+              "connectionName": "source_net_35",
+              "traceCount": 1,
+              "copperMm": 8.795815169695237
+            },
+            {
+              "connectionName": "source_net_36",
+              "traceCount": 1,
+              "copperMm": 13.03492494759925
+            },
+            {
+              "connectionName": "source_net_37",
+              "traceCount": 1,
+              "copperMm": 9.09581516969524
+            }
+          ],
+          "totalCopperMm": 88.63965765607102,
+          "minimumSignalMm": 8.795815169695237,
+          "maximumSignalMm": 13.03492494759925,
+          "maxMinSkewMm": 4.239109777904014,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ]
+    },
+    {
+      "circuit": "orangecrab",
+      "phase": "byte1",
+      "unchanged": true,
+      "main": [
+        {
+          "busId": "DDR_BUS_byte1",
+          "signals": [
+            {
+              "connectionName": "source_net_26",
+              "traceCount": 1,
+              "copperMm": 12.538455856814524
+            },
+            {
+              "connectionName": "source_net_27",
+              "traceCount": 1,
+              "copperMm": 16.685527381159257
+            },
+            {
+              "connectionName": "source_net_28",
+              "traceCount": 1,
+              "copperMm": 14.567515128379721
+            },
+            {
+              "connectionName": "source_net_29",
+              "traceCount": 1,
+              "copperMm": 15.15330156600663
+            },
+            {
+              "connectionName": "source_net_30",
+              "traceCount": 1,
+              "copperMm": 13.16313652306167
+            },
+            {
+              "connectionName": "source_net_31",
+              "traceCount": 1,
+              "copperMm": 15.853301566006621
+            },
+            {
+              "connectionName": "source_net_38",
+              "traceCount": 1,
+              "copperMm": 12.197666647396197
+            },
+            {
+              "connectionName": "source_net_39",
+              "traceCount": 1,
+              "copperMm": 15.604773428582764
+            }
+          ],
+          "totalCopperMm": 115.76367809740738,
+          "minimumSignalMm": 12.197666647396197,
+          "maximumSignalMm": 16.685527381159257,
+          "maxMinSkewMm": 4.4878607337630605,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ],
+      "head": [
+        {
+          "busId": "DDR_BUS_byte1",
+          "signals": [
+            {
+              "connectionName": "source_net_26",
+              "traceCount": 1,
+              "copperMm": 12.538455856814524
+            },
+            {
+              "connectionName": "source_net_27",
+              "traceCount": 1,
+              "copperMm": 16.685527381159257
+            },
+            {
+              "connectionName": "source_net_28",
+              "traceCount": 1,
+              "copperMm": 14.567515128379721
+            },
+            {
+              "connectionName": "source_net_29",
+              "traceCount": 1,
+              "copperMm": 15.15330156600663
+            },
+            {
+              "connectionName": "source_net_30",
+              "traceCount": 1,
+              "copperMm": 13.16313652306167
+            },
+            {
+              "connectionName": "source_net_31",
+              "traceCount": 1,
+              "copperMm": 15.853301566006621
+            },
+            {
+              "connectionName": "source_net_38",
+              "traceCount": 1,
+              "copperMm": 12.197666647396197
+            },
+            {
+              "connectionName": "source_net_39",
+              "traceCount": 1,
+              "copperMm": 15.604773428582764
+            }
+          ],
+          "totalCopperMm": 115.76367809740738,
+          "minimumSignalMm": 12.197666647396197,
+          "maximumSignalMm": 16.685527381159257,
+          "maxMinSkewMm": 4.4878607337630605,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ]
+    },
+    {
+      "circuit": "a13",
+      "phase": "byte0",
+      "unchanged": true,
+      "main": [
+        {
+          "busId": "DDR_BUS_byte0",
+          "signals": [
+            {
+              "connectionName": "source_net_22",
+              "traceCount": 1,
+              "copperMm": 4.435881207782328
+            },
+            {
+              "connectionName": "source_net_23",
+              "traceCount": 1,
+              "copperMm": 4.912626265847079
+            },
+            {
+              "connectionName": "source_net_24",
+              "traceCount": 1,
+              "copperMm": 4.39445985154502
+            },
+            {
+              "connectionName": "source_net_25",
+              "traceCount": 1,
+              "copperMm": 4.539834059711293
+            },
+            {
+              "connectionName": "source_net_26",
+              "traceCount": 1,
+              "copperMm": 4.446793911256322
+            },
+            {
+              "connectionName": "source_net_27",
+              "traceCount": 1,
+              "copperMm": 3.6285642224904833
+            },
+            {
+              "connectionName": "source_net_28",
+              "traceCount": 1,
+              "copperMm": 4.405371555019011
+            },
+            {
+              "connectionName": "source_net_29",
+              "traceCount": 1,
+              "copperMm": 4.1670422677890695
+            }
+          ],
+          "totalCopperMm": 34.930573341440606,
+          "minimumSignalMm": 3.6285642224904833,
+          "maximumSignalMm": 4.912626265847079,
+          "maxMinSkewMm": 1.2840620433565957,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ],
+      "head": [
+        {
+          "busId": "DDR_BUS_byte0",
+          "signals": [
+            {
+              "connectionName": "source_net_22",
+              "traceCount": 1,
+              "copperMm": 4.435881207782328
+            },
+            {
+              "connectionName": "source_net_23",
+              "traceCount": 1,
+              "copperMm": 4.912626265847079
+            },
+            {
+              "connectionName": "source_net_24",
+              "traceCount": 1,
+              "copperMm": 4.39445985154502
+            },
+            {
+              "connectionName": "source_net_25",
+              "traceCount": 1,
+              "copperMm": 4.539834059711293
+            },
+            {
+              "connectionName": "source_net_26",
+              "traceCount": 1,
+              "copperMm": 4.446793911256322
+            },
+            {
+              "connectionName": "source_net_27",
+              "traceCount": 1,
+              "copperMm": 3.6285642224904833
+            },
+            {
+              "connectionName": "source_net_28",
+              "traceCount": 1,
+              "copperMm": 4.405371555019011
+            },
+            {
+              "connectionName": "source_net_29",
+              "traceCount": 1,
+              "copperMm": 4.1670422677890695
+            }
+          ],
+          "totalCopperMm": 34.930573341440606,
+          "minimumSignalMm": 3.6285642224904833,
+          "maximumSignalMm": 4.912626265847079,
+          "maxMinSkewMm": 1.2840620433565957,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ]
+    },
+    {
+      "circuit": "a13",
+      "phase": "byte1",
+      "unchanged": true,
+      "main": [
+        {
+          "busId": "DDR_BUS_byte1",
+          "signals": [
+            {
+              "connectionName": "source_net_30",
+              "traceCount": 1,
+              "copperMm": 6.258820343559635
+            },
+            {
+              "connectionName": "source_net_31",
+              "traceCount": 1,
+              "copperMm": 7.576606595318054
+            },
+            {
+              "connectionName": "source_net_32",
+              "traceCount": 1,
+              "copperMm": 5.513235931288065
+            },
+            {
+              "connectionName": "source_net_33",
+              "traceCount": 1,
+              "copperMm": 7.945931714121178
+            },
+            {
+              "connectionName": "source_net_34",
+              "traceCount": 1,
+              "copperMm": 8.027019422382624
+            },
+            {
+              "connectionName": "source_net_35",
+              "traceCount": 1,
+              "copperMm": 7.347538211054486
+            },
+            {
+              "connectionName": "source_net_36",
+              "traceCount": 1,
+              "copperMm": 5.886029137423852
+            },
+            {
+              "connectionName": "source_net_37",
+              "traceCount": 1,
+              "copperMm": 7.118469826790917
+            }
+          ],
+          "totalCopperMm": 55.67365118193881,
+          "minimumSignalMm": 5.513235931288065,
+          "maximumSignalMm": 8.027019422382624,
+          "maxMinSkewMm": 2.513783491094559,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ],
+      "head": [
+        {
+          "busId": "DDR_BUS_byte1",
+          "signals": [
+            {
+              "connectionName": "source_net_30",
+              "traceCount": 1,
+              "copperMm": 6.258820343559635
+            },
+            {
+              "connectionName": "source_net_31",
+              "traceCount": 1,
+              "copperMm": 7.576606595318054
+            },
+            {
+              "connectionName": "source_net_32",
+              "traceCount": 1,
+              "copperMm": 5.513235931288065
+            },
+            {
+              "connectionName": "source_net_33",
+              "traceCount": 1,
+              "copperMm": 7.945931714121178
+            },
+            {
+              "connectionName": "source_net_34",
+              "traceCount": 1,
+              "copperMm": 8.027019422382624
+            },
+            {
+              "connectionName": "source_net_35",
+              "traceCount": 1,
+              "copperMm": 7.347538211054486
+            },
+            {
+              "connectionName": "source_net_36",
+              "traceCount": 1,
+              "copperMm": 5.886029137423852
+            },
+            {
+              "connectionName": "source_net_37",
+              "traceCount": 1,
+              "copperMm": 7.118469826790917
+            }
+          ],
+          "totalCopperMm": 55.67365118193881,
+          "minimumSignalMm": 5.513235931288065,
+          "maximumSignalMm": 8.027019422382624,
+          "maxMinSkewMm": 2.513783491094559,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ]
+    },
+    {
+      "circuit": "a13",
+      "phase": "ram_byte0",
+      "unchanged": true,
+      "main": [
+        {
+          "busId": "DDR_BUS_ram_byte0",
+          "signals": [
+            {
+              "connectionName": "source_net_60",
+              "traceCount": 1,
+              "copperMm": 20.178483430133678
+            },
+            {
+              "connectionName": "source_net_61",
+              "traceCount": 1,
+              "copperMm": 8.541735525619298
+            },
+            {
+              "connectionName": "source_net_68",
+              "traceCount": 1,
+              "copperMm": 23.018295548414493
+            },
+            {
+              "connectionName": "source_net_69",
+              "traceCount": 1,
+              "copperMm": 5.974873734152922
+            },
+            {
+              "connectionName": "source_net_70",
+              "traceCount": 1,
+              "copperMm": 30.054031436894654
+            },
+            {
+              "connectionName": "source_net_71",
+              "traceCount": 1,
+              "copperMm": 6.22340187157678
+            },
+            {
+              "connectionName": "source_net_72",
+              "traceCount": 1,
+              "copperMm": 27.461462484343983
+            },
+            {
+              "connectionName": "source_net_73",
+              "traceCount": 1,
+              "copperMm": 7.541757007801718
+            }
+          ],
+          "totalCopperMm": 128.99404103893752,
+          "minimumSignalMm": 5.974873734152922,
+          "maximumSignalMm": 30.054031436894654,
+          "maxMinSkewMm": 24.079157702741732,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ],
+      "head": [
+        {
+          "busId": "DDR_BUS_ram_byte0",
+          "signals": [
+            {
+              "connectionName": "source_net_60",
+              "traceCount": 1,
+              "copperMm": 20.178483430133678
+            },
+            {
+              "connectionName": "source_net_61",
+              "traceCount": 1,
+              "copperMm": 8.541735525619298
+            },
+            {
+              "connectionName": "source_net_68",
+              "traceCount": 1,
+              "copperMm": 23.018295548414493
+            },
+            {
+              "connectionName": "source_net_69",
+              "traceCount": 1,
+              "copperMm": 5.974873734152922
+            },
+            {
+              "connectionName": "source_net_70",
+              "traceCount": 1,
+              "copperMm": 30.054031436894654
+            },
+            {
+              "connectionName": "source_net_71",
+              "traceCount": 1,
+              "copperMm": 6.22340187157678
+            },
+            {
+              "connectionName": "source_net_72",
+              "traceCount": 1,
+              "copperMm": 27.461462484343983
+            },
+            {
+              "connectionName": "source_net_73",
+              "traceCount": 1,
+              "copperMm": 7.541757007801718
+            }
+          ],
+          "totalCopperMm": 128.99404103893752,
+          "minimumSignalMm": 5.974873734152922,
+          "maximumSignalMm": 30.054031436894654,
+          "maxMinSkewMm": 24.079157702741732,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ]
+    },
+    {
+      "circuit": "h616",
+      "phase": "byte0",
+      "unchanged": true,
+      "main": [
+        {
+          "busId": "DDR_BUS_byte0",
+          "signals": [
+            {
+              "connectionName": "source_net_0",
+              "traceCount": 1,
+              "copperMm": 9.794650788387049
+            },
+            {
+              "connectionName": "source_net_1",
+              "traceCount": 1,
+              "copperMm": 8.718305191657988
+            },
+            {
+              "connectionName": "source_net_8",
+              "traceCount": 1,
+              "copperMm": 12.60678282274301
+            },
+            {
+              "connectionName": "source_net_9",
+              "traceCount": 1,
+              "copperMm": 7.268305191657987
+            },
+            {
+              "connectionName": "source_net_10",
+              "traceCount": 1,
+              "copperMm": 14.047461822892318
+            },
+            {
+              "connectionName": "source_net_11",
+              "traceCount": 1,
+              "copperMm": 8.85028570699745
+            },
+            {
+              "connectionName": "source_net_12",
+              "traceCount": 1,
+              "copperMm": 13.588153672641486
+            },
+            {
+              "connectionName": "source_net_13",
+              "traceCount": 1,
+              "copperMm": 10.574726653025651
+            }
+          ],
+          "totalCopperMm": 85.44867185000294,
+          "minimumSignalMm": 7.268305191657987,
+          "maximumSignalMm": 14.047461822892318,
+          "maxMinSkewMm": 6.779156631234331,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ],
+      "head": [
+        {
+          "busId": "DDR_BUS_byte0",
+          "signals": [
+            {
+              "connectionName": "source_net_0",
+              "traceCount": 1,
+              "copperMm": 9.794650788387049
+            },
+            {
+              "connectionName": "source_net_1",
+              "traceCount": 1,
+              "copperMm": 8.718305191657988
+            },
+            {
+              "connectionName": "source_net_8",
+              "traceCount": 1,
+              "copperMm": 12.60678282274301
+            },
+            {
+              "connectionName": "source_net_9",
+              "traceCount": 1,
+              "copperMm": 7.268305191657987
+            },
+            {
+              "connectionName": "source_net_10",
+              "traceCount": 1,
+              "copperMm": 14.047461822892318
+            },
+            {
+              "connectionName": "source_net_11",
+              "traceCount": 1,
+              "copperMm": 8.85028570699745
+            },
+            {
+              "connectionName": "source_net_12",
+              "traceCount": 1,
+              "copperMm": 13.588153672641486
+            },
+            {
+              "connectionName": "source_net_13",
+              "traceCount": 1,
+              "copperMm": 10.574726653025651
+            }
+          ],
+          "totalCopperMm": 85.44867185000294,
+          "minimumSignalMm": 7.268305191657987,
+          "maximumSignalMm": 14.047461822892318,
+          "maxMinSkewMm": 6.779156631234331,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ]
+    },
+    {
+      "circuit": "h616",
+      "phase": "byte1",
+      "unchanged": true,
+      "main": [
+        {
+          "busId": "DDR_BUS_byte1",
+          "signals": [
+            {
+              "connectionName": "source_net_2",
+              "traceCount": 1,
+              "copperMm": 4.684089537243824
+            },
+            {
+              "connectionName": "source_net_3",
+              "traceCount": 1,
+              "copperMm": 14.937795870085935
+            },
+            {
+              "connectionName": "source_net_4",
+              "traceCount": 1,
+              "copperMm": 6.39545829510126
+            },
+            {
+              "connectionName": "source_net_5",
+              "traceCount": 1,
+              "copperMm": 12.601442276647827
+            },
+            {
+              "connectionName": "source_net_6",
+              "traceCount": 1,
+              "copperMm": 4.948605481358882
+            },
+            {
+              "connectionName": "source_net_7",
+              "traceCount": 1,
+              "copperMm": 11.738067601604747
+            },
+            {
+              "connectionName": "source_net_14",
+              "traceCount": 1,
+              "copperMm": 7.682518754031081
+            },
+            {
+              "connectionName": "source_net_15",
+              "traceCount": 1,
+              "copperMm": 11.408254685319159
+            }
+          ],
+          "totalCopperMm": 74.39623250139272,
+          "minimumSignalMm": 4.684089537243824,
+          "maximumSignalMm": 14.937795870085935,
+          "maxMinSkewMm": 10.25370633284211,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ],
+      "head": [
+        {
+          "busId": "DDR_BUS_byte1",
+          "signals": [
+            {
+              "connectionName": "source_net_2",
+              "traceCount": 1,
+              "copperMm": 4.684089537243824
+            },
+            {
+              "connectionName": "source_net_3",
+              "traceCount": 1,
+              "copperMm": 14.937795870085935
+            },
+            {
+              "connectionName": "source_net_4",
+              "traceCount": 1,
+              "copperMm": 6.39545829510126
+            },
+            {
+              "connectionName": "source_net_5",
+              "traceCount": 1,
+              "copperMm": 12.601442276647827
+            },
+            {
+              "connectionName": "source_net_6",
+              "traceCount": 1,
+              "copperMm": 4.948605481358882
+            },
+            {
+              "connectionName": "source_net_7",
+              "traceCount": 1,
+              "copperMm": 11.738067601604747
+            },
+            {
+              "connectionName": "source_net_14",
+              "traceCount": 1,
+              "copperMm": 7.682518754031081
+            },
+            {
+              "connectionName": "source_net_15",
+              "traceCount": 1,
+              "copperMm": 11.408254685319159
+            }
+          ],
+          "totalCopperMm": 74.39623250139272,
+          "minimumSignalMm": 4.684089537243824,
+          "maximumSignalMm": 14.937795870085935,
+          "maxMinSkewMm": 10.25370633284211,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ]
+    },
+    {
+      "circuit": "butterstick",
+      "phase": "byte0",
+      "unchanged": true,
+      "main": [
+        {
+          "busId": "DDR_BUS_byte0",
+          "signals": [
+            {
+              "connectionName": "source_net_28",
+              "traceCount": 2,
+              "copperMm": 21.711984104714467
+            },
+            {
+              "connectionName": "source_net_29",
+              "traceCount": 2,
+              "copperMm": 25.38061325481599
+            },
+            {
+              "connectionName": "source_net_36",
+              "traceCount": 2,
+              "copperMm": 24.619090885901013
+            },
+            {
+              "connectionName": "source_net_37",
+              "traceCount": 2,
+              "copperMm": 31.530911836892187
+            },
+            {
+              "connectionName": "source_net_38",
+              "traceCount": 2,
+              "copperMm": 25.882337649086296
+            },
+            {
+              "connectionName": "source_net_39",
+              "traceCount": 2,
+              "copperMm": 35.8885472383398
+            },
+            {
+              "connectionName": "source_net_40",
+              "traceCount": 2,
+              "copperMm": 27.46368748946182
+            },
+            {
+              "connectionName": "source_net_41",
+              "traceCount": 2,
+              "copperMm": 23.819090885901026
+            }
+          ],
+          "totalCopperMm": 216.2962633451126,
+          "minimumSignalMm": 21.711984104714467,
+          "maximumSignalMm": 35.8885472383398,
+          "maxMinSkewMm": 14.17656313362533,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ],
+      "head": [
+        {
+          "busId": "DDR_BUS_byte0",
+          "signals": [
+            {
+              "connectionName": "source_net_28",
+              "traceCount": 2,
+              "copperMm": 21.711984104714467
+            },
+            {
+              "connectionName": "source_net_29",
+              "traceCount": 2,
+              "copperMm": 25.38061325481599
+            },
+            {
+              "connectionName": "source_net_36",
+              "traceCount": 2,
+              "copperMm": 24.619090885901013
+            },
+            {
+              "connectionName": "source_net_37",
+              "traceCount": 2,
+              "copperMm": 31.530911836892187
+            },
+            {
+              "connectionName": "source_net_38",
+              "traceCount": 2,
+              "copperMm": 25.882337649086296
+            },
+            {
+              "connectionName": "source_net_39",
+              "traceCount": 2,
+              "copperMm": 35.8885472383398
+            },
+            {
+              "connectionName": "source_net_40",
+              "traceCount": 2,
+              "copperMm": 27.46368748946182
+            },
+            {
+              "connectionName": "source_net_41",
+              "traceCount": 2,
+              "copperMm": 23.819090885901026
+            }
+          ],
+          "totalCopperMm": 216.2962633451126,
+          "minimumSignalMm": 21.711984104714467,
+          "maximumSignalMm": 35.8885472383398,
+          "maxMinSkewMm": 14.17656313362533,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ]
+    },
+    {
+      "circuit": "butterstick",
+      "phase": "byte1",
+      "unchanged": true,
+      "main": [
+        {
+          "busId": "DDR_BUS_byte1",
+          "signals": [
+            {
+              "connectionName": "source_net_30",
+              "traceCount": 2,
+              "copperMm": 39.351069266709594
+            },
+            {
+              "connectionName": "source_net_31",
+              "traceCount": 2,
+              "copperMm": 25.227722994595325
+            },
+            {
+              "connectionName": "source_net_32",
+              "traceCount": 2,
+              "copperMm": 29.940051901820887
+            },
+            {
+              "connectionName": "source_net_33",
+              "traceCount": 2,
+              "copperMm": 20.677741371636376
+            },
+            {
+              "connectionName": "source_net_34",
+              "traceCount": 2,
+              "copperMm": 32.48268731686224
+            },
+            {
+              "connectionName": "source_net_35",
+              "traceCount": 2,
+              "copperMm": 21.328376115627712
+            },
+            {
+              "connectionName": "source_net_42",
+              "traceCount": 2,
+              "copperMm": 39.58178433129627
+            },
+            {
+              "connectionName": "source_net_43",
+              "traceCount": 2,
+              "copperMm": 21.371384157181495
+            }
+          ],
+          "totalCopperMm": 229.9608174557299,
+          "minimumSignalMm": 20.677741371636376,
+          "maximumSignalMm": 39.58178433129627,
+          "maxMinSkewMm": 18.904042959659893,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ],
+      "head": [
+        {
+          "busId": "DDR_BUS_byte1",
+          "signals": [
+            {
+              "connectionName": "source_net_30",
+              "traceCount": 2,
+              "copperMm": 39.351069266709594
+            },
+            {
+              "connectionName": "source_net_31",
+              "traceCount": 2,
+              "copperMm": 25.227722994595325
+            },
+            {
+              "connectionName": "source_net_32",
+              "traceCount": 2,
+              "copperMm": 29.940051901820887
+            },
+            {
+              "connectionName": "source_net_33",
+              "traceCount": 2,
+              "copperMm": 20.677741371636376
+            },
+            {
+              "connectionName": "source_net_34",
+              "traceCount": 2,
+              "copperMm": 32.48268731686224
+            },
+            {
+              "connectionName": "source_net_35",
+              "traceCount": 2,
+              "copperMm": 21.328376115627712
+            },
+            {
+              "connectionName": "source_net_42",
+              "traceCount": 2,
+              "copperMm": 39.58178433129627
+            },
+            {
+              "connectionName": "source_net_43",
+              "traceCount": 2,
+              "copperMm": 21.371384157181495
+            }
+          ],
+          "totalCopperMm": 229.9608174557299,
+          "minimumSignalMm": 20.677741371636376,
+          "maximumSignalMm": 39.58178433129627,
+          "maxMinSkewMm": 18.904042959659893,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ]
+    },
+    {
+      "circuit": "glider",
+      "phase": "byte0",
+      "unchanged": true,
+      "main": [
+        {
+          "busId": "DDR_BUS_byte0",
+          "signals": [
+            {
+              "connectionName": "source_net_23",
+              "traceCount": 1,
+              "copperMm": 16.312031021678298
+            },
+            {
+              "connectionName": "source_net_24",
+              "traceCount": 1,
+              "copperMm": 18.843401871576773
+            },
+            {
+              "connectionName": "source_net_31",
+              "traceCount": 1,
+              "copperMm": 16.429188309203678
+            },
+            {
+              "connectionName": "source_net_32",
+              "traceCount": 1,
+              "copperMm": 19.274751801064717
+            },
+            {
+              "connectionName": "source_net_33",
+              "traceCount": 1,
+              "copperMm": 16.43629509039023
+            },
+            {
+              "connectionName": "source_net_34",
+              "traceCount": 1,
+              "copperMm": 19.43629509039023
+            },
+            {
+              "connectionName": "source_net_35",
+              "traceCount": 1,
+              "copperMm": 16.553452377915608
+            },
+            {
+              "connectionName": "source_net_36",
+              "traceCount": 1,
+              "copperMm": 18.561736649163073
+            }
+          ],
+          "totalCopperMm": 141.84715221138262,
+          "minimumSignalMm": 16.312031021678298,
+          "maximumSignalMm": 19.43629509039023,
+          "maxMinSkewMm": 3.124264068711934,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ],
+      "head": [
+        {
+          "busId": "DDR_BUS_byte0",
+          "signals": [
+            {
+              "connectionName": "source_net_23",
+              "traceCount": 1,
+              "copperMm": 16.312031021678298
+            },
+            {
+              "connectionName": "source_net_24",
+              "traceCount": 1,
+              "copperMm": 18.843401871576773
+            },
+            {
+              "connectionName": "source_net_31",
+              "traceCount": 1,
+              "copperMm": 16.429188309203678
+            },
+            {
+              "connectionName": "source_net_32",
+              "traceCount": 1,
+              "copperMm": 19.274751801064717
+            },
+            {
+              "connectionName": "source_net_33",
+              "traceCount": 1,
+              "copperMm": 16.43629509039023
+            },
+            {
+              "connectionName": "source_net_34",
+              "traceCount": 1,
+              "copperMm": 19.43629509039023
+            },
+            {
+              "connectionName": "source_net_35",
+              "traceCount": 1,
+              "copperMm": 16.553452377915608
+            },
+            {
+              "connectionName": "source_net_36",
+              "traceCount": 1,
+              "copperMm": 18.561736649163073
+            }
+          ],
+          "totalCopperMm": 141.84715221138262,
+          "minimumSignalMm": 16.312031021678298,
+          "maximumSignalMm": 19.43629509039023,
+          "maxMinSkewMm": 3.124264068711934,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ]
+    },
+    {
+      "circuit": "glider",
+      "phase": "byte1",
+      "unchanged": true,
+      "main": [
+        {
+          "busId": "DDR_BUS_byte1",
+          "signals": [
+            {
+              "connectionName": "source_net_25",
+              "traceCount": 1,
+              "copperMm": 20.323279938488565
+            },
+            {
+              "connectionName": "source_net_26",
+              "traceCount": 1,
+              "copperMm": 14.477716446627529
+            },
+            {
+              "connectionName": "source_net_27",
+              "traceCount": 1,
+              "copperMm": 19.643401871576767
+            },
+            {
+              "connectionName": "source_net_28",
+              "traceCount": 1,
+              "copperMm": 14.643401871576765
+            },
+            {
+              "connectionName": "source_net_29",
+              "traceCount": 1,
+              "copperMm": 21.51995562110753
+            },
+            {
+              "connectionName": "source_net_30",
+              "traceCount": 1,
+              "copperMm": 15.857615433949857
+            },
+            {
+              "connectionName": "source_net_37",
+              "traceCount": 1,
+              "copperMm": 20.39487373415291
+            },
+            {
+              "connectionName": "source_net_38",
+              "traceCount": 1,
+              "copperMm": 15.174163056034253
+            }
+          ],
+          "totalCopperMm": 142.0344079735142,
+          "minimumSignalMm": 14.477716446627529,
+          "maximumSignalMm": 21.51995562110753,
+          "maxMinSkewMm": 7.042239174480002,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ],
+      "head": [
+        {
+          "busId": "DDR_BUS_byte1",
+          "signals": [
+            {
+              "connectionName": "source_net_25",
+              "traceCount": 1,
+              "copperMm": 20.323279938488565
+            },
+            {
+              "connectionName": "source_net_26",
+              "traceCount": 1,
+              "copperMm": 14.477716446627529
+            },
+            {
+              "connectionName": "source_net_27",
+              "traceCount": 1,
+              "copperMm": 19.643401871576767
+            },
+            {
+              "connectionName": "source_net_28",
+              "traceCount": 1,
+              "copperMm": 14.643401871576765
+            },
+            {
+              "connectionName": "source_net_29",
+              "traceCount": 1,
+              "copperMm": 21.51995562110753
+            },
+            {
+              "connectionName": "source_net_30",
+              "traceCount": 1,
+              "copperMm": 15.857615433949857
+            },
+            {
+              "connectionName": "source_net_37",
+              "traceCount": 1,
+              "copperMm": 20.39487373415291
+            },
+            {
+              "connectionName": "source_net_38",
+              "traceCount": 1,
+              "copperMm": 15.174163056034253
+            }
+          ],
+          "totalCopperMm": 142.0344079735142,
+          "minimumSignalMm": 14.477716446627529,
+          "maximumSignalMm": 21.51995562110753,
+          "maxMinSkewMm": 7.042239174480002,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ]
+    },
+    {
+      "circuit": "imx6",
+      "phase": "byte0",
+      "unchanged": true,
+      "main": [
+        {
+          "busId": "DDR_BUS_byte0",
+          "signals": [
+            {
+              "connectionName": "source_net_30",
+              "traceCount": 1,
+              "copperMm": 17.659797974644658
+            },
+            {
+              "connectionName": "source_net_31",
+              "traceCount": 1,
+              "copperMm": 16.859797974644653
+            },
+            {
+              "connectionName": "source_net_38",
+              "traceCount": 1,
+              "copperMm": 20.528427124746198
+            },
+            {
+              "connectionName": "source_net_39",
+              "traceCount": 1,
+              "copperMm": 20.52842712474618
+            },
+            {
+              "connectionName": "source_net_40",
+              "traceCount": 1,
+              "copperMm": 20.059797974644656
+            },
+            {
+              "connectionName": "source_net_41",
+              "traceCount": 1,
+              "copperMm": 22.32253967444161
+            },
+            {
+              "connectionName": "source_net_42",
+              "traceCount": 1,
+              "copperMm": 16.197056274847704
+            },
+            {
+              "connectionName": "source_net_43",
+              "traceCount": 1,
+              "copperMm": 15.72842712474618
+            }
+          ],
+          "totalCopperMm": 149.88427124746184,
+          "minimumSignalMm": 15.72842712474618,
+          "maximumSignalMm": 22.32253967444161,
+          "maxMinSkewMm": 6.594112549695431,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ],
+      "head": [
+        {
+          "busId": "DDR_BUS_byte0",
+          "signals": [
+            {
+              "connectionName": "source_net_30",
+              "traceCount": 1,
+              "copperMm": 17.659797974644658
+            },
+            {
+              "connectionName": "source_net_31",
+              "traceCount": 1,
+              "copperMm": 16.859797974644653
+            },
+            {
+              "connectionName": "source_net_38",
+              "traceCount": 1,
+              "copperMm": 20.528427124746198
+            },
+            {
+              "connectionName": "source_net_39",
+              "traceCount": 1,
+              "copperMm": 20.52842712474618
+            },
+            {
+              "connectionName": "source_net_40",
+              "traceCount": 1,
+              "copperMm": 20.059797974644656
+            },
+            {
+              "connectionName": "source_net_41",
+              "traceCount": 1,
+              "copperMm": 22.32253967444161
+            },
+            {
+              "connectionName": "source_net_42",
+              "traceCount": 1,
+              "copperMm": 16.197056274847704
+            },
+            {
+              "connectionName": "source_net_43",
+              "traceCount": 1,
+              "copperMm": 15.72842712474618
+            }
+          ],
+          "totalCopperMm": 149.88427124746184,
+          "minimumSignalMm": 15.72842712474618,
+          "maximumSignalMm": 22.32253967444161,
+          "maxMinSkewMm": 6.594112549695431,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ]
+    },
+    {
+      "circuit": "imx6",
+      "phase": "byte1",
+      "unchanged": true,
+      "main": [
+        {
+          "busId": "DDR_BUS_byte1",
+          "signals": [
+            {
+              "connectionName": "source_net_32",
+              "traceCount": 1,
+              "copperMm": 20.059797974644667
+            },
+            {
+              "connectionName": "source_net_33",
+              "traceCount": 1,
+              "copperMm": 19.781950929411163
+            },
+            {
+              "connectionName": "source_net_34",
+              "traceCount": 1,
+              "copperMm": 23.629646455628166
+            },
+            {
+              "connectionName": "source_net_35",
+              "traceCount": 1,
+              "copperMm": 19.313321779309636
+            },
+            {
+              "connectionName": "source_net_36",
+              "traceCount": 1,
+              "copperMm": 25.249545442950495
+            },
+            {
+              "connectionName": "source_net_37",
+              "traceCount": 1,
+              "copperMm": 20.125037508062178
+            },
+            {
+              "connectionName": "source_net_44",
+              "traceCount": 2,
+              "copperMm": 22.10243866176395
+            },
+            {
+              "connectionName": "source_net_45",
+              "traceCount": 1,
+              "copperMm": 22.62229580826522
+            }
+          ],
+          "totalCopperMm": 172.88403456003547,
+          "minimumSignalMm": 19.313321779309636,
+          "maximumSignalMm": 25.249545442950495,
+          "maxMinSkewMm": 5.93622366364086,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ],
+      "head": [
+        {
+          "busId": "DDR_BUS_byte1",
+          "signals": [
+            {
+              "connectionName": "source_net_32",
+              "traceCount": 1,
+              "copperMm": 20.059797974644667
+            },
+            {
+              "connectionName": "source_net_33",
+              "traceCount": 1,
+              "copperMm": 19.781950929411163
+            },
+            {
+              "connectionName": "source_net_34",
+              "traceCount": 1,
+              "copperMm": 23.629646455628166
+            },
+            {
+              "connectionName": "source_net_35",
+              "traceCount": 1,
+              "copperMm": 19.313321779309636
+            },
+            {
+              "connectionName": "source_net_36",
+              "traceCount": 1,
+              "copperMm": 25.249545442950495
+            },
+            {
+              "connectionName": "source_net_37",
+              "traceCount": 1,
+              "copperMm": 20.125037508062178
+            },
+            {
+              "connectionName": "source_net_44",
+              "traceCount": 2,
+              "copperMm": 22.10243866176395
+            },
+            {
+              "connectionName": "source_net_45",
+              "traceCount": 1,
+              "copperMm": 22.62229580826522
+            }
+          ],
+          "totalCopperMm": 172.88403456003547,
+          "minimumSignalMm": 19.313321779309636,
+          "maximumSignalMm": 25.249545442950495,
+          "maxMinSkewMm": 5.93622366364086,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ]
+    },
+    {
+      "circuit": "icepi",
+      "phase": "byte0",
+      "unchanged": true,
+      "main": [
+        {
+          "busId": "DDR_BUS_byte0",
+          "signals": [
+            {
+              "connectionName": "source_net_22",
+              "traceCount": 1,
+              "copperMm": 10.32889393668847
+            },
+            {
+              "connectionName": "source_net_23",
+              "traceCount": 1,
+              "copperMm": 13.781564209736057
+            },
+            {
+              "connectionName": "source_net_30",
+              "traceCount": 1,
+              "copperMm": 10.487068827094054
+            },
+            {
+              "connectionName": "source_net_31",
+              "traceCount": 1,
+              "copperMm": 14.850803025278568
+            },
+            {
+              "connectionName": "source_net_32",
+              "traceCount": 1,
+              "copperMm": 10.43658946290547
+            },
+            {
+              "connectionName": "source_net_33",
+              "traceCount": 1,
+              "copperMm": 14.594305909533002
+            },
+            {
+              "connectionName": "source_net_34",
+              "traceCount": 1,
+              "copperMm": 8.655218613007
+            },
+            {
+              "connectionName": "source_net_35",
+              "traceCount": 1,
+              "copperMm": 14.876429575724757
+            }
+          ],
+          "totalCopperMm": 98.01087355996738,
+          "minimumSignalMm": 8.655218613007,
+          "maximumSignalMm": 14.876429575724757,
+          "maxMinSkewMm": 6.221210962717757,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ],
+      "head": [
+        {
+          "busId": "DDR_BUS_byte0",
+          "signals": [
+            {
+              "connectionName": "source_net_22",
+              "traceCount": 1,
+              "copperMm": 10.32889393668847
+            },
+            {
+              "connectionName": "source_net_23",
+              "traceCount": 1,
+              "copperMm": 13.781564209736057
+            },
+            {
+              "connectionName": "source_net_30",
+              "traceCount": 1,
+              "copperMm": 10.487068827094054
+            },
+            {
+              "connectionName": "source_net_31",
+              "traceCount": 1,
+              "copperMm": 14.850803025278568
+            },
+            {
+              "connectionName": "source_net_32",
+              "traceCount": 1,
+              "copperMm": 10.43658946290547
+            },
+            {
+              "connectionName": "source_net_33",
+              "traceCount": 1,
+              "copperMm": 14.594305909533002
+            },
+            {
+              "connectionName": "source_net_34",
+              "traceCount": 1,
+              "copperMm": 8.655218613007
+            },
+            {
+              "connectionName": "source_net_35",
+              "traceCount": 1,
+              "copperMm": 14.876429575724757
+            }
+          ],
+          "totalCopperMm": 98.01087355996738,
+          "minimumSignalMm": 8.655218613007,
+          "maximumSignalMm": 14.876429575724757,
+          "maxMinSkewMm": 6.221210962717757,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ]
+    },
+    {
+      "circuit": "icepi",
+      "phase": "byte1",
+      "unchanged": true,
+      "main": [
+        {
+          "busId": "DDR_BUS_byte1",
+          "signals": [
+            {
+              "connectionName": "source_net_24",
+              "traceCount": 1,
+              "copperMm": 14.402884553295655
+            },
+            {
+              "connectionName": "source_net_25",
+              "traceCount": 1,
+              "copperMm": 10.724187442651887
+            },
+            {
+              "connectionName": "source_net_26",
+              "traceCount": 1,
+              "copperMm": 14.176353964893245
+            },
+            {
+              "connectionName": "source_net_27",
+              "traceCount": 1,
+              "copperMm": 8.708183258569772
+            },
+            {
+              "connectionName": "source_net_28",
+              "traceCount": 1,
+              "copperMm": 15.055577769878205
+            },
+            {
+              "connectionName": "source_net_29",
+              "traceCount": 1,
+              "copperMm": 10.501152088214694
+            },
+            {
+              "connectionName": "source_net_36",
+              "traceCount": 1,
+              "copperMm": 13.333645737753162
+            },
+            {
+              "connectionName": "source_net_37",
+              "traceCount": 1,
+              "copperMm": 9.446051224213821
+            }
+          ],
+          "totalCopperMm": 96.34803603947043,
+          "minimumSignalMm": 8.708183258569772,
+          "maximumSignalMm": 15.055577769878205,
+          "maxMinSkewMm": 6.347394511308433,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ],
+      "head": [
+        {
+          "busId": "DDR_BUS_byte1",
+          "signals": [
+            {
+              "connectionName": "source_net_24",
+              "traceCount": 1,
+              "copperMm": 14.402884553295655
+            },
+            {
+              "connectionName": "source_net_25",
+              "traceCount": 1,
+              "copperMm": 10.724187442651887
+            },
+            {
+              "connectionName": "source_net_26",
+              "traceCount": 1,
+              "copperMm": 14.176353964893245
+            },
+            {
+              "connectionName": "source_net_27",
+              "traceCount": 1,
+              "copperMm": 8.708183258569772
+            },
+            {
+              "connectionName": "source_net_28",
+              "traceCount": 1,
+              "copperMm": 15.055577769878205
+            },
+            {
+              "connectionName": "source_net_29",
+              "traceCount": 1,
+              "copperMm": 10.501152088214694
+            },
+            {
+              "connectionName": "source_net_36",
+              "traceCount": 1,
+              "copperMm": 13.333645737753162
+            },
+            {
+              "connectionName": "source_net_37",
+              "traceCount": 1,
+              "copperMm": 9.446051224213821
+            }
+          ],
+          "totalCopperMm": 96.34803603947043,
+          "minimumSignalMm": 8.708183258569772,
+          "maximumSignalMm": 15.055577769878205,
+          "maxMinSkewMm": 6.347394511308433,
+          "declaredMinLengthMm": null,
+          "declaredMaxLengthMm": null,
+          "declaredMaxLengthSkewMm": null,
+          "differentialPairCount": 0
+        }
+      ]
+    }
+  ]
+}

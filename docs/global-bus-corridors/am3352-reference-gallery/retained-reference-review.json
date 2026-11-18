@@ -1,0 +1,194 @@
+{
+  "reviewedAt": "2026-11-18T18:22:37.407Z",
+  "reviewer": "/root/routing_code_map",
+  "scope": "Prior completed reference images; not fresh head outputs; no claim of exact current copper identity",
+  "originalSolverCommit": "ec82ec2442d6c03f680d3f9735b94877a3e83559",
+  "originalExportedAtUtc": "2026-10-26T22:53:20.919Z",
+  "originalManifestSha256": "ff0eab50763f3ca375d10fdba3883e0d1d67e5c1df61c104f68935bde2670df0",
+  "originalBenchmarkCurrentBytesSha256": "72c0bc637a7df043f071b0e5afb74c3b5fcdc39e701f42dedff97047bd5d1aa9",
+  "originalBenchmarkCanonicalPrettySha256": "becbb870b3d24c230a6f184decd14642fb6bff95370d6f3ae5d88f36754397d5",
+  "recordedSourceBenchmarkSha256": "becbb870b3d24c230a6f184decd14642fb6bff95370d6f3ae5d88f36754397d5",
+  "allImagesIndividuallyOpened": true,
+  "allRecordedSamplesSuccessful": true,
+  "snapshots": [
+    {
+      "sample": "control",
+      "pngFile": "control.png",
+      "pngSha256": "84119723ed67e6b86d7d4ff9a664390c60e6b89b0be330df7190e69bfa1e677d",
+      "matchesOriginalPngSha256": true,
+      "originalRecordedSuccess": true,
+      "inspectedThisPr": true,
+      "findings": [],
+      "visibleCarrierLayerCounts": {
+        "inner2": 16,
+        "inner1": 19,
+        "bottom": 12
+      },
+      "originalInputSha256": "b7a4e9d09a22fe0ed131a544548b14eef20fbf4e88b6dc6ffaa11ca44e6bfe59",
+      "originalSignalTracesSha256": "1c0d00e7b5e47963753a416e7f5ea886f5ce20b00b6a2bbba81f81d2826819a1",
+      "originalOutputSha256": "663b5b64e920280d71bcbb309eb6dd40beb6b868c84697d314eb0cc2981adddb"
+    },
+    {
+      "sample": "control-inner1",
+      "pngFile": "control-inner1.png",
+      "pngSha256": "0855e02154223ca89842560b0e83a563fb5a80f1433b684caac5c1f2424ee21a",
+      "matchesOriginalPngSha256": true,
+      "originalRecordedSuccess": true,
+      "inspectedThisPr": true,
+      "findings": [],
+      "visibleCarrierLayerCounts": {
+        "inner1": 47
+      },
+      "originalInputSha256": "14b5b318540ce7bac367cf22338abd7f9fffd2f7ce6c2a12f903116f50ca9bde",
+      "originalSignalTracesSha256": "1e6099caab3e98d2d88f2cc7f8350963a0e64a42f21297987e6f6f07e7d07859",
+      "originalOutputSha256": "cc7c5c6118b3d98ba8e78651be7bd3f027aba48e5ff4a02d3b6b8e65a478a5c5"
+    },
+    {
+      "sample": "right",
+      "pngFile": "right.png",
+      "pngSha256": "e17001f86570ea9a1c9a9eaf4d8c8ff85808c921295d4683d5adf4b4f745556e",
+      "matchesOriginalPngSha256": true,
+      "originalRecordedSuccess": true,
+      "inspectedThisPr": true,
+      "findings": [],
+      "visibleCarrierLayerCounts": {
+        "inner2": 18,
+        "inner1": 21,
+        "bottom": 8
+      },
+      "originalInputSha256": "78c22c8d818ee2c2abe2eec9c6b6e408161a9d0eaf09afbafc3242e71e8f5778",
+      "originalSignalTracesSha256": "e5425c2f8570920acf830f0f635f8d4d820e0c23e80d65e808bc47fd60381eb8",
+      "originalOutputSha256": "8089e52a66f8730846b41bd71e07006be7d4a80ecb3393ee70b8ee3b678794aa"
+    },
+    {
+      "sample": "left",
+      "pngFile": "left.png",
+      "pngSha256": "30d0475896ed3bc1bd2200daaf02ef7874234bf577f055bf555ce9b432b88534",
+      "matchesOriginalPngSha256": true,
+      "originalRecordedSuccess": true,
+      "inspectedThisPr": true,
+      "findings": [],
+      "visibleCarrierLayerCounts": {
+        "inner2": 20,
+        "inner1": 18,
+        "bottom": 9
+      },
+      "originalInputSha256": "6042ca0f0889a983a6ccf8f929a6a46b18cc57134e1b9f3b49c19063b936caa5",
+      "originalSignalTracesSha256": "a61029b9c1ff5c516446b9a7a730c749af0f918704946c00f31eb5fa25ba21cd",
+      "originalOutputSha256": "5b299912c4ad556d0f42f7f0e1fcf4ecce0fb0a73f789b8e57e68bce5b2c06c5"
+    },
+    {
+      "sample": "above",
+      "pngFile": "above.png",
+      "pngSha256": "a7c7ec5f94dae2e06d58f78aa273eae22f27364903f57b8d517e3e5ae131f936",
+      "matchesOriginalPngSha256": true,
+      "originalRecordedSuccess": true,
+      "inspectedThisPr": true,
+      "findings": [],
+      "visibleCarrierLayerCounts": {
+        "bottom": 14,
+        "inner2": 15,
+        "inner1": 18
+      },
+      "originalInputSha256": "20fc884f08accd368e4ce049ab3fc180a1926f425787a504dbc4040f651bfa69",
+      "originalSignalTracesSha256": "f5fd43a72b7893e6d1ac5894350c601eeff9daf4d5ea2d08cf3a8d99c43d0629",
+      "originalOutputSha256": "846ab14db468b50edcdcc25c1d213ea1b19e58943e5f1ac51b9394fa43660f75"
+    },
+    {
+      "sample": "inner-layers",
+      "pngFile": "inner-layers.png",
+      "pngSha256": "1fe5170ebe9fbce6296bd7d62275dfbed711eb1996e1415d28119f7ca0fac8d8",
+      "matchesOriginalPngSha256": true,
+      "originalRecordedSuccess": true,
+      "inspectedThisPr": true,
+      "findings": [],
+      "visibleCarrierLayerCounts": {
+        "inner2": 23,
+        "inner1": 24
+      },
+      "originalInputSha256": "1b91e6c5207e4b7e132aa5ac246e94777f926c7beab8675adf0356634b8280ad",
+      "originalSignalTracesSha256": "931b38dee54fae527df180c6f7c7b3ea394d67ce45605d62a57a447d0e9a0f43",
+      "originalOutputSha256": "dcfd95af9ad6d2ad9654026289de5652dbd9a8b3602e51610e73ea1e8d50274f"
+    },
+    {
+      "sample": "inner-layers-right",
+      "pngFile": "inner-layers-right.png",
+      "pngSha256": "a54d3d8324f19682aa6d76fcb541d533ab96b41672ad8285bb6b386d62b7e77a",
+      "matchesOriginalPngSha256": true,
+      "originalRecordedSuccess": true,
+      "inspectedThisPr": true,
+      "findings": [],
+      "visibleCarrierLayerCounts": {
+        "inner2": 25,
+        "inner1": 22
+      },
+      "originalInputSha256": "2eaf3dedcd84fbfed10262f4d4c99370a0ca00a7a060f87b7a1cdcba9de37a8e",
+      "originalSignalTracesSha256": "bbc1623e2fc5d79bff994cb78244c9b75c55251ce7fd77b275ff453a071fc466",
+      "originalOutputSha256": "5bec70e7fc19b916fa91f224c9591c3c6b023ba40f03f41aeaace226ce53bc8e"
+    },
+    {
+      "sample": "inner-layers-left",
+      "pngFile": "inner-layers-left.png",
+      "pngSha256": "f454ab612f0bf1acd3a4ccf0162c829d47a72bd3b085ad09002cc081e20c6d16",
+      "matchesOriginalPngSha256": true,
+      "originalRecordedSuccess": true,
+      "inspectedThisPr": true,
+      "findings": [],
+      "visibleCarrierLayerCounts": {
+        "inner1": 28,
+        "inner2": 19
+      },
+      "originalInputSha256": "1c3db8ee018bc90df7fbbb0c198c42efcc0ca948a6a213338650cf81a51f7ab2",
+      "originalSignalTracesSha256": "dc06384013b7b6903fc4f4e97631b0634d055a3085de86096a1253d2d237bf8b",
+      "originalOutputSha256": "50d05ff422461fa1b0d6f4ca67f721d3b4f413d70ca2a2db77be69abc3b8b605"
+    },
+    {
+      "sample": "inner-layers-above",
+      "pngFile": "inner-layers-above.png",
+      "pngSha256": "a87e85a1bce1dc68882f8288cb37af8cc6c4eabb4ce442e86373df4d073f96bf",
+      "matchesOriginalPngSha256": true,
+      "originalRecordedSuccess": true,
+      "inspectedThisPr": true,
+      "findings": [],
+      "visibleCarrierLayerCounts": {
+        "inner1": 21,
+        "inner2": 26
+      },
+      "originalInputSha256": "68a86ef74f8ec9628954e909464c009d98fb2c902a6376e20b3a32d4b5cff555",
+      "originalSignalTracesSha256": "17305339fb81d69c608077fff856f6049bac0282681a3d5745dd16714a0fecfd",
+      "originalOutputSha256": "bc2d2f665ebb7d1f49256a21867599e48beea4c51c3c738e4ccb83f813d7e3c0"
+    },
+    {
+      "sample": "inner-layers-complete-ca",
+      "pngFile": "inner-layers-complete-ca.png",
+      "pngSha256": "373ff4e32555f3494689c911622d2892d7b9211b8913f8ab06cc2bd40618efcf",
+      "matchesOriginalPngSha256": true,
+      "originalRecordedSuccess": true,
+      "inspectedThisPr": true,
+      "findings": [],
+      "visibleCarrierLayerCounts": {
+        "inner2": 28,
+        "inner1": 19
+      },
+      "originalInputSha256": "a6def279fa2d3356a66ee94b1760a76eebb6c6d8e605005ce5903bd2fbca8776",
+      "originalSignalTracesSha256": "6542e8f95db60fc3515b4bcfe641da766b90792db3375fceb54c4a510d5aea44",
+      "originalOutputSha256": "153bc1cfe28eeea8596e586fea2ef61d59dad7273ea5a0c0442410201bf4ef27"
+    },
+    {
+      "sample": "outer-layers",
+      "pngFile": "outer-layers.png",
+      "pngSha256": "a7e2b148e4ccef6d7bb254df1121265189979d7b840c0c39af92ce5aed12e855",
+      "matchesOriginalPngSha256": true,
+      "originalRecordedSuccess": true,
+      "inspectedThisPr": true,
+      "findings": [],
+      "visibleCarrierLayerCounts": {
+        "bottom": 39,
+        "top": 8
+      },
+      "originalInputSha256": "de3fd915f3c7d8c9bf4fd3c9b197596ba5e08c1be328f9c5223d7ab78736588f",
+      "originalSignalTracesSha256": "2b59d2a0b652bd6d572f04f18c31e3fde498f67707f981be32703370be10964f",
+      "originalOutputSha256": "24ce481727a20ba7f497efe5355628d8468c1df610466333e36a4ba6ff84b48f"
+    }
+  ]
+}

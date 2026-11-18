@@ -1,0 +1,1834 @@
+{
+  "headBusSourceCommit": "190325da97253ad7951f9dfd3b0046b4afcb5395",
+  "headDistributionSha256": "940e910143a475e280ed3cdc7a0bb262daf98c0fdb075d82b95cbfb2b496f2f8",
+  "mainSourceCommit": "202b034659fb96bad44d11b8190f4044b675116f",
+  "mainDistributionSha256": "fa6390c904b678f7dc197d0d3d671a28e273554369f8475457ea86374c5dad8c",
+  "baselinePath": "/workspace/ddr-results/core-main",
+  "headPath": "/workspace/ddr-results/core-head-native-inner",
+  "recordedAtUtc": "2026-11-18T20:02:22.617800+00:00",
+  "metadataEqual": {
+    "coreCommit": true,
+    "benchmarkRevision": true,
+    "assessmentRevision": true,
+    "fixtureHashes": true,
+    "bunVersion": true,
+    "platform": true,
+    "cpu": true,
+    "dependencies": true,
+    "timeoutSeconds": true,
+    "geometryOnly": true
+  },
+  "summary": {
+    "mainCases": 10,
+    "headCases": 10,
+    "mainPassed": 2,
+    "headPassed": 3,
+    "mainConnected": 270,
+    "headConnected": 304,
+    "requestedNets": 606,
+    "mainPhysicalFindings": 0,
+    "headPhysicalFindings": 0,
+    "mainGeometryErrors": 0,
+    "headGeometryErrors": 0,
+    "partialDeclines": [],
+    "baselinePassBoardsPreserved": true,
+    "mainNativeConnectivityFindings": 814,
+    "headNativeConnectivityFindings": 744
+  },
+  "cases": [
+    {
+      "circuit": "h3",
+      "main": {
+        "status": "failed",
+        "connected": 16,
+        "requested": 53,
+        "wallSeconds": 45.459341459,
+        "peakRssMb": 1226.234375,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "findings": {
+          "missing_traces": 0,
+          "disconnected_ports": 76,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "wireLengthMm": 293.805218966818,
+        "phases": [
+          {
+            "phase": "byte0",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 0.8406181880000003
+          },
+          {
+            "phase": "byte1",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 29.533132074
+          },
+          {
+            "phase": "remaining",
+            "status": "failed",
+            "connections": 37,
+            "durationSeconds": 9.226169525999998
+          }
+        ],
+        "nativeFindingCountIncludingConnectivity": 76,
+        "nativeConnectivityFindingCount": 76
+      },
+      "head": {
+        "status": "failed",
+        "connected": 16,
+        "requested": 53,
+        "wallSeconds": 69.757491083,
+        "peakRssMb": 1283.46484375,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "findings": {
+          "missing_traces": 0,
+          "disconnected_ports": 76,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "wireLengthMm": 293.805218966818,
+        "phases": [
+          {
+            "phase": "byte0",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 0.9469702629999992
+          },
+          {
+            "phase": "byte1",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 34.941875049
+          },
+          {
+            "phase": "remaining",
+            "status": "failed",
+            "connections": 37,
+            "durationSeconds": 24.744044893999998
+          }
+        ],
+        "nativeFindingCountIncludingConnectivity": 76,
+        "nativeConnectivityFindingCount": 76
+      },
+      "connectedDelta": 0,
+      "completedByteGeometryComparison": [
+        {
+          "circuit": "h3",
+          "phase": "byte0",
+          "mainStartPath": "/workspace/ddr-results/core-main/h3/phase-1-start.srj.json",
+          "mainEndPath": "/workspace/ddr-results/core-main/h3/phase-1-end.srj.json",
+          "headStartPath": "/workspace/ddr-results/core-head-native-inner/h3/phase-1-start.srj.json",
+          "headEndPath": "/workspace/ddr-results/core-head-native-inner/h3/phase-1-end.srj.json",
+          "allRawFilesPresent": true,
+          "startSrjEqual": true,
+          "endSrjEqual": true,
+          "requestedRouteArraysEqual": true,
+          "mainStartSha256": "369d2050bf26ea9aa98a9b8dd4c7fb0df26d3dc85b1324a1f6c0af2a23b4bab7",
+          "mainEndSha256": "3528b58d5124a3b19db221bab260003f738b00857071fc5cf5d22c0f89f052ec",
+          "headStartSha256": "369d2050bf26ea9aa98a9b8dd4c7fb0df26d3dc85b1324a1f6c0af2a23b4bab7",
+          "headEndSha256": "3528b58d5124a3b19db221bab260003f738b00857071fc5cf5d22c0f89f052ec",
+          "mainRequestCount": 8,
+          "headRequestCount": 8,
+          "mainFixedTraceCount": 0,
+          "headFixedTraceCount": 0
+        },
+        {
+          "circuit": "h3",
+          "phase": "byte1",
+          "mainStartPath": "/workspace/ddr-results/core-main/h3/phase-2-start.srj.json",
+          "mainEndPath": "/workspace/ddr-results/core-main/h3/phase-2-end.srj.json",
+          "headStartPath": "/workspace/ddr-results/core-head-native-inner/h3/phase-2-start.srj.json",
+          "headEndPath": "/workspace/ddr-results/core-head-native-inner/h3/phase-2-end.srj.json",
+          "allRawFilesPresent": true,
+          "startSrjEqual": true,
+          "endSrjEqual": true,
+          "requestedRouteArraysEqual": true,
+          "mainStartSha256": "cef23b04d95522fbf93f2d5037a0857ecbf379de54dcc25fda5c8db4799e070e",
+          "mainEndSha256": "ec82ba96744d440b1c4af08ba19cdbfc958d0225e71ce7d82ef056a7d68fe470",
+          "headStartSha256": "cef23b04d95522fbf93f2d5037a0857ecbf379de54dcc25fda5c8db4799e070e",
+          "headEndSha256": "ec82ba96744d440b1c4af08ba19cdbfc958d0225e71ce7d82ef056a7d68fe470",
+          "mainRequestCount": 8,
+          "headRequestCount": 8,
+          "mainFixedTraceCount": 8,
+          "headFixedTraceCount": 8
+        }
+      ]
+    },
+    {
+      "circuit": "a64",
+      "main": {
+        "status": "timeout",
+        "connected": 32,
+        "requested": 75,
+        "wallSeconds": 120.10174970000001,
+        "peakRssMb": 1070.2109375,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "findings": {
+          "missing_traces": 0,
+          "disconnected_ports": 120,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "wireLengthMm": 474.9539463538961,
+        "phases": [
+          {
+            "phase": "byte0",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 0.8771158610000003
+          },
+          {
+            "phase": "byte1",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 1.0343628989999998
+          },
+          {
+            "phase": "byte2",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 93.55784939600001
+          },
+          {
+            "phase": "byte3",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 9.248959856999994
+          },
+          {
+            "phase": "remaining",
+            "status": "running",
+            "connections": 43,
+            "durationSeconds": null
+          }
+        ],
+        "nativeFindingCountIncludingConnectivity": 120,
+        "nativeConnectivityFindingCount": 120
+      },
+      "head": {
+        "status": "timeout",
+        "connected": 32,
+        "requested": 75,
+        "wallSeconds": 120.159938136,
+        "peakRssMb": 2951.01953125,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "findings": {
+          "missing_traces": 0,
+          "disconnected_ports": 120,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "wireLengthMm": 474.9539463538961,
+        "phases": [
+          {
+            "phase": "byte0",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 1.0615736099999995
+          },
+          {
+            "phase": "byte1",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 1.2683290019999995
+          },
+          {
+            "phase": "byte2",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 11.237599911000004
+          },
+          {
+            "phase": "byte3",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 8.63482471
+          },
+          {
+            "phase": "remaining",
+            "status": "running",
+            "connections": 43,
+            "durationSeconds": null
+          }
+        ],
+        "nativeFindingCountIncludingConnectivity": 120,
+        "nativeConnectivityFindingCount": 120
+      },
+      "connectedDelta": 0,
+      "completedByteGeometryComparison": [
+        {
+          "circuit": "a64",
+          "phase": "byte0",
+          "mainStartPath": "/workspace/ddr-results/core-main/a64/phase-1-start.srj.json",
+          "mainEndPath": "/workspace/ddr-results/core-main/a64/phase-1-end.srj.json",
+          "headStartPath": "/workspace/ddr-results/core-head-native-inner/a64/phase-1-start.srj.json",
+          "headEndPath": "/workspace/ddr-results/core-head-native-inner/a64/phase-1-end.srj.json",
+          "allRawFilesPresent": true,
+          "startSrjEqual": true,
+          "endSrjEqual": true,
+          "requestedRouteArraysEqual": true,
+          "mainStartSha256": "81a5ecd1e6a20f7e4e4906d81210219455cf57166ec255df396e7795bbb4bb61",
+          "mainEndSha256": "8755e976399c2c7a90118e8f6bd1a05baf60161fd129ece7df68d76de45ad8b2",
+          "headStartSha256": "81a5ecd1e6a20f7e4e4906d81210219455cf57166ec255df396e7795bbb4bb61",
+          "headEndSha256": "8755e976399c2c7a90118e8f6bd1a05baf60161fd129ece7df68d76de45ad8b2",
+          "mainRequestCount": 8,
+          "headRequestCount": 8,
+          "mainFixedTraceCount": 0,
+          "headFixedTraceCount": 0
+        },
+        {
+          "circuit": "a64",
+          "phase": "byte1",
+          "mainStartPath": "/workspace/ddr-results/core-main/a64/phase-2-start.srj.json",
+          "mainEndPath": "/workspace/ddr-results/core-main/a64/phase-2-end.srj.json",
+          "headStartPath": "/workspace/ddr-results/core-head-native-inner/a64/phase-2-start.srj.json",
+          "headEndPath": "/workspace/ddr-results/core-head-native-inner/a64/phase-2-end.srj.json",
+          "allRawFilesPresent": true,
+          "startSrjEqual": true,
+          "endSrjEqual": true,
+          "requestedRouteArraysEqual": true,
+          "mainStartSha256": "fe0181f5558506e8296cbf55fbf8a9ce8e5a532e4345dc70c67b9f7897ec0a36",
+          "mainEndSha256": "7d76fe44a3ed9054276948ea49eba5bf2f91981c19b82b6ae80cbf275153f907",
+          "headStartSha256": "fe0181f5558506e8296cbf55fbf8a9ce8e5a532e4345dc70c67b9f7897ec0a36",
+          "headEndSha256": "7d76fe44a3ed9054276948ea49eba5bf2f91981c19b82b6ae80cbf275153f907",
+          "mainRequestCount": 8,
+          "headRequestCount": 8,
+          "mainFixedTraceCount": 8,
+          "headFixedTraceCount": 8
+        },
+        {
+          "circuit": "a64",
+          "phase": "byte2",
+          "mainStartPath": "/workspace/ddr-results/core-main/a64/phase-3-start.srj.json",
+          "mainEndPath": "/workspace/ddr-results/core-main/a64/phase-3-end.srj.json",
+          "headStartPath": "/workspace/ddr-results/core-head-native-inner/a64/phase-3-start.srj.json",
+          "headEndPath": "/workspace/ddr-results/core-head-native-inner/a64/phase-3-end.srj.json",
+          "allRawFilesPresent": true,
+          "startSrjEqual": true,
+          "endSrjEqual": true,
+          "requestedRouteArraysEqual": true,
+          "mainStartSha256": "3839e7492986ba5a6b5f6051446a0094b29d5dea2eadda18cd718a38a27f2938",
+          "mainEndSha256": "58b4af520e8c32a205296ca5181db02f3f27934dd8317b8a1bd5301137ed47a7",
+          "headStartSha256": "3839e7492986ba5a6b5f6051446a0094b29d5dea2eadda18cd718a38a27f2938",
+          "headEndSha256": "58b4af520e8c32a205296ca5181db02f3f27934dd8317b8a1bd5301137ed47a7",
+          "mainRequestCount": 8,
+          "headRequestCount": 8,
+          "mainFixedTraceCount": 16,
+          "headFixedTraceCount": 16
+        },
+        {
+          "circuit": "a64",
+          "phase": "byte3",
+          "mainStartPath": "/workspace/ddr-results/core-main/a64/phase-4-start.srj.json",
+          "mainEndPath": "/workspace/ddr-results/core-main/a64/phase-4-end.srj.json",
+          "headStartPath": "/workspace/ddr-results/core-head-native-inner/a64/phase-4-start.srj.json",
+          "headEndPath": "/workspace/ddr-results/core-head-native-inner/a64/phase-4-end.srj.json",
+          "allRawFilesPresent": true,
+          "startSrjEqual": true,
+          "endSrjEqual": true,
+          "requestedRouteArraysEqual": true,
+          "mainStartSha256": "ffe7d0461d2f1a803a1cd4c1c1e77452ecfbcde2e84b8c311d8220c367e586ad",
+          "mainEndSha256": "72bfa515837227deeff89bc9f070b111f8ee83859c2748ff9d055a1bce11449b",
+          "headStartSha256": "ffe7d0461d2f1a803a1cd4c1c1e77452ecfbcde2e84b8c311d8220c367e586ad",
+          "headEndSha256": "72bfa515837227deeff89bc9f070b111f8ee83859c2748ff9d055a1bce11449b",
+          "mainRequestCount": 8,
+          "headRequestCount": 8,
+          "mainFixedTraceCount": 24,
+          "headFixedTraceCount": 24
+        }
+      ]
+    },
+    {
+      "circuit": "stmp157",
+      "main": {
+        "status": "timeout",
+        "connected": 32,
+        "requested": 72,
+        "wallSeconds": 120.19542162099998,
+        "peakRssMb": 2348.28515625,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "findings": {
+          "missing_traces": 0,
+          "disconnected_ports": 137,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "wireLengthMm": 475.5950615938858,
+        "phases": [
+          {
+            "phase": "byte0",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 0.9081336929999998
+          },
+          {
+            "phase": "byte1",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 0.9713728540000002
+          },
+          {
+            "phase": "byte2",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 1.630173973
+          },
+          {
+            "phase": "byte3",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 1.2352970220000006
+          },
+          {
+            "phase": "remaining",
+            "status": "running",
+            "connections": 40,
+            "durationSeconds": null
+          }
+        ],
+        "nativeFindingCountIncludingConnectivity": 137,
+        "nativeConnectivityFindingCount": 137
+      },
+      "head": {
+        "status": "timeout",
+        "connected": 32,
+        "requested": 72,
+        "wallSeconds": 120.14086611600001,
+        "peakRssMb": 2331.7890625,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "findings": {
+          "missing_traces": 0,
+          "disconnected_ports": 137,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "wireLengthMm": 475.5950615938858,
+        "phases": [
+          {
+            "phase": "byte0",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 0.9683420939999996
+          },
+          {
+            "phase": "byte1",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 0.7984909600000001
+          },
+          {
+            "phase": "byte2",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 1.3848192490000002
+          },
+          {
+            "phase": "byte3",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 1.0599057759999997
+          },
+          {
+            "phase": "remaining",
+            "status": "running",
+            "connections": 40,
+            "durationSeconds": null
+          }
+        ],
+        "nativeFindingCountIncludingConnectivity": 137,
+        "nativeConnectivityFindingCount": 137
+      },
+      "connectedDelta": 0,
+      "completedByteGeometryComparison": [
+        {
+          "circuit": "stmp157",
+          "phase": "byte0",
+          "mainStartPath": "/workspace/ddr-results/core-main/stmp157/phase-1-start.srj.json",
+          "mainEndPath": "/workspace/ddr-results/core-main/stmp157/phase-1-end.srj.json",
+          "headStartPath": "/workspace/ddr-results/core-head-native-inner/stmp157/phase-1-start.srj.json",
+          "headEndPath": "/workspace/ddr-results/core-head-native-inner/stmp157/phase-1-end.srj.json",
+          "allRawFilesPresent": true,
+          "startSrjEqual": true,
+          "endSrjEqual": true,
+          "requestedRouteArraysEqual": true,
+          "mainStartSha256": "9f875de4eac1445fbb83036631d4e24458739b259c1a61dcd1fbc1ef12958da5",
+          "mainEndSha256": "f40beb8a1bc7f36711c5c2706403a82e7fb004cdf54e0936ee49b0555d2deb71",
+          "headStartSha256": "9f875de4eac1445fbb83036631d4e24458739b259c1a61dcd1fbc1ef12958da5",
+          "headEndSha256": "f40beb8a1bc7f36711c5c2706403a82e7fb004cdf54e0936ee49b0555d2deb71",
+          "mainRequestCount": 8,
+          "headRequestCount": 8,
+          "mainFixedTraceCount": 0,
+          "headFixedTraceCount": 0
+        },
+        {
+          "circuit": "stmp157",
+          "phase": "byte1",
+          "mainStartPath": "/workspace/ddr-results/core-main/stmp157/phase-2-start.srj.json",
+          "mainEndPath": "/workspace/ddr-results/core-main/stmp157/phase-2-end.srj.json",
+          "headStartPath": "/workspace/ddr-results/core-head-native-inner/stmp157/phase-2-start.srj.json",
+          "headEndPath": "/workspace/ddr-results/core-head-native-inner/stmp157/phase-2-end.srj.json",
+          "allRawFilesPresent": true,
+          "startSrjEqual": true,
+          "endSrjEqual": true,
+          "requestedRouteArraysEqual": true,
+          "mainStartSha256": "6d84a230f0c6374b55c4f8e1039104e65fa2bbbad12d3774958d46b226cf51ff",
+          "mainEndSha256": "58cb6252a71376eaf0a4dbebdb0ca057d18af3aa1b9ab54154a116d97b9b1c2c",
+          "headStartSha256": "6d84a230f0c6374b55c4f8e1039104e65fa2bbbad12d3774958d46b226cf51ff",
+          "headEndSha256": "58cb6252a71376eaf0a4dbebdb0ca057d18af3aa1b9ab54154a116d97b9b1c2c",
+          "mainRequestCount": 8,
+          "headRequestCount": 8,
+          "mainFixedTraceCount": 8,
+          "headFixedTraceCount": 8
+        },
+        {
+          "circuit": "stmp157",
+          "phase": "byte2",
+          "mainStartPath": "/workspace/ddr-results/core-main/stmp157/phase-3-start.srj.json",
+          "mainEndPath": "/workspace/ddr-results/core-main/stmp157/phase-3-end.srj.json",
+          "headStartPath": "/workspace/ddr-results/core-head-native-inner/stmp157/phase-3-start.srj.json",
+          "headEndPath": "/workspace/ddr-results/core-head-native-inner/stmp157/phase-3-end.srj.json",
+          "allRawFilesPresent": true,
+          "startSrjEqual": true,
+          "endSrjEqual": true,
+          "requestedRouteArraysEqual": true,
+          "mainStartSha256": "b26182c0fc7131cbf7122faf244ba608cf425a3e31ea6ee9b9881855660e5a37",
+          "mainEndSha256": "bdabdba46719d14f62e8365c12a12bac74d5a3e98be9bde26e6c5eb15c539ee8",
+          "headStartSha256": "b26182c0fc7131cbf7122faf244ba608cf425a3e31ea6ee9b9881855660e5a37",
+          "headEndSha256": "bdabdba46719d14f62e8365c12a12bac74d5a3e98be9bde26e6c5eb15c539ee8",
+          "mainRequestCount": 8,
+          "headRequestCount": 8,
+          "mainFixedTraceCount": 16,
+          "headFixedTraceCount": 16
+        },
+        {
+          "circuit": "stmp157",
+          "phase": "byte3",
+          "mainStartPath": "/workspace/ddr-results/core-main/stmp157/phase-4-start.srj.json",
+          "mainEndPath": "/workspace/ddr-results/core-main/stmp157/phase-4-end.srj.json",
+          "headStartPath": "/workspace/ddr-results/core-head-native-inner/stmp157/phase-4-start.srj.json",
+          "headEndPath": "/workspace/ddr-results/core-head-native-inner/stmp157/phase-4-end.srj.json",
+          "allRawFilesPresent": true,
+          "startSrjEqual": true,
+          "endSrjEqual": true,
+          "requestedRouteArraysEqual": true,
+          "mainStartSha256": "7efef5e35e7bdf48369347286c9f7d95b0d7ea8c71c13fa2b719544a1587acb8",
+          "mainEndSha256": "9eda614c3154260e16821c22b639120cf28d03dc6fdb389e06fc5a6266af7766",
+          "headStartSha256": "7efef5e35e7bdf48369347286c9f7d95b0d7ea8c71c13fa2b719544a1587acb8",
+          "headEndSha256": "9eda614c3154260e16821c22b639120cf28d03dc6fdb389e06fc5a6266af7766",
+          "mainRequestCount": 8,
+          "headRequestCount": 8,
+          "mainFixedTraceCount": 24,
+          "headFixedTraceCount": 24
+        }
+      ]
+    },
+    {
+      "circuit": "orangecrab",
+      "main": {
+        "status": "timeout",
+        "connected": 16,
+        "requested": 50,
+        "wallSeconds": 120.10449838299996,
+        "peakRssMb": 1844.98828125,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "findings": {
+          "missing_traces": 0,
+          "disconnected_ports": 70,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "wireLengthMm": 204.40333575347836,
+        "phases": [
+          {
+            "phase": "byte0",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 1.134172767
+          },
+          {
+            "phase": "byte1",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 0.8533549060000005
+          },
+          {
+            "phase": "remaining",
+            "status": "running",
+            "connections": 34,
+            "durationSeconds": null
+          }
+        ],
+        "nativeFindingCountIncludingConnectivity": 70,
+        "nativeConnectivityFindingCount": 70
+      },
+      "head": {
+        "status": "passed",
+        "connected": 50,
+        "requested": 50,
+        "wallSeconds": 105.67830550800002,
+        "peakRssMb": 2013.21484375,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "findings": {
+          "missing_traces": 0,
+          "disconnected_ports": 0,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "wireLengthMm": 875.7707143638078,
+        "phases": [
+          {
+            "phase": "byte0",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 0.9133303519999999
+          },
+          {
+            "phase": "byte1",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 1.600096363999999
+          },
+          {
+            "phase": "remaining",
+            "status": "completed",
+            "connections": 34,
+            "durationSeconds": 94.86321437800001
+          }
+        ],
+        "nativeFindingCountIncludingConnectivity": 0,
+        "nativeConnectivityFindingCount": 0
+      },
+      "connectedDelta": 34,
+      "completedByteGeometryComparison": [
+        {
+          "circuit": "orangecrab",
+          "phase": "byte0",
+          "mainStartPath": "/workspace/ddr-results/core-main/orangecrab/phase-1-start.srj.json",
+          "mainEndPath": "/workspace/ddr-results/core-main/orangecrab/phase-1-end.srj.json",
+          "headStartPath": "/workspace/ddr-results/core-head-native-inner/orangecrab/phase-1-start.srj.json",
+          "headEndPath": "/workspace/ddr-results/core-head-native-inner/orangecrab/phase-1-end.srj.json",
+          "allRawFilesPresent": true,
+          "startSrjEqual": true,
+          "endSrjEqual": true,
+          "requestedRouteArraysEqual": true,
+          "mainStartSha256": "057052f56372248e2e32d055e85ce9c3c1ccaf306ebadbf8f0022175975b9238",
+          "mainEndSha256": "05f11abf35d2c57e0229140c123ecfceee7ad5cfa9b8c38fc161f8f3f5af6c46",
+          "headStartSha256": "057052f56372248e2e32d055e85ce9c3c1ccaf306ebadbf8f0022175975b9238",
+          "headEndSha256": "05f11abf35d2c57e0229140c123ecfceee7ad5cfa9b8c38fc161f8f3f5af6c46",
+          "mainRequestCount": 8,
+          "headRequestCount": 8,
+          "mainFixedTraceCount": 0,
+          "headFixedTraceCount": 0
+        },
+        {
+          "circuit": "orangecrab",
+          "phase": "byte1",
+          "mainStartPath": "/workspace/ddr-results/core-main/orangecrab/phase-2-start.srj.json",
+          "mainEndPath": "/workspace/ddr-results/core-main/orangecrab/phase-2-end.srj.json",
+          "headStartPath": "/workspace/ddr-results/core-head-native-inner/orangecrab/phase-2-start.srj.json",
+          "headEndPath": "/workspace/ddr-results/core-head-native-inner/orangecrab/phase-2-end.srj.json",
+          "allRawFilesPresent": true,
+          "startSrjEqual": true,
+          "endSrjEqual": true,
+          "requestedRouteArraysEqual": true,
+          "mainStartSha256": "10820b36c084cc3340fbc621ea718f22a85672ea8e92e6153fc6fe73e202884f",
+          "mainEndSha256": "eb3f33b3ede54b1cffcee7b75541fd3017c0f0031bb6182dbc4838649c644425",
+          "headStartSha256": "10820b36c084cc3340fbc621ea718f22a85672ea8e92e6153fc6fe73e202884f",
+          "headEndSha256": "eb3f33b3ede54b1cffcee7b75541fd3017c0f0031bb6182dbc4838649c644425",
+          "mainRequestCount": 8,
+          "headRequestCount": 8,
+          "mainFixedTraceCount": 8,
+          "headFixedTraceCount": 8
+        }
+      ]
+    },
+    {
+      "circuit": "a13",
+      "main": {
+        "status": "timeout",
+        "connected": 24,
+        "requested": 96,
+        "wallSeconds": 120.10868766999995,
+        "peakRssMb": 1144.1015625,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "findings": {
+          "missing_traces": 0,
+          "disconnected_ports": 144,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "wireLengthMm": 219.5982655623169,
+        "phases": [
+          {
+            "phase": "byte0",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 20.09155157
+          },
+          {
+            "phase": "byte1",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 18.274921408999997
+          },
+          {
+            "phase": "ram_byte0",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 50.292486522000004
+          },
+          {
+            "phase": "ram_byte1",
+            "status": "running",
+            "connections": 8,
+            "durationSeconds": null
+          }
+        ],
+        "nativeFindingCountIncludingConnectivity": 144,
+        "nativeConnectivityFindingCount": 144
+      },
+      "head": {
+        "status": "timeout",
+        "connected": 24,
+        "requested": 96,
+        "wallSeconds": 120.06405501500005,
+        "peakRssMb": 1151.17578125,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "findings": {
+          "missing_traces": 0,
+          "disconnected_ports": 144,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "wireLengthMm": 219.5982655623169,
+        "phases": [
+          {
+            "phase": "byte0",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 15.267593195999998
+          },
+          {
+            "phase": "byte1",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 16.024467088000005
+          },
+          {
+            "phase": "ram_byte0",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 41.232303899
+          },
+          {
+            "phase": "ram_byte1",
+            "status": "running",
+            "connections": 8,
+            "durationSeconds": null
+          }
+        ],
+        "nativeFindingCountIncludingConnectivity": 144,
+        "nativeConnectivityFindingCount": 144
+      },
+      "connectedDelta": 0,
+      "completedByteGeometryComparison": [
+        {
+          "circuit": "a13",
+          "phase": "byte0",
+          "mainStartPath": "/workspace/ddr-results/core-main/a13/phase-1-start.srj.json",
+          "mainEndPath": "/workspace/ddr-results/core-main/a13/phase-1-end.srj.json",
+          "headStartPath": "/workspace/ddr-results/core-head-native-inner/a13/phase-1-start.srj.json",
+          "headEndPath": "/workspace/ddr-results/core-head-native-inner/a13/phase-1-end.srj.json",
+          "allRawFilesPresent": true,
+          "startSrjEqual": true,
+          "endSrjEqual": true,
+          "requestedRouteArraysEqual": true,
+          "mainStartSha256": "4b11f950a5bd421ca025bd5b98a61a9a36e44c7a0cc672250ea5f49e6f1efb04",
+          "mainEndSha256": "7d32ae3a279460c2e779aa9ef1fc71bd9a799ed19f35d7c8bab8d18f9e64ddc7",
+          "headStartSha256": "4b11f950a5bd421ca025bd5b98a61a9a36e44c7a0cc672250ea5f49e6f1efb04",
+          "headEndSha256": "7d32ae3a279460c2e779aa9ef1fc71bd9a799ed19f35d7c8bab8d18f9e64ddc7",
+          "mainRequestCount": 8,
+          "headRequestCount": 8,
+          "mainFixedTraceCount": 0,
+          "headFixedTraceCount": 0
+        },
+        {
+          "circuit": "a13",
+          "phase": "byte1",
+          "mainStartPath": "/workspace/ddr-results/core-main/a13/phase-2-start.srj.json",
+          "mainEndPath": "/workspace/ddr-results/core-main/a13/phase-2-end.srj.json",
+          "headStartPath": "/workspace/ddr-results/core-head-native-inner/a13/phase-2-start.srj.json",
+          "headEndPath": "/workspace/ddr-results/core-head-native-inner/a13/phase-2-end.srj.json",
+          "allRawFilesPresent": true,
+          "startSrjEqual": true,
+          "endSrjEqual": true,
+          "requestedRouteArraysEqual": true,
+          "mainStartSha256": "4c2e96c4059e5ff9d1c25bff58ab4584006009ba26ed9a70ee936360d3537f5f",
+          "mainEndSha256": "cfb5947b4c7b991e687c8c2966768baa2f7449573884a5311c0594cea1993ec8",
+          "headStartSha256": "4c2e96c4059e5ff9d1c25bff58ab4584006009ba26ed9a70ee936360d3537f5f",
+          "headEndSha256": "cfb5947b4c7b991e687c8c2966768baa2f7449573884a5311c0594cea1993ec8",
+          "mainRequestCount": 8,
+          "headRequestCount": 8,
+          "mainFixedTraceCount": 8,
+          "headFixedTraceCount": 8
+        },
+        {
+          "circuit": "a13",
+          "phase": "ram_byte0",
+          "mainStartPath": "/workspace/ddr-results/core-main/a13/phase-3-start.srj.json",
+          "mainEndPath": "/workspace/ddr-results/core-main/a13/phase-3-end.srj.json",
+          "headStartPath": "/workspace/ddr-results/core-head-native-inner/a13/phase-3-start.srj.json",
+          "headEndPath": "/workspace/ddr-results/core-head-native-inner/a13/phase-3-end.srj.json",
+          "allRawFilesPresent": true,
+          "startSrjEqual": true,
+          "endSrjEqual": true,
+          "requestedRouteArraysEqual": true,
+          "mainStartSha256": "ab787a0f7a3adcbe37d9beb48de37e89ce23a88c914a9d3072bb8541d0839a11",
+          "mainEndSha256": "a1033201a426baa2d0031fabf8a4b8a757c2ef2bc4f3f134b2b28f3a7e64c87a",
+          "headStartSha256": "ab787a0f7a3adcbe37d9beb48de37e89ce23a88c914a9d3072bb8541d0839a11",
+          "headEndSha256": "a1033201a426baa2d0031fabf8a4b8a757c2ef2bc4f3f134b2b28f3a7e64c87a",
+          "mainRequestCount": 8,
+          "headRequestCount": 8,
+          "mainFixedTraceCount": 16,
+          "headFixedTraceCount": 16
+        }
+      ]
+    },
+    {
+      "circuit": "h616",
+      "main": {
+        "status": "passed",
+        "connected": 53,
+        "requested": 53,
+        "wallSeconds": 83.62359911000007,
+        "peakRssMb": 1756.44140625,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "findings": {
+          "missing_traces": 0,
+          "disconnected_ports": 0,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "wireLengthMm": 659.4498247036598,
+        "phases": [
+          {
+            "phase": "byte0",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 1.131953896
+          },
+          {
+            "phase": "byte1",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 7.7345163249999995
+          },
+          {
+            "phase": "remaining",
+            "status": "completed",
+            "connections": 37,
+            "durationSeconds": 66.02856858599998
+          }
+        ],
+        "nativeFindingCountIncludingConnectivity": 0,
+        "nativeConnectivityFindingCount": 0
+      },
+      "head": {
+        "status": "passed",
+        "connected": 53,
+        "requested": 53,
+        "wallSeconds": 76.63428679000005,
+        "peakRssMb": 1774.35546875,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "findings": {
+          "missing_traces": 0,
+          "disconnected_ports": 0,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "wireLengthMm": 659.4498247036598,
+        "phases": [
+          {
+            "phase": "byte0",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 0.6561660639999991
+          },
+          {
+            "phase": "byte1",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 5.605389761
+          },
+          {
+            "phase": "remaining",
+            "status": "completed",
+            "connections": 37,
+            "durationSeconds": 64.167456238
+          }
+        ],
+        "nativeFindingCountIncludingConnectivity": 0,
+        "nativeConnectivityFindingCount": 0
+      },
+      "connectedDelta": 0,
+      "completedByteGeometryComparison": [
+        {
+          "circuit": "h616",
+          "phase": "byte0",
+          "mainStartPath": "/workspace/ddr-results/core-main/h616/phase-1-start.srj.json",
+          "mainEndPath": "/workspace/ddr-results/core-main/h616/phase-1-end.srj.json",
+          "headStartPath": "/workspace/ddr-results/core-head-native-inner/h616/phase-1-start.srj.json",
+          "headEndPath": "/workspace/ddr-results/core-head-native-inner/h616/phase-1-end.srj.json",
+          "allRawFilesPresent": true,
+          "startSrjEqual": true,
+          "endSrjEqual": true,
+          "requestedRouteArraysEqual": true,
+          "mainStartSha256": "db8e42f76e1b20b51df68f3fc45173734a7087d20cf6ab735bdaf2e6db6b5bc5",
+          "mainEndSha256": "6165cf07ac35c572245dbd9cd2601ef1a1336f8ef26f33e2b74e22c503d82e83",
+          "headStartSha256": "db8e42f76e1b20b51df68f3fc45173734a7087d20cf6ab735bdaf2e6db6b5bc5",
+          "headEndSha256": "6165cf07ac35c572245dbd9cd2601ef1a1336f8ef26f33e2b74e22c503d82e83",
+          "mainRequestCount": 8,
+          "headRequestCount": 8,
+          "mainFixedTraceCount": 0,
+          "headFixedTraceCount": 0
+        },
+        {
+          "circuit": "h616",
+          "phase": "byte1",
+          "mainStartPath": "/workspace/ddr-results/core-main/h616/phase-2-start.srj.json",
+          "mainEndPath": "/workspace/ddr-results/core-main/h616/phase-2-end.srj.json",
+          "headStartPath": "/workspace/ddr-results/core-head-native-inner/h616/phase-2-start.srj.json",
+          "headEndPath": "/workspace/ddr-results/core-head-native-inner/h616/phase-2-end.srj.json",
+          "allRawFilesPresent": true,
+          "startSrjEqual": true,
+          "endSrjEqual": true,
+          "requestedRouteArraysEqual": true,
+          "mainStartSha256": "b84ca4229ab00d42de34546e7b0d1012a5ff6054d3a9544b0a78739e6ab1cc86",
+          "mainEndSha256": "cf1a2d0257e8980225b4b902796b27c4e9cb2d7a8409561870fe1e34bd82b885",
+          "headStartSha256": "b84ca4229ab00d42de34546e7b0d1012a5ff6054d3a9544b0a78739e6ab1cc86",
+          "headEndSha256": "cf1a2d0257e8980225b4b902796b27c4e9cb2d7a8409561870fe1e34bd82b885",
+          "mainRequestCount": 8,
+          "headRequestCount": 8,
+          "mainFixedTraceCount": 8,
+          "headFixedTraceCount": 8
+        }
+      ]
+    },
+    {
+      "circuit": "butterstick",
+      "main": {
+        "status": "timeout",
+        "connected": 16,
+        "requested": 55,
+        "wallSeconds": 120.15019462700002,
+        "peakRssMb": 2088.1796875,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "findings": {
+          "missing_traces": 0,
+          "disconnected_ports": 111,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "wireLengthMm": 446.2570808008426,
+        "phases": [
+          {
+            "phase": "byte0",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 4.110988676
+          },
+          {
+            "phase": "byte1",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 21.718041644000003
+          },
+          {
+            "phase": "remaining",
+            "status": "running",
+            "connections": 39,
+            "durationSeconds": null
+          }
+        ],
+        "nativeFindingCountIncludingConnectivity": 111,
+        "nativeConnectivityFindingCount": 111
+      },
+      "head": {
+        "status": "timeout",
+        "connected": 16,
+        "requested": 55,
+        "wallSeconds": 120.20398234999995,
+        "peakRssMb": 2807.26171875,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "findings": {
+          "missing_traces": 0,
+          "disconnected_ports": 111,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "wireLengthMm": 446.2570808008426,
+        "phases": [
+          {
+            "phase": "byte0",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 4.724540825000001
+          },
+          {
+            "phase": "byte1",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 19.860457425
+          },
+          {
+            "phase": "remaining",
+            "status": "running",
+            "connections": 39,
+            "durationSeconds": null
+          }
+        ],
+        "nativeFindingCountIncludingConnectivity": 111,
+        "nativeConnectivityFindingCount": 111
+      },
+      "connectedDelta": 0,
+      "completedByteGeometryComparison": [
+        {
+          "circuit": "butterstick",
+          "phase": "byte0",
+          "mainStartPath": "/workspace/ddr-results/core-main/butterstick/phase-1-start.srj.json",
+          "mainEndPath": "/workspace/ddr-results/core-main/butterstick/phase-1-end.srj.json",
+          "headStartPath": "/workspace/ddr-results/core-head-native-inner/butterstick/phase-1-start.srj.json",
+          "headEndPath": "/workspace/ddr-results/core-head-native-inner/butterstick/phase-1-end.srj.json",
+          "allRawFilesPresent": true,
+          "startSrjEqual": true,
+          "endSrjEqual": true,
+          "requestedRouteArraysEqual": true,
+          "mainStartSha256": "2b93532bb5fff7a30292a9b15620b063e93509ddd52d73949e3caa19bd81f2ef",
+          "mainEndSha256": "63aa214bbc1da86e961066957278be60a4558ac5a279c10171246fce6eadf371",
+          "headStartSha256": "2b93532bb5fff7a30292a9b15620b063e93509ddd52d73949e3caa19bd81f2ef",
+          "headEndSha256": "63aa214bbc1da86e961066957278be60a4558ac5a279c10171246fce6eadf371",
+          "mainRequestCount": 8,
+          "headRequestCount": 8,
+          "mainFixedTraceCount": 0,
+          "headFixedTraceCount": 0
+        },
+        {
+          "circuit": "butterstick",
+          "phase": "byte1",
+          "mainStartPath": "/workspace/ddr-results/core-main/butterstick/phase-2-start.srj.json",
+          "mainEndPath": "/workspace/ddr-results/core-main/butterstick/phase-2-end.srj.json",
+          "headStartPath": "/workspace/ddr-results/core-head-native-inner/butterstick/phase-2-start.srj.json",
+          "headEndPath": "/workspace/ddr-results/core-head-native-inner/butterstick/phase-2-end.srj.json",
+          "allRawFilesPresent": true,
+          "startSrjEqual": true,
+          "endSrjEqual": true,
+          "requestedRouteArraysEqual": true,
+          "mainStartSha256": "fafff632a138c90e773d601f38bae396387e68ab3671c3e56382b306346e7818",
+          "mainEndSha256": "3fa2bfe9dada4a6cd88d9342bf3c67744453a159985dc64d8556f7c32978611c",
+          "headStartSha256": "fafff632a138c90e773d601f38bae396387e68ab3671c3e56382b306346e7818",
+          "headEndSha256": "3fa2bfe9dada4a6cd88d9342bf3c67744453a159985dc64d8556f7c32978611c",
+          "mainRequestCount": 8,
+          "headRequestCount": 8,
+          "mainFixedTraceCount": 16,
+          "headFixedTraceCount": 16
+        }
+      ]
+    },
+    {
+      "circuit": "glider",
+      "main": {
+        "status": "passed",
+        "connected": 49,
+        "requested": 49,
+        "wallSeconds": 40.85584939400002,
+        "peakRssMb": 1389.5546875,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "findings": {
+          "missing_traces": 0,
+          "disconnected_ports": 0,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "wireLengthMm": 1169.6425182695511,
+        "phases": [
+          {
+            "phase": "byte0",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 0.41235119199999964
+          },
+          {
+            "phase": "byte1",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 0.502984082
+          },
+          {
+            "phase": "remaining",
+            "status": "completed",
+            "connections": 33,
+            "durationSeconds": 34.337573514
+          }
+        ],
+        "nativeFindingCountIncludingConnectivity": 0,
+        "nativeConnectivityFindingCount": 0
+      },
+      "head": {
+        "status": "passed",
+        "connected": 49,
+        "requested": 49,
+        "wallSeconds": 42.97043671199994,
+        "peakRssMb": 1420.375,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "findings": {
+          "missing_traces": 0,
+          "disconnected_ports": 0,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "wireLengthMm": 1169.6425182695511,
+        "phases": [
+          {
+            "phase": "byte0",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 0.46284042299999967
+          },
+          {
+            "phase": "byte1",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 0.5307996210000001
+          },
+          {
+            "phase": "remaining",
+            "status": "completed",
+            "connections": 33,
+            "durationSeconds": 36.16584998
+          }
+        ],
+        "nativeFindingCountIncludingConnectivity": 0,
+        "nativeConnectivityFindingCount": 0
+      },
+      "connectedDelta": 0,
+      "completedByteGeometryComparison": [
+        {
+          "circuit": "glider",
+          "phase": "byte0",
+          "mainStartPath": "/workspace/ddr-results/core-main/glider/phase-1-start.srj.json",
+          "mainEndPath": "/workspace/ddr-results/core-main/glider/phase-1-end.srj.json",
+          "headStartPath": "/workspace/ddr-results/core-head-native-inner/glider/phase-1-start.srj.json",
+          "headEndPath": "/workspace/ddr-results/core-head-native-inner/glider/phase-1-end.srj.json",
+          "allRawFilesPresent": true,
+          "startSrjEqual": true,
+          "endSrjEqual": true,
+          "requestedRouteArraysEqual": true,
+          "mainStartSha256": "34f1b01184e51be169783d85f59e0f7867cc2e7b124aac8c6859c9d2f4078806",
+          "mainEndSha256": "fe77ac98f42f8d3838d88e62a4cb29c65a379e05222be0a8ca04c540a158095a",
+          "headStartSha256": "34f1b01184e51be169783d85f59e0f7867cc2e7b124aac8c6859c9d2f4078806",
+          "headEndSha256": "fe77ac98f42f8d3838d88e62a4cb29c65a379e05222be0a8ca04c540a158095a",
+          "mainRequestCount": 8,
+          "headRequestCount": 8,
+          "mainFixedTraceCount": 0,
+          "headFixedTraceCount": 0
+        },
+        {
+          "circuit": "glider",
+          "phase": "byte1",
+          "mainStartPath": "/workspace/ddr-results/core-main/glider/phase-2-start.srj.json",
+          "mainEndPath": "/workspace/ddr-results/core-main/glider/phase-2-end.srj.json",
+          "headStartPath": "/workspace/ddr-results/core-head-native-inner/glider/phase-2-start.srj.json",
+          "headEndPath": "/workspace/ddr-results/core-head-native-inner/glider/phase-2-end.srj.json",
+          "allRawFilesPresent": true,
+          "startSrjEqual": true,
+          "endSrjEqual": true,
+          "requestedRouteArraysEqual": true,
+          "mainStartSha256": "a609eba703099f71b60ce178205637788f48a7e7c10daae65fd75e05a7a2a1f5",
+          "mainEndSha256": "651987269ed7a3d01398c2f729a7d3a68ad32bee7cc309138c10d8e473ec9b75",
+          "headStartSha256": "a609eba703099f71b60ce178205637788f48a7e7c10daae65fd75e05a7a2a1f5",
+          "headEndSha256": "651987269ed7a3d01398c2f729a7d3a68ad32bee7cc309138c10d8e473ec9b75",
+          "mainRequestCount": 8,
+          "headRequestCount": 8,
+          "mainFixedTraceCount": 8,
+          "headFixedTraceCount": 8
+        }
+      ]
+    },
+    {
+      "circuit": "imx6",
+      "main": {
+        "status": "timeout",
+        "connected": 16,
+        "requested": 53,
+        "wallSeconds": 120.24477859899996,
+        "peakRssMb": 1848.97265625,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "findings": {
+          "missing_traces": 0,
+          "disconnected_ports": 86,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "wireLengthMm": 322.7683058074972,
+        "phases": [
+          {
+            "phase": "byte0",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 1.0502192779999995
+          },
+          {
+            "phase": "byte1",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 2.6624803009999995
+          },
+          {
+            "phase": "remaining",
+            "status": "running",
+            "connections": 37,
+            "durationSeconds": null
+          }
+        ],
+        "nativeFindingCountIncludingConnectivity": 86,
+        "nativeConnectivityFindingCount": 86
+      },
+      "head": {
+        "status": "timeout",
+        "connected": 16,
+        "requested": 53,
+        "wallSeconds": 120.20839627300005,
+        "peakRssMb": 1927.78515625,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "findings": {
+          "missing_traces": 0,
+          "disconnected_ports": 86,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "wireLengthMm": 322.7683058074972,
+        "phases": [
+          {
+            "phase": "byte0",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 0.8377931470000003
+          },
+          {
+            "phase": "byte1",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 2.2410225230000007
+          },
+          {
+            "phase": "remaining",
+            "status": "running",
+            "connections": 37,
+            "durationSeconds": null
+          }
+        ],
+        "nativeFindingCountIncludingConnectivity": 86,
+        "nativeConnectivityFindingCount": 86
+      },
+      "connectedDelta": 0,
+      "completedByteGeometryComparison": [
+        {
+          "circuit": "imx6",
+          "phase": "byte0",
+          "mainStartPath": "/workspace/ddr-results/core-main/imx6/phase-1-start.srj.json",
+          "mainEndPath": "/workspace/ddr-results/core-main/imx6/phase-1-end.srj.json",
+          "headStartPath": "/workspace/ddr-results/core-head-native-inner/imx6/phase-1-start.srj.json",
+          "headEndPath": "/workspace/ddr-results/core-head-native-inner/imx6/phase-1-end.srj.json",
+          "allRawFilesPresent": true,
+          "startSrjEqual": true,
+          "endSrjEqual": true,
+          "requestedRouteArraysEqual": true,
+          "mainStartSha256": "69588479112d5b8111afd918430e1995c0feeb3eaa3cea632866af55d1b9c8c5",
+          "mainEndSha256": "131380ec3284e1fdf8c156b5547956dceb510a83cf32d8c678660b2b810a86d0",
+          "headStartSha256": "69588479112d5b8111afd918430e1995c0feeb3eaa3cea632866af55d1b9c8c5",
+          "headEndSha256": "131380ec3284e1fdf8c156b5547956dceb510a83cf32d8c678660b2b810a86d0",
+          "mainRequestCount": 8,
+          "headRequestCount": 8,
+          "mainFixedTraceCount": 0,
+          "headFixedTraceCount": 0
+        },
+        {
+          "circuit": "imx6",
+          "phase": "byte1",
+          "mainStartPath": "/workspace/ddr-results/core-main/imx6/phase-2-start.srj.json",
+          "mainEndPath": "/workspace/ddr-results/core-main/imx6/phase-2-end.srj.json",
+          "headStartPath": "/workspace/ddr-results/core-head-native-inner/imx6/phase-2-start.srj.json",
+          "headEndPath": "/workspace/ddr-results/core-head-native-inner/imx6/phase-2-end.srj.json",
+          "allRawFilesPresent": true,
+          "startSrjEqual": true,
+          "endSrjEqual": true,
+          "requestedRouteArraysEqual": true,
+          "mainStartSha256": "d20a10d13041cadb257a08f07a391b8f9423bc24a42cf0a48feb1469ab2e81ef",
+          "mainEndSha256": "f1e4e95c002454dd4e4a63b407275e44800355db7525ef3605eb3169ae43462d",
+          "headStartSha256": "d20a10d13041cadb257a08f07a391b8f9423bc24a42cf0a48feb1469ab2e81ef",
+          "headEndSha256": "f1e4e95c002454dd4e4a63b407275e44800355db7525ef3605eb3169ae43462d",
+          "mainRequestCount": 8,
+          "headRequestCount": 8,
+          "mainFixedTraceCount": 8,
+          "headFixedTraceCount": 8
+        }
+      ]
+    },
+    {
+      "circuit": "icepi",
+      "main": {
+        "status": "timeout",
+        "connected": 16,
+        "requested": 50,
+        "wallSeconds": 120.11807744799997,
+        "peakRssMb": 2299.65234375,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "findings": {
+          "missing_traces": 0,
+          "disconnected_ports": 70,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "wireLengthMm": 194.35890959943782,
+        "phases": [
+          {
+            "phase": "byte0",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 0.6563161220000002
+          },
+          {
+            "phase": "byte1",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 0.3780777400000006
+          },
+          {
+            "phase": "remaining",
+            "status": "running",
+            "connections": 34,
+            "durationSeconds": null
+          }
+        ],
+        "nativeFindingCountIncludingConnectivity": 70,
+        "nativeConnectivityFindingCount": 70
+      },
+      "head": {
+        "status": "timeout",
+        "connected": 16,
+        "requested": 50,
+        "wallSeconds": 120.16727104200004,
+        "peakRssMb": 2275,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "findings": {
+          "missing_traces": 0,
+          "disconnected_ports": 70,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "wireLengthMm": 194.35890959943782,
+        "phases": [
+          {
+            "phase": "byte0",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 0.3867833469999996
+          },
+          {
+            "phase": "byte1",
+            "status": "completed",
+            "connections": 8,
+            "durationSeconds": 0.811079729
+          },
+          {
+            "phase": "remaining",
+            "status": "running",
+            "connections": 34,
+            "durationSeconds": null
+          }
+        ],
+        "nativeFindingCountIncludingConnectivity": 70,
+        "nativeConnectivityFindingCount": 70
+      },
+      "connectedDelta": 0,
+      "completedByteGeometryComparison": [
+        {
+          "circuit": "icepi",
+          "phase": "byte0",
+          "mainStartPath": "/workspace/ddr-results/core-main/icepi/phase-1-start.srj.json",
+          "mainEndPath": "/workspace/ddr-results/core-main/icepi/phase-1-end.srj.json",
+          "headStartPath": "/workspace/ddr-results/core-head-native-inner/icepi/phase-1-start.srj.json",
+          "headEndPath": "/workspace/ddr-results/core-head-native-inner/icepi/phase-1-end.srj.json",
+          "allRawFilesPresent": true,
+          "startSrjEqual": true,
+          "endSrjEqual": true,
+          "requestedRouteArraysEqual": true,
+          "mainStartSha256": "51e21417dbd56c1164836d00bd0c9e2cfd025f8dd10cc946eb87d119a5b82efe",
+          "mainEndSha256": "4184a8193e388ff8e44143f292df27d3b494e6b46cc0f8ed4c7b9ee1a9846cdd",
+          "headStartSha256": "51e21417dbd56c1164836d00bd0c9e2cfd025f8dd10cc946eb87d119a5b82efe",
+          "headEndSha256": "4184a8193e388ff8e44143f292df27d3b494e6b46cc0f8ed4c7b9ee1a9846cdd",
+          "mainRequestCount": 8,
+          "headRequestCount": 8,
+          "mainFixedTraceCount": 0,
+          "headFixedTraceCount": 0
+        },
+        {
+          "circuit": "icepi",
+          "phase": "byte1",
+          "mainStartPath": "/workspace/ddr-results/core-main/icepi/phase-2-start.srj.json",
+          "mainEndPath": "/workspace/ddr-results/core-main/icepi/phase-2-end.srj.json",
+          "headStartPath": "/workspace/ddr-results/core-head-native-inner/icepi/phase-2-start.srj.json",
+          "headEndPath": "/workspace/ddr-results/core-head-native-inner/icepi/phase-2-end.srj.json",
+          "allRawFilesPresent": true,
+          "startSrjEqual": true,
+          "endSrjEqual": true,
+          "requestedRouteArraysEqual": true,
+          "mainStartSha256": "13e61340afb69cd275b7972fc5c4a799f87bfbbf37940107791d2ffe191d99d0",
+          "mainEndSha256": "d30dc4480d1da88c7d8cab4308fadc3e06ca46bec616e92df2793918f1a14e17",
+          "headStartSha256": "13e61340afb69cd275b7972fc5c4a799f87bfbbf37940107791d2ffe191d99d0",
+          "headEndSha256": "d30dc4480d1da88c7d8cab4308fadc3e06ca46bec616e92df2793918f1a14e17",
+          "mainRequestCount": 8,
+          "headRequestCount": 8,
+          "mainFixedTraceCount": 8,
+          "headFixedTraceCount": 8
+        }
+      ]
+    }
+  ],
+  "caveats": [
+    "Original pinned main and final pinned head are fresh solves with same fixtures/harness/budgets/runtime/dependency tree and serial local resources. They run at different times; full-board walltimes are observational, not an isolated bus speedup.",
+    "A timeout can include valid retained partial routes. It is not a completed board.",
+    "This core benchmark does not request or establish bus length matching, pair skew or coupling acceptance; routing-only pass must not be called a length-matching pass."
+  ],
+  "completedByteGeometrySummary": {
+    "bothCompletedBusPhases": 25,
+    "comparableStartInputs": 25,
+    "equalEndSrjWhenComparable": 25,
+    "differentEndSrjWhenComparable": [],
+    "missingRawPhases": []
+  },
+  "isolatedA64Pair": {
+    "main": {
+      "label": "main",
+      "startedAt": "2026-11-18T19:59:33.372Z",
+      "command": [
+        "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "/workspace/ddr-results/a64-final-paired-public-stage.ts",
+        "main",
+        "/workspace/ddr-results/a64-final-paired-public/main"
+      ],
+      "cwd": "/workspace/core",
+      "runtime": {
+        "bunVersion": "1.4.3",
+        "executable": "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "platform": "linux",
+        "arch": "x64"
+      },
+      "sourceCommit": "202b034659fb96bad44d11b8190f4044b675116f",
+      "bundlePath": "/workspace/ddr-results/packages/bus-main/dist/index.js",
+      "bundleSha256": "fa6390c904b678f7dc197d0d3d671a28e273554369f8475457ea86374c5dad8c",
+      "coreCommit": "1a16da2f74fc2c80712d52abb17254dd2a80e2c5",
+      "coreTrackedChanges": "",
+      "benchmarkPackagePin": "24dc44c166d4258c3538f8b1f66953f1b6f58690",
+      "adapterPath": "/workspace/core/lib/utils/autorouting/get-bus-lanes-input-from-srj.ts",
+      "adapterSha256": "fca83b4aacc128274410985896c2a0c4239e44bb4e386aaccca76b10823d1fb3",
+      "rawInputPath": "/workspace/ddr-results/core-main/a64/phase-3-start.srj.json",
+      "rawInputSha256": "3839e7492986ba5a6b5f6051446a0094b29d5dea2eadda18cd718a38a27f2938",
+      "adaptedInputJsonSha256": "3839e7492986ba5a6b5f6051446a0094b29d5dea2eadda18cd718a38a27f2938",
+      "adapterPreservesRawInputValues": true,
+      "referenceOutputPath": "/workspace/ddr-results/core-main/a64/phase-3-end.srj.json",
+      "referenceOutputSha256": "58b4af520e8c32a205296ca5181db02f3f27934dd8317b8a1bd5301137ed47a7",
+      "referenceRequestedRoutesJsonSha256": "084813234da759c71bbfb8ec56f5d8aeb24dd47b626041b397462bcca9d9d718",
+      "requestCount": 8,
+      "fixedTraceCount": 16,
+      "obstacleCount": 607,
+      "physicalLayerCount": 6,
+      "constructor": "new BusLanesPipelineSolver(input)",
+      "options": "omitted; public defaults",
+      "solverExecution": "solver.solve(); solver.getOutput()",
+      "externalLimitSeconds": 120,
+      "cpuQuota": "400000 100000",
+      "memoryLimitBytes": "17179869184",
+      "fanoutPackageVersion": "0.0.86",
+      "nativeDrcSourceSha256": "cfa5a5fcb417c43f60cfe350b0efc88c64bfd421df57b6ba86a3db39017070b7",
+      "nativeConnectivitySourceSha256": "b1ed89444f596a38e759fa931fb0455aee5fc51525d9fde3fb224153b104f334",
+      "harnessSourceSha256": "1bec31d16f816ae1d2fbeec4df283d7f66a5c540dcdcfb2a8172aed39e27d4db",
+      "status": "completed_and_validated",
+      "completed": true,
+      "solved": true,
+      "failed": false,
+      "error": null,
+      "solveSeconds": 56.744129149,
+      "invocationSeconds": 57.470193894999994,
+      "solverIterations": 16850,
+      "phase": "solved",
+      "outputTraceCount": 24,
+      "requestedRouteCount": 8,
+      "requestedRoutesJsonSha256": "084813234da759c71bbfb8ec56f5d8aeb24dd47b626041b397462bcca9d9d718",
+      "requestedRouteArraysEqualOriginalMainOutput": true,
+      "fullOutputJsonSha256": "58b4af520e8c32a205296ca5181db02f3f27934dd8317b8a1bd5301137ed47a7",
+      "fullOutputEqualOriginalMainOutput": true,
+      "adaptedInputUnchanged": true,
+      "rawInputUnchanged": true,
+      "fixedTracePrefixUnchanged": true,
+      "fixedTraceJsonSha256": "8142da2069d968a5a269260d3a41bfc5e78243d22e4a2b0bdf93982d4c67afe6",
+      "endpointsValid": true,
+      "connectedConnectionCount": 8,
+      "connectedEndpointCount": 16,
+      "nativeConnectivityValid": true,
+      "nativeConnectivityIssueCount": 0,
+      "nativeDrcValid": true,
+      "nativeDrcIssueCount": 0,
+      "nativeDrcCheckedTraceCount": 24,
+      "nativeDrcCheckedSegmentCount": 188,
+      "nativeDrcCheckedViaCount": 30,
+      "endedAt": "2026-11-18T20:00:30.849Z"
+    },
+    "head": {
+      "label": "head",
+      "startedAt": "2026-11-18T20:00:31.660Z",
+      "command": [
+        "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "/workspace/ddr-results/a64-final-paired-public-stage.ts",
+        "head",
+        "/workspace/ddr-results/a64-final-paired-public/head"
+      ],
+      "cwd": "/workspace/core",
+      "runtime": {
+        "bunVersion": "1.4.3",
+        "executable": "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "platform": "linux",
+        "arch": "x64"
+      },
+      "sourceCommit": "190325da97253ad7951f9dfd3b0046b4afcb5395",
+      "bundlePath": "/workspace/ddr-results/packages/bus-head-native-inner/dist/index.js",
+      "bundleSha256": "940e910143a475e280ed3cdc7a0bb262daf98c0fdb075d82b95cbfb2b496f2f8",
+      "coreCommit": "1a16da2f74fc2c80712d52abb17254dd2a80e2c5",
+      "coreTrackedChanges": "",
+      "benchmarkPackagePin": "24dc44c166d4258c3538f8b1f66953f1b6f58690",
+      "adapterPath": "/workspace/core/lib/utils/autorouting/get-bus-lanes-input-from-srj.ts",
+      "adapterSha256": "fca83b4aacc128274410985896c2a0c4239e44bb4e386aaccca76b10823d1fb3",
+      "rawInputPath": "/workspace/ddr-results/core-main/a64/phase-3-start.srj.json",
+      "rawInputSha256": "3839e7492986ba5a6b5f6051446a0094b29d5dea2eadda18cd718a38a27f2938",
+      "adaptedInputJsonSha256": "3839e7492986ba5a6b5f6051446a0094b29d5dea2eadda18cd718a38a27f2938",
+      "adapterPreservesRawInputValues": true,
+      "referenceOutputPath": "/workspace/ddr-results/core-main/a64/phase-3-end.srj.json",
+      "referenceOutputSha256": "58b4af520e8c32a205296ca5181db02f3f27934dd8317b8a1bd5301137ed47a7",
+      "referenceRequestedRoutesJsonSha256": "084813234da759c71bbfb8ec56f5d8aeb24dd47b626041b397462bcca9d9d718",
+      "requestCount": 8,
+      "fixedTraceCount": 16,
+      "obstacleCount": 607,
+      "physicalLayerCount": 6,
+      "constructor": "new BusLanesPipelineSolver(input)",
+      "options": "omitted; public defaults",
+      "solverExecution": "solver.solve(); solver.getOutput()",
+      "externalLimitSeconds": 120,
+      "cpuQuota": "400000 100000",
+      "memoryLimitBytes": "17179869184",
+      "fanoutPackageVersion": "0.0.86",
+      "nativeDrcSourceSha256": "cfa5a5fcb417c43f60cfe350b0efc88c64bfd421df57b6ba86a3db39017070b7",
+      "nativeConnectivitySourceSha256": "b1ed89444f596a38e759fa931fb0455aee5fc51525d9fde3fb224153b104f334",
+      "harnessSourceSha256": "1bec31d16f816ae1d2fbeec4df283d7f66a5c540dcdcfb2a8172aed39e27d4db",
+      "status": "completed_and_validated",
+      "completed": true,
+      "solved": true,
+      "failed": false,
+      "error": null,
+      "solveSeconds": 11.659061331,
+      "invocationSeconds": 12.192551939,
+      "solverIterations": 16850,
+      "phase": "solved",
+      "outputTraceCount": 24,
+      "requestedRouteCount": 8,
+      "requestedRoutesJsonSha256": "084813234da759c71bbfb8ec56f5d8aeb24dd47b626041b397462bcca9d9d718",
+      "requestedRouteArraysEqualOriginalMainOutput": true,
+      "fullOutputJsonSha256": "58b4af520e8c32a205296ca5181db02f3f27934dd8317b8a1bd5301137ed47a7",
+      "fullOutputEqualOriginalMainOutput": true,
+      "adaptedInputUnchanged": true,
+      "rawInputUnchanged": true,
+      "fixedTracePrefixUnchanged": true,
+      "fixedTraceJsonSha256": "8142da2069d968a5a269260d3a41bfc5e78243d22e4a2b0bdf93982d4c67afe6",
+      "endpointsValid": true,
+      "connectedConnectionCount": 8,
+      "connectedEndpointCount": 16,
+      "nativeConnectivityValid": true,
+      "nativeConnectivityIssueCount": 0,
+      "nativeDrcValid": true,
+      "nativeDrcIssueCount": 0,
+      "nativeDrcCheckedTraceCount": 24,
+      "nativeDrcCheckedSegmentCount": 188,
+      "nativeDrcCheckedViaCount": 30,
+      "endedAt": "2026-11-18T20:00:43.857Z"
+    },
+    "external": [
+      {
+        "label": "main",
+        "command": [
+          "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+          "/workspace/ddr-results/a64-final-paired-public-stage.ts",
+          "main",
+          "/workspace/ddr-results/a64-final-paired-public/main"
+        ],
+        "cwd": "/workspace/core",
+        "externalLimitSeconds": 120,
+        "watchdog": "Python subprocess.communicate(timeout=120); SIGKILL entire isolated child process group on timeout",
+        "startedAtUtc": "2026-11-18T19:59:32.425240+00:00",
+        "status": "exited",
+        "pid": 14824,
+        "externalWallSeconds": 58.499866474001465,
+        "exitCode": 0,
+        "endedAtUtc": "2026-11-18T20:00:30.925274+00:00"
+      },
+      {
+        "label": "head",
+        "command": [
+          "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+          "/workspace/ddr-results/a64-final-paired-public-stage.ts",
+          "head",
+          "/workspace/ddr-results/a64-final-paired-public/head"
+        ],
+        "cwd": "/workspace/core",
+        "externalLimitSeconds": 120,
+        "watchdog": "Python subprocess.communicate(timeout=120); SIGKILL entire isolated child process group on timeout",
+        "startedAtUtc": "2026-11-18T20:00:30.927003+00:00",
+        "status": "exited",
+        "pid": 14957,
+        "externalWallSeconds": 12.997424121000222,
+        "exitCode": 0,
+        "endedAtUtc": "2026-11-18T20:00:43.924730+00:00"
+      }
+    ],
+    "freshSeparateProcesses": true,
+    "serialExecution": true,
+    "otherLocalHeavyWorkHeldByRoot": true,
+    "completedAndValidated": true,
+    "harnessSha256": "1bec31d16f816ae1d2fbeec4df283d7f66a5c540dcdcfb2a8172aed39e27d4db",
+    "wrapperSha256": "b1b91ba9081420fccf2b4115dc32c4396718b35de84c3557bf17d89942e22070",
+    "requestedRouteArraysEqualBetweenFreshRuns": true,
+    "allEightRouteArraysEqualOriginalMain": true,
+    "solverWallRatioMainOverHead": 4.866955198024766,
+    "solverWallReductionPercent": 79.45327295377928,
+    "scope": "One fresh isolated public A64 phase-3 byte2 solve on exact captured raw stage input; not a full-board speedup or length-matching acceptance claim.",
+    "machineAtPair": {
+      "cpu": "AMD EPYC 7763 64-Core Processor",
+      "cpuQuota": "400000 100000",
+      "memoryLimitBytes": 17179869184
+    }
+  },
+  "allTenResultsSha256": {
+    "main": "57755b2f4b41882bac52dd718e2e0cc0296f28ed905f6c47dc5f22d2e35c652a",
+    "head": "74cc486143fd8ca575ad7a93f169f17fe6e0ed76787cecd3fcb51e0ab39a5144"
+  },
+  "allTenProvenance": {
+    "main": {
+      "command": "source /workspace/.tools/autorouter-env.sh; bun run benchmark:ddr --out /workspace/ddr-results/core-main",
+      "cwd": "/workspace/core",
+      "coreCommit": "1a16da2f74fc2c80712d52abb17254dd2a80e2c5",
+      "coreTrackedChanges": "",
+      "busSourceCommit": "202b034659fb96bad44d11b8190f4044b675116f",
+      "busDistributionSha256": "fa6390c904b678f7dc197d0d3d671a28e273554369f8475457ea86374c5dad8c",
+      "busDistributionMatch": "Root built the pinned bus source and verified its distribution byte-for-byte identical to the core-installed release before editing.",
+      "benchmarkPackagePin": "24dc44c166d4258c3538f8b1f66953f1b6f58690",
+      "benchmarkRevision": "sha256:07241d5c0af855ba5f7d0516d9cdbf62e00f0a048df8c7011165bcce697eb73c",
+      "assessmentRevision": "sha256:07241d5c0af855ba5f7d0516d9cdbf62e00f0a048df8c7011165bcce697eb73c",
+      "renderTimeoutSeconds": 120,
+      "validationTimeoutSeconds": 120,
+      "execution": "Ten cases run serially in fresh workers; no routing cache configured.",
+      "cpuQuota": "400000 100000",
+      "memoryLimitBytes": 17179869184,
+      "resultsSha256": "57755b2f4b41882bac52dd718e2e0cc0296f28ed905f6c47dc5f22d2e35c652a"
+    },
+    "head": {
+      "command": "source /workspace/.tools/autorouter-env.sh; bun run benchmark:ddr --timeout 120 --out /workspace/ddr-results/core-head-native-inner",
+      "cwd": "/workspace/core",
+      "coreCommit": "1a16da2f74fc2c80712d52abb17254dd2a80e2c5",
+      "coreTrackedChanges": "",
+      "busSourceCommit": "190325da97253ad7951f9dfd3b0046b4afcb5395",
+      "busDistributionSha256": "940e910143a475e280ed3cdc7a0bb262daf98c0fdb075d82b95cbfb2b496f2f8",
+      "benchmarkPackagePin": "24dc44c166d4258c3538f8b1f66953f1b6f58690",
+      "benchmarkRevision": "sha256:07241d5c0af855ba5f7d0516d9cdbf62e00f0a048df8c7011165bcce697eb73c",
+      "assessmentRevision": "sha256:07241d5c0af855ba5f7d0516d9cdbf62e00f0a048df8c7011165bcce697eb73c",
+      "renderTimeoutSeconds": 120,
+      "validationTimeoutSeconds": 120,
+      "execution": "Ten cases serially in fresh workers, no routing cache; root holds all other local heavy work until all10 and paired A64 complete.",
+      "cpuQuota": "400000 100000",
+      "memoryLimitBytes": 17179869184,
+      "busInstalledPath": "/workspace/ddr-results/packages/bus-head-native-inner",
+      "baselineDirectory": "/workspace/ddr-results/core-main",
+      "baselineBusSourceCommit": "202b034659fb96bad44d11b8190f4044b675116f",
+      "baselineBusDistributionSha256": "fa6390c904b678f7dc197d0d3d671a28e273554369f8475457ea86374c5dad8c",
+      "recordedAtUtc": "2026-11-18T19:36:01.942605+00:00",
+      "logPath": "/workspace/ddr-results/core-head-native-inner.run.log",
+      "status": "completed_all_ten",
+      "resultsSha256": "74cc486143fd8ca575ad7a93f169f17fe6e0ed76787cecd3fcb51e0ab39a5144",
+      "runLogSha256": "94cfc31661634766523ce6008fab6b0321296e9affa7b73fa9ae2bb4115840ba",
+      "coreTrackedChangesAfterRun": "",
+      "completedCaseCount": 10,
+      "pairedStageComparison": "/workspace/ddr-results/a64-final-paired-public/comparison.json",
+      "completedAtUtc": "2026-11-18T20:01:08.894920+00:00",
+      "notes": "All10 completed before environment/context refresh; paired stage was started after refresh in separate fresh serial processes with other heavy work held by root."
+    }
+  }
+}

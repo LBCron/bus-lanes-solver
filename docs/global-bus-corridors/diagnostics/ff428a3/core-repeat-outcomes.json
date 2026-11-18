@@ -1,0 +1,231 @@
+[
+  {
+    "circuit": "a64",
+    "runs": {
+      "core-main": {
+        "status": "timeout",
+        "connectedNets": 32,
+        "requestedNets": 75,
+        "wallMs": 120101.74970000001,
+        "phases": [
+          {
+            "phase": "byte0",
+            "status": "completed",
+            "durationMs": 877.1158610000002
+          },
+          {
+            "phase": "byte1",
+            "status": "completed",
+            "durationMs": 1034.3628989999997
+          },
+          {
+            "phase": "byte2",
+            "status": "completed",
+            "durationMs": 93557.849396
+          },
+          {
+            "phase": "byte3",
+            "status": "completed",
+            "durationMs": 9248.959856999994
+          },
+          {
+            "phase": "remaining",
+            "status": "running",
+            "durationMs": null
+          }
+        ]
+      },
+      "core-head": {
+        "status": "timeout",
+        "connectedNets": 24,
+        "requestedNets": 75,
+        "wallMs": 120109.50073999999,
+        "phases": [
+          {
+            "phase": "byte0",
+            "status": "completed",
+            "durationMs": 1064.809069
+          },
+          {
+            "phase": "byte1",
+            "status": "completed",
+            "durationMs": 1276.2013980000002
+          },
+          {
+            "phase": "byte2",
+            "status": "completed",
+            "durationMs": 104178.322814
+          },
+          {
+            "phase": "byte3",
+            "status": "running",
+            "durationMs": null
+          }
+        ]
+      },
+      "core-repeat-main": {
+        "status": "timeout",
+        "connectedNets": 32,
+        "requestedNets": 75,
+        "wallMs": 120056.96625700001,
+        "phases": [
+          {
+            "phase": "byte0",
+            "status": "completed",
+            "durationMs": 889.7912580000002
+          },
+          {
+            "phase": "byte1",
+            "status": "completed",
+            "durationMs": 1277.4336169999997
+          },
+          {
+            "phase": "byte2",
+            "status": "completed",
+            "durationMs": 81961.546589
+          },
+          {
+            "phase": "byte3",
+            "status": "completed",
+            "durationMs": 7267.745389000003
+          },
+          {
+            "phase": "remaining",
+            "status": "running",
+            "durationMs": null
+          }
+        ]
+      },
+      "core-repeat-head": {
+        "status": "timeout",
+        "connectedNets": 32,
+        "requestedNets": 75,
+        "wallMs": 120108.094119,
+        "phases": [
+          {
+            "phase": "byte0",
+            "status": "completed",
+            "durationMs": 1467.3000079999993
+          },
+          {
+            "phase": "byte1",
+            "status": "completed",
+            "durationMs": 1604.4952970000013
+          },
+          {
+            "phase": "byte2",
+            "status": "completed",
+            "durationMs": 86590.00943499999
+          },
+          {
+            "phase": "byte3",
+            "status": "completed",
+            "durationMs": 8609.064660000004
+          },
+          {
+            "phase": "remaining",
+            "status": "running",
+            "durationMs": null
+          }
+        ]
+      }
+    }
+  },
+  {
+    "circuit": "orangecrab",
+    "runs": {
+      "core-main": {
+        "status": "timeout",
+        "connectedNets": 16,
+        "requestedNets": 50,
+        "wallMs": 120104.49838299997,
+        "phases": [
+          {
+            "phase": "byte0",
+            "status": "completed",
+            "durationMs": 1134.172767
+          },
+          {
+            "phase": "byte1",
+            "status": "completed",
+            "durationMs": 853.3549060000005
+          },
+          {
+            "phase": "remaining",
+            "status": "running",
+            "durationMs": null
+          }
+        ]
+      },
+      "core-head": {
+        "status": "passed",
+        "connectedNets": 50,
+        "requestedNets": 50,
+        "wallMs": 110675.31855799997,
+        "phases": [
+          {
+            "phase": "byte0",
+            "status": "completed",
+            "durationMs": 964.8407319999997
+          },
+          {
+            "phase": "byte1",
+            "status": "completed",
+            "durationMs": 694.7369589999998
+          },
+          {
+            "phase": "remaining",
+            "status": "completed",
+            "durationMs": 102049.138749
+          }
+        ]
+      },
+      "core-repeat-main": {
+        "status": "passed",
+        "connectedNets": 50,
+        "requestedNets": 50,
+        "wallMs": 103779.11687999999,
+        "phases": [
+          {
+            "phase": "byte0",
+            "status": "completed",
+            "durationMs": 649.4572840000005
+          },
+          {
+            "phase": "byte1",
+            "status": "completed",
+            "durationMs": 897.2095830000007
+          },
+          {
+            "phase": "remaining",
+            "status": "completed",
+            "durationMs": 96411.260435
+          }
+        ]
+      },
+      "core-repeat-head": {
+        "status": "passed",
+        "connectedNets": 50,
+        "requestedNets": 50,
+        "wallMs": 118834.613066,
+        "phases": [
+          {
+            "phase": "byte0",
+            "status": "completed",
+            "durationMs": 734.3650770000004
+          },
+          {
+            "phase": "byte1",
+            "status": "completed",
+            "durationMs": 919.1317570000001
+          },
+          {
+            "phase": "remaining",
+            "status": "completed",
+            "durationMs": 110546.464603
+          }
+        ]
+      }
+    }
+  }
+]

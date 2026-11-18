@@ -1,0 +1,19 @@
+{
+  "command": "source /workspace/.tools/autorouter-env.sh; bun run benchmark:ddr --circuit a64 --circuit orangecrab --out /workspace/ddr-results/core-repeat-head",
+  "cwd": "/workspace/core",
+  "coreCommit": "1a16da2f74fc2c80712d52abb17254dd2a80e2c5",
+  "coreTrackedChanges": "",
+  "busSourceCommit": "ff428a3eef48934703407d1b16f9382b1edcf457",
+  "busDistributionSha256": "3b16d6691555aca5789d33bc780aeafb9fb40199f845522c9eac435a686ea738",
+  "benchmarkPackagePin": "24dc44c166d4258c3538f8b1f66953f1b6f58690",
+  "benchmarkRevision": "sha256:07241d5c0af855ba5f7d0516d9cdbf62e00f0a048df8c7011165bcce697eb73c",
+  "assessmentRevision": "sha256:07241d5c0af855ba5f7d0516d9cdbf62e00f0a048df8c7011165bcce697eb73c",
+  "renderTimeoutSeconds": 120,
+  "validationTimeoutSeconds": 120,
+  "execution": "Two selected cases run serially in fresh workers; one additional repeat per source variant; original full-ten-case results remain unchanged.",
+  "cpuQuota": "400000 100000",
+  "memoryLimitBytes": 17179869184,
+  "resultsSha256": "6436f7d7da70858b80b3520040239655171b4ce25b1535194a3200fc5bf675c0",
+  "repeatPurpose": "Characterize OrangeCrab downstream completion variability and A64 partial-connectivity sensitivity to the 120-second render budget.",
+  "environmentReconnect": "A brief environment reconnect interrupted monitoring; both cases and assessments completed normally and no benchmark workers remained. No case was rerun."
+}

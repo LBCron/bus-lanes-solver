@@ -1,0 +1,1565 @@
+{
+  "input": {
+    "layerCount": 2,
+    "minTraceWidth": 0.1,
+    "minTraceToPadEdgeClearance": 0.1,
+    "minBoardEdgeClearance": 0.1,
+    "bounds": {
+      "minX": -6,
+      "maxX": 6,
+      "minY": -6,
+      "maxY": 6
+    },
+    "connections": [
+      {
+        "name": "D0",
+        "pointsToConnect": [
+          {
+            "x": -4,
+            "y": -1.025,
+            "layer": "top"
+          },
+          {
+            "x": 4,
+            "y": -1.2249999999999999,
+            "layer": "top"
+          }
+        ]
+      },
+      {
+        "name": "D1",
+        "pointsToConnect": [
+          {
+            "x": -4,
+            "y": -0.675,
+            "layer": "top"
+          },
+          {
+            "x": 4,
+            "y": -0.875,
+            "layer": "top"
+          }
+        ]
+      },
+      {
+        "name": "D2",
+        "pointsToConnect": [
+          {
+            "x": -4,
+            "y": -0.3249999999999999,
+            "layer": "top"
+          },
+          {
+            "x": 4,
+            "y": -0.5249999999999999,
+            "layer": "top"
+          }
+        ]
+      },
+      {
+        "name": "D3",
+        "pointsToConnect": [
+          {
+            "x": -4,
+            "y": 0.025000000000000022,
+            "layer": "top"
+          },
+          {
+            "x": 4,
+            "y": -0.175,
+            "layer": "top"
+          }
+        ]
+      },
+      {
+        "name": "D4",
+        "pointsToConnect": [
+          {
+            "x": -4,
+            "y": 0.375,
+            "layer": "top"
+          },
+          {
+            "x": 4,
+            "y": 0.175,
+            "layer": "top"
+          }
+        ]
+      },
+      {
+        "name": "D5",
+        "pointsToConnect": [
+          {
+            "x": -4,
+            "y": 0.7249999999999999,
+            "layer": "top"
+          },
+          {
+            "x": 4,
+            "y": 0.5249999999999999,
+            "layer": "top"
+          }
+        ]
+      },
+      {
+        "name": "D6",
+        "pointsToConnect": [
+          {
+            "x": -4,
+            "y": 1.075,
+            "layer": "top"
+          },
+          {
+            "x": 4,
+            "y": 0.875,
+            "layer": "top"
+          }
+        ]
+      },
+      {
+        "name": "D7",
+        "pointsToConnect": [
+          {
+            "x": -4,
+            "y": 1.4249999999999998,
+            "layer": "top"
+          },
+          {
+            "x": 4,
+            "y": 1.2249999999999999,
+            "layer": "top"
+          }
+        ]
+      }
+    ],
+    "buses": [
+      {
+        "busId": "data",
+        "connectionNames": [
+          "D0",
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7"
+        ]
+      }
+    ],
+    "obstacles": [
+      {
+        "center": {
+          "x": -2,
+          "y": -1
+        },
+        "width": 0.25,
+        "height": 2.4000000000000004,
+        "layers": [
+          "top"
+        ],
+        "connectedTo": [
+          "wall"
+        ]
+      },
+      {
+        "center": {
+          "x": -2,
+          "y": 2
+        },
+        "width": 0.25,
+        "height": 2.4000000000000004,
+        "layers": [
+          "top"
+        ],
+        "connectedTo": [
+          "wall"
+        ]
+      },
+      {
+        "center": {
+          "x": 0,
+          "y": -2
+        },
+        "width": 0.25,
+        "height": 2.4000000000000004,
+        "layers": [
+          "top"
+        ],
+        "connectedTo": [
+          "wall"
+        ]
+      },
+      {
+        "center": {
+          "x": 0,
+          "y": 1
+        },
+        "width": 0.25,
+        "height": 2.4000000000000004,
+        "layers": [
+          "top"
+        ],
+        "connectedTo": [
+          "wall"
+        ]
+      },
+      {
+        "center": {
+          "x": 2,
+          "y": -1
+        },
+        "width": 0.25,
+        "height": 2.4000000000000004,
+        "layers": [
+          "top"
+        ],
+        "connectedTo": [
+          "wall"
+        ]
+      },
+      {
+        "center": {
+          "x": 2,
+          "y": 2
+        },
+        "width": 0.25,
+        "height": 2.4000000000000004,
+        "layers": [
+          "top"
+        ],
+        "connectedTo": [
+          "wall"
+        ]
+      }
+    ]
+  },
+  "traces": [
+    {
+      "type": "pcb_trace",
+      "pcb_trace_id": "bus_lane_D0",
+      "connection_name": "D0",
+      "source_trace_id": "D0",
+      "route": [
+        {
+          "x": -4,
+          "y": -1.025,
+          "layer": "top",
+          "route_type": "wire",
+          "width": 0.1
+        },
+        {
+          "x": -3.7874999999999996,
+          "y": -1.025,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": -2.4124999999999996,
+          "y": -2.4,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": -1.1999999999999993,
+          "y": -2.4,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": -0.1999999999999993,
+          "y": -3.4,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 0.20000000000000018,
+          "y": -3.4,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 1.2000000000000002,
+          "y": -2.4,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 2.200000000000001,
+          "y": -2.4,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 3.375000000000001,
+          "y": -1.2249999999999999,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 4,
+          "y": -1.2249999999999999,
+          "layer": "top",
+          "route_type": "wire",
+          "width": 0.1
+        }
+      ]
+    },
+    {
+      "type": "pcb_trace",
+      "pcb_trace_id": "bus_lane_D1",
+      "connection_name": "D1",
+      "source_trace_id": "D1",
+      "route": [
+        {
+          "x": -4,
+          "y": -0.675,
+          "layer": "top",
+          "route_type": "wire",
+          "width": 0.1
+        },
+        {
+          "x": -4.2,
+          "y": -0.8750000000000002,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": -4.2,
+          "y": -1.1999999999999993,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": -1.7999999999999998,
+          "y": -3.5999999999999996,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 2.000000000000001,
+          "y": -3.5999999999999996,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 4.200000000000001,
+          "y": -1.3999999999999995,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 4.200000000000001,
+          "y": -1.075000000000001,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 4,
+          "y": -0.875,
+          "layer": "top",
+          "route_type": "wire",
+          "width": 0.1
+        }
+      ]
+    },
+    {
+      "type": "pcb_trace",
+      "pcb_trace_id": "bus_lane_D2",
+      "connection_name": "D2",
+      "source_trace_id": "D2",
+      "route": [
+        {
+          "x": -4,
+          "y": -0.3249999999999999,
+          "layer": "top",
+          "route_type": "wire",
+          "width": 0.1
+        },
+        {
+          "x": -3.2749999999999995,
+          "y": 0.4000000000000004,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": -1.7000000000000002,
+          "y": 0.40000000000000036,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": -0.8999999999999995,
+          "y": -0.39999999999999947,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 1,
+          "y": -0.39999999999999947,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 1.8000000000000007,
+          "y": 0.40000000000000036,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 3.0749999999999997,
+          "y": 0.40000000000000036,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 4,
+          "y": -0.5249999999999999,
+          "layer": "top",
+          "route_type": "wire",
+          "width": 0.1
+        }
+      ]
+    },
+    {
+      "type": "pcb_trace",
+      "pcb_trace_id": "bus_lane_D3",
+      "connection_name": "D3",
+      "source_trace_id": "D3",
+      "route": [
+        {
+          "x": -4,
+          "y": 0.025000000000000022,
+          "layer": "top",
+          "route_type": "wire",
+          "width": 0.1
+        },
+        {
+          "x": -4.4,
+          "y": -0.37500000000000033,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": -4.4,
+          "y": -1.2999999999999998,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": -1.9000000000000004,
+          "y": -3.8,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 2.0999999999999996,
+          "y": -3.8,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 4.5,
+          "y": -1.3999999999999995,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 4.5,
+          "y": -0.675,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 4,
+          "y": -0.175,
+          "layer": "top",
+          "route_type": "wire",
+          "width": 0.1
+        }
+      ]
+    },
+    {
+      "type": "pcb_trace",
+      "pcb_trace_id": "bus_lane_D4",
+      "connection_name": "D4",
+      "source_trace_id": "D4",
+      "route": [
+        {
+          "x": -4,
+          "y": 0.375,
+          "layer": "top",
+          "route_type": "wire",
+          "width": 0.1
+        },
+        {
+          "x": -4.2,
+          "y": 0.5750000000000002,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": -4.2,
+          "y": 2.3,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": -2.5,
+          "y": 4,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 2.5,
+          "y": 4,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 4.200000000000001,
+          "y": 2.299999999999999,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 4.200000000000001,
+          "y": 0.37500000000000105,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 4,
+          "y": 0.175,
+          "layer": "top",
+          "route_type": "wire",
+          "width": 0.1
+        }
+      ]
+    },
+    {
+      "type": "pcb_trace",
+      "pcb_trace_id": "bus_lane_D5",
+      "connection_name": "D5",
+      "source_trace_id": "D5",
+      "route": [
+        {
+          "x": -4,
+          "y": 0.7249999999999999,
+          "layer": "top",
+          "route_type": "wire",
+          "width": 0.1
+        },
+        {
+          "x": -3.875000000000001,
+          "y": 0.6000000000000005,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": -1.7999999999999998,
+          "y": 0.6000000000000005,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": -0.2999999999999998,
+          "y": 2.0999999999999996,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": -0.2999999999999998,
+          "y": 2.3000000000000007,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": -0.1999999999999993,
+          "y": 2.4000000000000004,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 0.20000000000000018,
+          "y": 2.4000000000000004,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 1.7000000000000002,
+          "y": 0.9000000000000004,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 1.7000000000000002,
+          "y": 0.7000000000000002,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 1.8000000000000007,
+          "y": 0.6000000000000005,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 3.9249999999999994,
+          "y": 0.6000000000000005,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 4,
+          "y": 0.5249999999999999,
+          "layer": "top",
+          "route_type": "wire",
+          "width": 0.1
+        }
+      ]
+    },
+    {
+      "type": "pcb_trace",
+      "pcb_trace_id": "bus_lane_D6",
+      "connection_name": "D6",
+      "source_trace_id": "D6",
+      "route": [
+        {
+          "x": -4,
+          "y": 1.075,
+          "layer": "top",
+          "route_type": "wire",
+          "width": 0.1
+        },
+        {
+          "x": -2.3,
+          "y": 2.7750000000000004,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": -2.3,
+          "y": 3.3000000000000007,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": -2.1999999999999997,
+          "y": 3.4000000000000004,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 2.200000000000001,
+          "y": 3.4000000000000004,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 3.4000000000000004,
+          "y": 2.200000000000001,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 3.4000000000000004,
+          "y": 1.4749999999999996,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 4,
+          "y": 0.875,
+          "layer": "top",
+          "route_type": "wire",
+          "width": 0.1
+        }
+      ]
+    },
+    {
+      "type": "pcb_trace",
+      "pcb_trace_id": "bus_lane_D7",
+      "connection_name": "D7",
+      "source_trace_id": "D7",
+      "route": [
+        {
+          "x": -4,
+          "y": 1.4249999999999998,
+          "layer": "top",
+          "route_type": "wire",
+          "width": 0.1
+        },
+        {
+          "x": -4,
+          "y": 2.2000000000000006,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": -2.4,
+          "y": 3.8000000000000007,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 2.4000000000000004,
+          "y": 3.8000000000000007,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 4,
+          "y": 2.200000000000001,
+          "route_type": "wire",
+          "layer": "top",
+          "width": 0.1
+        },
+        {
+          "x": 4,
+          "y": 1.2249999999999999,
+          "layer": "top",
+          "route_type": "wire",
+          "width": 0.1
+        }
+      ]
+    }
+  ],
+  "output": {
+    "layerCount": 2,
+    "minTraceWidth": 0.1,
+    "minTraceToPadEdgeClearance": 0.1,
+    "minBoardEdgeClearance": 0.1,
+    "bounds": {
+      "minX": -6,
+      "maxX": 6,
+      "minY": -6,
+      "maxY": 6
+    },
+    "connections": [
+      {
+        "name": "D0",
+        "pointsToConnect": [
+          {
+            "x": -4,
+            "y": -1.025,
+            "layer": "top"
+          },
+          {
+            "x": 4,
+            "y": -1.2249999999999999,
+            "layer": "top"
+          }
+        ]
+      },
+      {
+        "name": "D1",
+        "pointsToConnect": [
+          {
+            "x": -4,
+            "y": -0.675,
+            "layer": "top"
+          },
+          {
+            "x": 4,
+            "y": -0.875,
+            "layer": "top"
+          }
+        ]
+      },
+      {
+        "name": "D2",
+        "pointsToConnect": [
+          {
+            "x": -4,
+            "y": -0.3249999999999999,
+            "layer": "top"
+          },
+          {
+            "x": 4,
+            "y": -0.5249999999999999,
+            "layer": "top"
+          }
+        ]
+      },
+      {
+        "name": "D3",
+        "pointsToConnect": [
+          {
+            "x": -4,
+            "y": 0.025000000000000022,
+            "layer": "top"
+          },
+          {
+            "x": 4,
+            "y": -0.175,
+            "layer": "top"
+          }
+        ]
+      },
+      {
+        "name": "D4",
+        "pointsToConnect": [
+          {
+            "x": -4,
+            "y": 0.375,
+            "layer": "top"
+          },
+          {
+            "x": 4,
+            "y": 0.175,
+            "layer": "top"
+          }
+        ]
+      },
+      {
+        "name": "D5",
+        "pointsToConnect": [
+          {
+            "x": -4,
+            "y": 0.7249999999999999,
+            "layer": "top"
+          },
+          {
+            "x": 4,
+            "y": 0.5249999999999999,
+            "layer": "top"
+          }
+        ]
+      },
+      {
+        "name": "D6",
+        "pointsToConnect": [
+          {
+            "x": -4,
+            "y": 1.075,
+            "layer": "top"
+          },
+          {
+            "x": 4,
+            "y": 0.875,
+            "layer": "top"
+          }
+        ]
+      },
+      {
+        "name": "D7",
+        "pointsToConnect": [
+          {
+            "x": -4,
+            "y": 1.4249999999999998,
+            "layer": "top"
+          },
+          {
+            "x": 4,
+            "y": 1.2249999999999999,
+            "layer": "top"
+          }
+        ]
+      }
+    ],
+    "buses": [
+      {
+        "busId": "data",
+        "connectionNames": [
+          "D0",
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7"
+        ]
+      }
+    ],
+    "obstacles": [
+      {
+        "center": {
+          "x": -2,
+          "y": -1
+        },
+        "width": 0.25,
+        "height": 2.4000000000000004,
+        "layers": [
+          "top"
+        ],
+        "connectedTo": [
+          "wall"
+        ]
+      },
+      {
+        "center": {
+          "x": -2,
+          "y": 2
+        },
+        "width": 0.25,
+        "height": 2.4000000000000004,
+        "layers": [
+          "top"
+        ],
+        "connectedTo": [
+          "wall"
+        ]
+      },
+      {
+        "center": {
+          "x": 0,
+          "y": -2
+        },
+        "width": 0.25,
+        "height": 2.4000000000000004,
+        "layers": [
+          "top"
+        ],
+        "connectedTo": [
+          "wall"
+        ]
+      },
+      {
+        "center": {
+          "x": 0,
+          "y": 1
+        },
+        "width": 0.25,
+        "height": 2.4000000000000004,
+        "layers": [
+          "top"
+        ],
+        "connectedTo": [
+          "wall"
+        ]
+      },
+      {
+        "center": {
+          "x": 2,
+          "y": -1
+        },
+        "width": 0.25,
+        "height": 2.4000000000000004,
+        "layers": [
+          "top"
+        ],
+        "connectedTo": [
+          "wall"
+        ]
+      },
+      {
+        "center": {
+          "x": 2,
+          "y": 2
+        },
+        "width": 0.25,
+        "height": 2.4000000000000004,
+        "layers": [
+          "top"
+        ],
+        "connectedTo": [
+          "wall"
+        ]
+      }
+    ],
+    "traces": [
+      {
+        "type": "pcb_trace",
+        "pcb_trace_id": "bus_lane_D0",
+        "connection_name": "D0",
+        "source_trace_id": "D0",
+        "route": [
+          {
+            "x": -4,
+            "y": -1.025,
+            "layer": "top",
+            "route_type": "wire",
+            "width": 0.1
+          },
+          {
+            "x": -3.7874999999999996,
+            "y": -1.025,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": -2.4124999999999996,
+            "y": -2.4,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": -1.1999999999999993,
+            "y": -2.4,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": -0.1999999999999993,
+            "y": -3.4,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 0.20000000000000018,
+            "y": -3.4,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 1.2000000000000002,
+            "y": -2.4,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 2.200000000000001,
+            "y": -2.4,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 3.375000000000001,
+            "y": -1.2249999999999999,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 4,
+            "y": -1.2249999999999999,
+            "layer": "top",
+            "route_type": "wire",
+            "width": 0.1
+          }
+        ]
+      },
+      {
+        "type": "pcb_trace",
+        "pcb_trace_id": "bus_lane_D1",
+        "connection_name": "D1",
+        "source_trace_id": "D1",
+        "route": [
+          {
+            "x": -4,
+            "y": -0.675,
+            "layer": "top",
+            "route_type": "wire",
+            "width": 0.1
+          },
+          {
+            "x": -4.2,
+            "y": -0.8750000000000002,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": -4.2,
+            "y": -1.1999999999999993,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": -1.7999999999999998,
+            "y": -3.5999999999999996,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 2.000000000000001,
+            "y": -3.5999999999999996,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 4.200000000000001,
+            "y": -1.3999999999999995,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 4.200000000000001,
+            "y": -1.075000000000001,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 4,
+            "y": -0.875,
+            "layer": "top",
+            "route_type": "wire",
+            "width": 0.1
+          }
+        ]
+      },
+      {
+        "type": "pcb_trace",
+        "pcb_trace_id": "bus_lane_D2",
+        "connection_name": "D2",
+        "source_trace_id": "D2",
+        "route": [
+          {
+            "x": -4,
+            "y": -0.3249999999999999,
+            "layer": "top",
+            "route_type": "wire",
+            "width": 0.1
+          },
+          {
+            "x": -3.2749999999999995,
+            "y": 0.4000000000000004,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": -1.7000000000000002,
+            "y": 0.40000000000000036,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": -0.8999999999999995,
+            "y": -0.39999999999999947,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 1,
+            "y": -0.39999999999999947,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 1.8000000000000007,
+            "y": 0.40000000000000036,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 3.0749999999999997,
+            "y": 0.40000000000000036,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 4,
+            "y": -0.5249999999999999,
+            "layer": "top",
+            "route_type": "wire",
+            "width": 0.1
+          }
+        ]
+      },
+      {
+        "type": "pcb_trace",
+        "pcb_trace_id": "bus_lane_D3",
+        "connection_name": "D3",
+        "source_trace_id": "D3",
+        "route": [
+          {
+            "x": -4,
+            "y": 0.025000000000000022,
+            "layer": "top",
+            "route_type": "wire",
+            "width": 0.1
+          },
+          {
+            "x": -4.4,
+            "y": -0.37500000000000033,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": -4.4,
+            "y": -1.2999999999999998,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": -1.9000000000000004,
+            "y": -3.8,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 2.0999999999999996,
+            "y": -3.8,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 4.5,
+            "y": -1.3999999999999995,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 4.5,
+            "y": -0.675,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 4,
+            "y": -0.175,
+            "layer": "top",
+            "route_type": "wire",
+            "width": 0.1
+          }
+        ]
+      },
+      {
+        "type": "pcb_trace",
+        "pcb_trace_id": "bus_lane_D4",
+        "connection_name": "D4",
+        "source_trace_id": "D4",
+        "route": [
+          {
+            "x": -4,
+            "y": 0.375,
+            "layer": "top",
+            "route_type": "wire",
+            "width": 0.1
+          },
+          {
+            "x": -4.2,
+            "y": 0.5750000000000002,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": -4.2,
+            "y": 2.3,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": -2.5,
+            "y": 4,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 2.5,
+            "y": 4,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 4.200000000000001,
+            "y": 2.299999999999999,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 4.200000000000001,
+            "y": 0.37500000000000105,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 4,
+            "y": 0.175,
+            "layer": "top",
+            "route_type": "wire",
+            "width": 0.1
+          }
+        ]
+      },
+      {
+        "type": "pcb_trace",
+        "pcb_trace_id": "bus_lane_D5",
+        "connection_name": "D5",
+        "source_trace_id": "D5",
+        "route": [
+          {
+            "x": -4,
+            "y": 0.7249999999999999,
+            "layer": "top",
+            "route_type": "wire",
+            "width": 0.1
+          },
+          {
+            "x": -3.875000000000001,
+            "y": 0.6000000000000005,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": -1.7999999999999998,
+            "y": 0.6000000000000005,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": -0.2999999999999998,
+            "y": 2.0999999999999996,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": -0.2999999999999998,
+            "y": 2.3000000000000007,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": -0.1999999999999993,
+            "y": 2.4000000000000004,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 0.20000000000000018,
+            "y": 2.4000000000000004,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 1.7000000000000002,
+            "y": 0.9000000000000004,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 1.7000000000000002,
+            "y": 0.7000000000000002,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 1.8000000000000007,
+            "y": 0.6000000000000005,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 3.9249999999999994,
+            "y": 0.6000000000000005,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 4,
+            "y": 0.5249999999999999,
+            "layer": "top",
+            "route_type": "wire",
+            "width": 0.1
+          }
+        ]
+      },
+      {
+        "type": "pcb_trace",
+        "pcb_trace_id": "bus_lane_D6",
+        "connection_name": "D6",
+        "source_trace_id": "D6",
+        "route": [
+          {
+            "x": -4,
+            "y": 1.075,
+            "layer": "top",
+            "route_type": "wire",
+            "width": 0.1
+          },
+          {
+            "x": -2.3,
+            "y": 2.7750000000000004,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": -2.3,
+            "y": 3.3000000000000007,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": -2.1999999999999997,
+            "y": 3.4000000000000004,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 2.200000000000001,
+            "y": 3.4000000000000004,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 3.4000000000000004,
+            "y": 2.200000000000001,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 3.4000000000000004,
+            "y": 1.4749999999999996,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 4,
+            "y": 0.875,
+            "layer": "top",
+            "route_type": "wire",
+            "width": 0.1
+          }
+        ]
+      },
+      {
+        "type": "pcb_trace",
+        "pcb_trace_id": "bus_lane_D7",
+        "connection_name": "D7",
+        "source_trace_id": "D7",
+        "route": [
+          {
+            "x": -4,
+            "y": 1.4249999999999998,
+            "layer": "top",
+            "route_type": "wire",
+            "width": 0.1
+          },
+          {
+            "x": -4,
+            "y": 2.2000000000000006,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": -2.4,
+            "y": 3.8000000000000007,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 2.4000000000000004,
+            "y": 3.8000000000000007,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 4,
+            "y": 2.200000000000001,
+            "route_type": "wire",
+            "layer": "top",
+            "width": 0.1
+          },
+          {
+            "x": 4,
+            "y": 1.2249999999999999,
+            "layer": "top",
+            "route_type": "wire",
+            "width": 0.1
+          }
+        ]
+      }
+    ]
+  },
+  "solved": true,
+  "failed": false,
+  "drc": {
+    "valid": true,
+    "checkedTraceCount": 8,
+    "checkedSegmentCount": 60,
+    "checkedViaCount": 0,
+    "issues": []
+  }
+}

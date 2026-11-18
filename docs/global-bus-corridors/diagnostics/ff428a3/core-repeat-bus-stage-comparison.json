@@ -1,0 +1,32 @@
+[
+  {
+    "circuit": "a64",
+    "phaseNumber": 1,
+    "completedPhaseSrjEqual": true
+  },
+  {
+    "circuit": "a64",
+    "phaseNumber": 2,
+    "completedPhaseSrjEqual": true
+  },
+  {
+    "circuit": "a64",
+    "phaseNumber": 3,
+    "completedPhaseSrjEqual": true
+  },
+  {
+    "circuit": "a64",
+    "phaseNumber": 4,
+    "completedPhaseSrjEqual": true
+  },
+  {
+    "circuit": "orangecrab",
+    "phaseNumber": 1,
+    "completedPhaseSrjEqual": true
+  },
+  {
+    "circuit": "orangecrab",
+    "phaseNumber": 2,
+    "completedPhaseSrjEqual": true
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "command": "source /workspace/.tools/autorouter-env.sh; bun run benchmark:ddr --out /workspace/ddr-results/core-main",
+  "cwd": "/workspace/core",
+  "coreCommit": "1a16da2f74fc2c80712d52abb17254dd2a80e2c5",
+  "coreTrackedChanges": "",
+  "busSourceCommit": "202b034659fb96bad44d11b8190f4044b675116f",
+  "busDistributionSha256": "fa6390c904b678f7dc197d0d3d671a28e273554369f8475457ea86374c5dad8c",
+  "busDistributionMatch": "Root built the pinned bus source and verified its distribution byte-for-byte identical to the core-installed release before editing.",
+  "benchmarkPackagePin": "24dc44c166d4258c3538f8b1f66953f1b6f58690",
+  "benchmarkRevision": "sha256:07241d5c0af855ba5f7d0516d9cdbf62e00f0a048df8c7011165bcce697eb73c",
+  "assessmentRevision": "sha256:07241d5c0af855ba5f7d0516d9cdbf62e00f0a048df8c7011165bcce697eb73c",
+  "renderTimeoutSeconds": 120,
+  "validationTimeoutSeconds": 120,
+  "execution": "Ten cases run serially in fresh workers; no routing cache configured.",
+  "cpuQuota": "400000 100000",
+  "memoryLimitBytes": 17179869184,
+  "resultsSha256": "57755b2f4b41882bac52dd718e2e0cc0296f28ed905f6c47dc5f22d2e35c652a"
+}

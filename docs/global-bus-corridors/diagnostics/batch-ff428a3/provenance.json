@@ -1,0 +1,71 @@
+{
+  "baseRevision": "202b034659fb96bad44d11b8190f4044b675116f",
+  "headRevision": "ff428a3eef48934703407d1b16f9382b1edcf457",
+  "baseStatus": "",
+  "headStatus": "",
+  "runtime": "Bun 1.4.3",
+  "system": {
+    "system": "Linux",
+    "node": "75da7ebe53f5",
+    "release": "6.18.57",
+    "version": "#1 SMP Tue Oct 20 21:56:04 UTC 2026",
+    "machine": "x86_64",
+    "processor": ""
+  },
+  "logicalCpuCount": 5,
+  "commands": [
+    "source /workspace/.tools/autorouter-env.sh",
+    "CORRIDOR_BATCH_GO=1 bun /tmp/batch-corridor-proposal-run.ts > /workspace/ddr-results/batch-corridor-research-ff428a3/run.log 2>&1",
+    "source /workspace/.tools/autorouter-env.sh; bun /tmp/batch-corridor-a64-run.ts > /workspace/ddr-results/batch-corridor-research-ff428a3/a64-run.log 2>&1",
+    "source /workspace/.tools/autorouter-env.sh; bun /tmp/a64-current-negotiate-reachability-run.ts > /workspace/ddr-results/batch-corridor-research-ff428a3/a64-current-negotiate-reachability.log 2>&1",
+    "source /workspace/.tools/autorouter-env.sh; bun /tmp/a64-pipeline-eight-negotiation-run.ts > /workspace/ddr-results/batch-corridor-research-ff428a3/a64-pipeline-eight-negotiation.log 2>&1"
+  ],
+  "sha256": {
+    "/tmp/batch-corridor-proposal-one.ts": "cab5f8010254e94cf866274171c139912ead87e6ae76be01228fe0b5648efac6",
+    "/tmp/batch-corridor-proposal-run.ts": "b659efc37fb5a8d196012e060c7c12e93090bb4a07d91bce47d69ac33053e02e",
+    "/workspace/bus-lanes-work/lib/negotiate-lanes.ts": "8a7c99b4fd4b0ad2b80c649c1c634944c04b2d939087a7caff91f8651fd8769b",
+    "/workspace/bus-lanes-work/lib/grid-visibility.ts": "933ee0e4597fd2e147ec3b32ce8e29c7fe48202aec99bba0ed5ce0809e9efab3",
+    "/workspace/bus-lanes-work/lib/plan-bus-corridors.ts": "30788500e30fcb0f8a907237c5939bae1f6b4d87d7f911f8feea35992d409630",
+    "/workspace/bus-lanes-solver/lib/negotiate-lanes.ts": "ebf73c9affdfcd4283639358fd3d529d15c7fe2cedfb8a7552fd9e472e80a464",
+    "/workspace/bus-lanes-solver/lib/grid-visibility.ts": "ab20bee43e199abc3b98662d83436f2b47b1a45834a71ddc2973bf8f66cfdb99",
+    "/workspace/ddr-results/batch-corridor-research-ff428a3/batch-corridor-a64-one.ts": "a10325e0ed1f7e078db825e836564d6da841a855e8bf955baa48e0ebdf9aaa65",
+    "/workspace/ddr-results/batch-corridor-research-ff428a3/batch-corridor-a64-run.ts": "a7021c908f1c1362e818eda53c7033852b8dfa130e8cb765ef113fcd36f25a14",
+    "/workspace/ddr-results/batch-corridor-research-ff428a3/a64-first-child-handoff.json": "8dd083be7b535867575f5d9e4a3dc86202e901d68b09be9a7e2f543147f64277",
+    "/workspace/ddr-results/batch-corridor-research-ff428a3/summarize.py": "76b62817c7b05c40080bc08532196ee65284cf253b489f470b069299e9dfec8e",
+    "/workspace/ddr-results/batch-corridor-research-ff428a3/extract-a64-handoff.ts": "7d75fd2de33200b4e61114686ca8bb7f3da0aaf04834a1a78c4355ff43e8708b",
+    "/workspace/ddr-results/batch-corridor-research-ff428a3/a64-current-negotiate-reachability.ts": "5d9b3cdfe291efebedfb61b0cb16438194e236b97607c0844f937f80794f0a80",
+    "/workspace/ddr-results/batch-corridor-research-ff428a3/a64-current-negotiate-reachability-run.ts": "13a2ab289efc3c5ea1a0787af01a9a4c97e769fa56a0fb601635f940e1123b9b",
+    "/workspace/ddr-results/batch-corridor-research-ff428a3/a64-pipeline-eight-negotiation.ts": "a01ba9d10fb473a7f2cc1380b326c9aef2a17358083b262a4170776e989324db",
+    "/workspace/ddr-results/batch-corridor-research-ff428a3/a64-pipeline-eight-negotiation-run.ts": "12438ee9034b2c7ebe132ba7afae4c529b207bccd4ff34a9f68db4530df4ed8c"
+  },
+  "notes": [
+    "Serial base then batch per fixture; only extraction/short reporting during runs.",
+    "Same 5000 cooperative yield and 120s external wall caps; unequal internal per-route limits. Batch max4 deduplicated orders and64000 expansions/route.",
+    "GridVisibilitySearch expansion counts exclude coarse planner internal work; coarsePlanningYields separately recorded.",
+    "One fresh solve per arm; elapsed values descriptive and subject to warmup and scheduling variation.",
+    "Full successes require endpoint coverage plus continuous native DRC; partial routes are diagnostic and never accepted.",
+    "Untimed routing only; timing and pair coupling were not evaluated.",
+    "The A64 attempt used the actual default pipeline FIRST child: eight top requests,16supplied traces, no generated fanouts. Later generated retries were not tested.",
+    "A64 native combined-output DRC was never reached because no complete proposal existed. For future complete validation, native DRC must recognize the16supplied owners using validation-only connection records. The executed A64 harness did not add those records, so could not correctly accept a hypothetical complete proposal; this has no effect on observed blocked-prefix failure.",
+    "Synthetic DRC success is raw untimed bus-stage acceptance before optional smooth corner cleanup and full pipeline validation.",
+    "Final diagnostic: direct current negotiateLanes on8A64 first-child requests with initialization-equivalent widths/fixed+terminal copper, empty terminalLayer alternatives and checkReachability=true. Capped5000yields/30s. Generator still running at yield cap; raw resultNull describes local output fallback, not an observed null generator return. See summary.generatorReturnedNull=null.",
+    "Final explicitly authorized probe changed only runtime private useNegotiation getter via Object.defineProperty. Defaults unchanged; checkReachability=false. Full public pipeline success with independent endpoint/native continuous DRC/fixed-copper preservation. No production edits."
+  ],
+  "retainedOutputGeometryComparisons": [
+    {
+      "path": "/workspace/ddr-results/core-main/a64/phase-3-end.srj.json",
+      "sha256": "58b4af520e8c32a205296ca5181db02f3f27934dd8317b8a1bd5301137ed47a7",
+      "requestedRouteArraysExactlyEqual": true
+    },
+    {
+      "path": "/workspace/ddr-results/core-repeat-main/a64/phase-3-end.srj.json",
+      "sha256": "58b4af520e8c32a205296ca5181db02f3f27934dd8317b8a1bd5301137ed47a7",
+      "requestedRouteArraysExactlyEqual": true
+    },
+    {
+      "path": "/workspace/ddr-results/core-head/a64/phase-3-end.srj.json",
+      "sha256": "58b4af520e8c32a205296ca5181db02f3f27934dd8317b8a1bd5301137ed47a7",
+      "requestedRouteArraysExactlyEqual": true
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+[
+  {
+    "baseRevision": "202b034659fb96bad44d11b8190f4044b675116f",
+    "headSourceHashes": {
+      "negotiate-lanes.ts": "8a7c99b4fd4b0ad2b80c649c1c634944c04b2d939087a7caff91f8651fd8769b",
+      "grid-visibility.ts": "933ee0e4597fd2e147ec3b32ce8e29c7fe48202aec99bba0ed5ce0809e9efab3",
+      "plan-bus-corridors.ts": "0542fdad2ce3fb68af275ab6ec774e5c9590daea0ac6c223f49c1d5858a25535"
+    },
+    "runtime": "1.4.3",
+    "yieldBudget": 5000,
+    "externalLimitSeconds": 120,
+    "fixture": "evenly spaced legal lanes (0.3mm pitch), fixed0.8mm central aperture, wall extent=lanehalfspan+1.2mm",
+    "revision": "base",
+    "lanes": 24,
+    "yields": 5000,
+    "reportedIterations": 772,
+    "progressReports": 772,
+    "bestPartial": 12,
+    "status": "yield_budget_exhausted",
+    "completed": false,
+    "connections": 0,
+    "drcValid": null,
+    "totalCopperLengthMm": null,
+    "longestRouteMm": null,
+    "exitCode": 0
+  },
+  {
+    "baseRevision": "202b034659fb96bad44d11b8190f4044b675116f",
+    "headSourceHashes": {
+      "negotiate-lanes.ts": "8a7c99b4fd4b0ad2b80c649c1c634944c04b2d939087a7caff91f8651fd8769b",
+      "grid-visibility.ts": "933ee0e4597fd2e147ec3b32ce8e29c7fe48202aec99bba0ed5ce0809e9efab3",
+      "plan-bus-corridors.ts": "0542fdad2ce3fb68af275ab6ec774e5c9590daea0ac6c223f49c1d5858a25535"
+    },
+    "runtime": "1.4.3",
+    "yieldBudget": 5000,
+    "externalLimitSeconds": 120,
+    "fixture": "evenly spaced legal lanes (0.3mm pitch), fixed0.8mm central aperture, wall extent=lanehalfspan+1.2mm",
+    "revision": "head",
+    "lanes": 24,
+    "yields": 5000,
+    "reportedIterations": 746,
+    "progressReports": 746,
+    "bestPartial": 12,
+    "status": "yield_budget_exhausted",
+    "completed": false,
+    "connections": 0,
+    "drcValid": null,
+    "totalCopperLengthMm": null,
+    "longestRouteMm": null,
+    "exitCode": 0
+  },
+  {
+    "baseRevision": "202b034659fb96bad44d11b8190f4044b675116f",
+    "headSourceHashes": {
+      "negotiate-lanes.ts": "8a7c99b4fd4b0ad2b80c649c1c634944c04b2d939087a7caff91f8651fd8769b",
+      "grid-visibility.ts": "933ee0e4597fd2e147ec3b32ce8e29c7fe48202aec99bba0ed5ce0809e9efab3",
+      "plan-bus-corridors.ts": "0542fdad2ce3fb68af275ab6ec774e5c9590daea0ac6c223f49c1d5858a25535"
+    },
+    "runtime": "1.4.3",
+    "yieldBudget": 5000,
+    "externalLimitSeconds": 120,
+    "fixture": "evenly spaced legal lanes (0.3mm pitch), fixed0.8mm central aperture, wall extent=lanehalfspan+1.2mm",
+    "revision": "base",
+    "lanes": 32,
+    "yields": 5000,
+    "reportedIterations": 736,
+    "progressReports": 736,
+    "bestPartial": 12,
+    "status": "yield_budget_exhausted",
+    "completed": false,
+    "connections": 0,
+    "drcValid": null,
+    "totalCopperLengthMm": null,
+    "longestRouteMm": null,
+    "exitCode": 0
+  },
+  {
+    "baseRevision": "202b034659fb96bad44d11b8190f4044b675116f",
+    "headSourceHashes": {
+      "negotiate-lanes.ts": "8a7c99b4fd4b0ad2b80c649c1c634944c04b2d939087a7caff91f8651fd8769b",
+      "grid-visibility.ts": "933ee0e4597fd2e147ec3b32ce8e29c7fe48202aec99bba0ed5ce0809e9efab3",
+      "plan-bus-corridors.ts": "0542fdad2ce3fb68af275ab6ec774e5c9590daea0ac6c223f49c1d5858a25535"
+    },
+    "runtime": "1.4.3",
+    "yieldBudget": 5000,
+    "externalLimitSeconds": 120,
+    "fixture": "evenly spaced legal lanes (0.3mm pitch), fixed0.8mm central aperture, wall extent=lanehalfspan+1.2mm",
+    "revision": "head",
+    "lanes": 32,
+    "yields": 5000,
+    "reportedIterations": 697,
+    "progressReports": 697,
+    "bestPartial": 12,
+    "status": "yield_budget_exhausted",
+    "completed": false,
+    "connections": 0,
+    "drcValid": null,
+    "totalCopperLengthMm": null,
+    "longestRouteMm": null,
+    "exitCode": 0
+  }
+]

@@ -1,0 +1,44 @@
+{
+  "reviewedAt": "2026-11-18T20:01:49.382Z",
+  "reviewer": "/root",
+  "reviewScope": "Fresh completed bus-stage geometry before optional smooth-corner cleanup; not BusLanesPipeline smooth-mode output or DDR matching acceptance.",
+  "freshComparisonSha256": "57d1dd8fdc21f6aa0c47be19219d41a318a71fad3fdc07807d9d5d9deb5fab3c",
+  "exporterSha256Verified": true,
+  "bothFinalPngsIndividuallyOpened": true,
+  "failedOrIntermediateImagesIncluded": false,
+  "physicalAcceptance": "Both candidates passed endpoints and layers, continuous native copper DRC, canonical output validation with smoothTuning=false, and the public forValidation default with identical getOutput traces.",
+  "totalCopperDeltaMm": -2.857233047033631,
+  "longestCopperDeltaMm": -0.7000000000000011,
+  "checks": [
+    {
+      "source": "base",
+      "pngFile": "base-completed.png",
+      "svgFile": "base-completed.svg",
+      "pngSha256": "aaaa2915bd60a2d63d64b7ae0cde68bd1c33153ba4a985f20dda8a3166133ec7",
+      "svgSha256": "3a18b5fdd543d71f09f2206774bfa148920b311afb6435d25e9df78317601c9e",
+      "traceSha256": "ac9728e87fa4cb7f6cd6231a85f73a7727e44254925eca01d379f7df430f24d4",
+      "validatedOutputSha256": "ccbf2ebfa8214b5bc39023ad09f5811f287f6f4144f551af9bcf0180d5bc0e8a",
+      "sourceCommit": "202b034659fb96bad44d11b8190f4044b675116f",
+      "sourceHashesVerified": true,
+      "fixtureHashVerified": true,
+      "exactOutputTraceIdentityVerified": true,
+      "individuallyOpenedWithViewImage": true,
+      "visualFindings": "Passed: complete board and all endpoint markers visible; eight continuous routes; all six obstacle rectangles visible; same viewport/scale; full source, acceptance, geometry-scope and measured-length labels readable and unclipped; no dashed unrouted guides or provisional search geometry."
+    },
+    {
+      "source": "head",
+      "pngFile": "head-completed.png",
+      "svgFile": "head-completed.svg",
+      "pngSha256": "f4d98d00bf3e3d12999678a45d3871cfaed1df20a4c050d0bb0aeeec3108b1da",
+      "svgSha256": "43d6557cbaf0f2ee72f4776e93677ba8ed905af67db745bdf0a1469870fe914d",
+      "traceSha256": "102069fe761c3b41f7117638cab14076b873a41c1fcf42b89c287ed8a3f02472",
+      "validatedOutputSha256": "5c20b4da709492555e024d35467548f264d898aca17728372a357df173786624",
+      "sourceCommit": "190325da97253ad7951f9dfd3b0046b4afcb5395",
+      "sourceHashesVerified": true,
+      "fixtureHashVerified": true,
+      "exactOutputTraceIdentityVerified": true,
+      "individuallyOpenedWithViewImage": true,
+      "visualFindings": "Passed: complete board and all endpoint markers visible; eight continuous routes; all six obstacle rectangles visible; same viewport/scale; full source, acceptance, geometry-scope and measured-length labels readable and unclipped; no dashed unrouted guides or provisional search geometry."
+    }
+  ]
+}

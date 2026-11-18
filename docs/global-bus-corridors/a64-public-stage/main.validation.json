@@ -1,0 +1,263 @@
+{
+  "endpointChecks": [
+    {
+      "connectionName": "source_net_34",
+      "valid": true,
+      "endpoints": [
+        {
+          "endpointIndex": 0,
+          "valid": true,
+          "x": -16,
+          "y": -5.8500000000000005,
+          "layer": "top"
+        },
+        {
+          "endpointIndex": 1,
+          "valid": true,
+          "x": -4.600000000000011,
+          "y": -9.250000000000005,
+          "layer": "top"
+        }
+      ]
+    },
+    {
+      "connectionName": "source_net_35",
+      "valid": true,
+      "endpoints": [
+        {
+          "endpointIndex": 0,
+          "valid": true,
+          "x": -17.6,
+          "y": -6.65,
+          "layer": "top"
+        },
+        {
+          "endpointIndex": 1,
+          "valid": true,
+          "x": -3.9500000000000113,
+          "y": -9.900000000000006,
+          "layer": "top"
+        }
+      ]
+    },
+    {
+      "connectionName": "source_net_36",
+      "valid": true,
+      "endpoints": [
+        {
+          "endpointIndex": 0,
+          "valid": true,
+          "x": -17.6,
+          "y": -5.85,
+          "layer": "top"
+        },
+        {
+          "endpointIndex": 1,
+          "valid": true,
+          "x": -4.600000000000011,
+          "y": -9.900000000000006,
+          "layer": "top"
+        }
+      ]
+    },
+    {
+      "connectionName": "source_net_37",
+      "valid": true,
+      "endpoints": [
+        {
+          "endpointIndex": 0,
+          "valid": true,
+          "x": -16,
+          "y": -6.65,
+          "layer": "top"
+        },
+        {
+          "endpointIndex": 1,
+          "valid": true,
+          "x": -4.600000000000011,
+          "y": -10.550000000000006,
+          "layer": "top"
+        }
+      ]
+    },
+    {
+      "connectionName": "source_net_39",
+      "valid": true,
+      "endpoints": [
+        {
+          "endpointIndex": 0,
+          "valid": true,
+          "x": -17.6,
+          "y": -2.65,
+          "layer": "top"
+        },
+        {
+          "endpointIndex": 1,
+          "valid": true,
+          "x": -6.550000000000011,
+          "y": -10.550000000000006,
+          "layer": "top"
+        }
+      ]
+    },
+    {
+      "connectionName": "source_net_40",
+      "valid": true,
+      "endpoints": [
+        {
+          "endpointIndex": 0,
+          "valid": true,
+          "x": -16,
+          "y": -1.8500000000000005,
+          "layer": "top"
+        },
+        {
+          "endpointIndex": 1,
+          "valid": true,
+          "x": -6.550000000000011,
+          "y": -9.900000000000006,
+          "layer": "top"
+        }
+      ]
+    },
+    {
+      "connectionName": "source_net_41",
+      "valid": true,
+      "endpoints": [
+        {
+          "endpointIndex": 0,
+          "valid": true,
+          "x": -15.2,
+          "y": -2.6500000000000004,
+          "layer": "top"
+        },
+        {
+          "endpointIndex": 1,
+          "valid": true,
+          "x": -7.200000000000012,
+          "y": -9.900000000000006,
+          "layer": "top"
+        }
+      ]
+    },
+    {
+      "connectionName": "source_net_42",
+      "valid": true,
+      "endpoints": [
+        {
+          "endpointIndex": 0,
+          "valid": true,
+          "x": -16.8,
+          "y": -1.85,
+          "layer": "top"
+        },
+        {
+          "endpointIndex": 1,
+          "valid": true,
+          "x": -6.550000000000011,
+          "y": -9.250000000000005,
+          "layer": "top"
+        }
+      ]
+    }
+  ],
+  "connectivity": {
+    "valid": true,
+    "checkedConnectionCount": 8,
+    "connectedConnectionCount": 8,
+    "checkedEndpointCount": 16,
+    "connectedEndpointCount": 16,
+    "issues": []
+  },
+  "drc": {
+    "valid": true,
+    "checkedTraceCount": 24,
+    "checkedSegmentCount": 188,
+    "checkedViaCount": 30,
+    "issues": []
+  },
+  "fixedOwners": [
+    "source_net_52",
+    "source_net_27",
+    "source_net_38",
+    "source_net_53",
+    "source_net_26",
+    "source_net_49",
+    "source_net_55",
+    "source_net_54",
+    "source_net_33",
+    "source_net_30",
+    "source_net_31",
+    "source_net_32",
+    "source_net_56",
+    "source_net_28",
+    "source_net_57",
+    "source_net_29"
+  ],
+  "validationOnlyConnections": [
+    {
+      "name": "source_net_52",
+      "pointsToConnect": []
+    },
+    {
+      "name": "source_net_27",
+      "pointsToConnect": []
+    },
+    {
+      "name": "source_net_38",
+      "pointsToConnect": []
+    },
+    {
+      "name": "source_net_53",
+      "pointsToConnect": []
+    },
+    {
+      "name": "source_net_26",
+      "pointsToConnect": []
+    },
+    {
+      "name": "source_net_49",
+      "pointsToConnect": []
+    },
+    {
+      "name": "source_net_55",
+      "pointsToConnect": []
+    },
+    {
+      "name": "source_net_54",
+      "pointsToConnect": []
+    },
+    {
+      "name": "source_net_33",
+      "pointsToConnect": []
+    },
+    {
+      "name": "source_net_30",
+      "pointsToConnect": []
+    },
+    {
+      "name": "source_net_31",
+      "pointsToConnect": []
+    },
+    {
+      "name": "source_net_32",
+      "pointsToConnect": []
+    },
+    {
+      "name": "source_net_56",
+      "pointsToConnect": []
+    },
+    {
+      "name": "source_net_28",
+      "pointsToConnect": []
+    },
+    {
+      "name": "source_net_57",
+      "pointsToConnect": []
+    },
+    {
+      "name": "source_net_29",
+      "pointsToConnect": []
+    }
+  ]
+}

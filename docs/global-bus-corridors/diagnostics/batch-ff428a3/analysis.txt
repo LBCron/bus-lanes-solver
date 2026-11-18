@@ -1,0 +1,47 @@
+Standalone bus-planning research, pinned to base 202b034659fb96bad44d11b8190f4044b675116f and head ff428a3eef48934703407d1b16f9382b1edcf457.
+No production source, commits, or GitHub content were changed.
+
+The strict coarse-plan/fine-batch proposal does not establish scalable completed routing at 24 or 32 lanes. Both algorithms completed 2 of 4 synthetic cases. The proposal used fewer fine expansions on its two successes but increased copper length and skew. The most useful actual-board result is a separate public-pipeline eligibility prototype: routing an untimed 8 signal A64 bus through existing negotiation completed the exact same final geometry much sooner than prior saved whole-core runs. That observation warrants a narrow production eligibility change and fresh paired validation; it is not itself a comparable end-to-end benchmark speedup.
+
+Synthetic batch method
+  Serial paired baseline negotiation versus coarse corridor plan plus at most 4 deduplicated lane orders. Each fine search treats supplied copper, all future terminal points, and all earlier lanes as hard continuous geometry. Coarse guide penalties are advisory. Full acceptance requires exact endpoint coverage and native continuous copper DRC. Both arms have 5000 cooperative-yield and 120 s external caps; batch additionally has 64000 fine expansions/route. These are unequal internal algorithm budgets. Fine expansion counts exclude coarse planner internals, whose yields are separately recorded. All timing values below are one descriptive fresh run/arm on Bun 1.4.3, not statistically repeated throughput measurements.
+
+Synthetic outcomes (solve seconds; fine expansions; accepted copper mm; per-bus max-min skew mm)
+  pocket16-capacity base : completed 16/16, 1.705s,491882exp,135.853528mm,6.861017mm skew.
+  pocket16-capacity batch: completed 16/16, 0.654s, 96249exp,175.000837mm,9.456854mm skew.
+    Batch required fourth order; first three prefixes 5/16, 9/16, 15/16 failed. Copper +28.8%, skew +37.8%.
+  pocket24-capacity base : 5000 yield cap,3.846s,1725220exp,best provisional12/24; no output accepted.
+  pocket24-capacity batch: no complete proposal,0.922s,191125exp,order prefixes 9/24, 7/24, 23/24, 23/24; no output accepted.
+  pocket32-capacity base : 5000 yield cap,4.991s,1731309exp,best provisional14/32; no output accepted.
+  pocket32-capacity batch: no complete proposal,1.040s,224544exp,order prefixes 7/32, 6/32, 25/32, 25/32; no output accepted.
+  seed5 base : completed 8/8, 1.351s,523467exp,88.739758mm,4.013351mm skew.
+  seed5 batch: completed 8/8, 0.399s, 69338exp,96.996970mm,5.959798mm skew.
+    Batch required fourth order; first three prefixes 4/8, 5/8, 5/8 failed. Copper +9.3%, skew +48.5%.
+  No synthetic external timeouts. Successful cases have endpoint+native continuous DRC pass. No differential pairs in these fixtures. Timing, coupling, optional smooth-corner cleanup, and final public pipeline acceptance were not tested by this raw bus-stage harness.
+
+Geometry qualification
+  Original pocket24 and pocket32 fixtures were physically infeasible: necessary x=0 single-layer cut capacity was 23 (3 center + 10 in each bypass). Their failures cannot demonstrate solver scaling limits. The tested capacity-expanded padding max(2.2,.15*n+.4) raises necessary cut upper bounds to 29/41/53 for 16/24/32. This removes that particular obstruction; it does not prove full geometry feasible. Full derivation: batch-corridor-space-analysis.txt.
+
+Actual A64 first-child extraction and batch failure
+  Exact core getBusLanesInputFromSrj adapter+default main pipeline, intercepted before first child search. Input matches raw phase 3 SHA 3839e749... ; 8 untimed top requests, 16 supplied traces, terminalLayers={}, no newly generated escapes. The default first child is NOT the later generated retry.
+  Strict batch completed its bounded attempt in 0.440 s solve/1.341s external,72 yields, 30419 fine expansions, 8 coarse yields. Only 2 unique orders existed; blocked on source_net_36 after 4/8 and 1/8. No complete proposal, so native DRC/finalization never ran.
+  A64 combined validation must retain all 16 supplied traces and add validation-only connection records for their owner names, which are absent from current 8 requests. The initial A64 batch harness did not add those validation owner records; it therefore would have rejected a hypothetical full proposal. No full proposal existed, so this did not affect the observed blocked-prefix failure. The direct negotiation and public-pipeline probes below include the required validation owner records.
+
+Actual A64 direct current negotiation diagnostic
+  Called current negotiateLanes on all 8 first-child requests with initialization-equivalent widths/fixed copper/future terminals, no terminal-layer alternatives, reservations=true, and final checkReachability=true.
+  Hit 5000 yield cap in 4.881 s solve/5.678s external (30 s external cap). Generator was still running, best 6/8, 133 fine searches, 2414329 expansions, pass 90/conflicts 5. No complete result or observed null generator return; no final DRC. Thus early reachability alone did not establish a quick infeasibility exit.
+
+Final actual public-pipeline eligibility prototype
+  Standalone Object.defineProperty monkeypatch only: existing BusLanesSolver.useNegotiation getter OR denseSearch&&untimed&&no differential pairs&&some declared bus has >=8 input signals. No production edits. All public pipeline defaults unchanged, including smoothTuning=true,denseSearch=true,and checkReachability=false. Exact core adapter and same raw A64 phase 3 input. 120 s external cap.
+  PUBLIC pipeline solved in 11.932856 s (13.060835 s external),16850 steps, 691 fine searches, 7854082 expansions. First top child exhausted 12000 iterations by 6.698 s; default retry and validation then completed. Two later validation/refinement children each completed in 1 iteration. Full telemetry in a64-pipeline-eight-negotiation.json.
+  Public getOutput succeeded. Independent exact 8 endpoint coverage, native continuous combined DRC, and byte-for-byte preservation of all 16 supplied traces passed. Native DRC validation-only owner records allow auditing supplied copper as well as new routes. Final 8 requested route arrays match EXACTLY all three saved outputs: core-main/a64/phase-3-end.srj.json, core-repeat-main/a64/phase-3-end.srj.json, core-head/a64/phase-3-end.srj.json. New requested copper 127.621476578 mm and max-min skew 12.180604133 mm unchanged. The fixture declares no matching tolerance or differential pair, so this remains an untimed routing result.
+  Prior whole-core A64 phase timing ~82–94 s/main and ~104 s/passive-head are different runs/harness scope. Do not compute a benchmark speedup from those versus this standalone prototype. The complete unchanged-output prototype supports a targeted eligibility improvement and a fresh paired full-core comparison, not a proven multi-board or 24/32 lane throughput claim.
+
+Artifacts
+  summary.json: compact all outcomes and derived quality.
+  provenance.json: revisions, commands, environment, source and harness hashes, limitations.
+  batch-corridor-*-base/batch.json: complete raw fixture/route/failure-prefix data.
+  a64-first-child-handoff.json: accurate alias for extraction originally named a64-generated-handoff.json.
+  a64-current-negotiate-reachability.json: capped direct diagnostic.
+  a64-pipeline-eight-negotiation.json: successful public-pipeline prototype output and child telemetry.
+  All executed standalone scripts and logs retained beside reports. No failed/intermediate graphics were published. This supplemental research does not replace repository-required paired ./benchmark.sh comparisons or fresh 11/11 AM3352 CI acceptance.

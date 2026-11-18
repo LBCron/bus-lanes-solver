@@ -1,0 +1,526 @@
+{
+  "runs": [
+    {
+      "fixture": "pocket16-capacity",
+      "mode": "base",
+      "status": "completed",
+      "completed": true,
+      "connected": true,
+      "drcValid": true,
+      "yields": 1301,
+      "bestPartial": 16,
+      "searches": 331,
+      "totalExpansions": 491882,
+      "coarsePlanningYields": 0,
+      "elapsedSeconds": 1.7047612050000003,
+      "externalElapsedSeconds": 2.511285962,
+      "cutTrackUpperBound": 29,
+      "totalCopperLengthMm": 135.85352800987937,
+      "longestRouteMm": 12.861017305526646,
+      "timingValidated": false,
+      "buses": [
+        {
+          "busId": "data",
+          "completed": true,
+          "totalCopperMm": 135.85352800987937,
+          "maxMinSkewMm": 6.861017305526644,
+          "minimumMm": 6.0,
+          "maximumMm": 12.861017305526644
+        }
+      ],
+      "orders": []
+    },
+    {
+      "fixture": "pocket16-capacity",
+      "mode": "batch",
+      "status": "completed",
+      "completed": true,
+      "connected": true,
+      "drcValid": true,
+      "yields": 235,
+      "bestPartial": 16,
+      "searches": 45,
+      "totalExpansions": 96249,
+      "coarsePlanningYields": 20,
+      "elapsedSeconds": 0.6538943999999999,
+      "externalElapsedSeconds": 1.2987439840000001,
+      "cutTrackUpperBound": 29,
+      "totalCopperLengthMm": 175.0008368164212,
+      "longestRouteMm": 16.533809511662426,
+      "timingValidated": false,
+      "buses": [
+        {
+          "busId": "data",
+          "completed": true,
+          "totalCopperMm": 175.00083681642124,
+          "maxMinSkewMm": 9.456854249492382,
+          "minimumMm": 7.076955262170047,
+          "maximumMm": 16.53380951166243
+        }
+      ],
+      "orders": [
+        {
+          "order": "guide_exterior",
+          "status": "blocked",
+          "failedConnection": "D13",
+          "completedPrefix": 5,
+          "failedRouteExpansions": 0,
+          "drcIssueCount": null
+        },
+        {
+          "order": "guide_length",
+          "status": "blocked",
+          "failedConnection": "D15",
+          "completedPrefix": 9,
+          "failedRouteExpansions": 0,
+          "drcIssueCount": null
+        },
+        {
+          "order": "terminal_exterior_positive_first",
+          "status": "blocked",
+          "failedConnection": "D8",
+          "completedPrefix": 15,
+          "failedRouteExpansions": 0,
+          "drcIssueCount": null
+        },
+        {
+          "order": "terminal_exterior_negative_first",
+          "status": "accepted",
+          "failedConnection": null,
+          "completedPrefix": 16,
+          "failedRouteExpansions": null,
+          "drcIssueCount": 0
+        }
+      ]
+    },
+    {
+      "fixture": "pocket24-capacity",
+      "mode": "base",
+      "status": "yield_budget_exhausted",
+      "completed": false,
+      "connected": false,
+      "drcValid": null,
+      "yields": 5000,
+      "bestPartial": 12,
+      "searches": 1334,
+      "totalExpansions": 1725220,
+      "coarsePlanningYields": 0,
+      "elapsedSeconds": 3.8457006950000006,
+      "externalElapsedSeconds": 4.473329444000001,
+      "cutTrackUpperBound": 41,
+      "totalCopperLengthMm": null,
+      "longestRouteMm": null,
+      "timingValidated": false,
+      "buses": [
+        {
+          "busId": "data",
+          "completed": false,
+          "totalCopperMm": null,
+          "maxMinSkewMm": null,
+          "minimumMm": null,
+          "maximumMm": null
+        }
+      ],
+      "orders": []
+    },
+    {
+      "fixture": "pocket24-capacity",
+      "mode": "batch",
+      "status": "no_complete_proposal",
+      "completed": false,
+      "connected": false,
+      "drcValid": null,
+      "yields": 444,
+      "bestPartial": 23,
+      "searches": 62,
+      "totalExpansions": 191125,
+      "coarsePlanningYields": 28,
+      "elapsedSeconds": 0.9219132010000001,
+      "externalElapsedSeconds": 1.601640469,
+      "cutTrackUpperBound": 41,
+      "totalCopperLengthMm": null,
+      "longestRouteMm": null,
+      "timingValidated": false,
+      "buses": [
+        {
+          "busId": "data",
+          "completed": false,
+          "totalCopperMm": null,
+          "maxMinSkewMm": null,
+          "minimumMm": null,
+          "maximumMm": null
+        }
+      ],
+      "orders": [
+        {
+          "order": "guide_exterior",
+          "status": "blocked",
+          "failedConnection": "D16",
+          "completedPrefix": 9,
+          "failedRouteExpansions": 0,
+          "drcIssueCount": null
+        },
+        {
+          "order": "guide_length",
+          "status": "blocked",
+          "failedConnection": "D18",
+          "completedPrefix": 7,
+          "failedRouteExpansions": 0,
+          "drcIssueCount": null
+        },
+        {
+          "order": "terminal_exterior_positive_first",
+          "status": "blocked",
+          "failedConnection": "D11",
+          "completedPrefix": 23,
+          "failedRouteExpansions": 0,
+          "drcIssueCount": null
+        },
+        {
+          "order": "terminal_exterior_negative_first",
+          "status": "blocked",
+          "failedConnection": "D11",
+          "completedPrefix": 23,
+          "failedRouteExpansions": 0,
+          "drcIssueCount": null
+        }
+      ]
+    },
+    {
+      "fixture": "pocket32-capacity",
+      "mode": "base",
+      "status": "yield_budget_exhausted",
+      "completed": false,
+      "connected": false,
+      "drcValid": null,
+      "yields": 5000,
+      "bestPartial": 14,
+      "searches": 1288,
+      "totalExpansions": 1731309,
+      "coarsePlanningYields": 0,
+      "elapsedSeconds": 4.990573002,
+      "externalElapsedSeconds": 5.442684702,
+      "cutTrackUpperBound": 53,
+      "totalCopperLengthMm": null,
+      "longestRouteMm": null,
+      "timingValidated": false,
+      "buses": [
+        {
+          "busId": "data",
+          "completed": false,
+          "totalCopperMm": null,
+          "maxMinSkewMm": null,
+          "minimumMm": null,
+          "maximumMm": null
+        }
+      ],
+      "orders": []
+    },
+    {
+      "fixture": "pocket32-capacity",
+      "mode": "batch",
+      "status": "no_complete_proposal",
+      "completed": false,
+      "connected": false,
+      "drcValid": null,
+      "yields": 546,
+      "bestPartial": 25,
+      "searches": 64,
+      "totalExpansions": 224544,
+      "coarsePlanningYields": 67,
+      "elapsedSeconds": 1.0402034990000002,
+      "externalElapsedSeconds": 1.5863537510000005,
+      "cutTrackUpperBound": 53,
+      "totalCopperLengthMm": null,
+      "longestRouteMm": null,
+      "timingValidated": false,
+      "buses": [
+        {
+          "busId": "data",
+          "completed": false,
+          "totalCopperMm": null,
+          "maxMinSkewMm": null,
+          "minimumMm": null,
+          "maximumMm": null
+        }
+      ],
+      "orders": [
+        {
+          "order": "guide_exterior",
+          "status": "blocked",
+          "failedConnection": "D20",
+          "completedPrefix": 7,
+          "failedRouteExpansions": 0,
+          "drcIssueCount": null
+        },
+        {
+          "order": "guide_length",
+          "status": "blocked",
+          "failedConnection": "D20",
+          "completedPrefix": 6,
+          "failedRouteExpansions": 0,
+          "drcIssueCount": null
+        },
+        {
+          "order": "terminal_exterior_positive_first",
+          "status": "blocked",
+          "failedConnection": "D12",
+          "completedPrefix": 25,
+          "failedRouteExpansions": 0,
+          "drcIssueCount": null
+        },
+        {
+          "order": "terminal_exterior_negative_first",
+          "status": "blocked",
+          "failedConnection": "D19",
+          "completedPrefix": 25,
+          "failedRouteExpansions": 2652,
+          "drcIssueCount": null
+        }
+      ]
+    },
+    {
+      "fixture": "seed5",
+      "mode": "base",
+      "status": "completed",
+      "completed": true,
+      "connected": true,
+      "drcValid": true,
+      "yields": 1210,
+      "bestPartial": 8,
+      "searches": 168,
+      "totalExpansions": 523467,
+      "coarsePlanningYields": 0,
+      "elapsedSeconds": 1.3512042080000002,
+      "externalElapsedSeconds": 2.1715106190000006,
+      "cutTrackUpperBound": null,
+      "totalCopperLengthMm": 88.73975823643079,
+      "longestRouteMm": 13.069595949289335,
+      "timingValidated": false,
+      "buses": [
+        {
+          "busId": "data",
+          "completed": true,
+          "totalCopperMm": 88.7397582364308,
+          "maxMinSkewMm": 4.013351365237941,
+          "minimumMm": 9.056244584051392,
+          "maximumMm": 13.069595949289333
+        }
+      ],
+      "orders": []
+    },
+    {
+      "fixture": "seed5",
+      "mode": "batch",
+      "status": "completed",
+      "completed": true,
+      "connected": true,
+      "drcValid": true,
+      "yields": 164,
+      "bestPartial": 8,
+      "searches": 22,
+      "totalExpansions": 69338,
+      "coarsePlanningYields": 12,
+      "elapsedSeconds": 0.3986662980000001,
+      "externalElapsedSeconds": 1.2690130570000002,
+      "cutTrackUpperBound": null,
+      "totalCopperLengthMm": 96.99696961967001,
+      "longestRouteMm": 15.41812408671319,
+      "timingValidated": false,
+      "buses": [
+        {
+          "busId": "data",
+          "completed": true,
+          "totalCopperMm": 96.99696961967,
+          "maxMinSkewMm": 5.959797974644671,
+          "minimumMm": 9.458326112068521,
+          "maximumMm": 15.418124086713192
+        }
+      ],
+      "orders": [
+        {
+          "order": "guide_exterior",
+          "status": "blocked",
+          "failedConnection": "D6",
+          "completedPrefix": 4,
+          "failedRouteExpansions": 0,
+          "drcIssueCount": null
+        },
+        {
+          "order": "guide_length",
+          "status": "blocked",
+          "failedConnection": "D1",
+          "completedPrefix": 5,
+          "failedRouteExpansions": 0,
+          "drcIssueCount": null
+        },
+        {
+          "order": "terminal_exterior_positive_first",
+          "status": "blocked",
+          "failedConnection": "D2",
+          "completedPrefix": 5,
+          "failedRouteExpansions": 0,
+          "drcIssueCount": null
+        },
+        {
+          "order": "terminal_exterior_negative_first",
+          "status": "accepted",
+          "failedConnection": null,
+          "completedPrefix": 8,
+          "failedRouteExpansions": null,
+          "drcIssueCount": 0
+        }
+      ]
+    }
+  ],
+  "a64": {
+    "fixture": "a64-first-child",
+    "mode": "batch",
+    "status": "no_complete_proposal",
+    "completed": false,
+    "connected": false,
+    "drcValid": null,
+    "yields": 72,
+    "bestPartial": 4,
+    "searches": 5,
+    "totalExpansions": 30419,
+    "coarsePlanningYields": 8,
+    "elapsedSeconds": 0.44040929100000004,
+    "externalElapsedSeconds": 1.3408838220000001,
+    "timingValidated": false,
+    "testedStage": "actual core first child, fixed preferred layer only",
+    "orders": [
+      {
+        "order": "guide_exterior",
+        "status": "blocked",
+        "failedConnection": "source_net_36",
+        "completedPrefix": 4,
+        "failedRouteExpansions": 0
+      },
+      {
+        "order": "guide_length",
+        "status": "blocked",
+        "failedConnection": "source_net_36",
+        "completedPrefix": 1,
+        "failedRouteExpansions": 0
+      }
+    ]
+  },
+  "a64DirectNegotiationReachability": {
+    "status": "yield_budget_exhausted",
+    "generatorDone": false,
+    "yieldBudget": 5000,
+    "yields": 5000,
+    "bestPartial": 6,
+    "searches": 133,
+    "totalExpansions": 2414329,
+    "pass": 90,
+    "conflicts": 5,
+    "elapsedSeconds": 4.8813455370000005,
+    "externalElapsedSeconds": 5.678086929,
+    "externalLimitSeconds": 30,
+    "checkReachability": true,
+    "completed": false,
+    "connected": false,
+    "drcValid": null,
+    "generatorReturnObserved": false,
+    "generatorReturnedNull": null
+  },
+  "a64PublicPipelineEligibilityPrototype": {
+    "status": "completed_public_pipeline",
+    "elapsedSeconds": 11.932855868999999,
+    "externalElapsedSeconds": 13.060834791,
+    "steps": 16850,
+    "solved": true,
+    "failed": false,
+    "connected": true,
+    "drcValid": true,
+    "fixedPreserved": true,
+    "newInterconnectCopperMm": 127.62147657814823,
+    "searches": 691,
+    "expansions": 7854082,
+    "childRecords": [
+      {
+        "id": 0,
+        "inputSha256": "3839e7492986ba5a6b5f6051446a0094b29d5dea2eadda18cd718a38a27f2938",
+        "requestCount": 8,
+        "fixedTraceCount": 16,
+        "requestLayers": [
+          "top"
+        ],
+        "terminalLayers": {},
+        "originalUseNegotiation": false,
+        "patchedUseNegotiation": true,
+        "firstSeenSeconds": 0.4670775819999999,
+        "iterations": 12000,
+        "phase": "failed",
+        "solved": false,
+        "failed": true,
+        "error": "BusLanesSolver ran out of iterations",
+        "failureCode": "search_budget_exhausted",
+        "lastSeenSeconds": 6.698265934
+      },
+      {
+        "id": 1,
+        "inputSha256": "ad59b8aa0b8c4ace504202d7c67987037c8bbf5aea3f9032355e4126e7e217f8",
+        "requestCount": 8,
+        "fixedTraceCount": 32,
+        "requestLayers": [
+          "top"
+        ],
+        "terminalLayers": {},
+        "originalUseNegotiation": false,
+        "patchedUseNegotiation": true,
+        "firstSeenSeconds": 11.569231329,
+        "iterations": 1,
+        "phase": "solved",
+        "solved": true,
+        "failed": false,
+        "error": null,
+        "failureCode": null,
+        "lastSeenSeconds": 11.57715725
+      },
+      {
+        "id": 2,
+        "inputSha256": "22c9a15497d563c720cb234946eedb7a44b5e5e775539aa7dbeef94e89e774c7",
+        "requestCount": 8,
+        "fixedTraceCount": 16,
+        "requestLayers": [
+          "top"
+        ],
+        "terminalLayers": {},
+        "originalUseNegotiation": false,
+        "patchedUseNegotiation": true,
+        "firstSeenSeconds": 11.67819688,
+        "iterations": 1,
+        "phase": "solved",
+        "solved": true,
+        "failed": false,
+        "error": null,
+        "failureCode": null,
+        "lastSeenSeconds": 11.685611053
+      }
+    ],
+    "patch": "BusLanesSolver.useNegotiation = original || (denseSearch && untimed && no differential pairs && some bus has >=8 named input signals)",
+    "defaultsUnchanged": true,
+    "checkReachability": false,
+    "retainedOutputGeometryComparisons": [
+      {
+        "path": "/workspace/ddr-results/core-main/a64/phase-3-end.srj.json",
+        "sha256": "58b4af520e8c32a205296ca5181db02f3f27934dd8317b8a1bd5301137ed47a7",
+        "requestedRouteArraysExactlyEqual": true
+      },
+      {
+        "path": "/workspace/ddr-results/core-repeat-main/a64/phase-3-end.srj.json",
+        "sha256": "58b4af520e8c32a205296ca5181db02f3f27934dd8317b8a1bd5301137ed47a7",
+        "requestedRouteArraysExactlyEqual": true
+      },
+      {
+        "path": "/workspace/ddr-results/core-head/a64/phase-3-end.srj.json",
+        "sha256": "58b4af520e8c32a205296ca5181db02f3f27934dd8317b8a1bd5301137ed47a7",
+        "requestedRouteArraysExactlyEqual": true
+      }
+    ],
+    "requestedMaxMinLengthSkewMm": 12.180604133072865
+  }
+}

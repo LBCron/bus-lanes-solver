@@ -1,0 +1,4458 @@
+{
+  "note": "Installed package manifest inventory retained unchanged for the pinned core main/final-head comparison. Core disables lockfile writes. Bus build/source identity is recorded separately by source commit and distribution SHA-256; package versions alone do not distinguish these builds.",
+  "packages": [
+    {
+      "path": "node_modules/@babel/code-frame",
+      "name": "@babel/code-frame",
+      "version": "8.0.6",
+      "manifestSha256": "6d98ccf08db5742d6b29c8b8b84fc527ec5a9b56d425e876374562ef94441d6b"
+    },
+    {
+      "path": "node_modules/@babel/code-frame/node_modules/js-tokens",
+      "name": "js-tokens",
+      "version": "10.0.0",
+      "manifestSha256": "4d2d7a748b2564d6002a269f8920dee5a19c4e82e1c96546b76dba5b34588ccd"
+    },
+    {
+      "path": "node_modules/@babel/helper-validator-identifier",
+      "name": "@babel/helper-validator-identifier",
+      "version": "8.0.6",
+      "manifestSha256": "d35bc1065861da3aff3184e3e65b1fcbe3718d94a31167d7ce64fed6ef4ffbbd"
+    },
+    {
+      "path": "node_modules/@babel/runtime",
+      "name": "@babel/runtime",
+      "version": "7.29.14",
+      "manifestSha256": "81aeaa5b00df4d0b2f74c69600a8a6de42e987ccf586c34a6435b21b557a5917"
+    },
+    {
+      "path": "node_modules/@biomejs/biome",
+      "name": "@biomejs/biome",
+      "version": "1.9.4",
+      "manifestSha256": "005bbcbb91b777b7d4b25f6e648d0338e9db507b25c295dd751b375ea683373a"
+    },
+    {
+      "path": "node_modules/@biomejs/cli-linux-x64",
+      "name": "@biomejs/cli-linux-x64",
+      "version": "1.9.4",
+      "manifestSha256": "80cf8f6bf266af44f80183efe49724a9ac423d723f7ad8519c50d6862c01966d"
+    },
+    {
+      "path": "node_modules/@biomejs/cli-linux-x64-musl",
+      "name": "@biomejs/cli-linux-x64-musl",
+      "version": "1.9.4",
+      "manifestSha256": "b5e1d6341f0c88bd36bb4c97ae135811156defdae00e0404e0702a3dc491f57d"
+    },
+    {
+      "path": "node_modules/@dagrejs/dagre",
+      "name": "@dagrejs/dagre",
+      "version": "2.0.4",
+      "manifestSha256": "362c92d21afdf16527c31d294da66b4915e3ad934c4306a0c6c4a42fafc82c38"
+    },
+    {
+      "path": "node_modules/@dagrejs/graphlib",
+      "name": "@dagrejs/graphlib",
+      "version": "3.0.4",
+      "manifestSha256": "9fea622687a8a0dea045ee4af3110037ed5191906bc86eb317e974cf7f79b47c"
+    },
+    {
+      "path": "node_modules/@dimforge/rapier3d-compat",
+      "name": "@dimforge/rapier3d-compat",
+      "version": "0.12.0",
+      "manifestSha256": "35df43c94785a840dd08965552d6d2bac912583e863c461ccfe32c01ed4cebca"
+    },
+    {
+      "path": "node_modules/@esbuild/linux-x64",
+      "name": "@esbuild/linux-x64",
+      "version": "0.27.7",
+      "manifestSha256": "6b9abce611e097bff4eabc91090ecd5943af7ca00cdc56686453efe987d23585"
+    },
+    {
+      "path": "node_modules/@flatten-js/core",
+      "name": "@flatten-js/core",
+      "version": "1.6.15",
+      "manifestSha256": "b9fe4ef709911a7e3453b8b8ca6dc282f3114798608f20dd877510f615f26126"
+    },
+    {
+      "path": "node_modules/@flatten-js/interval-tree",
+      "name": "@flatten-js/interval-tree",
+      "version": "2.0.3",
+      "manifestSha256": "4a30f5df558099ec654958fbb6d9074ebe152d0b213a9dade3d97c4333d6d232"
+    },
+    {
+      "path": "node_modules/@gltf-transform/core",
+      "name": "@gltf-transform/core",
+      "version": "4.5.1",
+      "manifestSha256": "624e185b6e6c6ab602f4419a3fafa422af20d6bb41c6fac2b3a4f7920137be41"
+    },
+    {
+      "path": "node_modules/@gltf-transform/extensions",
+      "name": "@gltf-transform/extensions",
+      "version": "4.5.1",
+      "manifestSha256": "f0c39ed1aa701c56672d0c371c16bead0ad2212c0d7a34cc21ac458b155a5ce7"
+    },
+    {
+      "path": "node_modules/@gltf-transform/functions",
+      "name": "@gltf-transform/functions",
+      "version": "4.5.1",
+      "manifestSha256": "fc0f3140bee5951931d50cccd7cb4c2b11f0344a32d0e630578e3415333fa6d3"
+    },
+    {
+      "path": "node_modules/@img/colour",
+      "name": "@img/colour",
+      "version": "1.1.0",
+      "manifestSha256": "bc38c5097693ed53b91c32f35fb0a52569736c7854ba2eb6d080f3252071f75c"
+    },
+    {
+      "path": "node_modules/@img/sharp-libvips-linux-x64",
+      "name": "@img/sharp-libvips-linux-x64",
+      "version": "1.3.4",
+      "manifestSha256": "2c5f6f9abf74c1492622d5dc4e4da056ab0712fd71de61e03a687c88b8cdab4e"
+    },
+    {
+      "path": "node_modules/@img/sharp-libvips-linuxmusl-x64",
+      "name": "@img/sharp-libvips-linuxmusl-x64",
+      "version": "1.3.4",
+      "manifestSha256": "9d93c5ff1a47f5c79286f6c832e0ab9001feff6db50b9085f578b20a663b580e"
+    },
+    {
+      "path": "node_modules/@img/sharp-linux-x64",
+      "name": "@img/sharp-linux-x64",
+      "version": "0.35.5",
+      "manifestSha256": "181c58413d16ac3ce035f39c94c614031e03c023d88315712a81ed210c9fa04c"
+    },
+    {
+      "path": "node_modules/@img/sharp-linuxmusl-x64",
+      "name": "@img/sharp-linuxmusl-x64",
+      "version": "0.35.5",
+      "manifestSha256": "1d41eb946e8c574f27606680c8a674adce6936ef3fc05b754be38a3e3fd3857e"
+    },
+    {
+      "path": "node_modules/@jridgewell/gen-mapping",
+      "name": "@jridgewell/gen-mapping",
+      "version": "0.3.13",
+      "manifestSha256": "6264fca78382a9782f8e8d5e653e7bf43dc8aa6d469f3322a82e531093896a01"
+    },
+    {
+      "path": "node_modules/@jridgewell/remapping",
+      "name": "@jridgewell/remapping",
+      "version": "2.3.5",
+      "manifestSha256": "cc535fb0665977104146fb8fe6c81ff63d2c9ae7f7b783d86e7f7db064cde57a"
+    },
+    {
+      "path": "node_modules/@jridgewell/resolve-uri",
+      "name": "@jridgewell/resolve-uri",
+      "version": "3.1.3",
+      "manifestSha256": "3fa3e48e58f6b7d236fa98ca363a2cabf7132882fe2b3d8a2839f8dccecb8950"
+    },
+    {
+      "path": "node_modules/@jridgewell/sourcemap-codec",
+      "name": "@jridgewell/sourcemap-codec",
+      "version": "1.6.0",
+      "manifestSha256": "ac7afd57294dbee1f891ca797e19e405340f2cd6031808e6d3845fec60a5b43f"
+    },
+    {
+      "path": "node_modules/@jridgewell/trace-mapping",
+      "name": "@jridgewell/trace-mapping",
+      "version": "0.3.31",
+      "manifestSha256": "7f5eacc669d36013f9b792ab15721a97d48b26b093100122aa6c8691ebe656be"
+    },
+    {
+      "path": "node_modules/@jscad/modeling",
+      "name": "@jscad/modeling",
+      "version": "2.13.0",
+      "manifestSha256": "e581a4c48ee48a0c2682a5939834ddda4fe855aad0387899767c04999449c34c"
+    },
+    {
+      "path": "node_modules/@jscadui/3mf-export",
+      "name": "@jscadui/3mf-export",
+      "version": "0.5.0",
+      "manifestSha256": "16d7f58d11b7d697de7c8e7144abd240110c0cf74b09af315baeee85fa5d9ec3"
+    },
+    {
+      "path": "node_modules/@jsdevtools/ez-spawn",
+      "name": "@jsdevtools/ez-spawn",
+      "version": "3.0.4",
+      "manifestSha256": "0827aef82e92402f2f845d006c1293c392e5149226fa6d105b2b8a3c24f1f869"
+    },
+    {
+      "path": "node_modules/@lume/kiwi",
+      "name": "@lume/kiwi",
+      "version": "0.4.4",
+      "manifestSha256": "3792b9aaa0f25679bbf9507440153f5aee073b31ecab06fa3ae10689b93c440a"
+    },
+    {
+      "path": "node_modules/@nodable/entities",
+      "name": "@nodable/entities",
+      "version": "3.1.0",
+      "manifestSha256": "81fc13661f9431f9f72ae5a1723482a1bcb473af463b93ca0b27c42461a6c6c9"
+    },
+    {
+      "path": "node_modules/@octokit/action",
+      "name": "@octokit/action",
+      "version": "6.1.0",
+      "manifestSha256": "c639cf2d8c1efeec3377d63ccffef236b684ac5ebcb49547ed38bfd07e84e247"
+    },
+    {
+      "path": "node_modules/@octokit/auth-action",
+      "name": "@octokit/auth-action",
+      "version": "4.1.0",
+      "manifestSha256": "d7b8c42b6fc44d2a2b3c78204cb2a494b215517f393499dbbbd9e2967f7aa089"
+    },
+    {
+      "path": "node_modules/@octokit/auth-action/node_modules/@octokit/types",
+      "name": "@octokit/types",
+      "version": "13.10.0",
+      "manifestSha256": "163395e31f392d00d9111c85034a35847cce815c05dc169c3b1862e3766675a5"
+    },
+    {
+      "path": "node_modules/@octokit/auth-action/node_modules/@octokit/types/node_modules/@octokit/openapi-types",
+      "name": "@octokit/openapi-types",
+      "version": "24.2.0",
+      "manifestSha256": "765d39144e2065ea4460ade97e3afeed057f9aaf604a90490f178358b7ede0ef"
+    },
+    {
+      "path": "node_modules/@octokit/auth-token",
+      "name": "@octokit/auth-token",
+      "version": "4.0.0",
+      "manifestSha256": "5fb4c7da219be787eeae75b930978bc5f64099894391178309e18a453fc8e82f"
+    },
+    {
+      "path": "node_modules/@octokit/core",
+      "name": "@octokit/core",
+      "version": "5.2.2",
+      "manifestSha256": "ec5a832af42b31571438f4ecf38a13ef47605d479324ca3565d95e46347af3b6"
+    },
+    {
+      "path": "node_modules/@octokit/core/node_modules/@octokit/types",
+      "name": "@octokit/types",
+      "version": "13.10.0",
+      "manifestSha256": "163395e31f392d00d9111c85034a35847cce815c05dc169c3b1862e3766675a5"
+    },
+    {
+      "path": "node_modules/@octokit/core/node_modules/@octokit/types/node_modules/@octokit/openapi-types",
+      "name": "@octokit/openapi-types",
+      "version": "24.2.0",
+      "manifestSha256": "765d39144e2065ea4460ade97e3afeed057f9aaf604a90490f178358b7ede0ef"
+    },
+    {
+      "path": "node_modules/@octokit/endpoint",
+      "name": "@octokit/endpoint",
+      "version": "9.0.6",
+      "manifestSha256": "38bed9993f3083d4aed66a311fbc10d85cb489635d686f09b9b21fa387b86ede"
+    },
+    {
+      "path": "node_modules/@octokit/endpoint/node_modules/@octokit/types",
+      "name": "@octokit/types",
+      "version": "13.10.0",
+      "manifestSha256": "163395e31f392d00d9111c85034a35847cce815c05dc169c3b1862e3766675a5"
+    },
+    {
+      "path": "node_modules/@octokit/endpoint/node_modules/@octokit/types/node_modules/@octokit/openapi-types",
+      "name": "@octokit/openapi-types",
+      "version": "24.2.0",
+      "manifestSha256": "765d39144e2065ea4460ade97e3afeed057f9aaf604a90490f178358b7ede0ef"
+    },
+    {
+      "path": "node_modules/@octokit/graphql",
+      "name": "@octokit/graphql",
+      "version": "7.1.1",
+      "manifestSha256": "8ffb3d3118735418f5c22592123a3b4c5f7468f6dc7b5af05e66e646c4d7d1d0"
+    },
+    {
+      "path": "node_modules/@octokit/graphql/node_modules/@octokit/types",
+      "name": "@octokit/types",
+      "version": "13.10.0",
+      "manifestSha256": "163395e31f392d00d9111c85034a35847cce815c05dc169c3b1862e3766675a5"
+    },
+    {
+      "path": "node_modules/@octokit/graphql/node_modules/@octokit/types/node_modules/@octokit/openapi-types",
+      "name": "@octokit/openapi-types",
+      "version": "24.2.0",
+      "manifestSha256": "765d39144e2065ea4460ade97e3afeed057f9aaf604a90490f178358b7ede0ef"
+    },
+    {
+      "path": "node_modules/@octokit/openapi-types",
+      "name": "@octokit/openapi-types",
+      "version": "20.0.0",
+      "manifestSha256": "691896aba1ee9cb19671fa2e7ef7d00f73ac27726226dc37bc100b26eb0d0f7e"
+    },
+    {
+      "path": "node_modules/@octokit/plugin-paginate-rest",
+      "name": "@octokit/plugin-paginate-rest",
+      "version": "9.2.2",
+      "manifestSha256": "31af2b19e423e92b262a2845c2e16d8c1a5542488cdab8d89825cb58b4ecca51"
+    },
+    {
+      "path": "node_modules/@octokit/plugin-rest-endpoint-methods",
+      "name": "@octokit/plugin-rest-endpoint-methods",
+      "version": "10.4.1",
+      "manifestSha256": "66d3eb3dd378076e71153916e04d21aa48fa054a4465d49af10efa28a52c475b"
+    },
+    {
+      "path": "node_modules/@octokit/request",
+      "name": "@octokit/request",
+      "version": "8.4.1",
+      "manifestSha256": "f86642828cd7e944e93dd6e33ae3e3735f665040edf6279972e0c7508b9b9f89"
+    },
+    {
+      "path": "node_modules/@octokit/request-error",
+      "name": "@octokit/request-error",
+      "version": "5.1.1",
+      "manifestSha256": "abbff4dd46c5754779d776ffde943f490454536f990c97fa8d2dd10a74c09ca5"
+    },
+    {
+      "path": "node_modules/@octokit/request-error/node_modules/@octokit/types",
+      "name": "@octokit/types",
+      "version": "13.10.0",
+      "manifestSha256": "163395e31f392d00d9111c85034a35847cce815c05dc169c3b1862e3766675a5"
+    },
+    {
+      "path": "node_modules/@octokit/request-error/node_modules/@octokit/types/node_modules/@octokit/openapi-types",
+      "name": "@octokit/openapi-types",
+      "version": "24.2.0",
+      "manifestSha256": "765d39144e2065ea4460ade97e3afeed057f9aaf604a90490f178358b7ede0ef"
+    },
+    {
+      "path": "node_modules/@octokit/request/node_modules/@octokit/types",
+      "name": "@octokit/types",
+      "version": "13.10.0",
+      "manifestSha256": "163395e31f392d00d9111c85034a35847cce815c05dc169c3b1862e3766675a5"
+    },
+    {
+      "path": "node_modules/@octokit/request/node_modules/@octokit/types/node_modules/@octokit/openapi-types",
+      "name": "@octokit/openapi-types",
+      "version": "24.2.0",
+      "manifestSha256": "765d39144e2065ea4460ade97e3afeed057f9aaf604a90490f178358b7ede0ef"
+    },
+    {
+      "path": "node_modules/@octokit/types",
+      "name": "@octokit/types",
+      "version": "12.6.0",
+      "manifestSha256": "6db4095207c15dd277ea3886598e5a42c25193fea630b9357b67f6173d1f365a"
+    },
+    {
+      "path": "node_modules/@react-hook/latest",
+      "name": "@react-hook/latest",
+      "version": "1.0.3",
+      "manifestSha256": "4f1ef9aba97d1fa10581a5737c2c15de8a88c3e1d79a9891e6e7ba7df15e3739"
+    },
+    {
+      "path": "node_modules/@react-hook/passive-layout-effect",
+      "name": "@react-hook/passive-layout-effect",
+      "version": "1.2.1",
+      "manifestSha256": "f71575f4a4724cc60f2abf9b208e80fc8a7bb4561efb1afb10015a235b3f6c22"
+    },
+    {
+      "path": "node_modules/@react-hook/resize-observer",
+      "name": "@react-hook/resize-observer",
+      "version": "2.0.2",
+      "manifestSha256": "1d4a415924dc0ab461f922d670c58712f484f21e4367e9baf03713c6057768d3"
+    },
+    {
+      "path": "node_modules/@remix-run/router",
+      "name": "@remix-run/router",
+      "version": "1.23.4",
+      "manifestSha256": "6c3f0c8169df5475e874dd481e696ca778c6536ddca0279a62ccaab83ad23a8f"
+    },
+    {
+      "path": "node_modules/@resvg/resvg-js",
+      "name": "@resvg/resvg-js",
+      "version": "2.6.2",
+      "manifestSha256": "2669617af27d91b0dfc0828cc2190ba87b8d8ea6e4cf08619a23784a2f1d8c95"
+    },
+    {
+      "path": "node_modules/@resvg/resvg-js-linux-x64-gnu",
+      "name": "@resvg/resvg-js-linux-x64-gnu",
+      "version": "2.6.2",
+      "manifestSha256": "061ed749ead730a1f2c70c633a8107b0c9066a3d7a7bf284aa08984a1bdfd0a8"
+    },
+    {
+      "path": "node_modules/@resvg/resvg-js-linux-x64-musl",
+      "name": "@resvg/resvg-js-linux-x64-musl",
+      "version": "2.6.2",
+      "manifestSha256": "440b96f98f4e7b2e79683d3b97c6933fc997c7f63b0172688d79df76949875ae"
+    },
+    {
+      "path": "node_modules/@rollup/plugin-commonjs",
+      "name": "@rollup/plugin-commonjs",
+      "version": "29.0.3",
+      "manifestSha256": "84d9a2cca88c940d2a730121d225421b6176bf77090c321ada62e8bd5d1f39ff"
+    },
+    {
+      "path": "node_modules/@rollup/plugin-json",
+      "name": "@rollup/plugin-json",
+      "version": "6.1.0",
+      "manifestSha256": "6f75249954f9cb695612547acc93da44bdd3d3efd38d3672d49d88271d10faf6"
+    },
+    {
+      "path": "node_modules/@rollup/plugin-node-resolve",
+      "name": "@rollup/plugin-node-resolve",
+      "version": "16.0.3",
+      "manifestSha256": "88b82f8dd4fbd227d2f25fe91e7db9dd3662c12d3e2f9eb523fc3fcafc9d8b3c"
+    },
+    {
+      "path": "node_modules/@rollup/plugin-typescript",
+      "name": "@rollup/plugin-typescript",
+      "version": "12.3.1",
+      "manifestSha256": "31c6a9f6b74f69cfbafbb8fd2ffc4f7f26382a4e5c16cf38bb665601cbc78d9b"
+    },
+    {
+      "path": "node_modules/@rollup/pluginutils",
+      "name": "@rollup/pluginutils",
+      "version": "5.5.1",
+      "manifestSha256": "0d50fddb9d0e31b41d07a74cccfd6541a8dadc596cf8636ed4cd27075a507fab"
+    },
+    {
+      "path": "node_modules/@rollup/rollup-linux-x64-gnu",
+      "name": "@rollup/rollup-linux-x64-gnu",
+      "version": "4.68.7",
+      "manifestSha256": "8690fff55df2f40d7248651dd6e1033c4907ff4e90f90cf8d119025a55392fdb"
+    },
+    {
+      "path": "node_modules/@rollup/rollup-linux-x64-musl",
+      "name": "@rollup/rollup-linux-x64-musl",
+      "version": "4.68.7",
+      "manifestSha256": "120fde0aaa01fbe0e73f46b95e3a00d5c2fde7d4d7c00ccc1dde5620aca6f41f"
+    },
+    {
+      "path": "node_modules/@thednp/dommatrix",
+      "name": "@thednp/dommatrix",
+      "version": "3.1.4",
+      "manifestSha256": "78179ac98faa3b0de57e4bd3f34f91ed97ba03b7c78adc4aa14f56ca75abc844"
+    },
+    {
+      "path": "node_modules/@tsci/tscircuit.ti",
+      "name": "@tsci/tscircuit.ti",
+      "version": "1.0.0",
+      "manifestSha256": "0d5358f7aa4caac29bc22b0aa59418cb0081e4f50a6aed2056bb00673106ea6c"
+    },
+    {
+      "path": "node_modules/@tscircuit/alphabet",
+      "name": "@tscircuit/alphabet",
+      "version": "0.0.25",
+      "manifestSha256": "02692d0bac4a637ed3165f5d24c9b1bb220e36d053dff7604f1e421b0efe527a"
+    },
+    {
+      "path": "node_modules/@tscircuit/bga-fanout-solver",
+      "name": "@tscircuit/bga-fanout-solver",
+      "version": "0.0.1",
+      "manifestSha256": "50ef837ae08dfbcc432846c2792bd19d766d69a8a5a96e77f75338aed7fa2799"
+    },
+    {
+      "path": "node_modules/@tscircuit/bga-fanout-solver/node_modules/@tscircuit/solver-utils",
+      "name": "@tscircuit/solver-utils",
+      "version": "0.0.19",
+      "manifestSha256": "8606c45cac613f59ccaa0564a58a826a08ecf3b3bc45865e0b680d5c1a6c4e68"
+    },
+    {
+      "path": "node_modules/@tscircuit/bus-lanes-solver",
+      "name": "@tscircuit/bus-lanes-solver",
+      "version": "0.0.62",
+      "manifestSha256": "20445e0a1416e641b6e7bcddf7d13eb198756bb19e1b6e1df1d9110382fd7d35"
+    },
+    {
+      "path": "node_modules/@tscircuit/cableprinter",
+      "name": "@tscircuit/cableprinter",
+      "version": "0.0.6",
+      "manifestSha256": "c4572fada904aa5b31fb848e17925b78ed83d58d122d552e9e62e7926d118572"
+    },
+    {
+      "path": "node_modules/@tscircuit/cad-collision-checking",
+      "name": "@tscircuit/cad-collision-checking",
+      "version": "0.0.6",
+      "manifestSha256": "d06bb4257e58b66894da653f8f51b62208dc3035061d3a1cc413ef12a270c702"
+    },
+    {
+      "path": "node_modules/@tscircuit/capacity-autorouter",
+      "name": "@tscircuit/capacity-autorouter",
+      "version": "0.0.1128",
+      "manifestSha256": "035b08f9fff4598d1d60fc8e11a27c6ab903b83363abc8b02d8a4ba12a848516"
+    },
+    {
+      "path": "node_modules/@tscircuit/capacity-autorouter/node_modules/@tscircuit/solver-utils",
+      "name": "@tscircuit/solver-utils",
+      "version": "0.0.23",
+      "manifestSha256": "b00be11b8b222fd311a6cec8e41c89490b30bef3faf98ed0788f379aa193f968"
+    },
+    {
+      "path": "node_modules/@tscircuit/checks",
+      "name": "@tscircuit/checks",
+      "version": "0.0.280",
+      "manifestSha256": "0b1f80c2b7e05386b7e194f9ff12d67115cd0f87ffddcaee9170ad9679756865"
+    },
+    {
+      "path": "node_modules/@tscircuit/circuit-json-to-drawing",
+      "name": "@tscircuit/circuit-json-to-drawing",
+      "version": "0.0.6",
+      "manifestSha256": "8eff03df340a9cd9d8f369b7f6d066275eeb37e7f12867b204f940f5149f4942"
+    },
+    {
+      "path": "node_modules/@tscircuit/circuit-json-to-drawing/node_modules/poppygl",
+      "name": "poppygl",
+      "version": "0.0.37",
+      "manifestSha256": "bf1765e4290f20e1c78a246a943367c7fc0b5fa2d4822378f357d3a1aa4167d5"
+    },
+    {
+      "path": "node_modules/@tscircuit/circuit-json-util",
+      "name": "@tscircuit/circuit-json-util",
+      "version": "0.0.131",
+      "manifestSha256": "ae0aabd0e67d4e644e5639a5e5c3be62d7fb8557948c0d8e75cc8f10e3731c07"
+    },
+    {
+      "path": "node_modules/@tscircuit/cli",
+      "name": "@tscircuit/cli",
+      "version": "0.1.2475",
+      "manifestSha256": "41c83728a96f81cc9719624c3ffbe316b5ef96137f504caf4d2dcafd1b688fa6"
+    },
+    {
+      "path": "node_modules/@tscircuit/common",
+      "name": "@tscircuit/common",
+      "version": "0.0.20",
+      "manifestSha256": "1a40d222e804a0d3edfe376211ac54ade903a21d1cc2a70336b26ea8dc251b0c"
+    },
+    {
+      "path": "node_modules/@tscircuit/copper-pour-solver",
+      "name": "@tscircuit/copper-pour-solver",
+      "version": "0.0.74",
+      "manifestSha256": "54e1cceb30ca4de919292d54191aa0d3fedb5fe5ef369906317e6b6c5a4fb6d0"
+    },
+    {
+      "path": "node_modules/@tscircuit/copper-pour-solver/node_modules/@tscircuit/manifold-2d",
+      "name": "@tscircuit/manifold-2d",
+      "version": "0.0.6",
+      "manifestSha256": "d1426af1aa4b9e87d1c41195c8c99b13e08f27bcd597f7074a5876556ae0a97c"
+    },
+    {
+      "path": "node_modules/@tscircuit/core",
+      "name": "@tscircuit/core",
+      "version": "0.0.1736",
+      "manifestSha256": "11c8d515951fac2beab397c0a273f8df0d23733f635467f9c9c762f4bd816ce7"
+    },
+    {
+      "path": "node_modules/@tscircuit/core-ddr-benchmark",
+      "name": "@tscircuit/core-ddr-benchmark",
+      "version": "0.0.1",
+      "manifestSha256": "bb60b272037f4173365d3b043e685d28dec0e18e858a46e1e959848bc2bc59d6"
+    },
+    {
+      "path": "node_modules/@tscircuit/core/node_modules/calculate-cell-boundaries",
+      "name": "calculate-cell-boundaries",
+      "version": "0.0.19",
+      "manifestSha256": "4b4fb3d7db41af0ec42f547ede12e198ddba54c6e591d2d50bdf6c72584cab34"
+    },
+    {
+      "path": "node_modules/@tscircuit/core/node_modules/calculate-cell-boundaries/node_modules/@tscircuit/solver-utils",
+      "name": "@tscircuit/solver-utils",
+      "version": "0.0.19",
+      "manifestSha256": "8606c45cac613f59ccaa0564a58a826a08ecf3b3bc45865e0b680d5c1a6c4e68"
+    },
+    {
+      "path": "node_modules/@tscircuit/core/node_modules/calculate-cell-boundaries/node_modules/react",
+      "name": "react",
+      "version": "18.3.1",
+      "manifestSha256": "d4e68a5c96babb20cad1daafea8b78822eae45b341552cf5418d06a5304fa64c"
+    },
+    {
+      "path": "node_modules/@tscircuit/core/node_modules/calculate-cell-boundaries/node_modules/react-dom",
+      "name": "react-dom",
+      "version": "18.3.1",
+      "manifestSha256": "d2f29e31bd48b833e48cd7bbf41f192e8ee4ff8da249fdbe10d4ac4114b8b12e"
+    },
+    {
+      "path": "node_modules/@tscircuit/core/node_modules/calculate-cell-boundaries/node_modules/react-dom/node_modules/scheduler",
+      "name": "scheduler",
+      "version": "0.23.2",
+      "manifestSha256": "0893643a24576d727174e639586b8833a53f2a7b4a2199a719b9cfcebe9bae88"
+    },
+    {
+      "path": "node_modules/@tscircuit/core/node_modules/calculate-packing",
+      "name": "calculate-packing",
+      "version": "0.0.86",
+      "manifestSha256": "392520b0270f1a8f0495cd5aef7dc222d09a12864e9d96fb20f86e6d3e139d2e"
+    },
+    {
+      "path": "node_modules/@tscircuit/create-fdm-enclosure",
+      "name": "@tscircuit/create-fdm-enclosure",
+      "version": "0.0.6",
+      "manifestSha256": "b95236ab547873f0b8dd3d0253e8441d06d357e85c261283300d51e4e5737ca3"
+    },
+    {
+      "path": "node_modules/@tscircuit/create-fdm-enclosure/node_modules/@tscircuit/solver-utils",
+      "name": "@tscircuit/solver-utils",
+      "version": "0.0.19",
+      "manifestSha256": "8606c45cac613f59ccaa0564a58a826a08ecf3b3bc45865e0b680d5c1a6c4e68"
+    },
+    {
+      "path": "node_modules/@tscircuit/create-fdm-enclosure/node_modules/jscad-planner",
+      "name": "jscad-planner",
+      "version": "0.0.14",
+      "manifestSha256": "4ea198ec5f86d90911e8816f3730ec12b39fd196600cb9b77aa88580a0b619d5"
+    },
+    {
+      "path": "node_modules/@tscircuit/dogbone-solver",
+      "name": "@tscircuit/dogbone-solver",
+      "version": "0.0.4",
+      "manifestSha256": "30f577b349bc8dbeff66d109a196f8f80de8f507ed3e40486d885e7eaa3e5197"
+    },
+    {
+      "path": "node_modules/@tscircuit/dogbone-solver/node_modules/@tscircuit/capacity-autorouter",
+      "name": "@tscircuit/capacity-autorouter",
+      "version": "0.0.941",
+      "manifestSha256": "6fa378c04ad9c0e9de79b4c1d5e1198c8b913b82aa3ea7400b09df2baa9d5a3d"
+    },
+    {
+      "path": "node_modules/@tscircuit/dogbone-solver/node_modules/@tscircuit/fanout-solver",
+      "name": "@tscircuit/fanout-solver",
+      "version": "0.0.83",
+      "manifestSha256": "756832667f7c0674df22de8f75021e2fff89ef8e59f1d4eb97fd6f5b4cbb4f9a"
+    },
+    {
+      "path": "node_modules/@tscircuit/dogbone-solver/node_modules/@tscircuit/fanout-solver/node_modules/@tscircuit/capacity-autorouter",
+      "name": "@tscircuit/capacity-autorouter",
+      "version": "0.0.718",
+      "manifestSha256": "d426144246c2e0c8ab0ad1ee2a9c4826390f488ff16ef68110e7e22a0b3005a5"
+    },
+    {
+      "path": "node_modules/@tscircuit/dogbone-solver/node_modules/@tscircuit/fanout-solver/node_modules/@tscircuit/solver-utils",
+      "name": "@tscircuit/solver-utils",
+      "version": "0.0.19",
+      "manifestSha256": "8606c45cac613f59ccaa0564a58a826a08ecf3b3bc45865e0b680d5c1a6c4e68"
+    },
+    {
+      "path": "node_modules/@tscircuit/eval",
+      "name": "@tscircuit/eval",
+      "version": "0.0.1810",
+      "manifestSha256": "0bd2134aa92036123a9e4541896c1072f94f22d31517f65e9abb79cedaa1694f"
+    },
+    {
+      "path": "node_modules/@tscircuit/eval/node_modules/@tscircuit/core",
+      "name": "@tscircuit/core",
+      "version": "0.0.1974",
+      "manifestSha256": "8818a8a51c417440e96725e171bbf5d770831987e321036c58b351637ac28f96"
+    },
+    {
+      "path": "node_modules/@tscircuit/eval/node_modules/@tscircuit/core/node_modules/calculate-cell-boundaries",
+      "name": "calculate-cell-boundaries",
+      "version": "0.0.21",
+      "manifestSha256": "a4905b23ff41228006be56ca7b04138d7afee9961d37d01ca1a37b49885bd03c"
+    },
+    {
+      "path": "node_modules/@tscircuit/eval/node_modules/@tscircuit/core/node_modules/calculate-cell-boundaries/node_modules/@tscircuit/solver-utils",
+      "name": "@tscircuit/solver-utils",
+      "version": "0.0.19",
+      "manifestSha256": "8606c45cac613f59ccaa0564a58a826a08ecf3b3bc45865e0b680d5c1a6c4e68"
+    },
+    {
+      "path": "node_modules/@tscircuit/eval/node_modules/@tscircuit/core/node_modules/calculate-cell-boundaries/node_modules/react",
+      "name": "react",
+      "version": "18.3.1",
+      "manifestSha256": "d4e68a5c96babb20cad1daafea8b78822eae45b341552cf5418d06a5304fa64c"
+    },
+    {
+      "path": "node_modules/@tscircuit/eval/node_modules/@tscircuit/core/node_modules/calculate-cell-boundaries/node_modules/react-dom",
+      "name": "react-dom",
+      "version": "18.3.1",
+      "manifestSha256": "d2f29e31bd48b833e48cd7bbf41f192e8ee4ff8da249fdbe10d4ac4114b8b12e"
+    },
+    {
+      "path": "node_modules/@tscircuit/eval/node_modules/@tscircuit/core/node_modules/calculate-cell-boundaries/node_modules/react-dom/node_modules/scheduler",
+      "name": "scheduler",
+      "version": "0.23.2",
+      "manifestSha256": "0893643a24576d727174e639586b8833a53f2a7b4a2199a719b9cfcebe9bae88"
+    },
+    {
+      "path": "node_modules/@tscircuit/eval/node_modules/@tscircuit/core/node_modules/calculate-packing",
+      "name": "calculate-packing",
+      "version": "0.0.89",
+      "manifestSha256": "bd89e68903ed3e42d4c450e324426d0cd22a704688a7f32bb2562957645fd124"
+    },
+    {
+      "path": "node_modules/@tscircuit/fanout-solver",
+      "name": "@tscircuit/fanout-solver",
+      "version": "0.0.86",
+      "manifestSha256": "518610f5be82d382d505b657924e58552c1501827a61fdd3de1fbb14ebae18f6"
+    },
+    {
+      "path": "node_modules/@tscircuit/fanout-solver/node_modules/@tscircuit/capacity-autorouter",
+      "name": "@tscircuit/capacity-autorouter",
+      "version": "0.0.718",
+      "manifestSha256": "d426144246c2e0c8ab0ad1ee2a9c4826390f488ff16ef68110e7e22a0b3005a5"
+    },
+    {
+      "path": "node_modules/@tscircuit/fanout-solver/node_modules/@tscircuit/solver-utils",
+      "name": "@tscircuit/solver-utils",
+      "version": "0.0.19",
+      "manifestSha256": "8606c45cac613f59ccaa0564a58a826a08ecf3b3bc45865e0b680d5c1a6c4e68"
+    },
+    {
+      "path": "node_modules/@tscircuit/flex-utils",
+      "name": "@tscircuit/flex-utils",
+      "version": "0.0.8",
+      "manifestSha256": "dcfaa8614139c02b3849c6d3f6e1dc59f1b34814fe4f8a2228497af3abf128cd"
+    },
+    {
+      "path": "node_modules/@tscircuit/footprinter",
+      "name": "@tscircuit/footprinter",
+      "version": "0.0.451",
+      "manifestSha256": "b7d495a88d08e0cdbfc49e7649bef97a01c5150cc499bfd1d900949c994a3a60"
+    },
+    {
+      "path": "node_modules/@tscircuit/graphics-debug-3d",
+      "name": "@tscircuit/graphics-debug-3d",
+      "version": "0.0.1",
+      "manifestSha256": "290a8878795b4692db184e481aca41a9fe782278e93f8f6f52bdf992efbd6169"
+    },
+    {
+      "path": "node_modules/@tscircuit/image-utils",
+      "name": "@tscircuit/image-utils",
+      "version": "0.0.8",
+      "manifestSha256": "fdda43a32aa269fb42d0f81db72720a83690624b17e5e5430a0c4eeb1158bf4e"
+    },
+    {
+      "path": "node_modules/@tscircuit/implicit-copper-pour-solver",
+      "name": "@tscircuit/implicit-copper-pour-solver",
+      "version": "0.0.1",
+      "manifestSha256": "fd1c563e16a8277cad8d1884298b6dd2dbc2662c87526344f8ed94b17a83577e"
+    },
+    {
+      "path": "node_modules/@tscircuit/implicit-copper-pour-solver/node_modules/@tscircuit/math-utils",
+      "name": "@tscircuit/math-utils",
+      "version": "0.0.38",
+      "manifestSha256": "d5f7081373a428e53b0acfa26ef5e952edb0f8f565dff836ef14db08905f1d9c"
+    },
+    {
+      "path": "node_modules/@tscircuit/implicit-copper-pour-solver/node_modules/transformation-matrix",
+      "name": "transformation-matrix",
+      "version": "3.1.0",
+      "manifestSha256": "7548565a728472f003a0ce2d0ba681e07eb038d7cbeb4da40e715c8c80ef263a"
+    },
+    {
+      "path": "node_modules/@tscircuit/infer-cable-insertion-point",
+      "name": "@tscircuit/infer-cable-insertion-point",
+      "version": "0.0.5",
+      "manifestSha256": "ff6b46c41814f6ab8ea4d8528fd67217a6fd7ec810167a189e2d4fb060f85f07"
+    },
+    {
+      "path": "node_modules/@tscircuit/infgrid-ijump-astar",
+      "name": "@tscircuit/infgrid-ijump-astar",
+      "version": "0.0.35",
+      "manifestSha256": "e1175e2474927910dc002605e8cc6e04c9ae1ec1974687013883eeccc6499f10"
+    },
+    {
+      "path": "node_modules/@tscircuit/internal-dynamic-import",
+      "name": "@tscircuit/internal-dynamic-import",
+      "version": "0.0.11",
+      "manifestSha256": "ddf3f2ca00c925bbb0970cf3bf21227a41cc9731a5fd182d5976e5136258abbb"
+    },
+    {
+      "path": "node_modules/@tscircuit/jlcpcb-manufacturing-specs",
+      "name": "@tscircuit/jlcpcb-manufacturing-specs",
+      "version": "0.0.1",
+      "manifestSha256": "5ded07b8631c81fe34b9ba517713c7dca4fd2c3d2c97460ad439d116c3c592fd"
+    },
+    {
+      "path": "node_modules/@tscircuit/jscad",
+      "name": "@tscircuit/jscad",
+      "version": "0.0.6",
+      "manifestSha256": "4c6f95f09325481c4f87834a3c6099db8ed5b7073b731a2b24ba2da81cf41377"
+    },
+    {
+      "path": "node_modules/@tscircuit/jscad-to-manifold",
+      "name": "@tscircuit/jscad-to-manifold",
+      "version": "0.0.1",
+      "manifestSha256": "d9c8b38ac8d5bec7d0c28895daca892745f70d3ae5199133ba830ed455814265"
+    },
+    {
+      "path": "node_modules/@tscircuit/krt-wasm",
+      "name": "@tscircuit/krt-wasm",
+      "version": "0.1.9",
+      "manifestSha256": "52b265c0a9d53ff836b6553811a49643e489a7d80ec0e6a33a15f157c2b129e9"
+    },
+    {
+      "path": "node_modules/@tscircuit/log-soup",
+      "name": "@tscircuit/log-soup",
+      "version": "1.0.2",
+      "manifestSha256": "f4efdbd584e49b93a43fd4ea362e235f0d48a2f4a1cf5d6d658915cd666ec293"
+    },
+    {
+      "path": "node_modules/@tscircuit/manifold-2d",
+      "name": "@tscircuit/manifold-2d",
+      "version": "0.0.8",
+      "manifestSha256": "28f347f1c33674d065f7cf308f1dbec17058cbf6697d81a07afad3470a8dc204"
+    },
+    {
+      "path": "node_modules/@tscircuit/matchpack",
+      "name": "@tscircuit/matchpack",
+      "version": "0.0.100",
+      "manifestSha256": "5e3c52eb76ea4b68b5ab0fc5b0a751bc7be13ad5a915e80b5ec350546b70ab3b"
+    },
+    {
+      "path": "node_modules/@tscircuit/math-utils",
+      "name": "@tscircuit/math-utils",
+      "version": "0.0.39",
+      "manifestSha256": "96d36b3752c97ad1ad7cfb0288b472a836edf36233f1d70d476814dddf4e8234"
+    },
+    {
+      "path": "node_modules/@tscircuit/miniflex",
+      "name": "@tscircuit/miniflex",
+      "version": "0.0.4",
+      "manifestSha256": "2bc1592de94d28179b4fb6fbf205c5175f33898e223d45a3fc80a0cf658ed64d"
+    },
+    {
+      "path": "node_modules/@tscircuit/mm",
+      "name": "@tscircuit/mm",
+      "version": "0.0.8",
+      "manifestSha256": "c6fa2fe211ec81a261e8abc0ae23269014110d47738796c22b479324506a67c3"
+    },
+    {
+      "path": "node_modules/@tscircuit/modelprinter",
+      "name": "@tscircuit/modelprinter",
+      "version": "0.0.37",
+      "manifestSha256": "701ec8fe70c843d9dd343af998a6f87e9bb966f9b1c862176526622efa16361c"
+    },
+    {
+      "path": "node_modules/@tscircuit/modelprinter/node_modules/@tscircuit/mm",
+      "name": "@tscircuit/mm",
+      "version": "0.0.9",
+      "manifestSha256": "73dae3ccab9130ec137999536e495f3bb43e1d9658cb5fc846b6bf0ec3fb84d2"
+    },
+    {
+      "path": "node_modules/@tscircuit/ngspice-spice-engine",
+      "name": "@tscircuit/ngspice-spice-engine",
+      "version": "0.0.20",
+      "manifestSha256": "71a611c20d5eac3be76f571062863d76e0b241ebd2dd67bb7cc9e30bbbc2728a"
+    },
+    {
+      "path": "node_modules/@tscircuit/pcb-trace-linter",
+      "name": "@tscircuit/pcb-trace-linter",
+      "version": "0.0.1",
+      "manifestSha256": "da151a5a1af6fee67e9ec66312626c4ffcc1a297f5e2738f491dad821d693cb7"
+    },
+    {
+      "path": "node_modules/@tscircuit/pcb-trace-linter/node_modules/@tscircuit/copper-pour-solver",
+      "name": "@tscircuit/copper-pour-solver",
+      "version": "0.0.59",
+      "manifestSha256": "c7032db9423f961775a8053c514832bf216ceec6289d2b9039f3f05beb39e728"
+    },
+    {
+      "path": "node_modules/@tscircuit/pcb-trace-linter/node_modules/@tscircuit/copper-pour-solver/node_modules/@tscircuit/manifold-2d",
+      "name": "@tscircuit/manifold-2d",
+      "version": "0.0.6",
+      "manifestSha256": "d1426af1aa4b9e87d1c41195c8c99b13e08f27bcd597f7074a5876556ae0a97c"
+    },
+    {
+      "path": "node_modules/@tscircuit/pcb-trace-linter/node_modules/@tscircuit/core",
+      "name": "@tscircuit/core",
+      "version": "0.0.1974",
+      "manifestSha256": "8818a8a51c417440e96725e171bbf5d770831987e321036c58b351637ac28f96"
+    },
+    {
+      "path": "node_modules/@tscircuit/pcb-trace-linter/node_modules/@tscircuit/core/node_modules/calculate-cell-boundaries",
+      "name": "calculate-cell-boundaries",
+      "version": "0.0.21",
+      "manifestSha256": "a4905b23ff41228006be56ca7b04138d7afee9961d37d01ca1a37b49885bd03c"
+    },
+    {
+      "path": "node_modules/@tscircuit/pcb-trace-linter/node_modules/@tscircuit/core/node_modules/calculate-cell-boundaries/node_modules/@tscircuit/solver-utils",
+      "name": "@tscircuit/solver-utils",
+      "version": "0.0.19",
+      "manifestSha256": "8606c45cac613f59ccaa0564a58a826a08ecf3b3bc45865e0b680d5c1a6c4e68"
+    },
+    {
+      "path": "node_modules/@tscircuit/pcb-trace-linter/node_modules/@tscircuit/core/node_modules/calculate-cell-boundaries/node_modules/react",
+      "name": "react",
+      "version": "18.3.1",
+      "manifestSha256": "d4e68a5c96babb20cad1daafea8b78822eae45b341552cf5418d06a5304fa64c"
+    },
+    {
+      "path": "node_modules/@tscircuit/pcb-trace-linter/node_modules/@tscircuit/core/node_modules/calculate-cell-boundaries/node_modules/react-dom",
+      "name": "react-dom",
+      "version": "18.3.1",
+      "manifestSha256": "d2f29e31bd48b833e48cd7bbf41f192e8ee4ff8da249fdbe10d4ac4114b8b12e"
+    },
+    {
+      "path": "node_modules/@tscircuit/pcb-trace-linter/node_modules/@tscircuit/core/node_modules/calculate-cell-boundaries/node_modules/react-dom/node_modules/scheduler",
+      "name": "scheduler",
+      "version": "0.23.2",
+      "manifestSha256": "0893643a24576d727174e639586b8833a53f2a7b4a2199a719b9cfcebe9bae88"
+    },
+    {
+      "path": "node_modules/@tscircuit/pcb-trace-linter/node_modules/@tscircuit/core/node_modules/calculate-packing",
+      "name": "calculate-packing",
+      "version": "0.0.89",
+      "manifestSha256": "bd89e68903ed3e42d4c450e324426d0cd22a704688a7f32bb2562957645fd124"
+    },
+    {
+      "path": "node_modules/@tscircuit/pcb-trace-linter/node_modules/@tscircuit/infer-cable-insertion-point",
+      "name": "@tscircuit/infer-cable-insertion-point",
+      "version": "0.0.4",
+      "manifestSha256": "4feecfd3c0114df74b11799e6c65fe2af6a1a04adbc45f4876ba002c84249d17"
+    },
+    {
+      "path": "node_modules/@tscircuit/pcb-trace-linter/node_modules/@tscircuit/schematic-trace-solver",
+      "name": "@tscircuit/schematic-trace-solver",
+      "version": "0.0.208",
+      "manifestSha256": "eee8a5fe9bf1e6906049f618754d582ad8add1a84b854ce8054016b8425140b1"
+    },
+    {
+      "path": "node_modules/@tscircuit/pcb-trace-linter/node_modules/@tscircuit/solver-utils",
+      "name": "@tscircuit/solver-utils",
+      "version": "0.0.21",
+      "manifestSha256": "7a345035db462a84c39801a60ac057bd004e1009627f92c5224c29aba5a608e9"
+    },
+    {
+      "path": "node_modules/@tscircuit/pcb-trace-linter/node_modules/calculate-elbow",
+      "name": "calculate-elbow",
+      "version": "0.0.13",
+      "manifestSha256": "4ee3c16c6f4fff34136fa4bb1aab0ff0bc7dd492a5af9dbcbda329bc1c26df21"
+    },
+    {
+      "path": "node_modules/@tscircuit/props",
+      "name": "@tscircuit/props",
+      "version": "0.0.735",
+      "manifestSha256": "ce2dcf86122f08ad5fdf5ebf860cdee05f36a935a5b246aec0c78f473a270267"
+    },
+    {
+      "path": "node_modules/@tscircuit/runframe",
+      "name": "@tscircuit/runframe",
+      "version": "0.0.3287",
+      "manifestSha256": "e106693693611ff4edebc8963ceebf9f7f13cd16887889211453921bdc592380"
+    },
+    {
+      "path": "node_modules/@tscircuit/runframe/node_modules/@tscircuit/core",
+      "name": "@tscircuit/core",
+      "version": "0.0.2293",
+      "manifestSha256": "4a9e7a698787125da63b07564dfca08dd2b2f547a96e6444be542ad177107211"
+    },
+    {
+      "path": "node_modules/@tscircuit/runframe/node_modules/@tscircuit/eval",
+      "name": "@tscircuit/eval",
+      "version": "0.0.1809",
+      "manifestSha256": "7d6756dd471dfd0b697ebe8fd94aa222b93d1e35063e87963798422d08416d1a"
+    },
+    {
+      "path": "node_modules/@tscircuit/schematic-corpus",
+      "name": "@tscircuit/schematic-corpus",
+      "version": "0.0.114",
+      "manifestSha256": "19b1b517c001e108ec30379e6cfb252e367c565b1471d9f5df90928d1073e344"
+    },
+    {
+      "path": "node_modules/@tscircuit/schematic-match-adapt",
+      "name": "@tscircuit/schematic-match-adapt",
+      "version": "0.0.18",
+      "manifestSha256": "e770043e1c155afd4750672130842f24437aeb95f1b734190adbcb18e1d29abd"
+    },
+    {
+      "path": "node_modules/@tscircuit/schematic-trace-solver",
+      "name": "@tscircuit/schematic-trace-solver",
+      "version": "0.0.246",
+      "manifestSha256": "b5fdd52b6aa1f43778b02e72557d4cb25c60e875845a4310d29565399055d1d5"
+    },
+    {
+      "path": "node_modules/@tscircuit/simple-3d-svg",
+      "name": "@tscircuit/simple-3d-svg",
+      "version": "0.0.41",
+      "manifestSha256": "e39c052b89a33ff5e5e1823c3ae724cac67f2bf3a833351308d2b988e6594720"
+    },
+    {
+      "path": "node_modules/@tscircuit/solver-utils",
+      "name": "@tscircuit/solver-utils",
+      "version": "0.0.16",
+      "manifestSha256": "19a9f96c920a24af4e81cb39129db8b5d7abae7622ead38d2acbee3b5d1b3361"
+    },
+    {
+      "path": "node_modules/@tscircuit/soup-util",
+      "name": "@tscircuit/soup-util",
+      "version": "0.0.41",
+      "manifestSha256": "51b59ddffc04d64be35c1ba9dfa5a56adeeff09e4f02b3524ef057390a2c1138"
+    },
+    {
+      "path": "node_modules/@tscircuit/test-point-rerouter",
+      "name": "@tscircuit/test-point-rerouter",
+      "version": "0.0.1",
+      "manifestSha256": "dc03c98fae0167b9d821da66cc95256b75a812dd5d5a0d4a8c8e0df227b2fc9b"
+    },
+    {
+      "path": "node_modules/@tscircuit/test-point-rerouter/node_modules/@tscircuit/solver-utils",
+      "name": "@tscircuit/solver-utils",
+      "version": "0.0.23",
+      "manifestSha256": "b00be11b8b222fd311a6cec8e41c89490b30bef3faf98ed0788f379aa193f968"
+    },
+    {
+      "path": "node_modules/@tscircuit/via-stitch-solver",
+      "name": "@tscircuit/via-stitch-solver",
+      "version": "0.0.1",
+      "manifestSha256": "9604316123a113ef904f2485cbeaf2500448be1dd0f61ba70208ccfcca1f1492"
+    },
+    {
+      "path": "node_modules/@tscircuit/via-stitch-solver/node_modules/@tscircuit/solver-utils",
+      "name": "@tscircuit/solver-utils",
+      "version": "0.0.19",
+      "manifestSha256": "8606c45cac613f59ccaa0564a58a826a08ecf3b3bc45865e0b680d5c1a6c4e68"
+    },
+    {
+      "path": "node_modules/@tscircuit/winding-breakout-point-solver",
+      "name": "@tscircuit/winding-breakout-point-solver",
+      "version": "0.0.1",
+      "manifestSha256": "b2e5095dc8c437c473fc1e251534eff18d8720fd84e42381f2a60d0e9e763a7a"
+    },
+    {
+      "path": "node_modules/@tscircuit/winding-breakout-point-solver/node_modules/@tscircuit/solver-utils",
+      "name": "@tscircuit/solver-utils",
+      "version": "0.0.19",
+      "manifestSha256": "8606c45cac613f59ccaa0564a58a826a08ecf3b3bc45865e0b680d5c1a6c4e68"
+    },
+    {
+      "path": "node_modules/@tweenjs/tween.js",
+      "name": "@tweenjs/tween.js",
+      "version": "23.1.3",
+      "manifestSha256": "3f977e60052211d7d703997f75f97fb6e7f8cc2154d1b0da21792974ed476d0f"
+    },
+    {
+      "path": "node_modules/@types/bun",
+      "name": "@types/bun",
+      "version": "1.4.4",
+      "manifestSha256": "edb33154598d9add2941aa6a27d32e961fbcbff88ffc593ea66b0418289b38d5"
+    },
+    {
+      "path": "node_modules/@types/debug",
+      "name": "@types/debug",
+      "version": "4.1.13",
+      "manifestSha256": "3593dbd35512e263c1a4ed9e30545e7f8ffb2f7efabc4e536dddc0868be4e872"
+    },
+    {
+      "path": "node_modules/@types/estree",
+      "name": "@types/estree",
+      "version": "1.0.10",
+      "manifestSha256": "6888fbb2cbca6c6302ac6db055afcce9346698a6caa9af5aac2a75a576a2b2d0"
+    },
+    {
+      "path": "node_modules/@types/history",
+      "name": "@types/history",
+      "version": "4.7.11",
+      "manifestSha256": "546755353dd232e2c4140217bf72c04f59a9e6445730e7d7cafb6802ca5d7b9a"
+    },
+    {
+      "path": "node_modules/@types/ms",
+      "name": "@types/ms",
+      "version": "2.1.0",
+      "manifestSha256": "bbd8f5322ea82216e826e522a6a4ec2ed3086b57a25234d0044673eb374b8e2d"
+    },
+    {
+      "path": "node_modules/@types/ndarray",
+      "name": "@types/ndarray",
+      "version": "1.1.0",
+      "manifestSha256": "bb73e8c56a566d1b5af849ee6e4960e780ce92a803758832bf36bf00e31fabe4"
+    },
+    {
+      "path": "node_modules/@types/node",
+      "name": "@types/node",
+      "version": "22.20.5",
+      "manifestSha256": "234e64edc31580d6052f8abc89b96f156de29d3b4c7121214b960dec09bd2a25"
+    },
+    {
+      "path": "node_modules/@types/node/node_modules/undici-types",
+      "name": "undici-types",
+      "version": "6.21.0",
+      "manifestSha256": "11f873b423b96a5ad444a099685ca6b9de1379dcd83fd8d368e757ddb53658e4"
+    },
+    {
+      "path": "node_modules/@types/react",
+      "name": "@types/react",
+      "version": "19.3.0",
+      "manifestSha256": "505c0df4cd73d6a02c946bd9b81451584bd9c83ea72d75cff9b826efceaa19c2"
+    },
+    {
+      "path": "node_modules/@types/react-dom",
+      "name": "@types/react-dom",
+      "version": "19.3.0",
+      "manifestSha256": "4a2052bb362c34f1d39cfe0818b6fe01a9f988b609e8b7e4832aff7dbf2f7180"
+    },
+    {
+      "path": "node_modules/@types/react-reconciler",
+      "name": "@types/react-reconciler",
+      "version": "0.28.9",
+      "manifestSha256": "5cadb9d3ae7047f247bad566240b38fc0aa093734f851c280ce7bd3c4d4bf7ef"
+    },
+    {
+      "path": "node_modules/@types/react-router",
+      "name": "@types/react-router",
+      "version": "5.1.20",
+      "manifestSha256": "e385ece1c4a24c8fe4564f2758f7e8ac3f43731797ef187d4bcae9727b74e0ee"
+    },
+    {
+      "path": "node_modules/@types/react-router-dom",
+      "name": "@types/react-router-dom",
+      "version": "5.3.3",
+      "manifestSha256": "c8586688955b7ce9f2dbae2ebd81c8666dfb6001d933e238c8e662e65b5949b3"
+    },
+    {
+      "path": "node_modules/@types/resolve",
+      "name": "@types/resolve",
+      "version": "1.20.2",
+      "manifestSha256": "7ed1b94a586d4b0369fde9d8ebd9cc813c94bd47ea65f73170d561418a2e2b71"
+    },
+    {
+      "path": "node_modules/@types/stats.js",
+      "name": "@types/stats.js",
+      "version": "0.17.4",
+      "manifestSha256": "12d5f7ea32961ad2841c1556f777da8c4da73d38a7696095cd26ce059a052891"
+    },
+    {
+      "path": "node_modules/@types/three",
+      "name": "@types/three",
+      "version": "0.187.0",
+      "manifestSha256": "ea6b3d184b224214293a870fd79c760401c35a0f15bcc87665d9cf856f77298d"
+    },
+    {
+      "path": "node_modules/@types/webxr",
+      "name": "@types/webxr",
+      "version": "0.5.24",
+      "manifestSha256": "5d967f69ef8fbcf85034acc1954bfe4a1118cee7b7c2d240664e7eb3b58f75ea"
+    },
+    {
+      "path": "node_modules/abort-controller",
+      "name": "abort-controller",
+      "version": "3.0.0",
+      "manifestSha256": "3d64dcdcf9d0a1d045eb6bcaa5013d486f15527a3668e64b1155839a797da164"
+    },
+    {
+      "path": "node_modules/accepts",
+      "name": "accepts",
+      "version": "1.3.8",
+      "manifestSha256": "e5716d5d939db08c5c28ec6ae86ed67be5320f91089e2673fca1c5b876e57aa3"
+    },
+    {
+      "path": "node_modules/accepts/node_modules/mime-types",
+      "name": "mime-types",
+      "version": "2.1.35",
+      "manifestSha256": "5053cc10259c3913ab6b6c8f13170a619c0d1836c1d9081238329a559fafeb3a"
+    },
+    {
+      "path": "node_modules/accepts/node_modules/mime-types/node_modules/mime-db",
+      "name": "mime-db",
+      "version": "1.52.0",
+      "manifestSha256": "d03e37b915a050af548d543f4e45ff5de06ec767c19e745f18c431d9dc26b5bf"
+    },
+    {
+      "path": "node_modules/acorn",
+      "name": "acorn",
+      "version": "8.19.0",
+      "manifestSha256": "04d6fecaafb5e3d20a38fc3b64fed84bb3830a7759a8c00400ebcb87331fec00"
+    },
+    {
+      "path": "node_modules/adler-32",
+      "name": "adler-32",
+      "version": "1.3.1",
+      "manifestSha256": "e3b20e9a351dc633d5e218b3379db7ffd9534a6cd4e692007898c9a27ac36454"
+    },
+    {
+      "path": "node_modules/altiumts",
+      "name": "altiumts",
+      "version": "0.0.59",
+      "manifestSha256": "cb3ca4408912954bebb0d3854b7d67d297a2e95fc99b36c31e2c2da2888c2d62"
+    },
+    {
+      "path": "node_modules/ansi-regex",
+      "name": "ansi-regex",
+      "version": "4.1.1",
+      "manifestSha256": "7ff7664e44a2f9825ee541341f794f9f2511283bcf5421bd032faa80462e7777"
+    },
+    {
+      "path": "node_modules/ansi-styles",
+      "name": "ansi-styles",
+      "version": "4.3.0",
+      "manifestSha256": "d405f010681d53f77691015e98461f8484b2afe6a9edfdd2ddb27b1e8a8e883d"
+    },
+    {
+      "path": "node_modules/ansi-styles/node_modules/color-convert",
+      "name": "color-convert",
+      "version": "2.0.1",
+      "manifestSha256": "9471d21744ca3137410448da6b3bd7b30ee91d42edce3b82ebcbf84faef74fb4"
+    },
+    {
+      "path": "node_modules/ansi-styles/node_modules/color-convert/node_modules/color-name",
+      "name": "color-name",
+      "version": "1.1.4",
+      "manifestSha256": "4a557ea373907e4643badb89ff21b3f4b969d20631086d78eab2e03d05c2efa4"
+    },
+    {
+      "path": "node_modules/any-promise",
+      "name": "any-promise",
+      "version": "1.3.0",
+      "manifestSha256": "5c4970ee5a2c8d98648a03c96ce8753134567f976e50bf039964c2165c246078"
+    },
+    {
+      "path": "node_modules/anymatch",
+      "name": "anymatch",
+      "version": "3.1.3",
+      "manifestSha256": "83f4f2ce1880ee96d44a7fa5add101c19edf3ca42f50c7c20cf2e59f6d751c3f"
+    },
+    {
+      "path": "node_modules/anymatch/node_modules/picomatch",
+      "name": "picomatch",
+      "version": "2.3.2",
+      "manifestSha256": "63264d817e856a4bff57d4304f2b38d2964a4f6df520eb169e7bcdb619f13e9a"
+    },
+    {
+      "path": "node_modules/anynum",
+      "name": "anynum",
+      "version": "1.0.1",
+      "manifestSha256": "41c5d60f0aa8b5f4133aeff56573a8c4130d4d1c19dc240398ff806b40a4470e"
+    },
+    {
+      "path": "node_modules/apache-crypt",
+      "name": "apache-crypt",
+      "version": "1.2.6",
+      "manifestSha256": "3c339bbe58f92bf01d16b4cff638ef6dd6de6d43126c067bf0f0d5a32eafb533"
+    },
+    {
+      "path": "node_modules/apache-md5",
+      "name": "apache-md5",
+      "version": "1.1.8",
+      "manifestSha256": "b4b242d5fd037681c600dac89029bea3b9df0d67eb8150f7a134ecbb9d5071af"
+    },
+    {
+      "path": "node_modules/arr-diff",
+      "name": "arr-diff",
+      "version": "4.0.0",
+      "manifestSha256": "2b5d24629f45dc15f67a5a0addaac28176ea9dd3ad27db7cae8a38d753c18933"
+    },
+    {
+      "path": "node_modules/arr-flatten",
+      "name": "arr-flatten",
+      "version": "1.1.0",
+      "manifestSha256": "f5a7e9d8661929555f8f83686b6ad8499b07a2c0769e71381d119b001183bbda"
+    },
+    {
+      "path": "node_modules/arr-union",
+      "name": "arr-union",
+      "version": "3.1.0",
+      "manifestSha256": "d757674b8b78e9730d3c3e2843b81db48709cd91203b9b7e31436288c52eb66d"
+    },
+    {
+      "path": "node_modules/array-unique",
+      "name": "array-unique",
+      "version": "0.3.2",
+      "manifestSha256": "9fb64ddadb8f8a5ac27dfe0a4a2a8a18ded418f8f692dbbdf20fdf48b8b500e1"
+    },
+    {
+      "path": "node_modules/assign-symbols",
+      "name": "assign-symbols",
+      "version": "1.0.0",
+      "manifestSha256": "9076874450a8b3a437b2838491e55a385da18be21dd6e4d6e4a8b51ef4a4b0bd"
+    },
+    {
+      "path": "node_modules/async-each",
+      "name": "async-each",
+      "version": "1.0.6",
+      "manifestSha256": "5e1f7b18cf4c543ecbf408c9c066f6fcbb1b77aeb988e16933a97b38084035fb"
+    },
+    {
+      "path": "node_modules/atob",
+      "name": "atob",
+      "version": "2.1.2",
+      "manifestSha256": "ec5f817e82b3589ffa74b5d955a87b10d314357f992e7171c9f2669521f75098"
+    },
+    {
+      "path": "node_modules/axios",
+      "name": "axios",
+      "version": "0.26.1",
+      "manifestSha256": "e84a2450c8be19d4ebc253826140c18116daa68cd39318c2bab0ad169c163d14"
+    },
+    {
+      "path": "node_modules/base",
+      "name": "base",
+      "version": "0.11.2",
+      "manifestSha256": "cd7a2e84a4f4de166504077960d87a3e62a9d4c0b1247d9fa7691c4e332b52eb"
+    },
+    {
+      "path": "node_modules/base/node_modules/define-property",
+      "name": "define-property",
+      "version": "1.0.0",
+      "manifestSha256": "03cce8ab627f9aa9d11af4a225523a9c7c67c51a135b630b85f5743920b312af"
+    },
+    {
+      "path": "node_modules/base64-js",
+      "name": "base64-js",
+      "version": "1.5.1",
+      "manifestSha256": "9758f3ab8c45e07bb9a368e32f9a8b3729623bbf47cbbb205b32d674ab2a91f0"
+    },
+    {
+      "path": "node_modules/basic-auth",
+      "name": "basic-auth",
+      "version": "2.0.1",
+      "manifestSha256": "eacbd5624f044dbbdd9daf971ee004012e835368f7002f2dee742275e463eeea"
+    },
+    {
+      "path": "node_modules/batch",
+      "name": "batch",
+      "version": "0.6.1",
+      "manifestSha256": "8b7595e8387929390fa5432f184e98059e32323a9ae3757fc0d251f44da22f36"
+    },
+    {
+      "path": "node_modules/bcryptjs",
+      "name": "bcryptjs",
+      "version": "2.4.3",
+      "manifestSha256": "f0c3916e34a592de34b92bb83b52b2c872e0466edfceec1b2edf1826b3fd1991"
+    },
+    {
+      "path": "node_modules/before-after-hook",
+      "name": "before-after-hook",
+      "version": "2.2.3",
+      "manifestSha256": "887c424da4bb7428cfd4a94c2b26cde167fc8b177c60267d87fecdedfa2ebecc"
+    },
+    {
+      "path": "node_modules/binary-extensions",
+      "name": "binary-extensions",
+      "version": "2.3.0",
+      "manifestSha256": "f775eb159a64b320a9a62aaa831ae67e13ab05bd9ca375b8ec830a1e53cbc56d"
+    },
+    {
+      "path": "node_modules/boolbase",
+      "name": "boolbase",
+      "version": "1.0.0",
+      "manifestSha256": "ca09c0dccbfc43be6be0ac89e9ffa19b64b30f9c74c64da27f719a7244a25e30"
+    },
+    {
+      "path": "node_modules/bpc-graph",
+      "name": "bpc-graph",
+      "version": "0.0.57",
+      "manifestSha256": "03e0b7c5b35efbd640b4fedb88e4cc4c680055137c8348abd4e5aad93e35b2a2"
+    },
+    {
+      "path": "node_modules/braces",
+      "name": "braces",
+      "version": "3.0.3",
+      "manifestSha256": "56f08b888a4f30dc7cf8a7dbb36ffe92b737912ba36abe9d069d32167c957ac7"
+    },
+    {
+      "path": "node_modules/buffer",
+      "name": "buffer",
+      "version": "6.0.3",
+      "manifestSha256": "5b105ac0abbf5985cbe62ad28a34032d85c7ef623e0eb01f39441b0feb419004"
+    },
+    {
+      "path": "node_modules/bun-match-svg",
+      "name": "bun-match-svg",
+      "version": "0.0.16",
+      "manifestSha256": "7e71ef41efdacc75c76b4ac4b9c1df917fcc58bcc1728e60c07c68fec8f79beb"
+    },
+    {
+      "path": "node_modules/bun-types",
+      "name": "bun-types",
+      "version": "1.4.4",
+      "manifestSha256": "f8e1ba23b5fc8cd1ffcf5c3f159a5d03b3341da33945e4edee0ef02dc8eddf3d"
+    },
+    {
+      "path": "node_modules/bun-types/node_modules/@types/node",
+      "name": "@types/node",
+      "version": "26.6.6",
+      "manifestSha256": "2520fc33dc754e75d61e6e49c174b439244537c3f2cff1897432806156a054fd"
+    },
+    {
+      "path": "node_modules/bun-types/node_modules/@types/node/node_modules/undici-types",
+      "name": "undici-types",
+      "version": "8.9.0",
+      "manifestSha256": "7f3c1a0498b1b7f74402f76d2958bf5a35fc89403036188dc5f8ede1b4e0638b"
+    },
+    {
+      "path": "node_modules/bundle-require",
+      "name": "bundle-require",
+      "version": "5.1.0",
+      "manifestSha256": "312730d729daa04ed25a8b5427c0b75a14584c040b18439aa4641f6f4760f5b6"
+    },
+    {
+      "path": "node_modules/cac",
+      "name": "cac",
+      "version": "6.7.14",
+      "manifestSha256": "8677bbbe7404ce455200b5f088a45f841bd8a40e7d63475ac711b631516ddcdf"
+    },
+    {
+      "path": "node_modules/cache-base",
+      "name": "cache-base",
+      "version": "1.0.1",
+      "manifestSha256": "18eb3278083502b196afe2ca535181be1ddec2cf8af93f784742dbe37d6547e8"
+    },
+    {
+      "path": "node_modules/calculate-cell-boundaries",
+      "name": "calculate-cell-boundaries",
+      "version": "0.0.25",
+      "manifestSha256": "204d9bc4bd84f168eb27e2d080b28c539a5b7cdb8fd1565afdb7500e9de84e92"
+    },
+    {
+      "path": "node_modules/calculate-cell-boundaries/node_modules/@tscircuit/solver-utils",
+      "name": "@tscircuit/solver-utils",
+      "version": "0.0.19",
+      "manifestSha256": "8606c45cac613f59ccaa0564a58a826a08ecf3b3bc45865e0b680d5c1a6c4e68"
+    },
+    {
+      "path": "node_modules/calculate-cell-boundaries/node_modules/react",
+      "name": "react",
+      "version": "18.3.1",
+      "manifestSha256": "d4e68a5c96babb20cad1daafea8b78822eae45b341552cf5418d06a5304fa64c"
+    },
+    {
+      "path": "node_modules/calculate-cell-boundaries/node_modules/react-dom",
+      "name": "react-dom",
+      "version": "18.3.1",
+      "manifestSha256": "d2f29e31bd48b833e48cd7bbf41f192e8ee4ff8da249fdbe10d4ac4114b8b12e"
+    },
+    {
+      "path": "node_modules/calculate-cell-boundaries/node_modules/react-dom/node_modules/scheduler",
+      "name": "scheduler",
+      "version": "0.23.2",
+      "manifestSha256": "0893643a24576d727174e639586b8833a53f2a7b4a2199a719b9cfcebe9bae88"
+    },
+    {
+      "path": "node_modules/calculate-elbow",
+      "name": "calculate-elbow",
+      "version": "0.0.12",
+      "manifestSha256": "6936cc2888c5e84dc9f85211f2760caef13421a40248942d69bd09408c0a3c8d"
+    },
+    {
+      "path": "node_modules/calculate-packing",
+      "name": "calculate-packing",
+      "version": "0.0.90",
+      "manifestSha256": "472748c79bacdf675c93fe43f52be22d6c67a4de4763cdf07c839e71e44d13b0"
+    },
+    {
+      "path": "node_modules/call-me-maybe",
+      "name": "call-me-maybe",
+      "version": "1.0.2",
+      "manifestSha256": "5792a8413e8de64780588a45b2bb357c2bb0f3e54c47b844048eab1d974989cb"
+    },
+    {
+      "path": "node_modules/camelcase",
+      "name": "camelcase",
+      "version": "5.3.1",
+      "manifestSha256": "b6d533c740d144de4da1493940b541978a77aae9d712dd0d609f60c58c83a73e"
+    },
+    {
+      "path": "node_modules/cfb",
+      "name": "cfb",
+      "version": "1.2.2",
+      "manifestSha256": "e6b95d297007e43a6642dbb1942b8fc881861bfda18ef4210957cce30eb7d0c3"
+    },
+    {
+      "path": "node_modules/chalk",
+      "name": "chalk",
+      "version": "4.1.2",
+      "manifestSha256": "9cd907d34a45cb73b5c8a459d5602a36ccd456794665c529a3a5b0f02e196f26"
+    },
+    {
+      "path": "node_modules/chalk/node_modules/supports-color",
+      "name": "supports-color",
+      "version": "7.2.0",
+      "manifestSha256": "d410a772f9f64b224482ec13815a4bbf1837c533e1be04b3687755c48b2efa1f"
+    },
+    {
+      "path": "node_modules/chokidar",
+      "name": "chokidar",
+      "version": "3.6.0",
+      "manifestSha256": "24c7edf8c0127eb1bd257da726983a9aed172a0a1cd5454607a040021675f50e"
+    },
+    {
+      "path": "node_modules/chokidar-cli",
+      "name": "chokidar-cli",
+      "version": "3.0.0",
+      "manifestSha256": "a2cf297f65edfecd2723070bd384826e60c5df98aeb0d9c33644f08f09b8af0d"
+    },
+    {
+      "path": "node_modules/chownr",
+      "name": "chownr",
+      "version": "2.0.0",
+      "manifestSha256": "96ba7fc1dcfad50de6c406fb3fcfe57850ebea4d8ecedbc0b45b9c59fc629d69"
+    },
+    {
+      "path": "node_modules/circuit-json",
+      "name": "circuit-json",
+      "version": "0.0.552",
+      "manifestSha256": "32b19b5e864a2c1da30642914bdb7688a37ce15106d79e98e772a32b6cf61042"
+    },
+    {
+      "path": "node_modules/circuit-json-to-3d-png",
+      "name": "circuit-json-to-3d-png",
+      "version": "0.0.6",
+      "manifestSha256": "588a757bb09e257903735ceb886ab707a74a3c23bd06648d481f007d560e2079"
+    },
+    {
+      "path": "node_modules/circuit-json-to-3d-png/node_modules/poppygl",
+      "name": "poppygl",
+      "version": "0.0.24",
+      "manifestSha256": "b7fa300298a25314c0ec6b6818c12d2490924166f82f6fcf9326638b53120f4c"
+    },
+    {
+      "path": "node_modules/circuit-json-to-altium",
+      "name": "circuit-json-to-altium",
+      "version": "0.0.1",
+      "manifestSha256": "82769222cd415c76386f85d37cd4b2a143acfd91e81721964b6211d1fd050ba9"
+    },
+    {
+      "path": "node_modules/circuit-json-to-altium/node_modules/schematic-symbols",
+      "name": "schematic-symbols",
+      "version": "0.0.239",
+      "manifestSha256": "913133fd64d8ebdf72b0179f9455ef4b8d68b1a626ad8af1058bee700269fd8e"
+    },
+    {
+      "path": "node_modules/circuit-json-to-altium/node_modules/transformation-matrix",
+      "name": "transformation-matrix",
+      "version": "3.1.0",
+      "manifestSha256": "7548565a728472f003a0ce2d0ba681e07eb038d7cbeb4da40e715c8c80ef263a"
+    },
+    {
+      "path": "node_modules/circuit-json-to-bom-csv",
+      "name": "circuit-json-to-bom-csv",
+      "version": "0.0.28",
+      "manifestSha256": "bd70a44e863e943f94f1b3db5edc91ed47952a74a162f07f93b6e7d5bb91d9a7"
+    },
+    {
+      "path": "node_modules/circuit-json-to-bpc",
+      "name": "circuit-json-to-bpc",
+      "version": "0.0.13",
+      "manifestSha256": "a8083559900cf38d0d68c70d0b6ca3c80638a00cd7c5d1b4e0ad9e5a122c4930"
+    },
+    {
+      "path": "node_modules/circuit-json-to-connectivity-map",
+      "name": "circuit-json-to-connectivity-map",
+      "version": "0.0.33",
+      "manifestSha256": "441a9d2144f6f47102cdacb5146e861f62f9800d0fa4bcc191421c201a48928a"
+    },
+    {
+      "path": "node_modules/circuit-json-to-connectivity-map/node_modules/@tscircuit/math-utils",
+      "name": "@tscircuit/math-utils",
+      "version": "0.0.9",
+      "manifestSha256": "3df6cbfae4c6844477a8cebcb761eb058897f57cd1355893d059925fdfeadbae"
+    },
+    {
+      "path": "node_modules/circuit-json-to-fdm-component-box",
+      "name": "circuit-json-to-fdm-component-box",
+      "version": "0.0.2",
+      "manifestSha256": "18b8fa0b1955ec2cc65eca059f81caaec82d1d2f500e8f91c30e8c928901663e"
+    },
+    {
+      "path": "node_modules/circuit-json-to-fdm-component-box/node_modules/poppygl",
+      "name": "poppygl",
+      "version": "0.0.26",
+      "manifestSha256": "2b22e2a8b472b5bb90761e984ae9a0a2e9f041b4647aaec29a7f972953e45b31"
+    },
+    {
+      "path": "node_modules/circuit-json-to-footprinter",
+      "name": "circuit-json-to-footprinter",
+      "version": "0.0.59",
+      "manifestSha256": "bbd0052910c404f0f99a5b1f2d5cbd7400ec3a5f980679f0aeac28cb7a1ac9e6"
+    },
+    {
+      "path": "node_modules/circuit-json-to-footprinter/node_modules/@tscircuit/footprinter",
+      "name": "@tscircuit/footprinter",
+      "version": "0.0.430",
+      "manifestSha256": "ba944ec156fb6e95cb88521829e26091871bed35857b52ec6535ed75fe1ae66c"
+    },
+    {
+      "path": "node_modules/circuit-json-to-footprinter/node_modules/@tscircuit/math-utils",
+      "name": "@tscircuit/math-utils",
+      "version": "0.0.36",
+      "manifestSha256": "923cbf16bd34056d79ab4532429d27dc0a9a31ab1a628d630c3b54f301c4fd2c"
+    },
+    {
+      "path": "node_modules/circuit-json-to-footprinter/node_modules/format-si-unit",
+      "name": "format-si-unit",
+      "version": "0.0.14",
+      "manifestSha256": "357115dddc1aa1bf448ecff2ba60c79f6e9f498999da8c08704b8f12e43de9df"
+    },
+    {
+      "path": "node_modules/circuit-json-to-gerber",
+      "name": "circuit-json-to-gerber",
+      "version": "0.0.120",
+      "manifestSha256": "5f51e34332ebc5a8f29bb29191e16d746404e291968d196d70060461000a1dae"
+    },
+    {
+      "path": "node_modules/circuit-json-to-gerber/node_modules/transformation-matrix",
+      "name": "transformation-matrix",
+      "version": "3.1.0",
+      "manifestSha256": "7548565a728472f003a0ce2d0ba681e07eb038d7cbeb4da40e715c8c80ef263a"
+    },
+    {
+      "path": "node_modules/circuit-json-to-gltf",
+      "name": "circuit-json-to-gltf",
+      "version": "0.0.164",
+      "manifestSha256": "2c378a0ecbc91447137cf3470e41a828f06501a9156f3a04ec12800ae10553ac"
+    },
+    {
+      "path": "node_modules/circuit-json-to-gltf/node_modules/@tscircuit/footprinter",
+      "name": "@tscircuit/footprinter",
+      "version": "0.0.431",
+      "manifestSha256": "2b64bbc0ad531b65c88ec69ea9f53d13502f7e8ef84e1ae410d9f0e76f4bb4ea"
+    },
+    {
+      "path": "node_modules/circuit-json-to-gltf/node_modules/jscad-planner",
+      "name": "jscad-planner",
+      "version": "0.0.19",
+      "manifestSha256": "0473c31dc54ef04d47413204daa06aa7bf76fb7911d5279bc1ca7d7baff7695c"
+    },
+    {
+      "path": "node_modules/circuit-json-to-kicad",
+      "name": "circuit-json-to-kicad",
+      "version": "0.0.272",
+      "manifestSha256": "339ae5d4bc482ee3ef5e2f6b02b7a42a600c6822043f15a5c7d6919e5c89d21b"
+    },
+    {
+      "path": "node_modules/circuit-json-to-pnp-csv",
+      "name": "circuit-json-to-pnp-csv",
+      "version": "0.0.20",
+      "manifestSha256": "f812a0cc5214583676b06d4269509704206a3223b1b713ffe127e41d99a7b8bb"
+    },
+    {
+      "path": "node_modules/circuit-json-to-readable-netlist",
+      "name": "circuit-json-to-readable-netlist",
+      "version": "0.0.15",
+      "manifestSha256": "d72dec0f93ca951d9d307c59b4bde8ddc5f3ab2e0e32d201264aa8367d74c954"
+    },
+    {
+      "path": "node_modules/circuit-json-to-simple-3d",
+      "name": "circuit-json-to-simple-3d",
+      "version": "0.0.9",
+      "manifestSha256": "7d2d33bd98fe2869a512303442f97c78c2c8543e25640dc1724a67250b2355f1"
+    },
+    {
+      "path": "node_modules/circuit-json-to-spice",
+      "name": "circuit-json-to-spice",
+      "version": "0.0.47",
+      "manifestSha256": "c7b879a2e5e817fd701bc2f69d210e4541b4b04760622e85e6c1f336d5bb33a2"
+    },
+    {
+      "path": "node_modules/circuit-json-to-spice/node_modules/circuit-json-to-connectivity-map",
+      "name": "circuit-json-to-connectivity-map",
+      "version": "0.0.22",
+      "manifestSha256": "9b395083bf72a9e8d37c65485e85fb55c1982b9a4a252902be905680d415bd06"
+    },
+    {
+      "path": "node_modules/circuit-json-to-spice/node_modules/circuit-json-to-connectivity-map/node_modules/@tscircuit/math-utils",
+      "name": "@tscircuit/math-utils",
+      "version": "0.0.9",
+      "manifestSha256": "3df6cbfae4c6844477a8cebcb761eb058897f57cd1355893d059925fdfeadbae"
+    },
+    {
+      "path": "node_modules/circuit-json-to-step",
+      "name": "circuit-json-to-step",
+      "version": "0.0.63",
+      "manifestSha256": "b67857bf967473812a2960474e9e7d6199eff779b2fec64fc3594abde5378b8f"
+    },
+    {
+      "path": "node_modules/circuit-json-to-step/node_modules/circuit-json-to-connectivity-map",
+      "name": "circuit-json-to-connectivity-map",
+      "version": "0.0.22",
+      "manifestSha256": "9b395083bf72a9e8d37c65485e85fb55c1982b9a4a252902be905680d415bd06"
+    },
+    {
+      "path": "node_modules/circuit-json-to-step/node_modules/circuit-json-to-connectivity-map/node_modules/@tscircuit/math-utils",
+      "name": "@tscircuit/math-utils",
+      "version": "0.0.9",
+      "manifestSha256": "3df6cbfae4c6844477a8cebcb761eb058897f57cd1355893d059925fdfeadbae"
+    },
+    {
+      "path": "node_modules/circuit-json-to-step/node_modules/circuit-json-to-gltf",
+      "name": "circuit-json-to-gltf",
+      "version": "0.0.106",
+      "manifestSha256": "db630f5fd7f89b56fba7a995520a480154ce7c98fdc22fd11c01bf0584f92046"
+    },
+    {
+      "path": "node_modules/circuit-json-to-step/node_modules/circuit-json-to-gltf/node_modules/jscad-electronics",
+      "name": "jscad-electronics",
+      "version": "0.0.135",
+      "manifestSha256": "542225ddcb53dc5e4c3723b3ef5b7d88c74bac915bbcf5c77815e827432c213a"
+    },
+    {
+      "path": "node_modules/circuit-json-to-tscircuit",
+      "name": "circuit-json-to-tscircuit",
+      "version": "0.0.50",
+      "manifestSha256": "60728c05e601f1b8683a02f9bca99cd4189a2b903da6f74ba8e19e81a0f90772"
+    },
+    {
+      "path": "node_modules/circuit-to-svg",
+      "name": "circuit-to-svg",
+      "version": "0.0.460",
+      "manifestSha256": "2909df9097fe0ecc1cdf0d99cd7f7a0b112615060c4da380722cd38c775d4555"
+    },
+    {
+      "path": "node_modules/class-utils",
+      "name": "class-utils",
+      "version": "0.3.6",
+      "manifestSha256": "5c2f877d951d784fdb630ad674fb490c4bd8fb74dbae60ab8a3b85373c4743cf"
+    },
+    {
+      "path": "node_modules/class-utils/node_modules/define-property",
+      "name": "define-property",
+      "version": "0.2.5",
+      "manifestSha256": "b999a380ba13fef8b973f3df54c1f11f2c8d97d4f5f691600508fa2b7108fe52"
+    },
+    {
+      "path": "node_modules/class-utils/node_modules/define-property/node_modules/is-descriptor",
+      "name": "is-descriptor",
+      "version": "0.1.8",
+      "manifestSha256": "dd2a731beb615da01dc134ff583bbf4328dbf84495c2eac0ecf47ce4c24137b0"
+    },
+    {
+      "path": "node_modules/cliui",
+      "name": "cliui",
+      "version": "5.0.0",
+      "manifestSha256": "f70b59c706d81c5048ae11cb1f17e56f0a5ef6b91960181117357dc490d42cc6"
+    },
+    {
+      "path": "node_modules/collection-visit",
+      "name": "collection-visit",
+      "version": "1.0.0",
+      "manifestSha256": "52bd4317cce67d1213b80370b34032c0e431c3a3b98479939be59c82123222b2"
+    },
+    {
+      "path": "node_modules/color",
+      "name": "color",
+      "version": "5.0.3",
+      "manifestSha256": "e056a5ef1ac8bd65d4a19eb544b2b3dfb69e21da39543e3f58456d6f1793019e"
+    },
+    {
+      "path": "node_modules/color-convert",
+      "name": "color-convert",
+      "version": "3.1.3",
+      "manifestSha256": "2ca1a776fdacc56b2c1463045e8b2edcc7ff31490c362ee84e258cc905b90e73"
+    },
+    {
+      "path": "node_modules/color-diff",
+      "name": "color-diff",
+      "version": "1.4.0",
+      "manifestSha256": "322bd9b1d4df9c7f52b026bfb5212fcd974e6a04b9dde21c6971ddb74ebc5b5d"
+    },
+    {
+      "path": "node_modules/color-name",
+      "name": "color-name",
+      "version": "2.1.1",
+      "manifestSha256": "efbf349af1ba4890af24b0b382366a191cd038c6a79357e7711be515053c2d89"
+    },
+    {
+      "path": "node_modules/color-string",
+      "name": "color-string",
+      "version": "2.1.4",
+      "manifestSha256": "c07e159e468107920cf59dc92a06185593c180c2bbf12cd6baf9494da68c8d35"
+    },
+    {
+      "path": "node_modules/colors",
+      "name": "colors",
+      "version": "1.4.0",
+      "manifestSha256": "12d1b76eb6efbe581026d035eba2a3c916fc5d4664a9476d23bafc6813db9176"
+    },
+    {
+      "path": "node_modules/comlink",
+      "name": "comlink",
+      "version": "4.4.2",
+      "manifestSha256": "94b1cc6b07dc642879c3690d9a4a77a27456b1c52aa49b36b8a23738fbed75f8"
+    },
+    {
+      "path": "node_modules/commander",
+      "name": "commander",
+      "version": "13.1.0",
+      "manifestSha256": "7c956844374e86a9686f2c6445e868a22f21c0c5cc836c6b5060bcc77a976c9d"
+    },
+    {
+      "path": "node_modules/commondir",
+      "name": "commondir",
+      "version": "1.0.1",
+      "manifestSha256": "98165695e3271b021787878038b0875a7758b8eb930683d3ba3a79713dceb0c5"
+    },
+    {
+      "path": "node_modules/component-emitter",
+      "name": "component-emitter",
+      "version": "1.3.1",
+      "manifestSha256": "cdb4584e6657cbc5bd76295b0e3828969fec5cdf3c812178ea80f37378398080"
+    },
+    {
+      "path": "node_modules/concurrently",
+      "name": "concurrently",
+      "version": "9.2.5",
+      "manifestSha256": "73d580839fea251b55383d4c441afcf735095ea0f5580050ade170c164f169c7"
+    },
+    {
+      "path": "node_modules/concurrently/node_modules/yargs",
+      "name": "yargs",
+      "version": "17.7.2",
+      "manifestSha256": "c8d5a14cda0fccba3959457ebcc9c69107882e21469364338f6c81df3a34c221"
+    },
+    {
+      "path": "node_modules/concurrently/node_modules/yargs/node_modules/cliui",
+      "name": "cliui",
+      "version": "8.0.1",
+      "manifestSha256": "95964483c512a6bf35aa1211dc2c185d72be1b58b1271ddd4a7c2e48836472a9"
+    },
+    {
+      "path": "node_modules/concurrently/node_modules/yargs/node_modules/cliui/node_modules/strip-ansi",
+      "name": "strip-ansi",
+      "version": "6.0.1",
+      "manifestSha256": "0130850b9da0584f54cc20d3dab6365c807e9436ac78e016d5009efa99bd0530"
+    },
+    {
+      "path": "node_modules/concurrently/node_modules/yargs/node_modules/cliui/node_modules/strip-ansi/node_modules/ansi-regex",
+      "name": "ansi-regex",
+      "version": "5.0.1",
+      "manifestSha256": "8b2dc166f2b74d5098bad38bdd3dd2f4d4775c626199872f5e36dbb48c40931d"
+    },
+    {
+      "path": "node_modules/concurrently/node_modules/yargs/node_modules/cliui/node_modules/wrap-ansi",
+      "name": "wrap-ansi",
+      "version": "7.0.0",
+      "manifestSha256": "0b0cf0bf62bd0cc71da2128e3269e63edd566feffdd501aa3692acd6db93c3c9"
+    },
+    {
+      "path": "node_modules/concurrently/node_modules/yargs/node_modules/string-width",
+      "name": "string-width",
+      "version": "4.2.3",
+      "manifestSha256": "6457a02418f004fe5d3fbbb19c7cbcc1450a8b887ff9a471dc6985ac83a48d36"
+    },
+    {
+      "path": "node_modules/concurrently/node_modules/yargs/node_modules/string-width/node_modules/emoji-regex",
+      "name": "emoji-regex",
+      "version": "8.0.0",
+      "manifestSha256": "7bec29b9ca68f2c4becc60e866c2f9342ecdc89fab39841a818ccd9eda15c148"
+    },
+    {
+      "path": "node_modules/concurrently/node_modules/yargs/node_modules/string-width/node_modules/is-fullwidth-code-point",
+      "name": "is-fullwidth-code-point",
+      "version": "3.0.0",
+      "manifestSha256": "5b48496ca129073ed44a677b777ea3b91366c8bc228bc75fe858749a78ac1a32"
+    },
+    {
+      "path": "node_modules/concurrently/node_modules/yargs/node_modules/string-width/node_modules/strip-ansi",
+      "name": "strip-ansi",
+      "version": "6.0.1",
+      "manifestSha256": "0130850b9da0584f54cc20d3dab6365c807e9436ac78e016d5009efa99bd0530"
+    },
+    {
+      "path": "node_modules/concurrently/node_modules/yargs/node_modules/string-width/node_modules/strip-ansi/node_modules/ansi-regex",
+      "name": "ansi-regex",
+      "version": "5.0.1",
+      "manifestSha256": "8b2dc166f2b74d5098bad38bdd3dd2f4d4775c626199872f5e36dbb48c40931d"
+    },
+    {
+      "path": "node_modules/concurrently/node_modules/yargs/node_modules/y18n",
+      "name": "y18n",
+      "version": "5.0.8",
+      "manifestSha256": "f65855d14daaf57947e398e132caa246f93bbf045ff3f8f9627114714729ad29"
+    },
+    {
+      "path": "node_modules/concurrently/node_modules/yargs/node_modules/yargs-parser",
+      "name": "yargs-parser",
+      "version": "21.1.1",
+      "manifestSha256": "b6ee1fa4e1881d6f5388a3a52e34c2499a4c01d81615b69f08f12ca35289880b"
+    },
+    {
+      "path": "node_modules/confbox",
+      "name": "confbox",
+      "version": "0.1.8",
+      "manifestSha256": "fbdcc70692db4c079d3f53672aa237226884ae9ccb9271d3de235c533fed30a2"
+    },
+    {
+      "path": "node_modules/connect",
+      "name": "connect",
+      "version": "3.7.0",
+      "manifestSha256": "e2fe6b7d1c1aae902eb631e0b8a0564a4ada23adca46dd4497d6b9fafb0a2ed9"
+    },
+    {
+      "path": "node_modules/connect/node_modules/debug",
+      "name": "debug",
+      "version": "2.6.9",
+      "manifestSha256": "6c3d2c892db282317913ce7c340dd2edccd326bcafd18b644b8738144967d6ee"
+    },
+    {
+      "path": "node_modules/connect/node_modules/debug/node_modules/ms",
+      "name": "ms",
+      "version": "2.0.0",
+      "manifestSha256": "30fbfaa3840b2f63978ad4bcd7ed8dc24d277b818e4755fe93eda8cb1bc8b74c"
+    },
+    {
+      "path": "node_modules/connectivity-map",
+      "name": "connectivity-map",
+      "version": "1.0.1",
+      "manifestSha256": "536fb64784c2eb0678fb7ef28e3bc7bd645ca25a03a68c5612610c13f31deb7b"
+    },
+    {
+      "path": "node_modules/consola",
+      "name": "consola",
+      "version": "3.4.2",
+      "manifestSha256": "53e4b4053b58f62c0af88dc35efbe8711910f99d50a3df8de05b2e94bce4abce"
+    },
+    {
+      "path": "node_modules/convert-source-map",
+      "name": "convert-source-map",
+      "version": "2.0.0",
+      "manifestSha256": "e6bf802e6ee220d66321808ce3d619fbb85ff4d5729ea4f649bd65dfe9ee8956"
+    },
+    {
+      "path": "node_modules/copy-descriptor",
+      "name": "copy-descriptor",
+      "version": "0.1.1",
+      "manifestSha256": "4519ab160a3aea0b54ab9705508fc8965e0d201db35f1e569d744b4102b498b8"
+    },
+    {
+      "path": "node_modules/core-util-is",
+      "name": "core-util-is",
+      "version": "1.0.3",
+      "manifestSha256": "0067bcd4ef1c86da02a45ad770883b39a9d14aa0b00113071609d5fb3dce0bc0"
+    },
+    {
+      "path": "node_modules/cors",
+      "name": "cors",
+      "version": "2.8.6",
+      "manifestSha256": "b314218cdfc9e9442efd35c74c4176902c0bbd74700ba30d6055e70a76455174"
+    },
+    {
+      "path": "node_modules/crc-32",
+      "name": "crc-32",
+      "version": "1.2.2",
+      "manifestSha256": "2a96a3fe106da3dffa3479e8983c01c745f0f8c8f961ec9b6af5fb7ff35ce05d"
+    },
+    {
+      "path": "node_modules/cross-spawn",
+      "name": "cross-spawn",
+      "version": "7.0.6",
+      "manifestSha256": "2e106cd9b4ae4e34ead35218371a0d4e172da72515a4f8f97d69a2e1fe3dee82"
+    },
+    {
+      "path": "node_modules/css-select",
+      "name": "css-select",
+      "version": "5.1.0",
+      "manifestSha256": "793db0e2224547eacf8f7107fae34d1ac223201ef48e47479d73c7bd0c4b2607"
+    },
+    {
+      "path": "node_modules/css-what",
+      "name": "css-what",
+      "version": "6.2.2",
+      "manifestSha256": "c3c772ed1135cead98192983bf582d404d21ced7c09c5219e7bb94cc54dfab27"
+    },
+    {
+      "path": "node_modules/csstype",
+      "name": "csstype",
+      "version": "3.2.4",
+      "manifestSha256": "37cc471a78ee0c3605071d308b7f124632afd134bf053d01f6151a51f2b63eb6"
+    },
+    {
+      "path": "node_modules/cwise-compiler",
+      "name": "cwise-compiler",
+      "version": "1.1.3",
+      "manifestSha256": "6eeb54f8764092b5c1e1fff7c1d533cd1fe4056b58280a5089d2100dc750e6e1"
+    },
+    {
+      "path": "node_modules/debug",
+      "name": "debug",
+      "version": "4.4.3",
+      "manifestSha256": "ea8e33d63fe5f3a4c36609b6c3df8e2ef1f8b8ba2fc3a2e1e53cb27291f384af"
+    },
+    {
+      "path": "node_modules/decamelize",
+      "name": "decamelize",
+      "version": "1.2.0",
+      "manifestSha256": "fb07ecfb5937f8757b0721fdafa6febff75d3c159f6dc8ec0d6ad4e1d1be7d9c"
+    },
+    {
+      "path": "node_modules/decode-uri-component",
+      "name": "decode-uri-component",
+      "version": "0.5.1",
+      "manifestSha256": "8822236f8ec0fc7c8f540812dda32b81797bec92e51bd567fbb196fda04a7f13"
+    },
+    {
+      "path": "node_modules/deep-rename-keys",
+      "name": "deep-rename-keys",
+      "version": "0.2.1",
+      "manifestSha256": "c57116ea3ec5e64d556032536764c67ca6e8bfb8454c8a0fafad38dc5b8b3bf9"
+    },
+    {
+      "path": "node_modules/deepmerge",
+      "name": "deepmerge",
+      "version": "4.3.1",
+      "manifestSha256": "f56978e7a6da1a3c6edee41abb54f98584a2fa2680458c48db820ae772fef0c9"
+    },
+    {
+      "path": "node_modules/define-property",
+      "name": "define-property",
+      "version": "2.0.2",
+      "manifestSha256": "abeefd42bcf869fe8652b1037aa42742b71d5a56138b36af4b22d36243e6a872"
+    },
+    {
+      "path": "node_modules/depd",
+      "name": "depd",
+      "version": "2.0.0",
+      "manifestSha256": "5a3659bcc2e47b25ebf9f23f38eb9452a58920bfe4b59410bfa6fe84639a3b99"
+    },
+    {
+      "path": "node_modules/deprecation",
+      "name": "deprecation",
+      "version": "2.3.1",
+      "manifestSha256": "ad213ece58278ff08b72192fbf6a717dead0c53ea3bc776d3a8ee75c44c70263"
+    },
+    {
+      "path": "node_modules/detect-libc",
+      "name": "detect-libc",
+      "version": "2.1.2",
+      "manifestSha256": "ee88e5b954fdf3a8480b1d01ef767d68d8ca2c6da269f58c5cf1c5550e9aa2a7"
+    },
+    {
+      "path": "node_modules/dom-serializer",
+      "name": "dom-serializer",
+      "version": "2.0.0",
+      "manifestSha256": "098603e7fee62c07fb392e31dae4dc151a3e03c72555ce1f9182011fbf898501"
+    },
+    {
+      "path": "node_modules/domelementtype",
+      "name": "domelementtype",
+      "version": "2.3.0",
+      "manifestSha256": "4ddf28a1e60ae7ec15f62cda0d72eb06bcae05b3819942d971c841b7cc0b6930"
+    },
+    {
+      "path": "node_modules/domhandler",
+      "name": "domhandler",
+      "version": "5.0.3",
+      "manifestSha256": "cbb42a446eef285863e04158c7f269e0e7b8e868c1042d6845e996d760f7376c"
+    },
+    {
+      "path": "node_modules/domutils",
+      "name": "domutils",
+      "version": "3.2.2",
+      "manifestSha256": "9a04689cc67f52e9f7323e0dd4d18c8cbe68744c3373ad524d133ddf12bf99ab"
+    },
+    {
+      "path": "node_modules/dsn-converter",
+      "name": "dsn-converter",
+      "version": "0.0.90",
+      "manifestSha256": "0c3d697350ed2274adb7fd47f3a089ccab65e3a66ebb955d5862e5423ca3d19e"
+    },
+    {
+      "path": "node_modules/duplexer",
+      "name": "duplexer",
+      "version": "0.1.2",
+      "manifestSha256": "e918734e3cf66505c54b50b8e8a82ce01a703640e712e5703e69fa86b965e377"
+    },
+    {
+      "path": "node_modules/earcut",
+      "name": "earcut",
+      "version": "3.2.4",
+      "manifestSha256": "c48653ade72118ac2dd1c05bdfe4608e6ad9ae19b4b1c218b62af3fb272c81e4"
+    },
+    {
+      "path": "node_modules/easyeda",
+      "name": "easyeda",
+      "version": "0.0.389",
+      "manifestSha256": "bfa2f3089f3b0826f3066b8feba9d7b6db220548c96e6c43b739c6de7f422c1a"
+    },
+    {
+      "path": "node_modules/ee-first",
+      "name": "ee-first",
+      "version": "1.1.1",
+      "manifestSha256": "a4eece6ff6b38bf7ac107323f381cc60500097a9cbdd473f5d5b45e68822cb89"
+    },
+    {
+      "path": "node_modules/emoji-regex",
+      "name": "emoji-regex",
+      "version": "7.0.3",
+      "manifestSha256": "57c6f840104de93b91e7af59165ee89ffc1d9458502ab7810ed40c381dac9684"
+    },
+    {
+      "path": "node_modules/encodeurl",
+      "name": "encodeurl",
+      "version": "2.0.3",
+      "manifestSha256": "531cd32b12f405a0628681755fbd06b818d9caee3101d5201da96969882bcd4d"
+    },
+    {
+      "path": "node_modules/entities",
+      "name": "entities",
+      "version": "4.5.0",
+      "manifestSha256": "c92f657f679669a91bc32cd98f0b4812b3f4a9c6f3b3af3022a70cb25b7efc7c"
+    },
+    {
+      "path": "node_modules/es-errors",
+      "name": "es-errors",
+      "version": "1.3.0",
+      "manifestSha256": "1a0a0bcccc76b915cb64073317312840cf6363e9144b96f406d0059774dd5278"
+    },
+    {
+      "path": "node_modules/esbuild",
+      "name": "esbuild",
+      "version": "0.27.7",
+      "manifestSha256": "9ce21c976ffbbb95001f460e9e8af7c6d719f748eb70441e617a14dd0b68a5b8"
+    },
+    {
+      "path": "node_modules/esbuild-wasm",
+      "name": "esbuild-wasm",
+      "version": "0.27.7",
+      "manifestSha256": "b406e09c20128c270bb5e4a6891fe1028112f575d289365c1d449b7d07e67a10"
+    },
+    {
+      "path": "node_modules/escalade",
+      "name": "escalade",
+      "version": "3.2.0",
+      "manifestSha256": "acd22b264ecbea162e320a360dab0ad0f3e5438fa4382288df844fa08b484e73"
+    },
+    {
+      "path": "node_modules/escape-html",
+      "name": "escape-html",
+      "version": "1.0.3",
+      "manifestSha256": "bd320a3e9d23249f5f7d3ce72f2fa426e28a6b2704bd2b281d0c92806a1f5223"
+    },
+    {
+      "path": "node_modules/estree-walker",
+      "name": "estree-walker",
+      "version": "2.0.2",
+      "manifestSha256": "6f08430331daeaedaa35e7a8ca347cdb7493922fe9485bf57eb4d619cfb0b3ad"
+    },
+    {
+      "path": "node_modules/etag",
+      "name": "etag",
+      "version": "1.8.1",
+      "manifestSha256": "836b9a5dd1c6af638f4602e83e2568277f9ab1f457db0b95d949c2a4ddb0462a"
+    },
+    {
+      "path": "node_modules/event-stream",
+      "name": "event-stream",
+      "version": "3.3.4",
+      "manifestSha256": "3524c5a4cedb37a3f4275d5b13e2adcbde53fac903e759daa04a386fbc8295f6"
+    },
+    {
+      "path": "node_modules/event-target-shim",
+      "name": "event-target-shim",
+      "version": "5.0.1",
+      "manifestSha256": "980bdd7706c72d04a4df2e3ee2c8ffccf3bc72bd8e7cd13ca38be00cafc6e8db"
+    },
+    {
+      "path": "node_modules/eventemitter3",
+      "name": "eventemitter3",
+      "version": "2.0.3",
+      "manifestSha256": "c654fda4f9091bb19e10d955ed367c63cefb380320cf0fcbdc98931a3733397b"
+    },
+    {
+      "path": "node_modules/events",
+      "name": "events",
+      "version": "3.3.0",
+      "manifestSha256": "878ad3687fef7efe3757c1872a3af998c95197129a7445d632486a9591ee542e"
+    },
+    {
+      "path": "node_modules/expand-brackets",
+      "name": "expand-brackets",
+      "version": "2.1.4",
+      "manifestSha256": "c08379bf0b9bf8ab4c47ce0a1afef511f8727cbdf6709840e3c1fb2f0a6f9e0c"
+    },
+    {
+      "path": "node_modules/expand-brackets/node_modules/debug",
+      "name": "debug",
+      "version": "2.6.9",
+      "manifestSha256": "6c3d2c892db282317913ce7c340dd2edccd326bcafd18b644b8738144967d6ee"
+    },
+    {
+      "path": "node_modules/expand-brackets/node_modules/debug/node_modules/ms",
+      "name": "ms",
+      "version": "2.0.0",
+      "manifestSha256": "30fbfaa3840b2f63978ad4bcd7ed8dc24d277b818e4755fe93eda8cb1bc8b74c"
+    },
+    {
+      "path": "node_modules/expand-brackets/node_modules/define-property",
+      "name": "define-property",
+      "version": "0.2.5",
+      "manifestSha256": "b999a380ba13fef8b973f3df54c1f11f2c8d97d4f5f691600508fa2b7108fe52"
+    },
+    {
+      "path": "node_modules/expand-brackets/node_modules/define-property/node_modules/is-descriptor",
+      "name": "is-descriptor",
+      "version": "0.1.8",
+      "manifestSha256": "dd2a731beb615da01dc134ff583bbf4328dbf84495c2eac0ecf47ce4c24137b0"
+    },
+    {
+      "path": "node_modules/extend-shallow",
+      "name": "extend-shallow",
+      "version": "2.0.1",
+      "manifestSha256": "c9c30569136a689a038356c1e4a5bb711f3520407d364cd96381ab009a8cd985"
+    },
+    {
+      "path": "node_modules/extglob",
+      "name": "extglob",
+      "version": "2.0.4",
+      "manifestSha256": "fee3793043c3104a23b7061eabcfe6841dc25fe431797e7dfbcf9f1dfa593001"
+    },
+    {
+      "path": "node_modules/extglob/node_modules/define-property",
+      "name": "define-property",
+      "version": "1.0.0",
+      "manifestSha256": "03cce8ab627f9aa9d11af4a225523a9c7c67c51a135b630b85f5743920b312af"
+    },
+    {
+      "path": "node_modules/fast-json-stable-stringify",
+      "name": "fast-json-stable-stringify",
+      "version": "2.1.0",
+      "manifestSha256": "c4907a6cf1a242f65589b9bb762b9330088aa4a940d382b470d3c47b5309ef44"
+    },
+    {
+      "path": "node_modules/fast-png",
+      "name": "fast-png",
+      "version": "8.0.0",
+      "manifestSha256": "b38b7a3cf78fb023cb4f5dba24124a53aeaf4f233c65caa5458f19411fc8d588"
+    },
+    {
+      "path": "node_modules/fast-xml-builder",
+      "name": "fast-xml-builder",
+      "version": "1.3.2",
+      "manifestSha256": "ca9cceea8b8570e6d650233b52c42c9e181425474c50a458efc7628bbf05e235"
+    },
+    {
+      "path": "node_modules/fast-xml-parser",
+      "name": "fast-xml-parser",
+      "version": "5.12.1",
+      "manifestSha256": "4482b7380243b2164b1d50c4f44a02531c5b6131909cab30420b397b9d3be5e3"
+    },
+    {
+      "path": "node_modules/faye-websocket",
+      "name": "faye-websocket",
+      "version": "0.11.4",
+      "manifestSha256": "08f9b3cdf514a69f6fa5db482067e74c3fd2543c7990b08188d4dabdf3a1ea4d"
+    },
+    {
+      "path": "node_modules/fdir",
+      "name": "fdir",
+      "version": "6.5.0",
+      "manifestSha256": "aca49395d61ef383a09f74555c66ed45817ca2b5724e710a4dc9e0471b83d8f5"
+    },
+    {
+      "path": "node_modules/fflate",
+      "name": "fflate",
+      "version": "0.8.3",
+      "manifestSha256": "5922d8150b307bc0e4e441491c779c45379e9913d348848fca8d5cf02db4d134"
+    },
+    {
+      "path": "node_modules/fill-range",
+      "name": "fill-range",
+      "version": "7.1.1",
+      "manifestSha256": "87f5c78f9b47d21f9ca62b60cff1d250a3b468eab320dd13c3f3ab2464a02735"
+    },
+    {
+      "path": "node_modules/filter-obj",
+      "name": "filter-obj",
+      "version": "5.1.0",
+      "manifestSha256": "6316eec6f45f82bf07d5b3094b6c02791fc242cc2876f5c52ce7d49ce60d4ba5"
+    },
+    {
+      "path": "node_modules/finalhandler",
+      "name": "finalhandler",
+      "version": "1.1.2",
+      "manifestSha256": "658f3f351dcb8a8d1c507abbfd109e7f3dc6add22d9b1ad6241328c5f41ecb66"
+    },
+    {
+      "path": "node_modules/finalhandler/node_modules/debug",
+      "name": "debug",
+      "version": "2.6.9",
+      "manifestSha256": "6c3d2c892db282317913ce7c340dd2edccd326bcafd18b644b8738144967d6ee"
+    },
+    {
+      "path": "node_modules/finalhandler/node_modules/debug/node_modules/ms",
+      "name": "ms",
+      "version": "2.0.0",
+      "manifestSha256": "30fbfaa3840b2f63978ad4bcd7ed8dc24d277b818e4755fe93eda8cb1bc8b74c"
+    },
+    {
+      "path": "node_modules/finalhandler/node_modules/encodeurl",
+      "name": "encodeurl",
+      "version": "1.0.4",
+      "manifestSha256": "db73a82ea738bcf415ebfaa2098d33762838296c8185e07280a956569a345554"
+    },
+    {
+      "path": "node_modules/finalhandler/node_modules/on-finished",
+      "name": "on-finished",
+      "version": "2.3.0",
+      "manifestSha256": "c67ecda258b136ba8f9bc2b6600979bde85308c2a27ea0941465d9cb12239cf3"
+    },
+    {
+      "path": "node_modules/finalhandler/node_modules/statuses",
+      "name": "statuses",
+      "version": "1.5.0",
+      "manifestSha256": "39cf653c972f99725bae6adab44da5df52185fa1fc3bdaf671a8f62d0e182631"
+    },
+    {
+      "path": "node_modules/find-up",
+      "name": "find-up",
+      "version": "3.0.0",
+      "manifestSha256": "2a2df73310e2581d941e5c1b5e8bc93abfb1737c04d5e175651bbec692d8a9d4"
+    },
+    {
+      "path": "node_modules/fix-dts-default-cjs-exports",
+      "name": "fix-dts-default-cjs-exports",
+      "version": "1.0.1",
+      "manifestSha256": "57fbe6f8c919d5a331d09d53768fe2064c25c6f4e372cbaa0d0727e79d70904c"
+    },
+    {
+      "path": "node_modules/flatbush",
+      "name": "flatbush",
+      "version": "4.7.0",
+      "manifestSha256": "f67d27f3319fdf8b212e8a88df7a3307ae44e20e21a810810d259894f9bc6050"
+    },
+    {
+      "path": "node_modules/flatqueue",
+      "name": "flatqueue",
+      "version": "3.1.0",
+      "manifestSha256": "1b9a1af82b63e6bd903b4340a0d001deb98dc8fcb585ce39571974e719381588"
+    },
+    {
+      "path": "node_modules/follow-redirects",
+      "name": "follow-redirects",
+      "version": "1.16.3",
+      "manifestSha256": "6d8de10cff3afbe74c7933a5424a22699ebb9528a792ae0212f8bdf83ed2866e"
+    },
+    {
+      "path": "node_modules/for-in",
+      "name": "for-in",
+      "version": "1.0.2",
+      "manifestSha256": "f0d68cfe65109d06cf02bcc45e4b8bc18678d530f580eb62d112d919473e2539"
+    },
+    {
+      "path": "node_modules/format-si-prefix",
+      "name": "format-si-prefix",
+      "version": "0.3.2",
+      "manifestSha256": "d7de688d28874d7ae22ade64c4788a8f12c98c2c435fbaa716f47307d363fb00"
+    },
+    {
+      "path": "node_modules/format-si-unit",
+      "name": "format-si-unit",
+      "version": "0.0.12",
+      "manifestSha256": "6300b503d29d8d7942d4800d992a501290c1e7fee065d7ff88941dc0bad760b0"
+    },
+    {
+      "path": "node_modules/fragment-cache",
+      "name": "fragment-cache",
+      "version": "0.2.1",
+      "manifestSha256": "6da5e4d4eca6ea544944bf3851f68fb948cf68d9e86910ec7612d0b01a748d89"
+    },
+    {
+      "path": "node_modules/fresh",
+      "name": "fresh",
+      "version": "2.0.0",
+      "manifestSha256": "3895d6c15a9e65c1cca20c675db7637423ec2d087bb221ef79e09ed2e7d34ec0"
+    },
+    {
+      "path": "node_modules/from",
+      "name": "from",
+      "version": "0.1.7",
+      "manifestSha256": "013beb0b51da94546eef2dffc2a894f30fa2ed828eeb2ceac6317f82b29f8c7b"
+    },
+    {
+      "path": "node_modules/fs-minipass",
+      "name": "fs-minipass",
+      "version": "2.1.0",
+      "manifestSha256": "02b36a2a2e729813a196c97486bb12955345e201d6ccda5fb2b322f62fa381ab"
+    },
+    {
+      "path": "node_modules/fs-minipass/node_modules/minipass",
+      "name": "minipass",
+      "version": "3.3.6",
+      "manifestSha256": "e99f6b67ba6e5cda438efb7a23dd399ee5c2070af69ce77720d95de5fb42921e"
+    },
+    {
+      "path": "node_modules/function-bind",
+      "name": "function-bind",
+      "version": "1.1.2",
+      "manifestSha256": "edb1c4faf4148e6e3d74ed8dbac1a1dc359a647ff4207aad4851396dc7a3559a"
+    },
+    {
+      "path": "node_modules/get-caller-file",
+      "name": "get-caller-file",
+      "version": "2.0.5",
+      "manifestSha256": "680a080d2885c05bc51dde429c80784bfb248ca3ef3685438079c5015721e2ae"
+    },
+    {
+      "path": "node_modules/get-value",
+      "name": "get-value",
+      "version": "2.0.6",
+      "manifestSha256": "7d8f5eef1a7a47aa48adcd074edeefd2a0cd6ea2ceacc6e85772a3c42fb28a5f"
+    },
+    {
+      "path": "node_modules/gl-matrix",
+      "name": "gl-matrix",
+      "version": "3.4.4",
+      "manifestSha256": "c3934c49a1a886e9e4dea81f9288e898c918f998fbf9ff5a4aef7f80a31fb012"
+    },
+    {
+      "path": "node_modules/glob-parent",
+      "name": "glob-parent",
+      "version": "5.1.2",
+      "manifestSha256": "858af9aa27cfe6eea1cfd1abbda15ad0ccc87e66e88b3ad249fab8df6dd13192"
+    },
+    {
+      "path": "node_modules/graceful-fs",
+      "name": "graceful-fs",
+      "version": "4.2.12",
+      "manifestSha256": "7cc365c012febc9c44ef6d998b49d749840c852d91db3302b19eb6eca07ead3d"
+    },
+    {
+      "path": "node_modules/graphics-debug",
+      "name": "graphics-debug",
+      "version": "0.0.99",
+      "manifestSha256": "b12d049aea7a67b80651c0a83015e89d9b5854b64ed906ef2f699508276740e5"
+    },
+    {
+      "path": "node_modules/graphics-debug/node_modules/transformation-matrix",
+      "name": "transformation-matrix",
+      "version": "3.1.0",
+      "manifestSha256": "7548565a728472f003a0ce2d0ba681e07eb038d7cbeb4da40e715c8c80ef263a"
+    },
+    {
+      "path": "node_modules/has-flag",
+      "name": "has-flag",
+      "version": "4.0.0",
+      "manifestSha256": "3fef4b52efbeabeadfffd5994e90b1025eb24263286e34170675956637d368b1"
+    },
+    {
+      "path": "node_modules/has-value",
+      "name": "has-value",
+      "version": "1.0.0",
+      "manifestSha256": "4e96fe8f20a39776d1470c61f045fc8a298ea505ba39167373d924ac2e22eba2"
+    },
+    {
+      "path": "node_modules/has-values",
+      "name": "has-values",
+      "version": "1.0.0",
+      "manifestSha256": "b0f03ba25ac08af249163b7459e953292a70168ab38ca9b488fa485f79f2f695"
+    },
+    {
+      "path": "node_modules/has-values/node_modules/kind-of",
+      "name": "kind-of",
+      "version": "4.0.0",
+      "manifestSha256": "55b4ec530b8370e10e52e8f917fd26c851c8b752f6cc01dac7a2285988772391"
+    },
+    {
+      "path": "node_modules/hasown",
+      "name": "hasown",
+      "version": "2.0.4",
+      "manifestSha256": "40b750c55a8bacf2c5ac316f5299dd44d48acc101c189a00cd59d39376b5eb89"
+    },
+    {
+      "path": "node_modules/hosted-git-info",
+      "name": "hosted-git-info",
+      "version": "6.1.3",
+      "manifestSha256": "18ee2ad8b275c8fd8080f09191cd00db0221a275367ed977f9ae1b80ae169c44"
+    },
+    {
+      "path": "node_modules/howfat",
+      "name": "howfat",
+      "version": "0.3.8",
+      "manifestSha256": "b268f0e08a1ad61bb3cd80908546daba6cc3b3a71f72698c75c4a8c0fc622b72"
+    },
+    {
+      "path": "node_modules/http-auth",
+      "name": "http-auth",
+      "version": "3.1.3",
+      "manifestSha256": "f20face07a4142a40254545c0c51af6ee261390c89d98aac8ff5925d26707948"
+    },
+    {
+      "path": "node_modules/http-auth/node_modules/uuid",
+      "name": "uuid",
+      "version": "3.4.0",
+      "manifestSha256": "c7c4fb46db1f8305fff558e3a963ae7689ec26938660c9d311679583047ec13b"
+    },
+    {
+      "path": "node_modules/http-errors",
+      "name": "http-errors",
+      "version": "2.0.1",
+      "manifestSha256": "d540721372bf8bf77b5fad31f6567a916e24d0aeeb78c81ba92b69feea9f1eef"
+    },
+    {
+      "path": "node_modules/http-parser-js",
+      "name": "http-parser-js",
+      "version": "0.5.10",
+      "manifestSha256": "821a9feba21832f4c359015831d93d85fe6fc90ec625ebb3ab5a49604efc0e48"
+    },
+    {
+      "path": "node_modules/ieee754",
+      "name": "ieee754",
+      "version": "1.2.1",
+      "manifestSha256": "a8004b9c8dffe2e1b01a058ecf968a5d50beabcabc43cc98c655184ba6afc050"
+    },
+    {
+      "path": "node_modules/ignore",
+      "name": "ignore",
+      "version": "5.3.2",
+      "manifestSha256": "a9f40bd310889f21ed824bc19ce140714b7459d658f6708041af53e9855258a6"
+    },
+    {
+      "path": "node_modules/immediate",
+      "name": "immediate",
+      "version": "3.0.6",
+      "manifestSha256": "1e40d711ce5348d237f7a2093d1707ca7c34fc56369f6be10c8e2dc9bcae0a96"
+    },
+    {
+      "path": "node_modules/inherits",
+      "name": "inherits",
+      "version": "2.0.4",
+      "manifestSha256": "be645800bc94fd8de29c8ae91690549b316cc437100108aeea7b2f347693cc80"
+    },
+    {
+      "path": "node_modules/iobuffer",
+      "name": "iobuffer",
+      "version": "6.0.1",
+      "manifestSha256": "5e843d4c99a28e2a528297b8ab0e86fa38ede17f80fe03fd009a6f9633451b11"
+    },
+    {
+      "path": "node_modules/iota-array",
+      "name": "iota-array",
+      "version": "1.0.0",
+      "manifestSha256": "cbeeda7a6b5180e762177182032ddf80db17d135c696d9b8423c82d4ff16e803"
+    },
+    {
+      "path": "node_modules/is-accessor-descriptor",
+      "name": "is-accessor-descriptor",
+      "version": "1.0.2",
+      "manifestSha256": "7fc5adf106856b05fd56f8f4af9062430b4e1837e4a22cfb5c1c74d036a7c9ea"
+    },
+    {
+      "path": "node_modules/is-arrayish",
+      "name": "is-arrayish",
+      "version": "0.3.4",
+      "manifestSha256": "65c3c2e30da5d14342a79f1c19323ad336ab2d66f126990973c514aac7193dc2"
+    },
+    {
+      "path": "node_modules/is-binary-path",
+      "name": "is-binary-path",
+      "version": "2.1.0",
+      "manifestSha256": "35e07770a839325f659cd533abf346934f4544cb6f42ce9bc852abd22999c20c"
+    },
+    {
+      "path": "node_modules/is-buffer",
+      "name": "is-buffer",
+      "version": "1.1.6",
+      "manifestSha256": "c3f4ad9709465baf192e2ee4ae1a113addc1843e044eee520c71eb5fd3c9ec85"
+    },
+    {
+      "path": "node_modules/is-core-module",
+      "name": "is-core-module",
+      "version": "2.18.0",
+      "manifestSha256": "23d2acfe98b94e89d142893c6f7b02e53ff1023f034cb4bcdec9b3429e48f220"
+    },
+    {
+      "path": "node_modules/is-data-descriptor",
+      "name": "is-data-descriptor",
+      "version": "1.0.1",
+      "manifestSha256": "a492c0eddcf9ca4530f07ac2ccae041e6dcf8da24a2275d5a1339c6f1ad653fc"
+    },
+    {
+      "path": "node_modules/is-descriptor",
+      "name": "is-descriptor",
+      "version": "1.0.4",
+      "manifestSha256": "61847557a272b20a37a13601e0b115a362bb6b13a191bbc3032cf8013dfb8344"
+    },
+    {
+      "path": "node_modules/is-extendable",
+      "name": "is-extendable",
+      "version": "0.1.1",
+      "manifestSha256": "eb1fccd73d67e1f2356e1b17df7dc0f235d3d98b4a11c7430e3e476fd410d535"
+    },
+    {
+      "path": "node_modules/is-extglob",
+      "name": "is-extglob",
+      "version": "2.1.1",
+      "manifestSha256": "8031afcd87f448d75ba8a5dd2cde9c68f982a94f406ebae8e5fb7cf6dfdeede2"
+    },
+    {
+      "path": "node_modules/is-fullwidth-code-point",
+      "name": "is-fullwidth-code-point",
+      "version": "2.0.0",
+      "manifestSha256": "1c5c73b201f50ae5201dc7afad16ccb32f16c411040c5b93b689f4c6ade17c27"
+    },
+    {
+      "path": "node_modules/is-glob",
+      "name": "is-glob",
+      "version": "4.0.3",
+      "manifestSha256": "1cce62b80db12fc033d85250b5881b1a288476229abda8e1abd983724befd56f"
+    },
+    {
+      "path": "node_modules/is-module",
+      "name": "is-module",
+      "version": "1.0.0",
+      "manifestSha256": "a6575a4d7eeea74e88ac215f05deab47ed1781824c57bb948285049fa1babb9a"
+    },
+    {
+      "path": "node_modules/is-number",
+      "name": "is-number",
+      "version": "3.0.0",
+      "manifestSha256": "c0f47a24ff52fabe0bbaa316994e2a828a56f2cb0f94bf031bd9884e320cfd0b"
+    },
+    {
+      "path": "node_modules/is-plain-object",
+      "name": "is-plain-object",
+      "version": "2.0.4",
+      "manifestSha256": "9d230b1f721ff1453f40e10824eb4048072ba04c3d63979c48d59c20fabdbb96"
+    },
+    {
+      "path": "node_modules/is-reference",
+      "name": "is-reference",
+      "version": "1.2.1",
+      "manifestSha256": "e78195f4109af5a58394454ca6c4d3d68755bdfe3ed0fc29575ab535400706b9"
+    },
+    {
+      "path": "node_modules/is-unsafe",
+      "name": "is-unsafe",
+      "version": "2.0.3",
+      "manifestSha256": "17c1f4761ea72a5e9c7c5f4312d65ec2e026822fcbca41d4416e63313e6e22e5"
+    },
+    {
+      "path": "node_modules/is-windows",
+      "name": "is-windows",
+      "version": "1.0.2",
+      "manifestSha256": "78963f69e47d6fb7b090bddd4e4eba074627fa32d5c4841a1839be88cf1418e1"
+    },
+    {
+      "path": "node_modules/is-wsl",
+      "name": "is-wsl",
+      "version": "1.1.0",
+      "manifestSha256": "9233a46cea6ec495c795912db132d9bfbccb978aaa2a9fcaa787f2f6a1aab4d9"
+    },
+    {
+      "path": "node_modules/isarray",
+      "name": "isarray",
+      "version": "1.0.0",
+      "manifestSha256": "93165ce56e458216c18240cd961a522af5b18e51da06f55d88ac552234455d95"
+    },
+    {
+      "path": "node_modules/isbinaryfile",
+      "name": "isbinaryfile",
+      "version": "5.0.7",
+      "manifestSha256": "efdebb08d3962fd73bfa32e44ab44c339e02c47b53cb3f0e05fed2750fefa651"
+    },
+    {
+      "path": "node_modules/isexe",
+      "name": "isexe",
+      "version": "2.0.0",
+      "manifestSha256": "395c2af9abeeaafe7391974c1eacfb2a2bdeef187f21c3f5582c49e0368e59bf"
+    },
+    {
+      "path": "node_modules/isobject",
+      "name": "isobject",
+      "version": "3.0.1",
+      "manifestSha256": "c66c0936c8ac63e97aca4e747fe0da8df7d6f093eeb47fb29d4d186c41272465"
+    },
+    {
+      "path": "node_modules/joycon",
+      "name": "joycon",
+      "version": "3.1.1",
+      "manifestSha256": "0857174391d535c89696c60ae396f2e9426224c1f1d6d9225be8e81f8463fd5f"
+    },
+    {
+      "path": "node_modules/jpeg-js",
+      "name": "jpeg-js",
+      "version": "0.4.4",
+      "manifestSha256": "8a0418edb81e7bdb69d1d78c4c1aeedeecc839deb58a8eeba6f25ae92ed14e62"
+    },
+    {
+      "path": "node_modules/js-tokens",
+      "name": "js-tokens",
+      "version": "4.0.0",
+      "manifestSha256": "47345931827b3e26db9fe690abb81f856a0d040cbca8af1e69711a64cd58ce0d"
+    },
+    {
+      "path": "node_modules/jscad-electronics",
+      "name": "jscad-electronics",
+      "version": "0.0.243",
+      "manifestSha256": "2921a5c164a35aa6efd9ebf1e13a0868ab69bed0ca094e480c57242b7f50c5c5"
+    },
+    {
+      "path": "node_modules/jscad-fiber",
+      "name": "jscad-fiber",
+      "version": "0.0.93",
+      "manifestSha256": "7372b7c3a0b725ba5fef1a9eea8579fcb1db4bcbd5b6f60ca8daf376de622b9a"
+    },
+    {
+      "path": "node_modules/jscad-fiber/node_modules/color",
+      "name": "color",
+      "version": "4.2.3",
+      "manifestSha256": "d53949e5e17ef2fb51ba0a6221c5e71c9feae36854d6c81e8a35863f7407fd02"
+    },
+    {
+      "path": "node_modules/jscad-fiber/node_modules/color/node_modules/color-convert",
+      "name": "color-convert",
+      "version": "2.0.1",
+      "manifestSha256": "9471d21744ca3137410448da6b3bd7b30ee91d42edce3b82ebcbf84faef74fb4"
+    },
+    {
+      "path": "node_modules/jscad-fiber/node_modules/color/node_modules/color-convert/node_modules/color-name",
+      "name": "color-name",
+      "version": "1.1.4",
+      "manifestSha256": "4a557ea373907e4643badb89ff21b3f4b969d20631086d78eab2e03d05c2efa4"
+    },
+    {
+      "path": "node_modules/jscad-fiber/node_modules/color/node_modules/color-string",
+      "name": "color-string",
+      "version": "1.9.1",
+      "manifestSha256": "30fb162f7493291dd29ced85001979f2e99fd68fbcf59ad55300a657d8352bd0"
+    },
+    {
+      "path": "node_modules/jscad-fiber/node_modules/color/node_modules/color-string/node_modules/color-name",
+      "name": "color-name",
+      "version": "1.1.4",
+      "manifestSha256": "4a557ea373907e4643badb89ff21b3f4b969d20631086d78eab2e03d05c2efa4"
+    },
+    {
+      "path": "node_modules/jscad-planner",
+      "name": "jscad-planner",
+      "version": "0.0.21",
+      "manifestSha256": "c9421078e7a58cbabaffb0e1ebf4d3c65d4c6b2fdb7e79f8467e75f0fc0244cb"
+    },
+    {
+      "path": "node_modules/jscad-to-gltf",
+      "name": "jscad-to-gltf",
+      "version": "0.0.5",
+      "manifestSha256": "31d123f5e253284c895f9131dd74286e4fe495340237e48a7c3052310d940d56"
+    },
+    {
+      "path": "node_modules/jscad-to-gltf/node_modules/jscad-planner",
+      "name": "jscad-planner",
+      "version": "0.0.13",
+      "manifestSha256": "4c24dd02f59a631df03f1cf84a8cbe1f979d1a04eb27a99ce3ece797e7b2ab9e"
+    },
+    {
+      "path": "node_modules/jscad-to-step",
+      "name": "jscad-to-step",
+      "version": "0.0.11",
+      "manifestSha256": "63232e0fc4d4c6c9c284695c8b5036ce2f3c0e4a4f64f539b7d5647e568ec8cf"
+    },
+    {
+      "path": "node_modules/jscad-to-step/node_modules/jscad-planner",
+      "name": "jscad-planner",
+      "version": "0.0.14",
+      "manifestSha256": "4ea198ec5f86d90911e8816f3730ec12b39fd196600cb9b77aa88580a0b619d5"
+    },
+    {
+      "path": "node_modules/jscad-to-step/node_modules/stepts",
+      "name": "stepts",
+      "version": "0.0.4",
+      "manifestSha256": "b5e40953f6f3b6cf611ef0cb9da8fc7f37944f03e6fa0a07eb21b00dd5918f6c"
+    },
+    {
+      "path": "node_modules/jszip",
+      "name": "jszip",
+      "version": "3.10.2",
+      "manifestSha256": "4138415020992b9a832333c64a13bd7e17faa462f7e0c0dd505f824d397f7281"
+    },
+    {
+      "path": "node_modules/jszip/node_modules/readable-stream",
+      "name": "readable-stream",
+      "version": "2.3.8",
+      "manifestSha256": "67bde829e31cba3f50c77d14a30fa0f2295223b7ffa07f3b84606a5a79bb97f8"
+    },
+    {
+      "path": "node_modules/jszip/node_modules/readable-stream/node_modules/string_decoder",
+      "name": "string_decoder",
+      "version": "1.1.1",
+      "manifestSha256": "e278ca18803862a6d1b6bedc6a3394159ac86e5c4a162614fef006c79dcda3a2"
+    },
+    {
+      "path": "node_modules/kicad-component-converter",
+      "name": "kicad-component-converter",
+      "version": "0.1.41",
+      "manifestSha256": "ad4aed23e7684cd697df15d6c5c3a5a39e0573e9a157e09fef529a7d7c601d09"
+    },
+    {
+      "path": "node_modules/kicad-to-circuit-json",
+      "name": "kicad-to-circuit-json",
+      "version": "0.0.149",
+      "manifestSha256": "66365274c346fd590f4b2e7dea904bbef5b701442a7716f4dbb6cd7cb327f92a"
+    },
+    {
+      "path": "node_modules/kicadts",
+      "name": "kicadts",
+      "version": "0.0.53",
+      "manifestSha256": "9072910a637b9778933f3e018a59f0ad60be4c27cca63a7a03554686edab2e53"
+    },
+    {
+      "path": "node_modules/kind-of",
+      "name": "kind-of",
+      "version": "3.2.2",
+      "manifestSha256": "4fbd705c00cde2b9b29cf368f9accf1a057065ab8a349f1a5d27e5f10eee36ff"
+    },
+    {
+      "path": "node_modules/ktx-parse",
+      "name": "ktx-parse",
+      "version": "1.1.0",
+      "manifestSha256": "251845f7effebd730a76633b535f71129b26f9d7afabd8d72113a7b358aa2ddb"
+    },
+    {
+      "path": "node_modules/lie",
+      "name": "lie",
+      "version": "3.3.0",
+      "manifestSha256": "3faafb3b558146534b1849e6d2ed8a9c9c88eff27ef868827d8de17b979cf701"
+    },
+    {
+      "path": "node_modules/lilconfig",
+      "name": "lilconfig",
+      "version": "3.1.5",
+      "manifestSha256": "6c8e75edb40f54eeed605b71452bc1da96b53d17bd88448cb6f260ebeaa6119d"
+    },
+    {
+      "path": "node_modules/lines-and-columns",
+      "name": "lines-and-columns",
+      "version": "1.2.4",
+      "manifestSha256": "34920a73cb6486742115f5fb9385cb50a1e6fbb771b8e56e8b8b143f9a94d1d7"
+    },
+    {
+      "path": "node_modules/live-server",
+      "name": "live-server",
+      "version": "1.2.2",
+      "manifestSha256": "035d5240bb3e4955330678e0f3ac03144cd0730cf1497031e07afa9d0a2dd5e5"
+    },
+    {
+      "path": "node_modules/live-server/node_modules/chokidar",
+      "name": "chokidar",
+      "version": "2.1.8",
+      "manifestSha256": "9b84c61cd97bb92d853860a4b5679afcc27f6f2ad004625f11823196f52a05fb"
+    },
+    {
+      "path": "node_modules/live-server/node_modules/chokidar/node_modules/anymatch",
+      "name": "anymatch",
+      "version": "2.0.0",
+      "manifestSha256": "f7994f6fcb207927f36b340bf69e02c4ac66fd5a56914dcedf9446e45cf3261f"
+    },
+    {
+      "path": "node_modules/live-server/node_modules/chokidar/node_modules/anymatch/node_modules/normalize-path",
+      "name": "normalize-path",
+      "version": "2.1.1",
+      "manifestSha256": "cd2d883ed14f4525cc3a87441b616327d38d1f8d096d12eef35f4c60dac9d796"
+    },
+    {
+      "path": "node_modules/live-server/node_modules/chokidar/node_modules/braces",
+      "name": "braces",
+      "version": "2.3.2",
+      "manifestSha256": "baaeb5b10749a51b93128c383429bc48bb42328e15609a3b2bc2f8af66e3a2c0"
+    },
+    {
+      "path": "node_modules/live-server/node_modules/chokidar/node_modules/braces/node_modules/fill-range",
+      "name": "fill-range",
+      "version": "4.0.0",
+      "manifestSha256": "ede85b68d4d7c71dd301baec0cd14f4f34b5bd9539c4b7b04461f06316412ab9"
+    },
+    {
+      "path": "node_modules/live-server/node_modules/chokidar/node_modules/braces/node_modules/fill-range/node_modules/to-regex-range",
+      "name": "to-regex-range",
+      "version": "2.1.1",
+      "manifestSha256": "3242b899f06144dcd82c5988b2951d98473627343c4b5762b5deb3f39e60523b"
+    },
+    {
+      "path": "node_modules/live-server/node_modules/chokidar/node_modules/glob-parent",
+      "name": "glob-parent",
+      "version": "3.1.0",
+      "manifestSha256": "0e5808050278b5bd183eb0766090fc1cb40a9df6ca2619f1a2182233ff7b839a"
+    },
+    {
+      "path": "node_modules/live-server/node_modules/chokidar/node_modules/glob-parent/node_modules/is-glob",
+      "name": "is-glob",
+      "version": "3.1.0",
+      "manifestSha256": "688011659f41dc33dbc82ff0507a7b2bf3dfd8164691b925abc7977d0160f018"
+    },
+    {
+      "path": "node_modules/live-server/node_modules/chokidar/node_modules/is-binary-path",
+      "name": "is-binary-path",
+      "version": "1.0.1",
+      "manifestSha256": "1b91ec644e301ea3b017a86677676122c151aa64209c17c3082b1e3a50968357"
+    },
+    {
+      "path": "node_modules/live-server/node_modules/chokidar/node_modules/is-binary-path/node_modules/binary-extensions",
+      "name": "binary-extensions",
+      "version": "1.13.1",
+      "manifestSha256": "80205c941740f82473a4efbc6d5ea21a6b6482b232540b74a0da7fb5fb60a96e"
+    },
+    {
+      "path": "node_modules/live-server/node_modules/chokidar/node_modules/readdirp",
+      "name": "readdirp",
+      "version": "2.2.1",
+      "manifestSha256": "1e1796dbaa4ca1c017d2dee9e5da1f0f2050b8f62d2c4989e16a04da1316d89b"
+    },
+    {
+      "path": "node_modules/live-server/node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream",
+      "name": "readable-stream",
+      "version": "2.3.8",
+      "manifestSha256": "67bde829e31cba3f50c77d14a30fa0f2295223b7ffa07f3b84606a5a79bb97f8"
+    },
+    {
+      "path": "node_modules/live-server/node_modules/chokidar/node_modules/readdirp/node_modules/readable-stream/node_modules/string_decoder",
+      "name": "string_decoder",
+      "version": "1.1.1",
+      "manifestSha256": "e278ca18803862a6d1b6bedc6a3394159ac86e5c4a162614fef006c79dcda3a2"
+    },
+    {
+      "path": "node_modules/load-tsconfig",
+      "name": "load-tsconfig",
+      "version": "0.2.5",
+      "manifestSha256": "967b74e48dac16b94163e41ea2bf3ea11d58c8edcf4e05713596d52b5bf7f894"
+    },
+    {
+      "path": "node_modules/locate-path",
+      "name": "locate-path",
+      "version": "3.0.0",
+      "manifestSha256": "e66ebe46039c86b953484b10b8a64b620d3851cf35eeebb16c2d0a60ada5e41b"
+    },
+    {
+      "path": "node_modules/lodash.debounce",
+      "name": "lodash.debounce",
+      "version": "4.0.8",
+      "manifestSha256": "3b74ac4711eaeb57cc7d6c5fcfdaff114d20fb23cc4a7e39c25f8f7a9afc1151"
+    },
+    {
+      "path": "node_modules/lodash.throttle",
+      "name": "lodash.throttle",
+      "version": "4.1.1",
+      "manifestSha256": "743d4b6995e0f1976d39bc634a9513cfe32bcff6405f04ce001fddea0a4119a0"
+    },
+    {
+      "path": "node_modules/loose-envify",
+      "name": "loose-envify",
+      "version": "1.4.0",
+      "manifestSha256": "8c2e27dae366396ced36fe0f7c6d35d71a1440fd8e82df5f2005a5297888a0d4"
+    },
+    {
+      "path": "node_modules/lru-cache",
+      "name": "lru-cache",
+      "version": "7.18.3",
+      "manifestSha256": "08bdb4e1fe6f5bfbdc0183d3ad6086dc22cade3ce0d6466c6116584387ad9550"
+    },
+    {
+      "path": "node_modules/lucide-react",
+      "name": "lucide-react",
+      "version": "1.75.0",
+      "manifestSha256": "23b6aa98a393a311b117f3486f1de376c5670413de738dce49277628d5820bbc"
+    },
+    {
+      "path": "node_modules/magic-string",
+      "name": "magic-string",
+      "version": "0.30.21",
+      "manifestSha256": "86814aaf7dacba9d31fbf361c3285981f1cbbda0a87108caa4131d297bd9eba2"
+    },
+    {
+      "path": "node_modules/manifold-3d",
+      "name": "manifold-3d",
+      "version": "3.5.1",
+      "manifestSha256": "68a8879b7152ebafed56852af38193006506feadf25903cd67a935229905368d"
+    },
+    {
+      "path": "node_modules/map-cache",
+      "name": "map-cache",
+      "version": "0.2.2",
+      "manifestSha256": "6f7a40df8df45e11963987035e12955b2e4a5fba23c8768fe1952d034680492d"
+    },
+    {
+      "path": "node_modules/map-stream",
+      "name": "map-stream",
+      "version": "0.1.0",
+      "manifestSha256": "3d480a39a355f0a61709119df0b1e1278f77d3a44c383a001a90715dcbe0e64f"
+    },
+    {
+      "path": "node_modules/map-visit",
+      "name": "map-visit",
+      "version": "1.0.0",
+      "manifestSha256": "ccdc56c6d8e9bd165f7a83d8b94b327582b7ea31807a6aad40decdb8e49ae6a0"
+    },
+    {
+      "path": "node_modules/meshoptimizer",
+      "name": "meshoptimizer",
+      "version": "1.1.1",
+      "manifestSha256": "ef1028bdc0d4c114c578cb7836e555170eabada69661cf790b2b6fc91691747a"
+    },
+    {
+      "path": "node_modules/micromatch",
+      "name": "micromatch",
+      "version": "3.1.10",
+      "manifestSha256": "1ee68d25837f01bf38614622496b3675070fb8f05daac0ceaa4a06e29c29355f"
+    },
+    {
+      "path": "node_modules/micromatch/node_modules/braces",
+      "name": "braces",
+      "version": "2.3.2",
+      "manifestSha256": "baaeb5b10749a51b93128c383429bc48bb42328e15609a3b2bc2f8af66e3a2c0"
+    },
+    {
+      "path": "node_modules/micromatch/node_modules/braces/node_modules/extend-shallow",
+      "name": "extend-shallow",
+      "version": "2.0.1",
+      "manifestSha256": "c9c30569136a689a038356c1e4a5bb711f3520407d364cd96381ab009a8cd985"
+    },
+    {
+      "path": "node_modules/micromatch/node_modules/braces/node_modules/fill-range",
+      "name": "fill-range",
+      "version": "4.0.0",
+      "manifestSha256": "ede85b68d4d7c71dd301baec0cd14f4f34b5bd9539c4b7b04461f06316412ab9"
+    },
+    {
+      "path": "node_modules/micromatch/node_modules/braces/node_modules/fill-range/node_modules/to-regex-range",
+      "name": "to-regex-range",
+      "version": "2.1.1",
+      "manifestSha256": "3242b899f06144dcd82c5988b2951d98473627343c4b5762b5deb3f39e60523b"
+    },
+    {
+      "path": "node_modules/micromatch/node_modules/extend-shallow",
+      "name": "extend-shallow",
+      "version": "3.0.2",
+      "manifestSha256": "8f71aa59dbc6c5111ed9dcef92fd710bbd82fcad47c495127ba136e0b7e78095"
+    },
+    {
+      "path": "node_modules/micromatch/node_modules/extend-shallow/node_modules/is-extendable",
+      "name": "is-extendable",
+      "version": "1.0.1",
+      "manifestSha256": "56db61dd1d881e3e024e21a7009ac4ae83eb1651c9eb97bd16d20135a042bdfb"
+    },
+    {
+      "path": "node_modules/micromatch/node_modules/kind-of",
+      "name": "kind-of",
+      "version": "6.0.3",
+      "manifestSha256": "0710f74718210573ae878c0a733775d2ad9e9d5a5053f0521cbf9347a39a01ec"
+    },
+    {
+      "path": "node_modules/mime-db",
+      "name": "mime-db",
+      "version": "1.54.0",
+      "manifestSha256": "33bdbb99915697ac01df12490b9d479a55529123842e67975e6d76d0010aa142"
+    },
+    {
+      "path": "node_modules/mime-types",
+      "name": "mime-types",
+      "version": "3.0.2",
+      "manifestSha256": "644fc05ded7d8a20c069a07c7c61373593d4859c91b1386f544cbf247e39820c"
+    },
+    {
+      "path": "node_modules/minicssgrid",
+      "name": "minicssgrid",
+      "version": "0.0.9",
+      "manifestSha256": "f69de347c97e6eebd751e78ec2409662547c61a69c780bb3705c00f0f360707c"
+    },
+    {
+      "path": "node_modules/minipass",
+      "name": "minipass",
+      "version": "5.0.0",
+      "manifestSha256": "280af43113a60826e63a6bf79e115fdf5f89d5866f663cdde3d229640671cee1"
+    },
+    {
+      "path": "node_modules/minizlib",
+      "name": "minizlib",
+      "version": "2.1.2",
+      "manifestSha256": "dd7d78caf139ba9228a84bee7bb5fa7b92e4d332b836f07bdf1b0f9e78fa6340"
+    },
+    {
+      "path": "node_modules/minizlib/node_modules/minipass",
+      "name": "minipass",
+      "version": "3.3.6",
+      "manifestSha256": "e99f6b67ba6e5cda438efb7a23dd399ee5c2070af69ce77720d95de5fb42921e"
+    },
+    {
+      "path": "node_modules/mixin-deep",
+      "name": "mixin-deep",
+      "version": "1.3.2",
+      "manifestSha256": "90b077cff5552f5ea9594b64ca6a48b7ece1db0948fe0467b89b86c0592cb555"
+    },
+    {
+      "path": "node_modules/mixin-deep/node_modules/is-extendable",
+      "name": "is-extendable",
+      "version": "1.0.1",
+      "manifestSha256": "56db61dd1d881e3e024e21a7009ac4ae83eb1651c9eb97bd16d20135a042bdfb"
+    },
+    {
+      "path": "node_modules/mkdirp",
+      "name": "mkdirp",
+      "version": "1.0.4",
+      "manifestSha256": "a7357d86be1fd6cd9ac7bc78c4d49155ce08c6087a2378fae5b15ce2eb34b9a2"
+    },
+    {
+      "path": "node_modules/mlly",
+      "name": "mlly",
+      "version": "1.8.2",
+      "manifestSha256": "e521ab6b33ac365a19e0ec4463a7fb831c39218dcb0a34625c55cb4233b84f5e"
+    },
+    {
+      "path": "node_modules/morgan",
+      "name": "morgan",
+      "version": "1.12.1",
+      "manifestSha256": "1a9ae460d7e692190e464f2b06cbdafdad80951979371a5bd979243e3aed8cd6"
+    },
+    {
+      "path": "node_modules/morgan/node_modules/debug",
+      "name": "debug",
+      "version": "2.6.9",
+      "manifestSha256": "6c3d2c892db282317913ce7c340dd2edccd326bcafd18b644b8738144967d6ee"
+    },
+    {
+      "path": "node_modules/morgan/node_modules/debug/node_modules/ms",
+      "name": "ms",
+      "version": "2.0.0",
+      "manifestSha256": "30fbfaa3840b2f63978ad4bcd7ed8dc24d277b818e4755fe93eda8cb1bc8b74c"
+    },
+    {
+      "path": "node_modules/ms",
+      "name": "ms",
+      "version": "2.1.3",
+      "manifestSha256": "1a6b4d9739790c0b94ab96c8cc0507e281c164c311ff4fbf5e57fb8d26290b40"
+    },
+    {
+      "path": "node_modules/mz",
+      "name": "mz",
+      "version": "2.7.0",
+      "manifestSha256": "c56342bdf1a99c348834f053cc4b1c716323b6411208c0a76296ef9706954d8f"
+    },
+    {
+      "path": "node_modules/nanoid",
+      "name": "nanoid",
+      "version": "5.1.16",
+      "manifestSha256": "07ac373149102d5a442db2aa0fef31c53ef5652e718fb96752000e6d99328dc4"
+    },
+    {
+      "path": "node_modules/nanomatch",
+      "name": "nanomatch",
+      "version": "1.2.13",
+      "manifestSha256": "a8c64c345932f29d458cc0973c0c5a3b9fb4c3cca3561a828f48a06b60f1d416"
+    },
+    {
+      "path": "node_modules/nanomatch/node_modules/extend-shallow",
+      "name": "extend-shallow",
+      "version": "3.0.2",
+      "manifestSha256": "8f71aa59dbc6c5111ed9dcef92fd710bbd82fcad47c495127ba136e0b7e78095"
+    },
+    {
+      "path": "node_modules/nanomatch/node_modules/extend-shallow/node_modules/is-extendable",
+      "name": "is-extendable",
+      "version": "1.0.1",
+      "manifestSha256": "56db61dd1d881e3e024e21a7009ac4ae83eb1651c9eb97bd16d20135a042bdfb"
+    },
+    {
+      "path": "node_modules/nanomatch/node_modules/kind-of",
+      "name": "kind-of",
+      "version": "6.0.3",
+      "manifestSha256": "0710f74718210573ae878c0a733775d2ad9e9d5a5053f0521cbf9347a39a01ec"
+    },
+    {
+      "path": "node_modules/ndarray",
+      "name": "ndarray",
+      "version": "1.1.1",
+      "manifestSha256": "81506777733adf859c875b443cac4ce4e40d26934c3b3d445c59b6e5ea070bd8"
+    },
+    {
+      "path": "node_modules/ndarray-lanczos",
+      "name": "ndarray-lanczos",
+      "version": "0.3.0",
+      "manifestSha256": "ea2f346ecf89357e6eed3df32130ac37bcd099fbb768a8a54c59f2db4b7fd896"
+    },
+    {
+      "path": "node_modules/ndarray-ops",
+      "name": "ndarray-ops",
+      "version": "1.2.2",
+      "manifestSha256": "d3a2a82ecf7061c723e5723172fdc6e528051da51ba9354e634a68e18bcabf55"
+    },
+    {
+      "path": "node_modules/ndarray-pixels",
+      "name": "ndarray-pixels",
+      "version": "5.2.0",
+      "manifestSha256": "37ca8957b8cd0a06bb81554ad1ec26c553001d07fd656976ad5931e5512026cd"
+    },
+    {
+      "path": "node_modules/negotiator",
+      "name": "negotiator",
+      "version": "0.6.3",
+      "manifestSha256": "8672e91f7395ce51ec789d883d7f7d872a40847bb83a6a3f89c3d1ded39e55d9"
+    },
+    {
+      "path": "node_modules/normalize-path",
+      "name": "normalize-path",
+      "version": "3.0.0",
+      "manifestSha256": "284ea445a01a454ab1235a08101445fe16592303167090815f4a75b54d6fba04"
+    },
+    {
+      "path": "node_modules/npm-package-arg",
+      "name": "npm-package-arg",
+      "version": "10.1.0",
+      "manifestSha256": "d4e6d5b29a6536ec0cbf2475c7949921436da443bcee3026b3ba6f557fd4fcb7"
+    },
+    {
+      "path": "node_modules/nth-check",
+      "name": "nth-check",
+      "version": "2.1.1",
+      "manifestSha256": "4e6d8f4a3a8170c031465e79d30a3f47c97e115944d6d656dd087086b2da04f1"
+    },
+    {
+      "path": "node_modules/object-assign",
+      "name": "object-assign",
+      "version": "4.1.1",
+      "manifestSha256": "5990bbffa235fc675debd925d50f6c3f48a2b4526d8c9f7555cadec9029d0d7f"
+    },
+    {
+      "path": "node_modules/object-copy",
+      "name": "object-copy",
+      "version": "0.1.0",
+      "manifestSha256": "038f2df0ae1284902e864641c743339854974fda88b523d4a85b3805ff19de8d"
+    },
+    {
+      "path": "node_modules/object-copy/node_modules/define-property",
+      "name": "define-property",
+      "version": "0.2.5",
+      "manifestSha256": "b999a380ba13fef8b973f3df54c1f11f2c8d97d4f5f691600508fa2b7108fe52"
+    },
+    {
+      "path": "node_modules/object-copy/node_modules/define-property/node_modules/is-descriptor",
+      "name": "is-descriptor",
+      "version": "0.1.8",
+      "manifestSha256": "dd2a731beb615da01dc134ff583bbf4328dbf84495c2eac0ecf47ce4c24137b0"
+    },
+    {
+      "path": "node_modules/object-hash",
+      "name": "object-hash",
+      "version": "3.0.0",
+      "manifestSha256": "f86b3a8a18078fbbf71ea1cf4468129e609566f860b9d93f99f63dc2543962eb"
+    },
+    {
+      "path": "node_modules/object-visit",
+      "name": "object-visit",
+      "version": "1.0.1",
+      "manifestSha256": "ad7c3bb7c49b64966135199579946c8a0e3789bab24000bafc3df46ee0e0886e"
+    },
+    {
+      "path": "node_modules/object.pick",
+      "name": "object.pick",
+      "version": "1.3.0",
+      "manifestSha256": "e48178e83342140e91433af2e90ae5d41b7d70058ef92e1afea3acb9149f991f"
+    },
+    {
+      "path": "node_modules/occt-import-js",
+      "name": "occt-import-js",
+      "version": "0.0.23",
+      "manifestSha256": "1d177284b7fe88c6673b918041a00883df933c3dd88603d4fd62a07b0c9a6eb8"
+    },
+    {
+      "path": "node_modules/on-finished",
+      "name": "on-finished",
+      "version": "2.4.2",
+      "manifestSha256": "72a8f458b98a063fe2205933df3c2aef16fbe4d08a79010a23eeca1e9428b876"
+    },
+    {
+      "path": "node_modules/on-headers",
+      "name": "on-headers",
+      "version": "1.1.0",
+      "manifestSha256": "86ef65dd0d349960bfc6a01292c1d40f49b064fffca48bd209a0e693c534a246"
+    },
+    {
+      "path": "node_modules/once",
+      "name": "once",
+      "version": "1.4.0",
+      "manifestSha256": "33840d74c14c94bfb75c76374765b635531b1eacb88d7f1f2f380c94d0ea1328"
+    },
+    {
+      "path": "node_modules/opentype.js",
+      "name": "opentype.js",
+      "version": "0.4.11",
+      "manifestSha256": "9bb75b04a49cadc124155ed5cd65565d087d4de81e948f70f3ed1e0662b40497"
+    },
+    {
+      "path": "node_modules/opn",
+      "name": "opn",
+      "version": "6.0.0",
+      "manifestSha256": "7df5460acac27f559503473f7a884c06a06bcf8b6bac3afeb42f66905148a367"
+    },
+    {
+      "path": "node_modules/p-limit",
+      "name": "p-limit",
+      "version": "2.3.0",
+      "manifestSha256": "d4529e88d06488042103f25322b0b60d90dfc5de0ed61c3b7c7d27f2ac3fe1bb"
+    },
+    {
+      "path": "node_modules/p-locate",
+      "name": "p-locate",
+      "version": "3.0.0",
+      "manifestSha256": "e319842e7dae3cf6a281799f69d1b1cbb11cb98a92a02e7a2bac27d9d6f31570"
+    },
+    {
+      "path": "node_modules/p-try",
+      "name": "p-try",
+      "version": "2.2.0",
+      "manifestSha256": "ff793c821f36985cde9f9d9ff6297e6c1304f8e597aa2d48dc53eda83c11e54c"
+    },
+    {
+      "path": "node_modules/package-options",
+      "name": "package-options",
+      "version": "0.1.5",
+      "manifestSha256": "c63d26b061463c1fde8a505f9eb717fd51b7feb76c9e369b64bfdacee27ade7f"
+    },
+    {
+      "path": "node_modules/pako",
+      "name": "pako",
+      "version": "1.0.11",
+      "manifestSha256": "0014f350a6834ed6a2d1211e0a2e3aa471cb426edf63379c785f9647ea2b4e01"
+    },
+    {
+      "path": "node_modules/papaparse",
+      "name": "papaparse",
+      "version": "5.7.1",
+      "manifestSha256": "7b07801935f0fd7eb2af0a28e1b7f5240882232cb072325635b9cce239046128"
+    },
+    {
+      "path": "node_modules/parsel-js",
+      "name": "parsel-js",
+      "version": "1.2.3",
+      "manifestSha256": "c0217cfdf2d51202ba93c7200d1d7505c0773e3484bfbed4ca47c2f18c43662b"
+    },
+    {
+      "path": "node_modules/parseunit",
+      "name": "parseunit",
+      "version": "0.3.1",
+      "manifestSha256": "3c133ae9192cc144ea93e2f4a7f912019899a32702726464606cda2f345f67c1"
+    },
+    {
+      "path": "node_modules/parseurl",
+      "name": "parseurl",
+      "version": "1.3.3",
+      "manifestSha256": "98c7b953c844cac7c0be2d5abc6559c6fd3a6075fd159b04c0f1bf46145bfed2"
+    },
+    {
+      "path": "node_modules/pascalcase",
+      "name": "pascalcase",
+      "version": "0.1.1",
+      "manifestSha256": "d4e337414d0c50c3475b0d483363a4c51d804436fe66a3612b1e474722b8a6fb"
+    },
+    {
+      "path": "node_modules/path-dirname",
+      "name": "path-dirname",
+      "version": "1.0.2",
+      "manifestSha256": "59316d27991813ce767063395f3679a29968af4fc745ede14080cff706e78d27"
+    },
+    {
+      "path": "node_modules/path-exists",
+      "name": "path-exists",
+      "version": "3.0.0",
+      "manifestSha256": "1df6a195380a8d52cff58f4b13a9ff57d3f96aee725d7d69819b44c9e056fd9a"
+    },
+    {
+      "path": "node_modules/path-expression-matcher",
+      "name": "path-expression-matcher",
+      "version": "1.6.2",
+      "manifestSha256": "625ca3a27a289160508a79773ddfd7bf678a6401bd96321cac0bc43ebebe01f8"
+    },
+    {
+      "path": "node_modules/path-is-absolute",
+      "name": "path-is-absolute",
+      "version": "1.0.1",
+      "manifestSha256": "be5b83877f6998b840b9365d7ab77e885f0d583337826c22daccaeb6e303fd4c"
+    },
+    {
+      "path": "node_modules/path-key",
+      "name": "path-key",
+      "version": "3.1.1",
+      "manifestSha256": "25594dab72681c910d9cc919263a4daf27d77a75e0d2c26a4d958d6d6b798f86"
+    },
+    {
+      "path": "node_modules/path-parse",
+      "name": "path-parse",
+      "version": "1.0.7",
+      "manifestSha256": "9c680ecfd322afe056b4ccbfdb6c7043342276903f017c0a29b77c3926790d13"
+    },
+    {
+      "path": "node_modules/pathe",
+      "name": "pathe",
+      "version": "2.0.3",
+      "manifestSha256": "6cccffe6bb2a39e2e4f257aefc3f5d553d98199a0c79558bdb5ea2880fa030a3"
+    },
+    {
+      "path": "node_modules/pause-stream",
+      "name": "pause-stream",
+      "version": "0.0.11",
+      "manifestSha256": "b6496cdaa5d3cae1c109501bb218e83d7a11d981dc8fe955ef0bcfe922de5ac3"
+    },
+    {
+      "path": "node_modules/performance-now",
+      "name": "performance-now",
+      "version": "2.1.0",
+      "manifestSha256": "f3d96f0763c23c39fe57735770282227801a5c09424b3244c359431947f2420c"
+    },
+    {
+      "path": "node_modules/picocolors",
+      "name": "picocolors",
+      "version": "1.1.1",
+      "manifestSha256": "ef2ac226c4811d312e12c64214c453878653e834482125ae475f27cea60de737"
+    },
+    {
+      "path": "node_modules/picomatch",
+      "name": "picomatch",
+      "version": "4.0.7",
+      "manifestSha256": "479b70b87aa7b44344d62c8a459ae7e53dd2bca6c61f1396bd55e63e9de73fc6"
+    },
+    {
+      "path": "node_modules/pirates",
+      "name": "pirates",
+      "version": "4.0.7",
+      "manifestSha256": "1ec1274d170c2e50b842dbc2bac41bd01af38ccc1867fcf31934048e499e91e8"
+    },
+    {
+      "path": "node_modules/pkg-pr-new",
+      "name": "pkg-pr-new",
+      "version": "0.0.37",
+      "manifestSha256": "99ea59464f25732b82cc2f4999b943cf0f41741e202761bf9fcecb835afc3c1b"
+    },
+    {
+      "path": "node_modules/pkg-types",
+      "name": "pkg-types",
+      "version": "1.3.1",
+      "manifestSha256": "c65eb02faccca4a5177dac56d489eca331bd4ba826e5f3237a959c0762b65990"
+    },
+    {
+      "path": "node_modules/pngjs",
+      "name": "pngjs",
+      "version": "7.0.0",
+      "manifestSha256": "85b17f2f852aece03e71edb4ed4d9fddf6a0a8f0b69ac75d7f00b6592d62d37c"
+    },
+    {
+      "path": "node_modules/polished",
+      "name": "polished",
+      "version": "4.3.1",
+      "manifestSha256": "c6e8692ad785a5155f25c1094a112d44e6d06eef747de3a0adca1854f175d95b"
+    },
+    {
+      "path": "node_modules/polygon-clipping",
+      "name": "polygon-clipping",
+      "version": "0.15.7",
+      "manifestSha256": "3781203fc733b97c2641fe5275b46d6b579597aa3ed61b35ce5ad37436856afa"
+    },
+    {
+      "path": "node_modules/poppygl",
+      "name": "poppygl",
+      "version": "0.0.38",
+      "manifestSha256": "1b47336fab8b0f52cbb855444519f377740a4ad323e48239685ca319a22a7ee9"
+    },
+    {
+      "path": "node_modules/posix-character-classes",
+      "name": "posix-character-classes",
+      "version": "0.1.1",
+      "manifestSha256": "2809c4891110ae872b5af2c1268f46ffd80e6d31689a03b75eaa544566d4e367"
+    },
+    {
+      "path": "node_modules/postcss-load-config",
+      "name": "postcss-load-config",
+      "version": "6.0.1",
+      "manifestSha256": "e74a15b2263dbd513428a99f6e1b4880902ad45e1742d875de2c15dbbcb53a99"
+    },
+    {
+      "path": "node_modules/proc-log",
+      "name": "proc-log",
+      "version": "3.0.0",
+      "manifestSha256": "d3748df26332ce2d7a0ad4c7180fa2621cd77e1255b9154398ff17d467569027"
+    },
+    {
+      "path": "node_modules/process",
+      "name": "process",
+      "version": "0.11.10",
+      "manifestSha256": "8501b4909630e60c9e9f68c4ca8ccb1964688500e61c60408a26d5480a9dd3d4"
+    },
+    {
+      "path": "node_modules/process-nextick-args",
+      "name": "process-nextick-args",
+      "version": "2.0.1",
+      "manifestSha256": "6d6d93d057f39bc3173d53e694b61833fd0ce89c1d669156169136d31a968131"
+    },
+    {
+      "path": "node_modules/property-graph",
+      "name": "property-graph",
+      "version": "4.1.0",
+      "manifestSha256": "6d057483cf1eb2b4e48328a7e469d4c3041fe388b6e86c46f158eb2da5c77c09"
+    },
+    {
+      "path": "node_modules/proxy-middleware",
+      "name": "proxy-middleware",
+      "version": "0.15.0",
+      "manifestSha256": "3a33dcdf857f05e2f4f5a49606ea51f99d04e4c5822f7a5b10d7f8fd6aebda38"
+    },
+    {
+      "path": "node_modules/pureimage",
+      "name": "pureimage",
+      "version": "0.4.20",
+      "manifestSha256": "e570d13cddef3f5bf0a6553c2ec1f9827aff480b7fff70b018638231744a4eb8"
+    },
+    {
+      "path": "node_modules/query-registry",
+      "name": "query-registry",
+      "version": "3.0.1",
+      "manifestSha256": "538134efaa61c65312b122cf75591b97c76811c79d03f1669db96b92036ffa8e"
+    },
+    {
+      "path": "node_modules/query-string",
+      "name": "query-string",
+      "version": "9.5.1",
+      "manifestSha256": "a3614463dc9f1f54fb748ccd8266e932015587dbbd3abe7cc7622d86961afb6c"
+    },
+    {
+      "path": "node_modules/quick-lru",
+      "name": "quick-lru",
+      "version": "7.3.0",
+      "manifestSha256": "06e41716adc7f8701625b3e37ff9b57489d17743a6449991eff7622e7401962d"
+    },
+    {
+      "path": "node_modules/range-parser",
+      "name": "range-parser",
+      "version": "1.3.0",
+      "manifestSha256": "3461c9c15204b32f459c97920bb678e42341e9e9675e4b748907ce4de740f26d"
+    },
+    {
+      "path": "node_modules/react",
+      "name": "react",
+      "version": "19.3.1",
+      "manifestSha256": "9cc9c3de5441a2eea7f41f52f3f2a15a4fc51f90c0b72741f0d7638643a85e67"
+    },
+    {
+      "path": "node_modules/react-dom",
+      "name": "react-dom",
+      "version": "19.3.1",
+      "manifestSha256": "89d54f11575c9b0f7819962d9d72a31970dfb4d103f07e8b1d1b37e6d1fc3258"
+    },
+    {
+      "path": "node_modules/react-reconciler",
+      "name": "react-reconciler",
+      "version": "0.32.0",
+      "manifestSha256": "ef21f389ac460a8bab13985f3aba2872a7a8081304ca71293f075d6e70a34daf"
+    },
+    {
+      "path": "node_modules/react-reconciler/node_modules/scheduler",
+      "name": "scheduler",
+      "version": "0.26.0",
+      "manifestSha256": "c0d1b0e56374984658d63a933781c7d7a12a6fc7de8ec7b1e6e2e4d4203d6f5b"
+    },
+    {
+      "path": "node_modules/react-router",
+      "name": "react-router",
+      "version": "6.30.6",
+      "manifestSha256": "393437d196e182fdd0f2cf9b12079ba9d4a2ad6e98bb5eec1782ac781e0c9293"
+    },
+    {
+      "path": "node_modules/react-router-dom",
+      "name": "react-router-dom",
+      "version": "6.30.6",
+      "manifestSha256": "ba5ba28ce64a1d51001cb3eb0fc842d35f9950ee550d8c587a6b6ce9ee6057a2"
+    },
+    {
+      "path": "node_modules/react-supergrid",
+      "name": "react-supergrid",
+      "version": "1.0.10",
+      "manifestSha256": "5dbfb3696b9f2d92875da314b4d73a17e5ca2a3ba52a66724cbe5c28d80d172f"
+    },
+    {
+      "path": "node_modules/readable-stream",
+      "name": "readable-stream",
+      "version": "4.8.0",
+      "manifestSha256": "556669bd6ac945c4ecc6bf4886aaa26b0b9a65d79446a33f44c31857362be62f"
+    },
+    {
+      "path": "node_modules/readdirp",
+      "name": "readdirp",
+      "version": "3.6.0",
+      "manifestSha256": "93b8758f0f281218bffe31db03a3d7b92d37f5965c8ac7c846740dd4e187d317"
+    },
+    {
+      "path": "node_modules/readdirp/node_modules/picomatch",
+      "name": "picomatch",
+      "version": "2.3.2",
+      "manifestSha256": "63264d817e856a4bff57d4304f2b38d2964a4f6df520eb169e7bcdb619f13e9a"
+    },
+    {
+      "path": "node_modules/redaxios",
+      "name": "redaxios",
+      "version": "0.5.1",
+      "manifestSha256": "21e0b5f26c87fd6bd7bb3775f4e3c030d143ece8461e94b3e2571b531ed3f14d"
+    },
+    {
+      "path": "node_modules/regex-not",
+      "name": "regex-not",
+      "version": "1.0.2",
+      "manifestSha256": "ca1678f7a5f12d061bba346c8295a57e50b34791c0da06189384a3a08a2dfd36"
+    },
+    {
+      "path": "node_modules/regex-not/node_modules/extend-shallow",
+      "name": "extend-shallow",
+      "version": "3.0.2",
+      "manifestSha256": "8f71aa59dbc6c5111ed9dcef92fd710bbd82fcad47c495127ba136e0b7e78095"
+    },
+    {
+      "path": "node_modules/regex-not/node_modules/extend-shallow/node_modules/is-extendable",
+      "name": "is-extendable",
+      "version": "1.0.1",
+      "manifestSha256": "56db61dd1d881e3e024e21a7009ac4ae83eb1651c9eb97bd16d20135a042bdfb"
+    },
+    {
+      "path": "node_modules/remove-trailing-separator",
+      "name": "remove-trailing-separator",
+      "version": "1.1.0",
+      "manifestSha256": "5d1595f6fe1dc0db45fd3a05a64f0e5719b8af55ebd769f0bcba0ff6e7f8d7a8"
+    },
+    {
+      "path": "node_modules/rename-keys",
+      "name": "rename-keys",
+      "version": "1.2.0",
+      "manifestSha256": "9752af2d022e31d3664a5fd056dc85630b1445bd0c50f1d58c875841c9bcce87"
+    },
+    {
+      "path": "node_modules/repeat-element",
+      "name": "repeat-element",
+      "version": "1.1.4",
+      "manifestSha256": "9ee724bc05dba9deae2dc1d3ce8f8b2dba07f0866ccb29b7037d3405deab5865"
+    },
+    {
+      "path": "node_modules/repeat-string",
+      "name": "repeat-string",
+      "version": "1.6.1",
+      "manifestSha256": "dd718b676965bc48a769b675dd6f96a619d7e5786a059700cc3f87ab49bbb109"
+    },
+    {
+      "path": "node_modules/require-directory",
+      "name": "require-directory",
+      "version": "2.1.1",
+      "manifestSha256": "5690bdddd6eb4abd795fa5319df7552279508df9d562d571e3132ddff3045a71"
+    },
+    {
+      "path": "node_modules/require-main-filename",
+      "name": "require-main-filename",
+      "version": "2.0.0",
+      "manifestSha256": "cc3853357a59a82c9a0e5cebbe52221eccc4a52bced4557300b69bbec17fa41b"
+    },
+    {
+      "path": "node_modules/resolve",
+      "name": "resolve",
+      "version": "1.22.14",
+      "manifestSha256": "ffb43617eda497b14ba00404c04b8984c6f6802ea0e924358f0b507a370d2e3f"
+    },
+    {
+      "path": "node_modules/resolve-from",
+      "name": "resolve-from",
+      "version": "5.0.0",
+      "manifestSha256": "ac3644d363967676dba47bbf65d61b6145463632fcf60617926d484102ff5805"
+    },
+    {
+      "path": "node_modules/resolve-url",
+      "name": "resolve-url",
+      "version": "0.2.1",
+      "manifestSha256": "9263bada694d57c6a441b3fed7901eab5c70b944fb58411e7341d55e83f91212"
+    },
+    {
+      "path": "node_modules/ret",
+      "name": "ret",
+      "version": "0.1.15",
+      "manifestSha256": "72c2758011f7536ae91bd5b059587226903f8cd50b0e5046b57039f0cd23ce98"
+    },
+    {
+      "path": "node_modules/robust-predicates",
+      "name": "robust-predicates",
+      "version": "3.0.3",
+      "manifestSha256": "55881c0db678074120592e7de7cc2418c265e2ec6cbb51f9c02794db2ee20813"
+    },
+    {
+      "path": "node_modules/rollup",
+      "name": "rollup",
+      "version": "4.68.7",
+      "manifestSha256": "81aaad3b5b1ea9d0193642d54b8524ccdb22e2286bc70095c273707175054a70"
+    },
+    {
+      "path": "node_modules/rollup-plugin-dts",
+      "name": "rollup-plugin-dts",
+      "version": "6.5.1",
+      "manifestSha256": "0ac0f675e3c6a3c8ee891ed7808faf8316bde6cec43934c94a40f7fa08376efc"
+    },
+    {
+      "path": "node_modules/rxjs",
+      "name": "rxjs",
+      "version": "7.8.2",
+      "manifestSha256": "2399f5d968d1d693ecd206e7972fd26cb7e3daa45931ecc12202b3a924be38b7"
+    },
+    {
+      "path": "node_modules/s-expression",
+      "name": "s-expression",
+      "version": "3.1.1",
+      "manifestSha256": "eb04d7d12df91396bfa455b544d2d76db3ddef7dbda2015b0e43439c32a1d53a"
+    },
+    {
+      "path": "node_modules/safe-buffer",
+      "name": "safe-buffer",
+      "version": "5.1.2",
+      "manifestSha256": "3d8b6d944be9e931a178914afbb3d6b79bfa199c032872b687bed41ed996c747"
+    },
+    {
+      "path": "node_modules/safe-regex",
+      "name": "safe-regex",
+      "version": "1.1.0",
+      "manifestSha256": "bb8da78436ba7b47ca319947daf22b0d2b3ab396bed38095f2c89b50b5c4a85b"
+    },
+    {
+      "path": "node_modules/scheduler",
+      "name": "scheduler",
+      "version": "0.28.0",
+      "manifestSha256": "06290718f22bcd93f29eaa1ac8d2ec9a7592ba4fec12bf1230e7cdd9a871b324"
+    },
+    {
+      "path": "node_modules/schematic-symbols",
+      "name": "schematic-symbols",
+      "version": "0.0.251",
+      "manifestSha256": "c951f75e15a84bf0a421a16b073dbac86ba656b54ae25635b54f5a1da3031ef4"
+    },
+    {
+      "path": "node_modules/semver",
+      "name": "semver",
+      "version": "7.8.6",
+      "manifestSha256": "0a3f93689bb0be4e2fcdabc585da62ae24695f1abefc6974d68968c8918af381"
+    },
+    {
+      "path": "node_modules/send",
+      "name": "send",
+      "version": "1.2.1",
+      "manifestSha256": "303cfb195f13651e5174c23310e6a71e319b4bf85f9afe9e16b16567cbab02f8"
+    },
+    {
+      "path": "node_modules/serve-index",
+      "name": "serve-index",
+      "version": "1.9.2",
+      "manifestSha256": "177ffd2dde5c523c1b2f008f8892b7f932fdf0882d407b48522fcd8cbfb95c0b"
+    },
+    {
+      "path": "node_modules/serve-index/node_modules/debug",
+      "name": "debug",
+      "version": "2.6.9",
+      "manifestSha256": "6c3d2c892db282317913ce7c340dd2edccd326bcafd18b644b8738144967d6ee"
+    },
+    {
+      "path": "node_modules/serve-index/node_modules/debug/node_modules/ms",
+      "name": "ms",
+      "version": "2.0.0",
+      "manifestSha256": "30fbfaa3840b2f63978ad4bcd7ed8dc24d277b818e4755fe93eda8cb1bc8b74c"
+    },
+    {
+      "path": "node_modules/serve-index/node_modules/http-errors",
+      "name": "http-errors",
+      "version": "1.8.1",
+      "manifestSha256": "1dd477225e1ea42b2b77ead847803fad252fd8d38744a0d37fafd71c21294fde"
+    },
+    {
+      "path": "node_modules/serve-index/node_modules/http-errors/node_modules/depd",
+      "name": "depd",
+      "version": "1.1.2",
+      "manifestSha256": "9df7afa632a7aa4e245c4583d06704b7f196cff999aca6d0a2492fa4d78f8e73"
+    },
+    {
+      "path": "node_modules/serve-index/node_modules/http-errors/node_modules/statuses",
+      "name": "statuses",
+      "version": "1.5.0",
+      "manifestSha256": "39cf653c972f99725bae6adab44da5df52185fa1fc3bdaf671a8f62d0e182631"
+    },
+    {
+      "path": "node_modules/serve-index/node_modules/mime-types",
+      "name": "mime-types",
+      "version": "2.1.35",
+      "manifestSha256": "5053cc10259c3913ab6b6c8f13170a619c0d1836c1d9081238329a559fafeb3a"
+    },
+    {
+      "path": "node_modules/serve-index/node_modules/mime-types/node_modules/mime-db",
+      "name": "mime-db",
+      "version": "1.52.0",
+      "manifestSha256": "d03e37b915a050af548d543f4e45ff5de06ec767c19e745f18c431d9dc26b5bf"
+    },
+    {
+      "path": "node_modules/set-blocking",
+      "name": "set-blocking",
+      "version": "2.0.0",
+      "manifestSha256": "e0c598215c66f2c35edbc3cb2a3433d45f9d4b726524c095c93e7376d87a3bce"
+    },
+    {
+      "path": "node_modules/set-value",
+      "name": "set-value",
+      "version": "2.0.1",
+      "manifestSha256": "bc791069c3343d20fc1b4442811d78925bd53e9c99b7861b808bef7bb0985c6b"
+    },
+    {
+      "path": "node_modules/setimmediate",
+      "name": "setimmediate",
+      "version": "1.0.5",
+      "manifestSha256": "56c7968c8062ad56e94b8ddb477e514098e0fa34b060aa86b67232fdb12e184d"
+    },
+    {
+      "path": "node_modules/setprototypeof",
+      "name": "setprototypeof",
+      "version": "1.2.0",
+      "manifestSha256": "5b39ddf23d2c12a751cb4af2ce12dd5c87314350be7526fff69b4a3ff2a2d538"
+    },
+    {
+      "path": "node_modules/sharp",
+      "name": "sharp",
+      "version": "0.35.5",
+      "manifestSha256": "ad4a2535d72eb638053a38867b1abf43c328cd1c1dbae5cf4172d498365a8b97"
+    },
+    {
+      "path": "node_modules/shebang-command",
+      "name": "shebang-command",
+      "version": "2.0.0",
+      "manifestSha256": "44de390ae5ed6c5f9758b8b9c90b93fa53977d5361731600429f1de08f4b3f30"
+    },
+    {
+      "path": "node_modules/shebang-regex",
+      "name": "shebang-regex",
+      "version": "3.0.0",
+      "manifestSha256": "b8018c6b8cc9900dfd1ac18a54956ba34c453fdc2da5e5fe555ee8f04133a1c5"
+    },
+    {
+      "path": "node_modules/shell-quote",
+      "name": "shell-quote",
+      "version": "1.12.0",
+      "manifestSha256": "fef9e75a4b1b4e3ee6e7b500c30b626d629e27d21c4c3c4ab270b500f64ce993"
+    },
+    {
+      "path": "node_modules/simple-swizzle",
+      "name": "simple-swizzle",
+      "version": "0.2.4",
+      "manifestSha256": "87babf04f1bf696590824ef618468bada3631b38dacd032c82fdcf0cd72b6203"
+    },
+    {
+      "path": "node_modules/snapdragon",
+      "name": "snapdragon",
+      "version": "0.8.2",
+      "manifestSha256": "ef3d4c682fece7b9aed6c06563df4b3f468319dd719dd11e5eb2bf6dd6206b09"
+    },
+    {
+      "path": "node_modules/snapdragon-node",
+      "name": "snapdragon-node",
+      "version": "2.1.1",
+      "manifestSha256": "13501133635d6ff96db8402e5c28a7ee0de31a41d4ef7ba80e97ee603398dfcf"
+    },
+    {
+      "path": "node_modules/snapdragon-node/node_modules/define-property",
+      "name": "define-property",
+      "version": "1.0.0",
+      "manifestSha256": "03cce8ab627f9aa9d11af4a225523a9c7c67c51a135b630b85f5743920b312af"
+    },
+    {
+      "path": "node_modules/snapdragon-util",
+      "name": "snapdragon-util",
+      "version": "3.0.1",
+      "manifestSha256": "c457b508eb2431f475f66e454d205b3583b6feedbc05332dd761c5368bfd80bf"
+    },
+    {
+      "path": "node_modules/snapdragon/node_modules/debug",
+      "name": "debug",
+      "version": "2.6.9",
+      "manifestSha256": "6c3d2c892db282317913ce7c340dd2edccd326bcafd18b644b8738144967d6ee"
+    },
+    {
+      "path": "node_modules/snapdragon/node_modules/debug/node_modules/ms",
+      "name": "ms",
+      "version": "2.0.0",
+      "manifestSha256": "30fbfaa3840b2f63978ad4bcd7ed8dc24d277b818e4755fe93eda8cb1bc8b74c"
+    },
+    {
+      "path": "node_modules/snapdragon/node_modules/define-property",
+      "name": "define-property",
+      "version": "0.2.5",
+      "manifestSha256": "b999a380ba13fef8b973f3df54c1f11f2c8d97d4f5f691600508fa2b7108fe52"
+    },
+    {
+      "path": "node_modules/snapdragon/node_modules/define-property/node_modules/is-descriptor",
+      "name": "is-descriptor",
+      "version": "0.1.8",
+      "manifestSha256": "dd2a731beb615da01dc134ff583bbf4328dbf84495c2eac0ecf47ce4c24137b0"
+    },
+    {
+      "path": "node_modules/snapdragon/node_modules/source-map",
+      "name": "source-map",
+      "version": "0.5.7",
+      "manifestSha256": "b59a934eb7e663dd0e0ef9dc5888eaaa3f10016c029bd1962da31aaad6296277"
+    },
+    {
+      "path": "node_modules/source-map",
+      "name": "source-map",
+      "version": "0.7.6",
+      "manifestSha256": "9be309364953f1d7cdd525bc3c24381717930ee7480aead3ddc972d81c6b7c42"
+    },
+    {
+      "path": "node_modules/source-map-resolve",
+      "name": "source-map-resolve",
+      "version": "0.5.3",
+      "manifestSha256": "436a794b5e91e7bc0be8c1adb6d5e161bed7508a21c68b4524bc278c036cdac9"
+    },
+    {
+      "path": "node_modules/source-map-resolve/node_modules/decode-uri-component",
+      "name": "decode-uri-component",
+      "version": "0.2.2",
+      "manifestSha256": "8f2e9784337b3b4fa69359f88f75a2847e0aa17776f062cb518d008d8d408bca"
+    },
+    {
+      "path": "node_modules/source-map-url",
+      "name": "source-map-url",
+      "version": "0.4.1",
+      "manifestSha256": "e2ab48be878647a77117a669e3ccaf51359bd56be889ab5b8424927a9c8c24ab"
+    },
+    {
+      "path": "node_modules/spicets",
+      "name": "spicets",
+      "version": "0.0.4",
+      "manifestSha256": "ac5c45bc7108ef53adab36a4deb8d713f40f57085da8dadf11e934961cbe649f"
+    },
+    {
+      "path": "node_modules/spicey",
+      "name": "spicey",
+      "version": "0.0.14",
+      "manifestSha256": "60ca12c490900da4bc35a6b662242076b5456dbd06713e34ab14b677a326b1b3"
+    },
+    {
+      "path": "node_modules/splaytree",
+      "name": "splaytree",
+      "version": "3.2.4",
+      "manifestSha256": "d2b5eb808e2a0c7e404700f25e25f0e5c836fba84de355cc905a7af153167170"
+    },
+    {
+      "path": "node_modules/split",
+      "name": "split",
+      "version": "0.3.3",
+      "manifestSha256": "8af2a6b911303fbaf14739c51b5a7b4738edd7f1a2c0bdb522486b21de1488f8"
+    },
+    {
+      "path": "node_modules/split-on-first",
+      "name": "split-on-first",
+      "version": "3.0.0",
+      "manifestSha256": "eb06aa8e20790efa5585af02547ef429f2eed53a32770fcfa12d117072fcb00e"
+    },
+    {
+      "path": "node_modules/split-string",
+      "name": "split-string",
+      "version": "3.1.0",
+      "manifestSha256": "8cef600c1ef4de73c804dd0293e8442ec5c78275f5d46db7b64927e973185467"
+    },
+    {
+      "path": "node_modules/split-string/node_modules/extend-shallow",
+      "name": "extend-shallow",
+      "version": "3.0.2",
+      "manifestSha256": "8f71aa59dbc6c5111ed9dcef92fd710bbd82fcad47c495127ba136e0b7e78095"
+    },
+    {
+      "path": "node_modules/split-string/node_modules/extend-shallow/node_modules/is-extendable",
+      "name": "is-extendable",
+      "version": "1.0.1",
+      "manifestSha256": "56db61dd1d881e3e024e21a7009ac4ae83eb1651c9eb97bd16d20135a042bdfb"
+    },
+    {
+      "path": "node_modules/stack-svgs",
+      "name": "stack-svgs",
+      "version": "0.0.1",
+      "manifestSha256": "62fd2526aac3d92318abea3e1af4c0a6505d2ad2aba9d7fc025a10ef7f91a76d"
+    },
+    {
+      "path": "node_modules/static-extend",
+      "name": "static-extend",
+      "version": "0.1.2",
+      "manifestSha256": "a67948379722221c0e86865eb76525adbd6f2cd4f85315cb627402a32e28a6ad"
+    },
+    {
+      "path": "node_modules/static-extend/node_modules/define-property",
+      "name": "define-property",
+      "version": "0.2.5",
+      "manifestSha256": "b999a380ba13fef8b973f3df54c1f11f2c8d97d4f5f691600508fa2b7108fe52"
+    },
+    {
+      "path": "node_modules/static-extend/node_modules/define-property/node_modules/is-descriptor",
+      "name": "is-descriptor",
+      "version": "0.1.8",
+      "manifestSha256": "dd2a731beb615da01dc134ff583bbf4328dbf84495c2eac0ecf47ce4c24137b0"
+    },
+    {
+      "path": "node_modules/statuses",
+      "name": "statuses",
+      "version": "2.0.2",
+      "manifestSha256": "dc2508da5568ba768d94b73126cd20a5df934bc0c651ad681022236484ca156c"
+    },
+    {
+      "path": "node_modules/stepts",
+      "name": "stepts",
+      "version": "0.0.7",
+      "manifestSha256": "1de9721c1cbacb0939a91f72a87fa1dc745e4e744a72c4c215e5a91eb886f7f7"
+    },
+    {
+      "path": "node_modules/stream-combiner",
+      "name": "stream-combiner",
+      "version": "0.0.4",
+      "manifestSha256": "9f2709192878b99a0c3680670e67380f0412b6c84bceb1749ef6eb4b44e964b6"
+    },
+    {
+      "path": "node_modules/string-argv",
+      "name": "string-argv",
+      "version": "0.3.2",
+      "manifestSha256": "a9a1a3b04694db963232bb9cb059fd050781837d9143063009b1461e92b33e5a"
+    },
+    {
+      "path": "node_modules/string-width",
+      "name": "string-width",
+      "version": "3.1.0",
+      "manifestSha256": "12aae5fc9d096d1e44931a905d427297cd3034662745b0ccb5243144f2803118"
+    },
+    {
+      "path": "node_modules/string_decoder",
+      "name": "string_decoder",
+      "version": "1.3.0",
+      "manifestSha256": "31984c85cd4f3df0aa75075acdec98c25961496897d1f46d04ed4a701f129c54"
+    },
+    {
+      "path": "node_modules/string_decoder/node_modules/safe-buffer",
+      "name": "safe-buffer",
+      "version": "5.2.1",
+      "manifestSha256": "e4018fdbfe625433371f48274fee26f520bbe865e0d8c85bf3aa07424134b90c"
+    },
+    {
+      "path": "node_modules/strip-ansi",
+      "name": "strip-ansi",
+      "version": "5.2.0",
+      "manifestSha256": "596e55347c7838a69d60d6835b30c6e6150f9e4904c7c611e3007af9b2a428f8"
+    },
+    {
+      "path": "node_modules/strnum",
+      "name": "strnum",
+      "version": "2.5.1",
+      "manifestSha256": "7efcf7c2b83b9d0054dd637da0b15983a4f43b9aedb999ae895ff9c0b23c7170"
+    },
+    {
+      "path": "node_modules/sucrase",
+      "name": "sucrase",
+      "version": "3.35.1",
+      "manifestSha256": "fcd6ddc34b3ea43a430640676707fa49be9d4864805c8362f83c9a3b1700c986"
+    },
+    {
+      "path": "node_modules/sucrase/node_modules/commander",
+      "name": "commander",
+      "version": "4.1.1",
+      "manifestSha256": "b6562534f106b47ea0bfdebb1ae093461bdfd274e1a4ae5aef9057a141dbe0b9"
+    },
+    {
+      "path": "node_modules/supports-color",
+      "name": "supports-color",
+      "version": "8.1.1",
+      "manifestSha256": "b1a932c44dfc194f2505bb4507531c8f7cd18295f9553d57a85214375931c4a6"
+    },
+    {
+      "path": "node_modules/supports-preserve-symlinks-flag",
+      "name": "supports-preserve-symlinks-flag",
+      "version": "1.0.0",
+      "manifestSha256": "aef0ae2d21ae9181d8702c2063ce0ee274ba1063e5312e4baab5673aa6d4d5db"
+    },
+    {
+      "path": "node_modules/svg-path-commander",
+      "name": "svg-path-commander",
+      "version": "2.3.5",
+      "manifestSha256": "aea9f70d1425d96f17e3b5cee84c0413ecb1ae6a5142b2920bb686a6de26904f"
+    },
+    {
+      "path": "node_modules/svgson",
+      "name": "svgson",
+      "version": "5.3.1",
+      "manifestSha256": "61b8ef101b387b6ea815435cb0ca6ac7aef07a8b0b55c2a1e352e819e98b4202"
+    },
+    {
+      "path": "node_modules/tar",
+      "name": "tar",
+      "version": "6.2.1",
+      "manifestSha256": "89bd6d32c9e56eab63f3f62b96080aa43afa530675701610d74793d4719d1137"
+    },
+    {
+      "path": "node_modules/thenify",
+      "name": "thenify",
+      "version": "3.3.1",
+      "manifestSha256": "3097b540621a555dd76ca0416492a4b98f465d3519228e3de2ecfa42a37da4dd"
+    },
+    {
+      "path": "node_modules/thenify-all",
+      "name": "thenify-all",
+      "version": "1.6.0",
+      "manifestSha256": "42f8e4698f4d61a17b9e10dd592b30654a53925a3f46eebced27f4e58e29cac9"
+    },
+    {
+      "path": "node_modules/three",
+      "name": "three",
+      "version": "0.187.0",
+      "manifestSha256": "87f2c99a8718e5fdd6f5e51427fde52c6075f2f698ddf8f7b4e162882df93940"
+    },
+    {
+      "path": "node_modules/through",
+      "name": "through",
+      "version": "2.3.8",
+      "manifestSha256": "6580a473cf2f91c6752a01d2c31f729cb14f7e042b830ba46f8949f89e26bdb4"
+    },
+    {
+      "path": "node_modules/tinyexec",
+      "name": "tinyexec",
+      "version": "0.3.2",
+      "manifestSha256": "37b9e1a7b215d99d4696da75b08818204c8b382387db8591fb7ae8d5d7b1be78"
+    },
+    {
+      "path": "node_modules/tinyglobby",
+      "name": "tinyglobby",
+      "version": "0.2.17",
+      "manifestSha256": "bd2b2af3c9ba0580f1acfb22c55d0b6d29abf683af5cac8a2efe82fa7c943f23"
+    },
+    {
+      "path": "node_modules/to-object-path",
+      "name": "to-object-path",
+      "version": "0.3.0",
+      "manifestSha256": "0912f670c6b1daf31668a62d860a328409f50072c2ad93132ceb8f481600d925"
+    },
+    {
+      "path": "node_modules/to-regex",
+      "name": "to-regex",
+      "version": "3.0.2",
+      "manifestSha256": "aab11cc9fb98af4495bb6355ca393ef73320f0931beb817eb044b9fef234ee1f"
+    },
+    {
+      "path": "node_modules/to-regex-range",
+      "name": "to-regex-range",
+      "version": "5.0.1",
+      "manifestSha256": "766fc1bb34fffcd503c89f4194188ce059795c52fd0dc6753cd4b7dcfc3fe1ec"
+    },
+    {
+      "path": "node_modules/to-regex-range/node_modules/is-number",
+      "name": "is-number",
+      "version": "7.0.0",
+      "manifestSha256": "51c133f4e41df982aef69027249ff9d7262645029f437d079adc7c83328fb620"
+    },
+    {
+      "path": "node_modules/to-regex/node_modules/extend-shallow",
+      "name": "extend-shallow",
+      "version": "3.0.2",
+      "manifestSha256": "8f71aa59dbc6c5111ed9dcef92fd710bbd82fcad47c495127ba136e0b7e78095"
+    },
+    {
+      "path": "node_modules/to-regex/node_modules/extend-shallow/node_modules/is-extendable",
+      "name": "is-extendable",
+      "version": "1.0.1",
+      "manifestSha256": "56db61dd1d881e3e024e21a7009ac4ae83eb1651c9eb97bd16d20135a042bdfb"
+    },
+    {
+      "path": "node_modules/toidentifier",
+      "name": "toidentifier",
+      "version": "1.0.1",
+      "manifestSha256": "f34c59f784d43da6e633390d85d14ca60539b4676159444f313c62fcfc3b68dc"
+    },
+    {
+      "path": "node_modules/transformation-matrix",
+      "name": "transformation-matrix",
+      "version": "2.16.1",
+      "manifestSha256": "ffd4a5944189b22d92ea5087cda76da3b98ba59e224b4107f3678d96237e3fd6"
+    },
+    {
+      "path": "node_modules/tree-kill",
+      "name": "tree-kill",
+      "version": "1.2.2",
+      "manifestSha256": "085e475aa81fe90a8e42d92c7348f259e370e0fc74b5d1982c6e80fc21c1f12d"
+    },
+    {
+      "path": "node_modules/ts-expect",
+      "name": "ts-expect",
+      "version": "1.3.0",
+      "manifestSha256": "30bab390624d48f338e811f76aa6d092d954571316d75865f61a499f7631cd50"
+    },
+    {
+      "path": "node_modules/ts-interface-checker",
+      "name": "ts-interface-checker",
+      "version": "0.1.13",
+      "manifestSha256": "08d9b9d3f3b7f0f252df45dbef7017d854eae637cb87be2c6855099b2b0d8190"
+    },
+    {
+      "path": "node_modules/tscircuit",
+      "name": "tscircuit",
+      "version": "0.0.3235",
+      "manifestSha256": "57143983d54096aab0359334a747741cc1a7812da96fc3f8ffd110d391ac365b"
+    },
+    {
+      "path": "node_modules/tscircuit/node_modules/@tscircuit/core",
+      "name": "@tscircuit/core",
+      "version": "0.0.2417",
+      "manifestSha256": "4cbfd7d410a1ff5f2d6ab7c145cb10b8e277a721967f99528628b0c358efe70b"
+    },
+    {
+      "path": "node_modules/tslib",
+      "name": "tslib",
+      "version": "2.9.1",
+      "manifestSha256": "7e9ccc6977540dd94f86f98d0ab9ac405cd3507ac5a2c34752498b250718366b"
+    },
+    {
+      "path": "node_modules/tsup",
+      "name": "tsup",
+      "version": "8.5.1",
+      "manifestSha256": "420725303bff2abcaa95fa33d68b8f11cb974b640c8c0bae8c15863ed5125ec4"
+    },
+    {
+      "path": "node_modules/tsup/node_modules/chokidar",
+      "name": "chokidar",
+      "version": "4.0.3",
+      "manifestSha256": "4764fed21a281c69d98e06b4c3e7c22a8936069ed2d320330d9831d8a8bddd5a"
+    },
+    {
+      "path": "node_modules/tsup/node_modules/chokidar/node_modules/readdirp",
+      "name": "readdirp",
+      "version": "4.1.2",
+      "manifestSha256": "9869f6d7ed7a299100bf6f87263f442092bba77c2ef55d8d8f418fd634cf9aac"
+    },
+    {
+      "path": "node_modules/type-detect",
+      "name": "type-detect",
+      "version": "4.1.0",
+      "manifestSha256": "08c7a9597417ca59342ff9f1caecc71f917534850bf5c9fc9a9471e7c2c5bda0"
+    },
+    {
+      "path": "node_modules/typescript",
+      "name": "typescript",
+      "version": "5.9.3",
+      "manifestSha256": "822ef7ca6452205657b6288b066481ecf508bfbf43455d715cf7d3ec457561e6"
+    },
+    {
+      "path": "node_modules/ufo",
+      "name": "ufo",
+      "version": "1.6.4",
+      "manifestSha256": "4ef029b2bde70c3007f3520d3d4ba14b754e4e8c4defa8d58a8e53434ebdf028"
+    },
+    {
+      "path": "node_modules/undici",
+      "name": "undici",
+      "version": "6.29.1",
+      "manifestSha256": "df5d9c505f8db601e62bf67eb835117985e549cfbbb61c4c1a84c55d57ab3532"
+    },
+    {
+      "path": "node_modules/undici-types",
+      "name": "undici-types",
+      "version": "8.12.4",
+      "manifestSha256": "a67f3f5c29f285cb17631409878fb994bc2d712ed65427303bb4112d9baf7495"
+    },
+    {
+      "path": "node_modules/union-value",
+      "name": "union-value",
+      "version": "1.0.1",
+      "manifestSha256": "19bc799982e63c8697882a00144575f9ef4e77861634025cfe67cae00b645138"
+    },
+    {
+      "path": "node_modules/uniq",
+      "name": "uniq",
+      "version": "1.0.1",
+      "manifestSha256": "a2376d95e1a60e1a07aa6b6351fc296b2304c23c8b04ca4235fdb163cef88204"
+    },
+    {
+      "path": "node_modules/universal-user-agent",
+      "name": "universal-user-agent",
+      "version": "6.0.1",
+      "manifestSha256": "c47f48e006999a9055a448e904856e7502479c6aa29f9d424f10d9aac07e861e"
+    },
+    {
+      "path": "node_modules/unix-crypt-td-js",
+      "name": "unix-crypt-td-js",
+      "version": "1.1.4",
+      "manifestSha256": "13d2be3c36cddedd93d806416238126b27f77ce4287d7156832b4a2e84626daa"
+    },
+    {
+      "path": "node_modules/unpipe",
+      "name": "unpipe",
+      "version": "1.0.0",
+      "manifestSha256": "28b717f978d2a4fc72cd08236931443b63fe6586102df3d1967e2b21ea8c5e11"
+    },
+    {
+      "path": "node_modules/unset-value",
+      "name": "unset-value",
+      "version": "1.0.0",
+      "manifestSha256": "cea2e17fde57227ea745e57d0fbeef930619ab4bf0d9bee64836a57765b05477"
+    },
+    {
+      "path": "node_modules/unset-value/node_modules/has-value",
+      "name": "has-value",
+      "version": "0.3.1",
+      "manifestSha256": "b22ad4f9f0a2647a61d6737cf31a5b5a60ce61430051fdc2d1e28ea26e97c56e"
+    },
+    {
+      "path": "node_modules/unset-value/node_modules/has-value/node_modules/has-values",
+      "name": "has-values",
+      "version": "0.1.4",
+      "manifestSha256": "060cabf4547eaddf74d422b249aabf6ef7e509ccf1895991d1bc2ab4c388e674"
+    },
+    {
+      "path": "node_modules/unset-value/node_modules/has-value/node_modules/isobject",
+      "name": "isobject",
+      "version": "2.1.0",
+      "manifestSha256": "33f50f8933f530f9c0ee92ef577e0a2d800f3e7feb170f1440fd695013f1bbc8"
+    },
+    {
+      "path": "node_modules/upath",
+      "name": "upath",
+      "version": "1.2.0",
+      "manifestSha256": "99acef3fa2631961adf4218d65fb2bac4eee011c6ec987690841ac71c2be9a92"
+    },
+    {
+      "path": "node_modules/urix",
+      "name": "urix",
+      "version": "0.1.0",
+      "manifestSha256": "a4af24af6e377d268d9a32c714b90d0752eaff9d192862c28f1a878482c4310b"
+    },
+    {
+      "path": "node_modules/url-join",
+      "name": "url-join",
+      "version": "5.2.0",
+      "manifestSha256": "6e64c507749e03cc7bac6a49977f6eec65f98c8b0b017b417a8c461141057203"
+    },
+    {
+      "path": "node_modules/use",
+      "name": "use",
+      "version": "3.1.1",
+      "manifestSha256": "97ce309ae5a1eff3333ae820f051b984866523ccf4a459063f0b745bb863954d"
+    },
+    {
+      "path": "node_modules/use-mouse-matrix-transform",
+      "name": "use-mouse-matrix-transform",
+      "version": "1.3.5",
+      "manifestSha256": "a98b5bf52ffe66e306c8efd27158d03d17516a9dc93ca2ee8dd6ade8487937d8"
+    },
+    {
+      "path": "node_modules/use-mouse-matrix-transform/node_modules/transformation-matrix",
+      "name": "transformation-matrix",
+      "version": "3.1.0",
+      "manifestSha256": "7548565a728472f003a0ce2d0ba681e07eb038d7cbeb4da40e715c8c80ef263a"
+    },
+    {
+      "path": "node_modules/util-deprecate",
+      "name": "util-deprecate",
+      "version": "1.0.2",
+      "manifestSha256": "7bba467f049074957e693fc06672848b040c38fa071b6eed8690f5fbe090a8b2"
+    },
+    {
+      "path": "node_modules/utils-merge",
+      "name": "utils-merge",
+      "version": "1.0.1",
+      "manifestSha256": "6238e6d7e2fddd3e4826014b4e69cb20d332b472999728a7157db454c69121b8"
+    },
+    {
+      "path": "node_modules/uuid",
+      "name": "uuid",
+      "version": "10.0.0",
+      "manifestSha256": "1c4ac7a2f43cbdae537c44c2b4e86e86ded3be75e4f6e545acc4341716050b6c"
+    },
+    {
+      "path": "node_modules/validate-npm-package-name",
+      "name": "validate-npm-package-name",
+      "version": "5.0.1",
+      "manifestSha256": "345040a89c5e1ba91291010517757d2cef30bb7a231ab673fa328df1dd206a26"
+    },
+    {
+      "path": "node_modules/vary",
+      "name": "vary",
+      "version": "1.1.2",
+      "manifestSha256": "73edaee964d527117a9f69d6360fbe6cec534abd9127794be01a6af58a139daa"
+    },
+    {
+      "path": "node_modules/websocket-driver",
+      "name": "websocket-driver",
+      "version": "0.8.0",
+      "manifestSha256": "ea00f3ac7b79ab29c0fba72f2f6b47ed979abc56b69df3d1c8aac4d96544e882"
+    },
+    {
+      "path": "node_modules/websocket-driver/node_modules/safe-buffer",
+      "name": "safe-buffer",
+      "version": "5.2.1",
+      "manifestSha256": "e4018fdbfe625433371f48274fee26f520bbe865e0d8c85bf3aa07424134b90c"
+    },
+    {
+      "path": "node_modules/websocket-extensions",
+      "name": "websocket-extensions",
+      "version": "0.2.0",
+      "manifestSha256": "decc03cef1d9d7e78675c49ec12a5d9d01c0cc0045dd01ada150a2d534481482"
+    },
+    {
+      "path": "node_modules/which",
+      "name": "which",
+      "version": "2.0.2",
+      "manifestSha256": "43010039ed5e89f7186960be682b3cb5cda5ab6cdfb06cbfd4f081cf0e7b4260"
+    },
+    {
+      "path": "node_modules/which-module",
+      "name": "which-module",
+      "version": "2.0.1",
+      "manifestSha256": "02f6f6833d09c32100317a390892888ae44da4f712b2271d4b308bcace09a99f"
+    },
+    {
+      "path": "node_modules/wrap-ansi",
+      "name": "wrap-ansi",
+      "version": "5.1.0",
+      "manifestSha256": "f8dd45affa513b1df742cae1fdd3d792b5af5790fc9179faa81fa7ae3ac06a06"
+    },
+    {
+      "path": "node_modules/wrap-ansi/node_modules/ansi-styles",
+      "name": "ansi-styles",
+      "version": "3.2.1",
+      "manifestSha256": "8a015c815240c949222d5f474721b5888dd9413fccbbd91ab552bac134317f76"
+    },
+    {
+      "path": "node_modules/wrap-ansi/node_modules/ansi-styles/node_modules/color-convert",
+      "name": "color-convert",
+      "version": "1.9.3",
+      "manifestSha256": "b19880ef7c610484649d11309820cd55c8934ebc4bde0b37706e94483bf2bd0f"
+    },
+    {
+      "path": "node_modules/wrap-ansi/node_modules/ansi-styles/node_modules/color-convert/node_modules/color-name",
+      "name": "color-name",
+      "version": "1.1.3",
+      "manifestSha256": "522669bd4c785d5c372377f5b139243f5fb6cf6335fc9df0e7c2d294b6b678da"
+    },
+    {
+      "path": "node_modules/wrappy",
+      "name": "wrappy",
+      "version": "1.0.2",
+      "manifestSha256": "712ac9c4c3cef8bc79f42cf6075ff18551f4cb768f35158214fd643853ad7abc"
+    },
+    {
+      "path": "node_modules/xml-lexer",
+      "name": "xml-lexer",
+      "version": "0.2.2",
+      "manifestSha256": "5324d7b64720e6307f6f4ecc4139d9e19f77778b037593ee4adc65808d052b34"
+    },
+    {
+      "path": "node_modules/xml-naming",
+      "name": "xml-naming",
+      "version": "0.3.0",
+      "manifestSha256": "e6ff1758837bca3ca6877308c0d51f9e3e47efd07497fa62c8291fd88ab8216f"
+    },
+    {
+      "path": "node_modules/xml-reader",
+      "name": "xml-reader",
+      "version": "2.4.3",
+      "manifestSha256": "7d72a2f836f5d8878f577788ba4eb909568a9b984ab028fa873334ab0525ffd5"
+    },
+    {
+      "path": "node_modules/y18n",
+      "name": "y18n",
+      "version": "4.0.3",
+      "manifestSha256": "5995de811ffa1b8a8e9ed9bd0444f60058dba9ce1ccbe12f2d5e12c31a975d9c"
+    },
+    {
+      "path": "node_modules/yallist",
+      "name": "yallist",
+      "version": "4.0.0",
+      "manifestSha256": "c56b604bce814520105739e9559142ea9d4417454ebb933fd5687ca1d8d89bd5"
+    },
+    {
+      "path": "node_modules/yargs",
+      "name": "yargs",
+      "version": "13.3.2",
+      "manifestSha256": "c00c528adf8afd4fda3c99f0a6b7aa9f29dc831697a52ca2acb2085d2b02701e"
+    },
+    {
+      "path": "node_modules/yargs-parser",
+      "name": "yargs-parser",
+      "version": "13.1.2",
+      "manifestSha256": "e6f43645d71b85dab93b1b032836d793daedeb9b9c8ca5f584fb4c940a21b31a"
+    },
+    {
+      "path": "node_modules/zod",
+      "name": "zod",
+      "version": "3.25.76",
+      "manifestSha256": "70eedbe34fd52385a4ae2f3e5759b19682189f0118ea73a6e7c32c677f61668e"
+    },
+    {
+      "path": "node_modules/zod-package-json",
+      "name": "zod-package-json",
+      "version": "1.2.0",
+      "manifestSha256": "5530d8cafea73c0d38fe6ca8b2374f14ec18ddc2b355abd2a12296c052a571ce"
+    }
+  ],
+  "finalVerification": {
+    "verifiedAtUtc": "2026-11-18T20:01:28.750579+00:00",
+    "busSourceCommit": "190325da97253ad7951f9dfd3b0046b4afcb5395",
+    "verifiedManifestCount": 741,
+    "allRecordedManifestHashesMatchCurrentInstalledTree": true,
+    "busDistributionSha256": "940e910143a475e280ed3cdc7a0bb262daf98c0fdb075d82b95cbfb2b496f2f8"
+  }
+}
