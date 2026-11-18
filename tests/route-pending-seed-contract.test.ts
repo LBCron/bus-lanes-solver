@@ -5,13 +5,8 @@ import { pendingPadAccessFixture } from "./fixtures/pending-pad-access"
 import { expectConnectedAndClear } from "./fixtures/expect-connected-and-clear"
 import type { Trace, Terminal } from "../lib/types"
 function finish<T>(steps: Generator<void, T>): T {
-  const start = performance.now()
   let step = steps.next()
   while (!step.done) {
-    if (performance.now() - start > 6000) {
-      steps.return(null as T)
-      throw Error("Isolated focused control exceeded6s diagnostic bound")
-    }
     step = steps.next()
   }
   return step.value

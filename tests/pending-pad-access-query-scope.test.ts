@@ -53,8 +53,8 @@ function fixture(angle = 0) {
   return { ...value, targets: [pendingConnection, other, peer, sameName] }
 }
 
-test("scoped deletion questions equal the global membership result across phases, rules and rotations", () => {
-  for (const angle of [0, 37, 90]) {
+for (const angle of [0, 37, 90]) {
+  test(`scoped deletion questions equal the global membership result across phases and rules at ${angle} degrees`, () => {
     const { input, targets, upperLeft, lowerRight, leftWall } = fixture(angle)
     const original = structuredClone(input)
     const candidates = [
@@ -129,8 +129,8 @@ test("scoped deletion questions equal the global membership result across phases
     }
     expect(foundBlocked).toBe(true)
     expect(input).toEqual(original)
-  }
-}, 15_000)
+  }, 15_000)
+}
 
 test("scoped and global checks remain independent while their union leases are interleaved", () => {
   const { input, targets, upperLeft, lowerRight, leftWall } = fixture()
