@@ -30,4 +30,4 @@ All 25 jointly completed byte phases have identical measured geometry on main an
 | icepi | byte0 | DDR_BUS_byte0 | 98.010874 | 8.655219 | 14.876430 | 6.221211 |
 | icepi | byte1 | DDR_BUS_byte1 | 96.348036 | 8.708183 | 15.055578 | 6.347395 |
 
-[Per-signal measurements and provenance](core-bus-copper-metrics.json) · [Calculation script](core-bus-copper-metrics.ts). The identical main/head raw start/end captures are preserved once per phase as gzip files in `core-completed-phases/`; their uncompressed hashes match both revisions in the core comparison. The script uses those captures, falling back to recorded workspace paths if they are absent.
+[Per-signal measurements and provenance](core-bus-copper-metrics.json) · [Calculation script](core-bus-copper-metrics.ts). The identical main/head raw start/end captures are preserved once per phase as gzip files in `core-completed-phases/`; their uncompressed hashes match both revisions in the core comparison. The script verifies both revisions' recorded raw-file hashes before measuring. Run `bun docs/global-bus-corridors/core-bus-copper-metrics.ts` from this evidence checkout to recompute without core or fresh routing.

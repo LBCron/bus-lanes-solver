@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-11-18T20:25:35.954Z",
+  "freshSource": "190325da97253ad7951f9dfd3b0046b4afcb5395",
+  "referenceSource": "ec82ec2442d6c03f680d3f9735b94877a3e83559",
+  "label": "Prior ec82 completed-route references; fresh final190 measurements are separate.",
+  "inputHashesIdentical": 11,
+  "expectedCases": 11,
+  "fullValidationExactlyEqualCases": [
+    "right",
+    "left",
+    "outer-layers"
+  ],
+  "numericOnlyDifferenceCases": [
+    "control",
+    "control-inner1",
+    "above",
+    "inner-layers",
+    "inner-layers-right",
+    "inner-layers-left",
+    "inner-layers-above",
+    "inner-layers-complete-ca"
+  ],
+  "categoricalDifferenceCount": 0,
+  "largestNumericDifference": {
+    "sample": "control-inner1",
+    "path": "combinedDrc.checkedSegmentCount",
+    "left": 17713,
+    "right": 21530,
+    "absolute": 3817
+  },
+  "numericDifferencesAbove1eMinus9": [
+    {
+      "sample": "control-inner1",
+      "count": 62,
+      "maxAbsoluteNumberDifference": 3817
+    },
+    {
+      "sample": "inner-layers-above",
+      "count": 12,
+      "maxAbsoluteNumberDifference": 9.414211490366142e-07
+    }
+  ],
+  "iterationsIdenticalCases": [
+    "control",
+    "right",
+    "left",
+    "above",
+    "inner-layers-above",
+    "inner-layers-complete-ca",
+    "outer-layers"
+  ],
+  "pngHashesVerified": 11,
+  "allPngHashesMatch": true,
+  "retainedImagesProveExactFreshCopperIdentity": false,
+  "comparisonSha256": "c1c284209cd3caf5598f1efa875c46887adac6db73357f33cb1bf6d08ac95feb"
+}

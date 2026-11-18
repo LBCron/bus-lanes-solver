@@ -1,0 +1,451 @@
+{
+  "generatedAt": "2026-11-18T20:25:36.113861+00:00",
+  "sourceRevision": "190325da97253ad7951f9dfd3b0046b4afcb5395",
+  "baseRevision": "202b034659fb96bad44d11b8190f4044b675116f",
+  "controllerRevision": "202b034659fb96bad44d11b8190f4044b675116f",
+  "workflowRun": 44382576930,
+  "workflowUrl": "https://github.com/tscircuit/bus-lanes-solver/actions/runs/44382576930",
+  "timeoutSecondsPerSolverPerSample": 3600,
+  "freshPairedCases": 11,
+  "acceptedMain": 11,
+  "acceptedPr": 11,
+  "runnerClass": "blacksmith-4vcpu-ubuntu-2404",
+  "remoteBunVersion": "1.4.0",
+  "remotePlatform": "linux",
+  "remoteArchitecture": "x64",
+  "localReportBunVersion": "1.4.3",
+  "fixtureManifestSha256": "24edbdb1dedb7a7e5ab521c0ebeec739f515ca213b195df6364b818c3d90a743",
+  "trustedRendererSha256": "91a3b4b06fa9b967a42d458ee156a26a9eabdd3942912b9b7ae83ef3ab24ab89",
+  "trustedRendererUnchangedFromController": true,
+  "reportDriverSha256": "caabbb1288ff794ef021678bd45aab777c26afa0d1aa1d540848b96dbb70365f",
+  "comparisonSha256": "c0e659c2e0b912f9303ca3a15d1ae56e1f490c002d6a2d88249b2bd0efd84d5f",
+  "hostedComparisonSha256": "c0e659c2e0b912f9303ca3a15d1ae56e1f490c002d6a2d88249b2bd0efd84d5f",
+  "hostedComparisonByteIdentical": true,
+  "commands": {
+    "pairedSolve": "See pinned base workflow .github/workflows/am3352-benchmark.yml / scripts/pr-benchmark/run-pair.ts; --timeout-seconds 3600 --main-sha 202b034659fb96bad44d11b8190f4044b675116f --pr-sha 190325da97253ad7951f9dfd3b0046b4afcb5395 --controller-sha 202b034659fb96bad44d11b8190f4044b675116f",
+    "localReport": "source /workspace/.tools/autorouter-env.sh; bun /workspace/ddr-results/am3352-ci/190325d/render-final.ts",
+    "retainedComparison": "node /workspace/ddr-results/am3352-gallery/compare-retained.cjs"
+  },
+  "pairMetadata": {
+    "control": {
+      "order": [
+        "main",
+        "pr"
+      ],
+      "mainSha": "202b034659fb96bad44d11b8190f4044b675116f",
+      "prSha": "190325da97253ad7951f9dfd3b0046b4afcb5395",
+      "controllerSha": "202b034659fb96bad44d11b8190f4044b675116f",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-nrhdtryo6ru6mebc",
+      "runnerOS": "Linux"
+    },
+    "control-inner1": {
+      "order": [
+        "pr",
+        "main"
+      ],
+      "mainSha": "202b034659fb96bad44d11b8190f4044b675116f",
+      "prSha": "190325da97253ad7951f9dfd3b0046b4afcb5395",
+      "controllerSha": "202b034659fb96bad44d11b8190f4044b675116f",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-blbdxrqess664bjn",
+      "runnerOS": "Linux"
+    },
+    "right": {
+      "order": [
+        "main",
+        "pr"
+      ],
+      "mainSha": "202b034659fb96bad44d11b8190f4044b675116f",
+      "prSha": "190325da97253ad7951f9dfd3b0046b4afcb5395",
+      "controllerSha": "202b034659fb96bad44d11b8190f4044b675116f",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-vg6s6mwlvozvg73m",
+      "runnerOS": "Linux"
+    },
+    "left": {
+      "order": [
+        "pr",
+        "main"
+      ],
+      "mainSha": "202b034659fb96bad44d11b8190f4044b675116f",
+      "prSha": "190325da97253ad7951f9dfd3b0046b4afcb5395",
+      "controllerSha": "202b034659fb96bad44d11b8190f4044b675116f",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-akdjvtr3kncxruhx",
+      "runnerOS": "Linux"
+    },
+    "above": {
+      "order": [
+        "main",
+        "pr"
+      ],
+      "mainSha": "202b034659fb96bad44d11b8190f4044b675116f",
+      "prSha": "190325da97253ad7951f9dfd3b0046b4afcb5395",
+      "controllerSha": "202b034659fb96bad44d11b8190f4044b675116f",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-6cc73gfjh56hbhhv",
+      "runnerOS": "Linux"
+    },
+    "inner-layers": {
+      "order": [
+        "pr",
+        "main"
+      ],
+      "mainSha": "202b034659fb96bad44d11b8190f4044b675116f",
+      "prSha": "190325da97253ad7951f9dfd3b0046b4afcb5395",
+      "controllerSha": "202b034659fb96bad44d11b8190f4044b675116f",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-ysygecewbijhoxkp",
+      "runnerOS": "Linux"
+    },
+    "inner-layers-right": {
+      "order": [
+        "main",
+        "pr"
+      ],
+      "mainSha": "202b034659fb96bad44d11b8190f4044b675116f",
+      "prSha": "190325da97253ad7951f9dfd3b0046b4afcb5395",
+      "controllerSha": "202b034659fb96bad44d11b8190f4044b675116f",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-oxfjmn5ajbr3wmp3",
+      "runnerOS": "Linux"
+    },
+    "inner-layers-left": {
+      "order": [
+        "pr",
+        "main"
+      ],
+      "mainSha": "202b034659fb96bad44d11b8190f4044b675116f",
+      "prSha": "190325da97253ad7951f9dfd3b0046b4afcb5395",
+      "controllerSha": "202b034659fb96bad44d11b8190f4044b675116f",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-tlb5pe3qqwa4cmhp",
+      "runnerOS": "Linux"
+    },
+    "inner-layers-above": {
+      "order": [
+        "main",
+        "pr"
+      ],
+      "mainSha": "202b034659fb96bad44d11b8190f4044b675116f",
+      "prSha": "190325da97253ad7951f9dfd3b0046b4afcb5395",
+      "controllerSha": "202b034659fb96bad44d11b8190f4044b675116f",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-wy7yw4qudeurq7h5",
+      "runnerOS": "Linux"
+    },
+    "inner-layers-complete-ca": {
+      "order": [
+        "pr",
+        "main"
+      ],
+      "mainSha": "202b034659fb96bad44d11b8190f4044b675116f",
+      "prSha": "190325da97253ad7951f9dfd3b0046b4afcb5395",
+      "controllerSha": "202b034659fb96bad44d11b8190f4044b675116f",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-vpohmuolpr5yjwod",
+      "runnerOS": "Linux"
+    },
+    "outer-layers": {
+      "order": [
+        "main",
+        "pr"
+      ],
+      "mainSha": "202b034659fb96bad44d11b8190f4044b675116f",
+      "prSha": "190325da97253ad7951f9dfd3b0046b4afcb5395",
+      "controllerSha": "202b034659fb96bad44d11b8190f4044b675116f",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-236ilqt4dign4t5b",
+      "runnerOS": "Linux"
+    }
+  },
+  "artifacts": [
+    {
+      "id": 14468640199,
+      "name": "am3352-control-inner1",
+      "size_in_bytes": 7112,
+      "url": "https://api.github.com/repos/tscircuit/bus-lanes-solver/actions/artifacts/14468640199",
+      "archive_download_url": "https://api.github.com/repos/tscircuit/bus-lanes-solver/actions/artifacts/14468640199/zip",
+      "expired": false,
+      "created_at": "2026-11-18T20:20:27Z",
+      "expires_at": "2026-12-18T20:20:25Z",
+      "updated_at": "2026-11-18T20:20:27Z",
+      "digest": "sha256:3efae2f8c888e3338d4468be2c819dc8c57f3bcd021b0f588d92b3b033ab9b53",
+      "workflow_run": {
+        "id": 44382576930,
+        "repository_id": 1368949522,
+        "head_repository_id": 1368949522,
+        "head_branch": "feat/global-bus-corridor-planning",
+        "head_sha": "190325da97253ad7951f9dfd3b0046b4afcb5395"
+      }
+    },
+    {
+      "id": 14467720519,
+      "name": "am3352-comparison",
+      "size_in_bytes": 2283,
+      "url": "https://api.github.com/repos/tscircuit/bus-lanes-solver/actions/artifacts/14467720519",
+      "archive_download_url": "https://api.github.com/repos/tscircuit/bus-lanes-solver/actions/artifacts/14467720519/zip",
+      "expired": false,
+      "created_at": "2026-11-18T20:20:43Z",
+      "expires_at": "2026-12-18T20:20:43Z",
+      "updated_at": "2026-11-18T20:20:43Z",
+      "digest": "sha256:1e0b331893d70670aa84462d70f2b6a8f5ec65917be14c3f31e97a99a4748284",
+      "workflow_run": {
+        "id": 44382576930,
+        "repository_id": 1368949522,
+        "head_repository_id": 1368949522,
+        "head_branch": "feat/global-bus-corridor-planning",
+        "head_sha": "190325da97253ad7951f9dfd3b0046b4afcb5395"
+      }
+    },
+    {
+      "id": 14467427563,
+      "name": "am3352-outer-layers",
+      "size_in_bytes": 7708,
+      "url": "https://api.github.com/repos/tscircuit/bus-lanes-solver/actions/artifacts/14467427563",
+      "archive_download_url": "https://api.github.com/repos/tscircuit/bus-lanes-solver/actions/artifacts/14467427563/zip",
+      "expired": false,
+      "created_at": "2026-11-18T20:15:05Z",
+      "expires_at": "2026-12-18T20:15:04Z",
+      "updated_at": "2026-11-18T20:15:05Z",
+      "digest": "sha256:78ce9bd963719aca549077d2ee765b58c3b87ac33fce111506b4156d4f327ed8",
+      "workflow_run": {
+        "id": 44382576930,
+        "repository_id": 1368949522,
+        "head_repository_id": 1368949522,
+        "head_branch": "feat/global-bus-corridor-planning",
+        "head_sha": "190325da97253ad7951f9dfd3b0046b4afcb5395"
+      }
+    },
+    {
+      "id": 14466120101,
+      "name": "am3352-inner-layers-complete-ca",
+      "size_in_bytes": 9648,
+      "url": "https://api.github.com/repos/tscircuit/bus-lanes-solver/actions/artifacts/14466120101",
+      "archive_download_url": "https://api.github.com/repos/tscircuit/bus-lanes-solver/actions/artifacts/14466120101/zip",
+      "expired": false,
+      "created_at": "2026-11-18T19:48:17Z",
+      "expires_at": "2026-12-18T19:48:16Z",
+      "updated_at": "2026-11-18T19:48:17Z",
+      "digest": "sha256:11728b01b20aff628e1148b63a2a8ffa8b61c84a16f2e0215ebc9307f45f2227",
+      "workflow_run": {
+        "id": 44382576930,
+        "repository_id": 1368949522,
+        "head_repository_id": 1368949522,
+        "head_branch": "feat/global-bus-corridor-planning",
+        "head_sha": "190325da97253ad7951f9dfd3b0046b4afcb5395"
+      }
+    },
+    {
+      "id": 14465376150,
+      "name": "am3352-inner-layers-above",
+      "size_in_bytes": 8214,
+      "url": "https://api.github.com/repos/tscircuit/bus-lanes-solver/actions/artifacts/14465376150",
+      "archive_download_url": "https://api.github.com/repos/tscircuit/bus-lanes-solver/actions/artifacts/14465376150/zip",
+      "expired": false,
+      "created_at": "2026-11-18T19:52:58Z",
+      "expires_at": "2026-12-18T19:52:57Z",
+      "updated_at": "2026-11-18T19:52:58Z",
+      "digest": "sha256:07bc9796e2454311235a5e1662c8f3ca71b39c42b5460265456b1b0f872d2305",
+      "workflow_run": {
+        "id": 44382576930,
+        "repository_id": 1368949522,
+        "head_repository_id": 1368949522,
+        "head_branch": "feat/global-bus-corridor-planning",
+        "head_sha": "190325da97253ad7951f9dfd3b0046b4afcb5395"
+      }
+    },
+    {
+      "id": 14464273624,
+      "name": "am3352-inner-layers-left",
+      "size_in_bytes": 8425,
+      "url": "https://api.github.com/repos/tscircuit/bus-lanes-solver/actions/artifacts/14464273624",
+      "archive_download_url": "https://api.github.com/repos/tscircuit/bus-lanes-solver/actions/artifacts/14464273624/zip",
+      "expired": false,
+      "created_at": "2026-11-18T19:47:39Z",
+      "expires_at": "2026-12-18T19:47:38Z",
+      "updated_at": "2026-11-18T19:47:39Z",
+      "digest": "sha256:6d30c45422ff5bc11bcc92370401e0bb2a2c94c2697c4230e97581e220479139",
+      "workflow_run": {
+        "id": 44382576930,
+        "repository_id": 1368949522,
+        "head_repository_id": 1368949522,
+        "head_branch": "feat/global-bus-corridor-planning",
+        "head_sha": "190325da97253ad7951f9dfd3b0046b4afcb5395"
+      }
+    },
+    {
+      "id": 14464123998,
+      "name": "am3352-above",
+      "size_in_bytes": 7887,
+      "url": "https://api.github.com/repos/tscircuit/bus-lanes-solver/actions/artifacts/14464123998",
+      "archive_download_url": "https://api.github.com/repos/tscircuit/bus-lanes-solver/actions/artifacts/14464123998/zip",
+      "expired": false,
+      "created_at": "2026-11-18T19:42:50Z",
+      "expires_at": "2026-12-18T19:42:49Z",
+      "updated_at": "2026-11-18T19:42:50Z",
+      "digest": "sha256:5ed95cb77770c928270d591f738dd677408bdf07a60d817e7c1ee733f677291c",
+      "workflow_run": {
+        "id": 44382576930,
+        "repository_id": 1368949522,
+        "head_repository_id": 1368949522,
+        "head_branch": "feat/global-bus-corridor-planning",
+        "head_sha": "190325da97253ad7951f9dfd3b0046b4afcb5395"
+      }
+    },
+    {
+      "id": 14463714253,
+      "name": "am3352-inner-layers-right",
+      "size_in_bytes": 7927,
+      "url": "https://api.github.com/repos/tscircuit/bus-lanes-solver/actions/artifacts/14463714253",
+      "archive_download_url": "https://api.github.com/repos/tscircuit/bus-lanes-solver/actions/artifacts/14463714253/zip",
+      "expired": false,
+      "created_at": "2026-11-18T19:43:53Z",
+      "expires_at": "2026-12-18T19:43:52Z",
+      "updated_at": "2026-11-18T19:43:53Z",
+      "digest": "sha256:cc82bc18ef3cf779a175a3fb81674812c33355eb407a1e072292c4d18136ad18",
+      "workflow_run": {
+        "id": 44382576930,
+        "repository_id": 1368949522,
+        "head_repository_id": 1368949522,
+        "head_branch": "feat/global-bus-corridor-planning",
+        "head_sha": "190325da97253ad7951f9dfd3b0046b4afcb5395"
+      }
+    },
+    {
+      "id": 14463539346,
+      "name": "am3352-right",
+      "size_in_bytes": 7884,
+      "url": "https://api.github.com/repos/tscircuit/bus-lanes-solver/actions/artifacts/14463539346",
+      "archive_download_url": "https://api.github.com/repos/tscircuit/bus-lanes-solver/actions/artifacts/14463539346/zip",
+      "expired": false,
+      "created_at": "2026-11-18T19:42:17Z",
+      "expires_at": "2026-12-18T19:42:16Z",
+      "updated_at": "2026-11-18T19:42:17Z",
+      "digest": "sha256:6b2ef2077581abdea65deda9f91346ca0598952c0ba6e43979ac362b1b2af335",
+      "workflow_run": {
+        "id": 44382576930,
+        "repository_id": 1368949522,
+        "head_repository_id": 1368949522,
+        "head_branch": "feat/global-bus-corridor-planning",
+        "head_sha": "190325da97253ad7951f9dfd3b0046b4afcb5395"
+      }
+    },
+    {
+      "id": 14463064368,
+      "name": "am3352-inner-layers",
+      "size_in_bytes": 7915,
+      "url": "https://api.github.com/repos/tscircuit/bus-lanes-solver/actions/artifacts/14463064368",
+      "archive_download_url": "https://api.github.com/repos/tscircuit/bus-lanes-solver/actions/artifacts/14463064368/zip",
+      "expired": false,
+      "created_at": "2026-11-18T19:42:26Z",
+      "expires_at": "2026-12-18T19:42:24Z",
+      "updated_at": "2026-11-18T19:42:26Z",
+      "digest": "sha256:e0d237ed991076f13138ea3409e44438b22a200fcf6c566934e0b67e06c9f23f",
+      "workflow_run": {
+        "id": 44382576930,
+        "repository_id": 1368949522,
+        "head_repository_id": 1368949522,
+        "head_branch": "feat/global-bus-corridor-planning",
+        "head_sha": "190325da97253ad7951f9dfd3b0046b4afcb5395"
+      }
+    },
+    {
+      "id": 14463064355,
+      "name": "am3352-control",
+      "size_in_bytes": 8060,
+      "url": "https://api.github.com/repos/tscircuit/bus-lanes-solver/actions/artifacts/14463064355",
+      "archive_download_url": "https://api.github.com/repos/tscircuit/bus-lanes-solver/actions/artifacts/14463064355/zip",
+      "expired": false,
+      "created_at": "2026-11-18T19:42:22Z",
+      "expires_at": "2026-12-18T19:42:20Z",
+      "updated_at": "2026-11-18T19:42:22Z",
+      "digest": "sha256:0da502dc4d448cd29ebf0fd3331f84615cb690e472cda9993486fb852e537a55",
+      "workflow_run": {
+        "id": 44382576930,
+        "repository_id": 1368949522,
+        "head_repository_id": 1368949522,
+        "head_branch": "feat/global-bus-corridor-planning",
+        "head_sha": "190325da97253ad7951f9dfd3b0046b4afcb5395"
+      }
+    },
+    {
+      "id": 14462859525,
+      "name": "am3352-left",
+      "size_in_bytes": 8113,
+      "url": "https://api.github.com/repos/tscircuit/bus-lanes-solver/actions/artifacts/14462859525",
+      "archive_download_url": "https://api.github.com/repos/tscircuit/bus-lanes-solver/actions/artifacts/14462859525/zip",
+      "expired": false,
+      "created_at": "2026-11-18T19:42:35Z",
+      "expires_at": "2026-12-18T19:42:34Z",
+      "updated_at": "2026-11-18T19:42:35Z",
+      "digest": "sha256:c6f5c4d677dbce3530abacaf39c6f6181397070ac7e2287a0d9060ed22ddeae1",
+      "workflow_run": {
+        "id": 44382576930,
+        "repository_id": 1368949522,
+        "head_repository_id": 1368949522,
+        "head_branch": "feat/global-bus-corridor-planning",
+        "head_sha": "190325da97253ad7951f9dfd3b0046b4afcb5395"
+      }
+    }
+  ],
+  "testRuns": {
+    "push": {
+      "runId": 44381977984,
+      "passed": 623,
+      "failed": 0
+    },
+    "pullRequest": {
+      "runId": 44382572182,
+      "passed": 623,
+      "failed": 0
+    }
+  },
+  "interpretation": {
+    "identicalFullValidationPairs": 11,
+    "identicalIterationsPairs": 11,
+    "exactFreshRouteGeometryAvailable": false,
+    "singlePairPerSample": true,
+    "timingRegressionsObserved": [
+      "control",
+      "right",
+      "above",
+      "inner-layers",
+      "inner-layers-left",
+      "inner-layers-complete-ca"
+    ],
+    "performanceClaim": "Measured paired timings only; no statistical speedup claim."
+  },
+  "acceptanceJobId": 135104721935,
+  "acceptanceJobConclusion": "success",
+  "acceptanceLogSha256": "45394b3b6cfdb03a0aa07ca9fe7a5376f75b81709f85eb8be1f3f8bac2783a91",
+  "independentAuditSha256": "c5aebe042a94fbe217eaf3060c5ccae2877d201f33bc13b2ed04172cf347d60c",
+  "retainedComparisonHelperSha256": "774274dd3d5a0d19ad9e40e97e11c3f538807765872daa0d5ddea36229c42bf7",
+  "retainedComparisonSha256": "c1c284209cd3caf5598f1efa875c46887adac6db73357f33cb1bf6d08ac95feb",
+  "retainedNativeSummarySha256": "cb4f54963a912efe3c7f9c69e8887439bf04216563758fc61b0d1980ebe88322",
+  "pullRequestTestsSummarySha256": "635fb762c57414188bf44608ff8974cd55dfb783254cb6800df47c72e9f8006f",
+  "pushTestsSummarySha256": "d2d421acf7b75153ad138c839afdbeb5baa4569ea5a9edd4955d3f456ece053a"
+}

@@ -3,7 +3,7 @@
   "sourceMain": "202b034659fb96bad44d11b8190f4044b675116f",
   "scope": "Postprocessing fresh completed core byte-stage outputs; XY route-polyline lengths include supplied fanout portions belonging to each current requested signal and exclude vertical via barrel delay. No matching tolerance or pair acceptance is inferred.",
   "allTwentyFiveCompletedByteMetricsUnchanged": true,
-  "scriptSha256": "5a033be604b40705110a1092a5bce96742f8ce4073f27abdbec1a3cfc3aff7f3",
+  "scriptSha256": "c26307a56a59f499e8353e195974860dd8149ac47de1b5cfee28fa8c16a2edc6",
   "rows": [
     {
       "circuit": "h3",

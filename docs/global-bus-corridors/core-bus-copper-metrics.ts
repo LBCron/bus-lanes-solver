@@ -1,18 +1,18 @@
 import assert from "node:assert/strict"
 import { createHash } from "node:crypto"
-import { readFileSync, writeFileSync } from "node:fs"
-import { existsSync } from "node:fs"
+import { existsSync, readFileSync, writeFileSync } from "node:fs"
 import { gunzipSync } from "node:zlib"
-import { length } from "/workspace/bus-lanes-work/lib/geometry.ts"
+import { length } from "../../lib/geometry.ts"
 
-const root = "/workspace/bus-lanes-artifacts/docs/global-bus-corridors"
+const root = import.meta.dir
 const comparison = JSON.parse(readFileSync(`${root}/core-comparison.json`, "utf8"))
-const read = (path: string) => JSON.parse(readFileSync(path, "utf8"))
-const readPhase = (path: string, circuit: string, phase: string, kind: string) => {
+const readPhase = (path: string, circuit: string, phase: string, kind: string, expectedSha256: string) => {
   const compressed = `${root}/core-completed-phases/${circuit}/${phase}-${kind}.srj.json.gz`
-  return existsSync(compressed)
-    ? JSON.parse(gunzipSync(readFileSync(compressed)).toString())
-    : read(path)
+  const bytes = existsSync(compressed)
+    ? gunzipSync(readFileSync(compressed))
+    : readFileSync(path)
+  assert.equal(createHash("sha256").update(bytes).digest("hex"), expectedSha256)
+  return JSON.parse(bytes.toString())
 }
 const rows = []
 for (const item of comparison.cases) {
@@ -20,8 +20,8 @@ for (const item of comparison.cases) {
     assert(phase.allRawFilesPresent && phase.startSrjEqual && phase.endSrjEqual)
     const measurements: Record<string, unknown> = {}
     for (const label of ["main", "head"]) {
-      const input = readPhase(phase[`${label}StartPath`], item.circuit, phase.phase, "start")
-      const output = readPhase(phase[`${label}EndPath`], item.circuit, phase.phase, "end")
+      const input = readPhase(phase[`${label}StartPath`], item.circuit, phase.phase, "start", phase[`${label}StartSha256`])
+      const output = readPhase(phase[`${label}EndPath`], item.circuit, phase.phase, "end", phase[`${label}EndSha256`])
       const requested = new Set(input.connections.map((c: any) => c.name))
       measurements[label] = input.buses.map((bus: any) => {
         const names = bus.connectionNames.filter((name: string) => requested.has(name))
@@ -70,6 +70,6 @@ for (const row of rows) {
     markdown += `| ${row.circuit} | ${row.phase} | ${bus.busId} | ${bus.totalCopperMm.toFixed(6)} | ${bus.minimumSignalMm.toFixed(6)} | ${bus.maximumSignalMm.toFixed(6)} | ${bus.maxMinSkewMm.toFixed(6)} |\n`
   }
 }
-markdown += "\n[Per-signal measurements and provenance](core-bus-copper-metrics.json) · [Calculation script](core-bus-copper-metrics.ts). The identical main/head raw start/end captures are preserved once per phase as gzip files in `core-completed-phases/`; their uncompressed hashes match both revisions in the core comparison. The script uses those captures, falling back to recorded workspace paths if they are absent.\n"
+markdown += "\n[Per-signal measurements and provenance](core-bus-copper-metrics.json) · [Calculation script](core-bus-copper-metrics.ts). The identical main/head raw start/end captures are preserved once per phase as gzip files in `core-completed-phases/`; their uncompressed hashes match both revisions in the core comparison. The script verifies both revisions' recorded raw-file hashes before measuring. Run `bun docs/global-bus-corridors/core-bus-copper-metrics.ts` from this evidence checkout to recompute without core or fresh routing.\n"
 writeFileSync(`${root}/core-bus-copper-metrics.md`, markdown)
 console.log(`Verified unchanged per-bus copper metrics for ${rows.length} completed phases`)

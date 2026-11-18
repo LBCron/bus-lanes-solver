@@ -1,20 +1,17 @@
 {
-  "updatedAt": "2026-11-18T20:00:06.109400+00:00",
+  "updatedAt": "2026-11-18T20:24:00.333668+00:00",
   "headSha": "190325da97253ad7951f9dfd3b0046b4afcb5395",
   "mainSha": "202b034659fb96bad44d11b8190f4044b675116f",
   "runId": 44382576930,
-  "partial": true,
-  "availablePairs": 9,
+  "partial": false,
+  "availablePairs": 11,
   "expectedPairs": 11,
-  "missing": [
-    "control-inner1",
-    "outer-layers"
-  ],
-  "acceptedMain": 9,
-  "acceptedPr": 9,
-  "comparablePairs": 9,
-  "identicalFullValidationPairs": 9,
-  "identicalIterationsPairs": 9,
+  "missing": [],
+  "acceptedMain": 11,
+  "acceptedPr": 11,
+  "comparablePairs": 11,
+  "identicalFullValidationPairs": 11,
+  "identicalIterationsPairs": 11,
   "lostCompletions": [],
   "gainedCompletions": [],
   "runtimeRegressionsAvailablePairs": [
@@ -112,6 +109,95 @@
           "pair_0": 0.0778683245814733,
           "pair_1": 0.12688373178988854,
           "pair_2": 0.07282965286481868
+        }
+      }
+    },
+    {
+      "sample": "control-inner1",
+      "metadataComparable": true,
+      "inputSha256": "14b5b318540ce7bac367cf22338abd7f9fffd2f7ce6c2a12f903116f50ca9bde",
+      "metadata": {
+        "order": [
+          "pr",
+          "main"
+        ],
+        "mainSha": "202b034659fb96bad44d11b8190f4044b675116f",
+        "prSha": "190325da97253ad7951f9dfd3b0046b4afcb5395",
+        "controllerSha": "202b034659fb96bad44d11b8190f4044b675116f",
+        "bunVersion": "1.4.0",
+        "platform": "linux",
+        "architecture": "x64",
+        "runnerName": "blacksmith-4vcpu-ubuntu-2404-blbdxrqess664bjn",
+        "runnerOS": "Linux"
+      },
+      "validationIdentical": true,
+      "iterationsIdentical": true,
+      "carrierLayerCountsIdentical": true,
+      "solveChangePercent": -2.098640609493896,
+      "main": {
+        "accepted": true,
+        "missingWorker": false,
+        "checks": {
+          "sampleIdentity": true,
+          "worker": true,
+          "status": true,
+          "budget": true,
+          "connectivity": true,
+          "matching": true,
+          "drc": true,
+          "fixed161": true,
+          "inputUnchanged": true,
+          "busSkew": true,
+          "pairSkew": true,
+          "pairCoupling": true,
+          "noIssues": true
+        },
+        "status": "solved",
+        "error": null,
+        "solveSeconds": 1186.910661326,
+        "wallSeconds": 1189.791245858,
+        "iterations": 98842,
+        "busSkews": {
+          "DDR_BYTE0": 0.6350000000017673,
+          "DDR_BYTE1": 0.6349999999999554
+        },
+        "pairSkews": {
+          "pair_0": 0.04889964467002983,
+          "pair_1": 0.004719837709238561,
+          "pair_2": 0.03021530790510596
+        }
+      },
+      "pr": {
+        "accepted": true,
+        "missingWorker": false,
+        "checks": {
+          "sampleIdentity": true,
+          "worker": true,
+          "status": true,
+          "budget": true,
+          "connectivity": true,
+          "matching": true,
+          "drc": true,
+          "fixed161": true,
+          "inputUnchanged": true,
+          "busSkew": true,
+          "pairSkew": true,
+          "pairCoupling": true,
+          "noIssues": true
+        },
+        "status": "solved",
+        "error": null,
+        "solveSeconds": 1162.0016721890001,
+        "wallSeconds": 1165.318454943,
+        "iterations": 98842,
+        "busSkews": {
+          "DDR_BYTE0": 0.6350000000017673,
+          "DDR_BYTE1": 0.6349999999999554
+        },
+        "pairSkews": {
+          "pair_0": 0.04889964467002983,
+          "pair_1": 0.004719837709238561,
+          "pair_2": 0.03021530790510596
         }
       }
     },
@@ -826,6 +912,95 @@
           "pair_0": 0.07535887199949798,
           "pair_1": 8.526512829121202e-14,
           "pair_2": 0.06638387191047457
+        }
+      }
+    },
+    {
+      "sample": "outer-layers",
+      "metadataComparable": true,
+      "inputSha256": "de3fd915f3c7d8c9bf4fd3c9b197596ba5e08c1be328f9c5223d7ab78736588f",
+      "metadata": {
+        "order": [
+          "main",
+          "pr"
+        ],
+        "mainSha": "202b034659fb96bad44d11b8190f4044b675116f",
+        "prSha": "190325da97253ad7951f9dfd3b0046b4afcb5395",
+        "controllerSha": "202b034659fb96bad44d11b8190f4044b675116f",
+        "bunVersion": "1.4.0",
+        "platform": "linux",
+        "architecture": "x64",
+        "runnerName": "blacksmith-4vcpu-ubuntu-2404-236ilqt4dign4t5b",
+        "runnerOS": "Linux"
+      },
+      "validationIdentical": true,
+      "iterationsIdentical": true,
+      "carrierLayerCountsIdentical": true,
+      "solveChangePercent": -4.750783026478988,
+      "main": {
+        "accepted": true,
+        "missingWorker": false,
+        "checks": {
+          "sampleIdentity": true,
+          "worker": true,
+          "status": true,
+          "budget": true,
+          "connectivity": true,
+          "matching": true,
+          "drc": true,
+          "fixed161": true,
+          "inputUnchanged": true,
+          "busSkew": true,
+          "pairSkew": true,
+          "pairCoupling": true,
+          "noIssues": true
+        },
+        "status": "solved",
+        "error": null,
+        "solveSeconds": 1039.640089575,
+        "wallSeconds": 1044.210100605,
+        "iterations": 4174041,
+        "busSkews": {
+          "DDR_BYTE0": 0.6350000110165794,
+          "DDR_BYTE1": 0.6349999999999838
+        },
+        "pairSkews": {
+          "pair_0": 0.019219371674388697,
+          "pair_1": 0.12700000000001666,
+          "pair_2": 0.12699999999989586
+        }
+      },
+      "pr": {
+        "accepted": true,
+        "missingWorker": false,
+        "checks": {
+          "sampleIdentity": true,
+          "worker": true,
+          "status": true,
+          "budget": true,
+          "connectivity": true,
+          "matching": true,
+          "drc": true,
+          "fixed161": true,
+          "inputUnchanged": true,
+          "busSkew": true,
+          "pairSkew": true,
+          "pairCoupling": true,
+          "noIssues": true
+        },
+        "status": "solved",
+        "error": null,
+        "solveSeconds": 990.2490446630001,
+        "wallSeconds": 994.1541846380001,
+        "iterations": 4174041,
+        "busSkews": {
+          "DDR_BYTE0": 0.6350000110165794,
+          "DDR_BYTE1": 0.6349999999999838
+        },
+        "pairSkews": {
+          "pair_0": 0.019219371674388697,
+          "pair_1": 0.12700000000001666,
+          "pair_2": 0.12699999999989586
         }
       }
     }

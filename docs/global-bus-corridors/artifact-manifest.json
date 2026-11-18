@@ -1,14 +1,15 @@
 {
-  "generatedAtUtc": "2026-11-18T20:07:52.844761+00:00",
+  "generatedAtUtc": "2026-11-18T20:28:20.790588+00:00",
   "productionSource": "190325da97253ad7951f9dfd3b0046b4afcb5395",
   "baselineSource": "202b034659fb96bad44d11b8190f4044b675116f",
-  "am3352Status": "9/11 fresh paired samples available and accepted; control-inner1 and outer-layers pending",
+  "am3352Status": "11/11 fresh paired samples accepted on both revisions; acceptance check green; no failures/timeouts/lost completions",
+  "coreStatus": "Final ten-board head 3/10,304/606 vs main2/10,270/606; no per-case connectivity decline; extra OrangeCrab completion deadline-sensitive",
   "newRoutingImageScope": "Only fresh completed quality-gallery base/head PNG/SVG; both PNGs individually inspected. All11 linked AM3352 PNGs are prior completed ec82 references. No failed or intermediate images.",
   "files": [
     {
       "path": "README.md",
-      "bytes": 7091,
-      "sha256": "dd103eebe45fb21b4017d1424804bf672803f78447d186bc65d87611eeebd1b5"
+      "bytes": 7424,
+      "sha256": "df084a96c6be2ff27e631c608aa620ade47c04089e7f1721f3f0f0dddcbd1e93"
     },
     {
       "path": "a64-public-stage/README.md",
@@ -91,14 +92,34 @@
       "sha256": "b1b91ba9081420fccf2b4115dc32c4396718b35de84c3557bf17d89942e22070"
     },
     {
+      "path": "am3352/README.md",
+      "bytes": 3919,
+      "sha256": "7d636f75826bc0df40420919e2f5dcc96699821eebde4d6ff50ab057584b0f17"
+    },
+    {
       "path": "am3352/above/above.json",
       "bytes": 33357,
       "sha256": "c6fc50a6e185b00a1629539d011b4d6c83022eb5544e6256ba850998e6139558"
     },
     {
+      "path": "am3352/comparison.md",
+      "bytes": 9656,
+      "sha256": "c0e659c2e0b912f9303ca3a15d1ae56e1f490c002d6a2d88249b2bd0efd84d5f"
+    },
+    {
       "path": "am3352/control/control.json",
       "bytes": 33414,
       "sha256": "d5ab265ea256a1193d1c678c6a4b96913452f3986d2763403eefd681df4c038a"
+    },
+    {
+      "path": "am3352/control-inner1/control-inner1.json",
+      "bytes": 31890,
+      "sha256": "d2de3d5c6ed8916624c2d9ba3113234e7e15c39bace17e459ce5289b7ae1082f"
+    },
+    {
+      "path": "am3352/independent-audit.txt",
+      "bytes": 1561,
+      "sha256": "c5aebe042a94fbe217eaf3060c5ccae2877d201f33bc13b2ed04172cf347d60c"
     },
     {
       "path": "am3352/inner-layers/inner-layers.json",
@@ -131,14 +152,34 @@
       "sha256": "7c69eeeee152527a42d686d104007ef0fd9bd2e4f7c6770e0d394fd7135a2116"
     },
     {
+      "path": "am3352/outer-layers/outer-layers.json",
+      "bytes": 32747,
+      "sha256": "757c69d1a709097421b9946c8d001edf2c924c7110841bfe23e18f3735fce020"
+    },
+    {
       "path": "am3352/progress.json",
-      "bytes": 24515,
-      "sha256": "54b15eafae384430db9fca1359db6ba5f32ef9a990c608d4ee79683cdd9b43d8"
+      "bytes": 29768,
+      "sha256": "49d6d8a68e5cf717e13f16812c11857c2bec9fec33b0fc0047b39af9aac7a68f"
+    },
+    {
+      "path": "am3352/provenance.json",
+      "bytes": 18228,
+      "sha256": "40f4838da6311296f6bfc8d9d273a2b975db02e5a88794b1c6ea434625730ab8"
+    },
+    {
+      "path": "am3352/render-final.ts",
+      "bytes": 1386,
+      "sha256": "caabbb1288ff794ef021678bd45aab777c26afa0d1aa1d540848b96dbb70365f"
     },
     {
       "path": "am3352/right/right.json",
       "bytes": 33208,
       "sha256": "14b1bfc4906faa0b961322d038f1cd096d00f54e2eef3ad31e992f44da97ba86"
+    },
+    {
+      "path": "am3352/summary.json",
+      "bytes": 25288,
+      "sha256": "7b93db0e61878f43e9e5b364ff6c04006248f5a4c270eec8346e0aca405426f5"
     },
     {
       "path": "am3352/tests-pr-summary.json",
@@ -151,9 +192,24 @@
       "sha256": "d2d421acf7b75153ad138c839afdbeb5baa4569ea5a9edd4955d3f456ece053a"
     },
     {
+      "path": "am3352-reference-gallery/compare-retained.cjs",
+      "bytes": 8352,
+      "sha256": "774274dd3d5a0d19ad9e40e97e11c3f538807765872daa0d5ddea36229c42bf7"
+    },
+    {
+      "path": "am3352-reference-gallery/retained-reference-comparison.json",
+      "bytes": 210461,
+      "sha256": "c1c284209cd3caf5598f1efa875c46887adac6db73357f33cb1bf6d08ac95feb"
+    },
+    {
       "path": "am3352-reference-gallery/retained-reference-gallery.md",
-      "bytes": 4745,
-      "sha256": "9dc99e9d6535dce6cfb91c71d1a1729ca93c5f4ef86fb4c136caa21c15a7de2c"
+      "bytes": 5319,
+      "sha256": "b6f6194915023a0843a1c95fc60fc28151831933c0dea763402cab9f2094b66f"
+    },
+    {
+      "path": "am3352-reference-gallery/retained-reference-native-summary.json",
+      "bytes": 1487,
+      "sha256": "cb4f54963a912efe3c7f9c69e8887439bf04216563758fc61b0d1980ebe88322"
     },
     {
       "path": "am3352-reference-gallery/retained-reference-review.json",
@@ -168,17 +224,17 @@
     {
       "path": "core-bus-copper-metrics.json",
       "bytes": 87249,
-      "sha256": "9a4358023d2639964518bf974094cd35d7338bac892ee21bba1dc0ea02916a19"
+      "sha256": "58cf53e9efe7610b52f128970248ace0642ee01f7b41c1725a6456953974952c"
     },
     {
       "path": "core-bus-copper-metrics.md",
-      "bytes": 3020,
-      "sha256": "3a0c0918347197dd3703cb65615c2296a5a368aaae32a1cd0bf381f70c68f65f"
+      "bytes": 3141,
+      "sha256": "d45d41aa4e84f0298028c76776bfe5c4ac21f5caeb81c44ac4e4a095c46491ce"
     },
     {
       "path": "core-bus-copper-metrics.ts",
-      "bytes": 4909,
-      "sha256": "5a033be604b40705110a1092a5bce96742f8ce4073f27abdbec1a3cfc3aff7f3"
+      "bytes": 5065,
+      "sha256": "c26307a56a59f499e8353e195974860dd8149ac47de1b5cfee28fa8c16a2edc6"
     },
     {
       "path": "core-comparison.json",
@@ -642,8 +698,8 @@
     },
     {
       "path": "research-synthesis.md",
-      "bytes": 14961,
-      "sha256": "0b8c8c6e2c8a3bc5ab77605df8e964e622bc686c9173c1f0a948f237e6fa6451"
+      "bytes": 14947,
+      "sha256": "f7833109e9d8cbddcd21064df6550efb191c8822de4dff949cc28bb1281d4a1f"
     },
     {
       "path": "synthetic/compare-active-corridors-supplement-only-results.json",

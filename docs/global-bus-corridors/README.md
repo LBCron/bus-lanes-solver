@@ -62,16 +62,22 @@ Formatting, typecheck and package checks passed. Nine targeted tests across
 eight files separately preserved A13/ButterStick snapshots, pending-pad access
 and the A64 public default pipeline.
 
-**Checkpoint: AM3352 validation is incomplete.** Nine of eleven fresh paired
-Blacksmith samples are available and accepted on both revisions: 47/47
-connections, full bus matching, fixed/combined DRC, all three pair skew/coupling
-checks, and 161 supplied power traces/vias/pad joins preserved. Full validation
-objects and iteration counts agree in those nine pairs. Six single-pair runtime
-increases are recorded; no broad speedup is claimed. The two slow samples retain
-their full 3,600-second per-revision/sample budgets and must finish before merge.
+**All eleven fresh paired AM3352 samples pass on both revisions.** The required
+`AM3352 benchmark (11/11)` acceptance check is green: 47/47 connections per
+sample, full bus matching, fixed/combined DRC, all three pair skew/coupling
+checks, and 161 supplied power traces/vias/pad joins preserved. Inputs, full
+validation objects and iteration counts agree in all eleven pairs. No completion
+is lost or gained. Each revision/sample retained its full 3,600-second budget.
+
+Six single-pair runtime increases are recorded. P50 changes from 82.328 to
+76.652 seconds (−6.9%), P80 355.006→343.864 (−3.1%), P90
+1039.640→990.249 (−4.8%), and P95 1113.275→1076.125 (−3.3%). These are
+eleven single pairs; no general runtime improvement is established. Every
+per-case increase remains in the report.
 
 - [Fresh paired Blacksmith workflow](https://github.com/tscircuit/bus-lanes-solver/actions/runs/44382576930)
-- [Available-pair status, measurements and every acceptance gate](am3352/progress.json)
+- [Full paired AM3352 comparison and reproduction command](am3352/README.md)
+- [All eleven pairs, measurements and every acceptance gate](am3352/progress.json)
 - [Push full-suite counts](am3352/tests-push-summary.json)
 - [PR full-suite counts](am3352/tests-pr-summary.json)
 - [All eleven individually inspected, prior completed AM3352 reference images](am3352-reference-gallery/retained-reference-gallery.md)
@@ -101,5 +107,5 @@ relationships exposed together. The core benchmark establishes routing and
 native geometry, not DDR timing, impedance or signal-integrity compliance.
 
 Only completed routing images are included or linked. Failed/intermediate
-diagnostic images are excluded. The AM3352 checkpoint above is intentionally
-explicit until the final two comparisons finish.
+diagnostic images are excluded. Core and AM3352 comparisons both use final
+production source `190325da97253ad7951f9dfd3b0046b4afcb5395`.

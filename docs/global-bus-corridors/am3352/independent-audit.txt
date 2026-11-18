@@ -1,0 +1,9 @@
+Final independent audit, 2026-11-18: accepted 11/11 on pinned main 202b034659fb96bad44d11b8190f4044b675116f and final source 190325da97253ad7951f9dfd3b0046b4afcb5395.
+
+All eleven cases pass 47/47 connectivity, full total-copper bus and differential-pair matching, continuous DRC, three distinct pair skew/coupling checks, and immutable fixed-161 power preservation. Fixture hashes, pinned revision/controller metadata, runtime, Blacksmith runner class and alternating order are comparable. Finite numeric measurements, unique IDs and total-copper calculations independently checked. Every main/head pair has identical full validation objects, carrier counts and iteration counts. No lost completions, missing cases, timeouts or audit defects.
+
+Measured solve-time increases in the one paired measurement per case: control +14.71%, right +15.65%, above +5.30%, inner-layers +6.50%, inner-layers-left +8.64%, inner-layers-complete-ca +8.19%. These remain in the report. The other five cases have lower measured times. These measurements do not establish a statistical speedup.
+
+Full validation identity does not establish exact routed-geometry identity: the fresh CI artifacts contain validation measurements without routed copper. Retained image provenance and comparisons are separate.
+
+Both final push and pull-request full test suites passed 623 tests with zero failures. All six pull-request workflows, including the required AM3352 benchmark (11/11) acceptance check, completed successfully. Hosted and local trusted comparison Markdown are byte-identical.
