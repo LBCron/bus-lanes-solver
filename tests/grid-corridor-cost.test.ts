@@ -4,6 +4,10 @@ import { GridVisibilitySearch } from "../lib/grid-visibility"
 import { VectorScene } from "../lib/vector-scene"
 import type { SimpleRouteJson } from "../lib/types"
 
+function getCentralChannelCost(x: number, y: number): number {
+  return x > 1 && x < 5 && Math.abs(y) < 0.75 ? 5 : 0
+}
+
 test("advisory corridor costs permit detours without changing physical length limits", () => {
   const input: SimpleRouteJson = {
     layerCount: 2,
@@ -22,8 +26,6 @@ test("advisory corridor costs permit detours without changing physical length li
   }
   const connection = input.connections[0]
   const scene = new VectorScene(input, connection, 0.1, [])
-  const costAt = (x: number, y: number): number =>
-    x > 1 && x < 5 && Math.abs(y) < 0.75 ? 5 : 0
   for (const maxLength of [8, 6]) {
     const search = new GridVisibilitySearch(
       scene,
@@ -37,7 +39,7 @@ test("advisory corridor costs permit detours without changing physical length li
         step: 0.25,
         maxLength,
         paretoLength: true,
-        costAt,
+        costAt: getCentralChannelCost,
       },
     )
     while (!search.solved && !search.failed) search.step()

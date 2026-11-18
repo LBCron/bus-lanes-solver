@@ -1,7 +1,10 @@
 import { expect, test } from "bun:test"
 import { validateRoutedCopperDrc } from "@tscircuit/fanout-solver"
 import { negotiateLanes } from "../lib/negotiate-lanes"
-import { planBusCorridors } from "../lib/plan-bus-corridors"
+import {
+  planBusCorridors,
+  type ConnectionName,
+} from "../lib/plan-bus-corridors"
 import type { SimpleRouteJson } from "../lib/types"
 import { fixedCopper } from "../lib/vector-scene"
 
@@ -39,11 +42,16 @@ test("global corridor candidates retain complete routing of a congested sixteen-
       connectedTo: ["wall"],
     })),
   }
-  const widths = new Map(
+  const widths = new Map<ConnectionName, number>(
     input.connections.map((connection) => [connection.name, 0.1]),
   )
   const copper = fixedCopper(input)
-  const planning = planBusCorridors(input, input.connections, copper, widths)
+  const planning = planBusCorridors({
+    input,
+    connections: input.connections,
+    fixed: copper,
+    widths,
+  })
   let plan = planning.next()
   while (!plan.done) plan = planning.next()
   expect(plan.value.size).toBe(count)

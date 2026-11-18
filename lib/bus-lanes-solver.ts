@@ -26,9 +26,8 @@ import {
   routeCoupledPairTopology,
 } from "./coupled-pair-routing"
 import { reduceOrdinaryTurns } from "./reduce-ordinary-turns"
-import { isUnroutedComponentPad } from "./is-unrouted-component-pad"
+import { shouldNegotiateUntimedBus } from "./should-negotiate-untimed-bus"
 import { BaseSolver } from "@tscircuit/solver-utils"
-import { getCopperLayerNames } from "@tscircuit/fanout-solver"
 import type { GraphicsObject } from "graphics-debug"
 import type {
   SimpleRouteJson,
@@ -104,39 +103,7 @@ export class BusLanesSolver extends BaseSolver {
     super()
     this.input = structuredClone(input)
     this.options = options
-    const names = new Set(
-      input.connections.map((connection) => connection.name),
-    )
-    const innerCarriers = getCopperLayerNames(input.layerCount).filter(
-      (layer) =>
-        /^inner\d+$/.test(layer) &&
-        (!input.allowedLayers || input.allowedLayers.includes(layer)),
-    )
-    this.negotiateUntimedBus =
-      !options.preserveBranchAccess &&
-      !input.differentialPairs?.length &&
-      !!input.buses?.length &&
-      !input.buses.some(
-        (bus) =>
-          bus.minLength !== undefined ||
-          bus.maxLength !== undefined ||
-          bus.maxLengthSkew !== undefined,
-      ) &&
-      input.connections.every(
-        (connection) =>
-          connection.pointsToConnect.length === 2 &&
-          connection.pointsToConnect.every((point) =>
-            isUnroutedComponentPad(input, connection, point),
-          ),
-      ) &&
-      input.buses.some(
-        (bus) =>
-          new Set(bus.connectionNames.filter((name) => names.has(name))).size >=
-            8 &&
-          innerCarriers.some(
-            (layer) => !bus.allowedLayers || bus.allowedLayers.includes(layer),
-          ),
-      )
+    this.negotiateUntimedBus = shouldNegotiateUntimedBus({ input, options })
     this.MAX_ITERATIONS = options.maxSearchIterations ?? 200000
   }
   /** Start an ordinary fresh solve with a different package-entry topology.

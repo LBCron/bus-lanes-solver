@@ -1,5 +1,9 @@
 import { expect, test } from "bun:test"
-import { planBusCorridors } from "../lib/plan-bus-corridors"
+import {
+  planBusCorridors,
+  type BusCorridorGuide,
+  type ConnectionName,
+} from "../lib/plan-bus-corridors"
 import type { SimpleRouteJson } from "../lib/types"
 
 test("mixed extreme widths keep advisory footprint work bounded by the coarse grid", () => {
@@ -37,20 +41,20 @@ test("mixed extreme widths keep advisory footprint work bounded by the coarse gr
   // The huge width is intentionally beyond this board's physical capacity.
   // Global planning remains advisory and must neither loop over width² nor
   // turn a coarse result into an accepted routing claim.
-  const work = planBusCorridors(
+  const work = planBusCorridors({
     input,
-    input.connections,
-    [],
-    new Map([
+    connections: input.connections,
+    fixed: [],
+    widths: new Map<ConnectionName, number>([
       ["wide", 1e12],
       ["D0", 0.1],
       ["D1", 0.1],
     ]),
-  )
+  })
   let state = work.next()
   let steps = 0
   while (!state.done && steps++ < 1000) state = work.next()
   expect(state.done).toBe(true)
   expect(steps).toBeLessThan(1000)
-  if (!state.done) work.return(new Map())
+  if (!state.done) work.return(new Map<ConnectionName, BusCorridorGuide>())
 })

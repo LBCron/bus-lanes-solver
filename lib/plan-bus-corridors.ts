@@ -1,13 +1,15 @@
 import { distance } from "./geometry"
 import { MinHeap } from "./min-heap"
 import { packageApproachRegions, pointInBox } from "./package-approach-regions"
-import type { Connection, Point, SimpleRouteJson } from "./types"
+import type { Connection, Point, SimpleRouteJson, Terminal } from "./types"
 import { VectorScene, type Copper } from "./vector-scene"
 
 type Bounds = SimpleRouteJson["bounds"]
+export type ConnectionName = Connection["name"]
+type CopperLayerName = Terminal["layer"]
 type PlannedLane = {
   connection: Connection
-  layer: string
+  layer: CopperLayerName
   demand: number
   scene: VectorScene
   ends: Bounds[]
@@ -17,12 +19,22 @@ type PlannedLane = {
   occupied?: number[]
 }
 
+interface CorridorPlanningContext {
+  bounds: Bounds
+  step: number
+  nx: number
+  ny: number
+  cells: number
+  usage: Map<CopperLayerName, Float32Array>
+  history: Map<CopperLayerName, Float32Array>
+}
+
 export interface BusCorridorGuide {
-  readonly layer: string
+  readonly layer: CopperLayerName
   readonly path: readonly Point[]
   /** Dimensionless additive cost per routing-grid step. A guide never removes
    * a legal edge, changes connectivity, or claims its coarse path is copper. */
-  costAt(x: number, y: number, layer: string): number
+  costAt(point: Terminal): number
 }
 
 const directions = [-1, 0, 1].flatMap((dy) =>
@@ -30,6 +42,202 @@ const directions = [-1, 0, 1].flatMap((dy) =>
     .filter((dx) => dx !== 0 || dy !== 0)
     .map((dx) => ({ dx, dy, length: Math.hypot(dx, dy) })),
 )
+
+function getCorridorGridPoint(
+  { id }: { id: number },
+  { bounds, nx, step }: CorridorPlanningContext,
+): Point {
+  return {
+    x: bounds.minX + (id % nx) * step,
+    y: bounds.minY + Math.floor(id / nx) * step,
+  }
+}
+
+function getCorridorGridCell(
+  { point }: { point: Point },
+  { bounds, nx, ny, step }: CorridorPlanningContext,
+): number {
+  return (
+    Math.max(0, Math.min(nx - 1, Math.round((point.x - bounds.minX) / step))) +
+    nx *
+      Math.max(0, Math.min(ny - 1, Math.round((point.y - bounds.minY) / step)))
+  )
+}
+
+function getPointOnCorridorEdge({
+  a,
+  b,
+  t,
+}: {
+  a: Point
+  b: Point
+  t: number
+}): Point {
+  return { x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t }
+}
+
+/** Clip only endpoint escape fields; exterior portions retain exact visibility. */
+function isCorridorEdgeClear({
+  lane,
+  a,
+  b,
+}: {
+  lane: PlannedLane
+  a: Point
+  b: Point
+}): boolean {
+  const cuts = [0, 1]
+  for (const box of lane.ends) {
+    for (const [coordinate, low, high] of [
+      ["x", box.minX, box.maxX],
+      ["y", box.minY, box.maxY],
+    ] as const) {
+      const delta = b[coordinate] - a[coordinate]
+      if (Math.abs(delta) < 1e-12) continue
+      for (const edge of [low, high]) {
+        const t = (edge - a[coordinate]) / delta
+        if (t > 0 && t < 1) cuts.push(t)
+      }
+    }
+  }
+  cuts.sort((a, b) => a - b)
+  for (let i = 1; i < cuts.length; i++) {
+    const lo = cuts[i - 1],
+      hi = cuts[i]
+    if (
+      lane.ends.some((box) =>
+        pointInBox(getPointOnCorridorEdge({ a, b, t: (lo + hi) / 2 }), box),
+      )
+    )
+      continue
+    if (
+      !lane.scene.visible(
+        getPointOnCorridorEdge({ a, b, t: lo }),
+        getPointOnCorridorEdge({ a, b, t: hi }),
+      )
+    )
+      return false
+  }
+  return true
+}
+
+function* routeCorridorLane(
+  { lane, negotiate }: { lane: PlannedLane; negotiate: boolean },
+  context: CorridorPlanningContext,
+): Generator<void, number[] | undefined> {
+  const { cells, nx, ny, usage, history, step } = context
+  const start = getCorridorGridCell(
+    { point: lane.connection.pointsToConnect[0] },
+    context,
+  )
+  const end = getCorridorGridCell(
+    { point: lane.connection.pointsToConnect[1] },
+    context,
+  )
+  const best = new Float64Array(cells).fill(Infinity)
+  const parent = new Int32Array(cells).fill(-1)
+  const heap = new MinHeap<{ id: number; f: number }>()
+  const occupied = usage.get(lane.layer)!
+  const accumulated = history.get(lane.layer)!
+  best[start] = 0
+  heap.push({ id: start, f: 0 })
+  let expanded = 0
+  while (heap.length) {
+    const current = heap.pop()
+    if (current.f > best[current.id] + 1e-9) continue
+    if (current.id === end) {
+      const result = [end]
+      while (result[result.length - 1] !== start)
+        result.push(parent[result[result.length - 1]])
+      return result.reverse()
+    }
+    if (++expanded % 256 === 0) yield
+    const x = current.id % nx,
+      y = Math.floor(current.id / nx)
+    for (const [direction, neighbor] of directions.entries()) {
+      const xx = x + neighbor.dx,
+        yy = y + neighbor.dy
+      if (xx < 0 || xx >= nx || yy < 0 || yy >= ny) continue
+      const id = xx + yy * nx
+      const bit = 1 << direction
+      if (!(lane.known[current.id] & bit)) {
+        lane.known[current.id] |= bit
+        if (
+          !isCorridorEdgeClear({
+            lane,
+            a: getCorridorGridPoint({ id: current.id }, context),
+            b: getCorridorGridPoint({ id }, context),
+          })
+        )
+          lane.blocked[current.id] |= bit
+      }
+      if (lane.blocked[current.id] & bit) continue
+      const released = lane.ends.some((box) =>
+        pointInBox(getCorridorGridPoint({ id }, context), box),
+      )
+      const over = Math.max(0, (occupied[id] + lane.demand - step) / step)
+      const congestion =
+        negotiate && !released ? 4 * over * over + accumulated[id] : 0
+      const cost = current.f + neighbor.length * (1 + congestion)
+      if (cost >= best[id] - 1e-9) continue
+      best[id] = cost
+      parent[id] = current.id
+      heap.push({ id, f: cost })
+    }
+  }
+  // Coarse reachability cannot certify detailed unroutability.
+  return undefined
+}
+
+function getCorridorFootprint(
+  { lane, path }: { lane: PlannedLane; path: number[] },
+  context: CorridorPlanningContext,
+): number[] {
+  const { step, nx, ny } = context
+  const occupied = new Set<number>()
+  const radius = Math.max(0, Math.ceil((lane.demand / step - 1) / 2))
+  for (const id of path) {
+    const x = id % nx,
+      y = Math.floor(id / nx)
+    for (
+      let dy = Math.max(-radius, -y);
+      dy <= Math.min(radius, ny - 1 - y);
+      dy++
+    )
+      for (
+        let dx = Math.max(-radius, -x);
+        dx <= Math.min(radius, nx - 1 - x);
+        dx++
+      ) {
+        const xx = x + dx,
+          yy = y + dy
+        const next = xx + yy * nx
+        if (
+          !lane.ends.some((box) =>
+            pointInBox(getCorridorGridPoint({ id: next }, context), box),
+          )
+        )
+          occupied.add(next)
+      }
+  }
+  return [...occupied]
+}
+
+function updateCorridorUsage(
+  { lane, sign }: { lane: PlannedLane; sign: number },
+  { usage, step }: CorridorPlanningContext,
+): void {
+  const occupied = usage.get(lane.layer)!
+  for (const id of lane.occupied ?? [])
+    occupied[id] += sign * Math.min(step, lane.demand)
+}
+
+function getCorridorOverflow({ usage, step }: CorridorPlanningContext): number {
+  let total = 0
+  for (const layer of usage.values())
+    for (const demand of layer) total += Math.max(0, demand - step - 1e-7)
+  return total
+}
 
 /** Isolate guide lifetime from the planner's scenes, occupancy and history. */
 function createBusCorridorGuide({
@@ -42,7 +250,7 @@ function createBusCorridorGuide({
   nx,
   ny,
 }: {
-  guideLayer: string
+  guideLayer: CopperLayerName
   path: Point[]
   ends: Bounds[]
   distances: Float64Array
@@ -54,7 +262,7 @@ function createBusCorridorGuide({
   return {
     layer: guideLayer,
     path,
-    costAt(x: number, y: number, layer: string): number {
+    costAt({ x, y, layer }: Terminal): number {
       if (layer !== guideLayer) return 0
       let taper = 1
       for (const box of ends) {
@@ -89,14 +297,20 @@ function createBusCorridorGuide({
  * copper routing remains responsible for escape geometry and acceptance.
  * Uncongested or unimproved coarse plans deliberately produce no guidance.
  */
-export function* planBusCorridors(
-  input: SimpleRouteJson,
-  connections: Connection[],
-  fixed: Copper[],
-  widths: ReadonlyMap<string, number>,
-  terminalLayers: ReadonlyMap<string, string[]> = new Map(),
-): Generator<void, Map<string, BusCorridorGuide>> {
-  const guides = new Map<string, BusCorridorGuide>()
+export function* planBusCorridors({
+  input,
+  connections,
+  fixed,
+  widths,
+  terminalLayers = new Map(),
+}: {
+  input: SimpleRouteJson
+  connections: Connection[]
+  fixed: Copper[]
+  widths: ReadonlyMap<ConnectionName, number>
+  terminalLayers?: ReadonlyMap<ConnectionName, CopperLayerName[]>
+}): Generator<void, Map<ConnectionName, BusCorridorGuide>> {
+  const guides = new Map<ConnectionName, BusCorridorGuide>()
   const members = new Set(input.buses?.flatMap((bus) => bus.connectionNames))
   // Coarse lane demand does not yet include space for length-tuning banks.
   // Keep matched cohorts on their existing matching-aware search objective.
@@ -150,13 +364,6 @@ export function* planBusCorridors(
   const ny = Math.floor(spanY / step) + 1
   if (nx < 2 || ny < 2) return guides
   const cells = nx * ny
-  const point = (id: number): Point => ({
-    x: bounds.minX + (id % nx) * step,
-    y: bounds.minY + Math.floor(id / nx) * step,
-  })
-  const cell = (p: Point): number =>
-    Math.max(0, Math.min(nx - 1, Math.round((p.x - bounds.minX) / step))) +
-    nx * Math.max(0, Math.min(ny - 1, Math.round((p.y - bounds.minY) / step)))
   const packages = packageApproachRegions(input, step)
   const lanes: PlannedLane[] = pending.map((connection, index) => {
     const layer = connection.pointsToConnect[0].layer
@@ -191,139 +398,29 @@ export function* planBusCorridors(
       blocked: new Uint8Array(cells),
     }
   })
-  const usage = new Map<string, Float32Array>()
-  const history = new Map<string, Float32Array>()
+  const usage = new Map<CopperLayerName, Float32Array>()
+  const history = new Map<CopperLayerName, Float32Array>()
+  const context: CorridorPlanningContext = {
+    bounds,
+    step,
+    nx,
+    ny,
+    cells,
+    usage,
+    history,
+  }
   for (const lane of lanes) {
     if (usage.has(lane.layer)) continue
     usage.set(lane.layer, new Float32Array(cells))
     history.set(lane.layer, new Float32Array(cells))
   }
-  // Clip only the endpoint escape fields out of a coarse edge. Exact visibility
-  // still checks every exterior portion, including fixed interconnect copper.
-  const clearEdge = (lane: PlannedLane, a: Point, b: Point): boolean => {
-    const cuts = [0, 1]
-    for (const box of lane.ends) {
-      for (const [coordinate, low, high] of [
-        ["x", box.minX, box.maxX],
-        ["y", box.minY, box.maxY],
-      ] as const) {
-        const delta = b[coordinate] - a[coordinate]
-        if (Math.abs(delta) < 1e-12) continue
-        for (const edge of [low, high]) {
-          const t = (edge - a[coordinate]) / delta
-          if (t > 0 && t < 1) cuts.push(t)
-        }
-      }
-    }
-    cuts.sort((a, b) => a - b)
-    for (let i = 1; i < cuts.length; i++) {
-      const lo = cuts[i - 1],
-        hi = cuts[i]
-      const at = (t: number): Point => ({
-        x: a.x + (b.x - a.x) * t,
-        y: a.y + (b.y - a.y) * t,
-      })
-      if (lane.ends.some((box) => pointInBox(at((lo + hi) / 2), box))) continue
-      if (!lane.scene.visible(at(lo), at(hi))) return false
-    }
-    return true
-  }
-  function* route(
-    lane: PlannedLane,
-    negotiate: boolean,
-  ): Generator<void, number[] | undefined> {
-    const start = cell(lane.connection.pointsToConnect[0])
-    const end = cell(lane.connection.pointsToConnect[1])
-    const best = new Float64Array(cells).fill(Infinity)
-    const parent = new Int32Array(cells).fill(-1)
-    const heap = new MinHeap<{ id: number; f: number }>()
-    const occupied = usage.get(lane.layer)!
-    const accumulated = history.get(lane.layer)!
-    best[start] = 0
-    heap.push({ id: start, f: 0 })
-    let expanded = 0
-    while (heap.length) {
-      const current = heap.pop()
-      if (current.f > best[current.id] + 1e-9) continue
-      if (current.id === end) {
-        const result = [end]
-        while (result[result.length - 1] !== start)
-          result.push(parent[result[result.length - 1]])
-        return result.reverse()
-      }
-      if (++expanded % 256 === 0) yield
-      const x = current.id % nx,
-        y = Math.floor(current.id / nx)
-      for (const [direction, neighbor] of directions.entries()) {
-        const xx = x + neighbor.dx,
-          yy = y + neighbor.dy
-        if (xx < 0 || xx >= nx || yy < 0 || yy >= ny) continue
-        const id = xx + yy * nx
-        const bit = 1 << direction
-        if (!(lane.known[current.id] & bit)) {
-          lane.known[current.id] |= bit
-          if (!clearEdge(lane, point(current.id), point(id)))
-            lane.blocked[current.id] |= bit
-        }
-        if (lane.blocked[current.id] & bit) continue
-        const released = lane.ends.some((box) => pointInBox(point(id), box))
-        const over = Math.max(0, (occupied[id] + lane.demand - step) / step)
-        const congestion =
-          negotiate && !released ? 4 * over * over + accumulated[id] : 0
-        const cost = current.f + neighbor.length * (1 + congestion)
-        if (cost >= best[id] - 1e-9) continue
-        best[id] = cost
-        parent[id] = current.id
-        heap.push({ id, f: cost })
-      }
-    }
-    // A coarse graph cannot certify detailed unroutability. Omit that lane's
-    // advisory guide and leave its fine escape and copper search authoritative.
-    return undefined
-  }
-  const footprint = (lane: PlannedLane, path: number[]): number[] => {
-    const occupied = new Set<number>()
-    const radius = Math.max(0, Math.ceil((lane.demand / step - 1) / 2))
-    for (const id of path) {
-      const x = id % nx,
-        y = Math.floor(id / nx)
-      for (
-        let dy = Math.max(-radius, -y);
-        dy <= Math.min(radius, ny - 1 - y);
-        dy++
-      )
-        for (
-          let dx = Math.max(-radius, -x);
-          dx <= Math.min(radius, nx - 1 - x);
-          dx++
-        ) {
-          const xx = x + dx,
-            yy = y + dy
-          const next = xx + yy * nx
-          if (!lane.ends.some((box) => pointInBox(point(next), box)))
-            occupied.add(next)
-        }
-    }
-    return [...occupied]
-  }
-  const updateUsage = (lane: PlannedLane, sign: number): void => {
-    const occupied = usage.get(lane.layer)!
-    for (const id of lane.occupied ?? [])
-      occupied[id] += sign * Math.min(step, lane.demand)
-  }
-  const overflow = (): number => {
-    let total = 0
-    for (const layer of usage.values())
-      for (const demand of layer) total += Math.max(0, demand - step - 1e-7)
-    return total
-  }
   for (const lane of lanes) {
-    lane.path = yield* route(lane, false)
+    lane.path = yield* routeCorridorLane({ lane, negotiate: false }, context)
     if (!lane.path) continue
-    lane.occupied = footprint(lane, lane.path)
-    updateUsage(lane, 1)
+    lane.occupied = getCorridorFootprint({ lane, path: lane.path }, context)
+    updateCorridorUsage({ lane, sign: 1 }, context)
   }
-  const initialOverflow = overflow()
+  const initialOverflow = getCorridorOverflow(context)
   if (initialOverflow < 1e-6) return guides
   let bestOverflow = initialOverflow
   let bestPaths = new Map<PlannedLane, number[]>()
@@ -344,17 +441,17 @@ export function* planBusCorridors(
   for (let pass = 0; pass < 4; pass++) {
     for (const lane of order) {
       if (!lane.path) continue
-      updateUsage(lane, -1)
-      const path = yield* route(lane, true)
+      updateCorridorUsage({ lane, sign: -1 }, context)
+      const path = yield* routeCorridorLane({ lane, negotiate: true }, context)
       if (!path)
         throw Error(
           `Previously reachable coarse corridor disappeared for ${lane.connection.name}`,
         )
       lane.path = path
-      lane.occupied = footprint(lane, path)
-      updateUsage(lane, 1)
+      lane.occupied = getCorridorFootprint({ lane, path }, context)
+      updateCorridorUsage({ lane, sign: 1 }, context)
     }
-    const total = overflow()
+    const total = getCorridorOverflow(context)
     if (total < bestOverflow - 1e-6) {
       bestOverflow = total
       bestPaths = new Map(
@@ -398,7 +495,7 @@ export function* planBusCorridors(
       lane.connection.name,
       createBusCorridorGuide({
         guideLayer: lane.layer,
-        path: path.map(point),
+        path: path.map((id) => getCorridorGridPoint({ id }, context)),
         ends: lane.ends,
         distances,
         bounds,

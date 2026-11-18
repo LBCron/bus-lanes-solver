@@ -1,5 +1,8 @@
 import { expect, test } from "bun:test"
-import { planBusCorridors } from "../lib/plan-bus-corridors"
+import {
+  planBusCorridors,
+  type ConnectionName,
+} from "../lib/plan-bus-corridors"
 import type { SimpleRouteJson } from "../lib/types"
 import { fixedCopper, VectorScene } from "../lib/vector-scene"
 
@@ -47,12 +50,14 @@ test("coarse guides account for fixed copper and can initially travel away from 
     ],
   }
   const copper = fixedCopper(input)
-  const work = planBusCorridors(
+  const work = planBusCorridors({
     input,
-    input.connections,
-    copper,
-    new Map(input.connections.map((connection) => [connection.name, 0.1])),
-  )
+    connections: input.connections,
+    fixed: copper,
+    widths: new Map<ConnectionName, number>(
+      input.connections.map((connection) => [connection.name, 0.1]),
+    ),
+  })
   let state = work.next()
   while (!state.done) state = work.next()
   expect(state.value.size).toBe(8)

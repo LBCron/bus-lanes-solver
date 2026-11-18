@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs"
 import { validateRoutedCopperDrc } from "@tscircuit/fanout-solver"
 import { length } from "../lib/geometry"
 import { negotiateLanes } from "../lib/negotiate-lanes"
+import type { ConnectionName } from "../lib/plan-bus-corridors"
 import type { SimpleRouteJson } from "../lib/types"
 import { fixedCopper } from "../lib/vector-scene"
 
@@ -19,7 +20,9 @@ test("planned corridor alternatives shorten a congested bus without replacing it
     input.connections,
     fixedCopper(input),
     [],
-    new Map(input.connections.map((connection) => [connection.name, 0.1])),
+    new Map<ConnectionName, number>(
+      input.connections.map((connection) => [connection.name, 0.1]),
+    ),
   )
   let state = work.next()
   let steps = 0
