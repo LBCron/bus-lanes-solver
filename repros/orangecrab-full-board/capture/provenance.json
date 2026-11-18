@@ -1,7 +1,7 @@
 {
-  "state": "baseline_timeout",
-  "busSourceCommit": "202b034659fb96bad44d11b8190f4044b675116f",
-  "busDistributionSha256": "fa6390c904b678f7dc197d0d3d671a28e273554369f8475457ea86374c5dad8c",
+  "state": "completed",
+  "busSourceCommit": "190325da97253ad7951f9dfd3b0046b4afcb5395",
+  "busDistributionSha256": "940e910143a475e280ed3cdc7a0bb262daf98c0fdb075d82b95cbfb2b496f2f8",
   "coreCommit": "1a16da2f74fc2c80712d52abb17254dd2a80e2c5",
   "benchmarkPackagePin": "24dc44c166d4258c3538f8b1f66953f1b6f58690",
   "benchmarkRevision": "sha256:07241d5c0af855ba5f7d0516d9cdbf62e00f0a048df8c7011165bcce697eb73c",
@@ -11,13 +11,13 @@
   "timeoutSeconds": 120,
   "cpuQuota": "400000 100000",
   "memoryLimitBytes": 17179869184,
-  "originalCommand": "source /workspace/.tools/autorouter-env.sh; bun run benchmark:ddr --out /workspace/ddr-results/core-main",
-  "caseStatus": "timeout",
-  "wallSeconds": 120.10449838299996,
+  "originalCommand": "source /workspace/.tools/autorouter-env.sh; bun run benchmark:ddr --timeout 120 --out /workspace/ddr-results/core-head-native-inner",
+  "caseStatus": "passed",
+  "wallSeconds": 105.67830550800002,
   "rawFileSha256": {
-    "circuit.json": "86d6291ce930467a837cbc7bde9d1effa5b6672382ea46117e36c4a0d35b00cc",
-    "assessment.json": "5424d80f6f989e2d8bd4191f1a788d610a4b87a4c730ef00d25ef95c5c7a5cdd",
-    "progress.json": "054c2caaa547b6630b76e4ceaa1d5d8b1058fce66b0e57ec33e59ff61692a119"
+    "circuit.json": "79df0cdc7ef4d80a6e58a00831edd5bdd0a5afdde9277d3b508d8f03e555bd2d",
+    "assessment.json": "25b2eb297a2bb1914fa6ff2255b76c49bdfc1d24ebdbc2f19137ef27147cc3cf",
+    "progress.json": "f3d4804087aaf2f73af9af23152241e6af8179caf2ff248ee5036556b923ed53"
   },
   "completedByteOutputSha256": {
     "byte1": "05f11abf35d2c57e0229140c123ecfceee7ad5cfa9b8c38fc161f8f3f5af6c46",
