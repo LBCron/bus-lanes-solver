@@ -103,7 +103,10 @@ export function* routeMultiTerminalBuses(
           pair.connectionNames.every((name) => names.has(name)),
         ),
       }
-      const solver = new BusLanesPipelineSolver(request, options)
+      const solver = new BusLanesPipelineSolver(request, {
+        ...options,
+        preserveBranchAccess: true,
+      })
       while (!solver.solved && !solver.failed) {
         solver.step()
         yield

@@ -36,9 +36,12 @@ these sources.
 
 ## Solver scope
 
-Untimed buses with at least eight requested members now enter joint negotiation
-even when their current handoffs share one carrier. The existing dense-search
-option remains required. Small fixed-carrier buses previously stayed in serial
+Untimed point-to-point buses starting at native pads, with at least eight
+requested members and a permitted inner carrier now enter joint negotiation even when their current
+handoffs share one carrier. The existing dense-search option remains required.
+Surface-only buses keep their established package-exit search. Multi-terminal
+decomposition explicitly preserves the branch-aware trunk order so later
+terminals remain accessible. Small fixed-carrier buses previously stayed in serial
 winding-order retries, which could spend most of the request budget before a
 needed carrier change. Matched and paired requests retain their prior activation
 rules. The A64 third data-byte reproduction exercises this public pipeline path

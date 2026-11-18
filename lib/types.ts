@@ -94,6 +94,8 @@ export interface SimpleRouteJson {
   }>
 }
 export interface SolverOptions {
+  /** Retain the established carrier search while branch terminals remain unattached. */
+  preserveBranchAccess?: boolean
   /** Reject paired tuning that folds back into a generated terminal via land. */
   protectPairedTerminalVias?: boolean
   /** Candidate budget for tuning the original paired corridor. */

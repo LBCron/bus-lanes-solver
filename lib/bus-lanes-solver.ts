@@ -26,7 +26,9 @@ import {
   routeCoupledPairTopology,
 } from "./coupled-pair-routing"
 import { reduceOrdinaryTurns } from "./reduce-ordinary-turns"
+import { isUnroutedComponentPad } from "./is-unrouted-component-pad"
 import { BaseSolver } from "@tscircuit/solver-utils"
+import { getCopperLayerNames } from "@tscircuit/fanout-solver"
 import type { GraphicsObject } from "graphics-debug"
 import type {
   SimpleRouteJson,
@@ -105,7 +107,13 @@ export class BusLanesSolver extends BaseSolver {
     const names = new Set(
       input.connections.map((connection) => connection.name),
     )
+    const innerCarriers = getCopperLayerNames(input.layerCount).filter(
+      (layer) =>
+        /^inner\d+$/.test(layer) &&
+        (!input.allowedLayers || input.allowedLayers.includes(layer)),
+    )
     this.negotiateUntimedBus =
+      !options.preserveBranchAccess &&
       !input.differentialPairs?.length &&
       !!input.buses?.length &&
       !input.buses.some(
@@ -114,10 +122,20 @@ export class BusLanesSolver extends BaseSolver {
           bus.maxLength !== undefined ||
           bus.maxLengthSkew !== undefined,
       ) &&
+      input.connections.every(
+        (connection) =>
+          connection.pointsToConnect.length === 2 &&
+          connection.pointsToConnect.every((point) =>
+            isUnroutedComponentPad(input, connection, point),
+          ),
+      ) &&
       input.buses.some(
         (bus) =>
           new Set(bus.connectionNames.filter((name) => names.has(name))).size >=
-          8,
+            8 &&
+          innerCarriers.some(
+            (layer) => !bus.allowedLayers || bus.allowedLayers.includes(layer),
+          ),
       )
     this.MAX_ITERATIONS = options.maxSearchIterations ?? 200000
   }
@@ -317,8 +335,9 @@ export class BusLanesSolver extends BaseSolver {
     this.phase = "route"
     this.startLane()
   }
-  // Untimed byte-sized buses need joint space allocation even on one carrier.
-  // Serial winding retries can otherwise delay a necessary carrier change.
+  // Native byte buses with inner carriers negotiate before serial windings
+  // delay a needed carrier change. Surface-only and branched buses retain package-exit
+  // reservations and established route order.
   // Matched and paired requests retain their established eligibility.
   private get useNegotiation() {
     return (
