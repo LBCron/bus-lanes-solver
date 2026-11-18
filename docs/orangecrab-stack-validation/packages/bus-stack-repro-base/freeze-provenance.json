@@ -1,0 +1,12 @@
+{
+  "label": "baseline",
+  "sourceDirectory": "/workspace/bus-lanes-orangecrab-repro",
+  "sourceCommit": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+  "packageDirectory": "/workspace/ddr-results/packages/bus-stack-repro-base",
+  "distributionSha256": "92f3fb6ea1086a669b07ea368b804c4a9e976773fdea8e620132eb139d16a155",
+  "buildLog": "/workspace/ddr-results/build-stack-repro-base.log",
+  "frozenAtUtc": "2026-11-18T21:25:35.719070+00:00",
+  "sourceTrackedChanges": "",
+  "historicalDistributionSha256": "fa6390c904b678f7dc197d0d3d671a28e273554369f8475457ea86374c5dad8c",
+  "bundleDifference": "60generated module sourcepath labels/keys use ../bus-lanes-work/node_modules/ because sourceRnode_modules is a symlink; unmodified fresh bundle is used. In-memory replacement of this pathprefix gives byte-identical historicalfa639 bundle."
+}

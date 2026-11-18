@@ -1,0 +1,236 @@
+{
+  "generatedAt": "2026-11-18T22:15:20.030884+00:00",
+  "noWorkflowDispatches": true,
+  "prs": [
+    {
+      "number": 219,
+      "baseSha": "202b034659fb96bad44d11b8190f4044b675116f",
+      "headSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "controllerSha": "202b034659fb96bad44d11b8190f4044b675116f",
+      "artifactComplete": true,
+      "acceptedBase": 11,
+      "acceptedHead": 11,
+      "timeoutsBase": 0,
+      "timeoutsHead": 0,
+      "failuresBase": 0,
+      "failuresHead": 0,
+      "lost": [],
+      "gained": [],
+      "fullValidationAndIterationsIdentical": true,
+      "fullTests": {
+        "prPass": 611,
+        "pushPass": 611,
+        "fail": 0,
+        "bun": "1.4.4 (38afee6c8)"
+      },
+      "benchmarkBun": "1.4.0",
+      "benchmarkBudgetSecondsPerSolverPerCase": 3600,
+      "percentiles": {
+        "count": 11,
+        "main": {
+          "p50": 69902.49607499999,
+          "p80": 293691.61186,
+          "p90": 1128687.404557,
+          "p95": 1150174.3296339998
+        },
+        "pr": {
+          "p50": 84189.394176,
+          "p80": 396691.469808,
+          "p90": 1009592.134512,
+          "p95": 1286790.4761990001
+        },
+        "deltaPercent": {
+          "p50": 20.438323240519583,
+          "p80": 35.07075237719049,
+          "p90": -10.551661121065116,
+          "p95": 11.87786434152754
+        }
+      },
+      "measuredTimingIncreaseCases": [
+        {
+          "sample": "control-inner1",
+          "beforeSeconds": 1128.6874045569998,
+          "afterSeconds": 1563.988817886,
+          "changeSeconds": 435.3014133290003,
+          "changePercent": 38.56704802157795
+        },
+        {
+          "sample": "left",
+          "beforeSeconds": 43.215640181000005,
+          "afterSeconds": 50.996241133000005,
+          "changeSeconds": 7.780600952,
+          "changePercent": 18.004132113772986
+        },
+        {
+          "sample": "above",
+          "beforeSeconds": 50.863398941999996,
+          "afterSeconds": 57.472080832,
+          "changeSeconds": 6.608681890000007,
+          "changePercent": 12.99300091512945
+        },
+        {
+          "sample": "inner-layers-right",
+          "beforeSeconds": 69.90249607499999,
+          "afterSeconds": 84.18939417600001,
+          "changeSeconds": 14.28689810100002,
+          "changePercent": 20.438323240519594
+        },
+        {
+          "sample": "inner-layers-above",
+          "beforeSeconds": 293.69161186,
+          "afterSeconds": 396.691469808,
+          "changeSeconds": 102.999857948,
+          "changePercent": 35.07075237719049
+        },
+        {
+          "sample": "inner-layers-complete-ca",
+          "beforeSeconds": 261.157486389,
+          "afterSeconds": 278.679000987,
+          "changeSeconds": 17.52151459800001,
+          "changePercent": 6.7091756932831315
+        }
+      ],
+      "observedTimingRange": {
+        "minimum": {
+          "sample": "inner-layers",
+          "beforeSeconds": 60.583326895999996,
+          "afterSeconds": 46.552920457,
+          "changeSeconds": -14.030406438999997,
+          "changePercent": -23.15885765581215
+        },
+        "maximum": {
+          "sample": "control-inner1",
+          "beforeSeconds": 1128.6874045569998,
+          "afterSeconds": 1563.988817886,
+          "changeSeconds": 435.3014133290003,
+          "changePercent": 38.56704802157795
+        }
+      },
+      "timingInterpretation": "One observed pair per case. Report increases explicitly. Repro identical-code range is descriptive context, not a reason to dismiss fix increases or claim statistical speedup.",
+      "comparison": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/comparison.md",
+      "provenance": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/provenance.json"
+    },
+    {
+      "number": 218,
+      "baseSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "headSha": "358604c0e7f8bee42d0aef488807239c322198c6",
+      "controllerSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "artifactComplete": true,
+      "acceptedBase": 11,
+      "acceptedHead": 11,
+      "timeoutsBase": 0,
+      "timeoutsHead": 0,
+      "failuresBase": 0,
+      "failuresHead": 0,
+      "lost": [],
+      "gained": [],
+      "fullValidationAndIterationsIdentical": true,
+      "fullTests": {
+        "prPass": 623,
+        "pushPass": 623,
+        "fail": 0,
+        "bun": "1.4.4 (38afee6c8)"
+      },
+      "benchmarkBun": "1.4.0",
+      "benchmarkBudgetSecondsPerSolverPerCase": 3600,
+      "percentiles": {
+        "count": 11,
+        "main": {
+          "p50": 72734.864765,
+          "p80": 276018.229448,
+          "p90": 944996.2042990001,
+          "p95": 1059117.1714785001
+        },
+        "pr": {
+          "p50": 105196.51883100001,
+          "p80": 300266.25314100005,
+          "p90": 1007067.524277,
+          "p95": 1325836.2067685002
+        },
+        "deltaPercent": {
+          "p50": 44.63011537985363,
+          "p80": 8.784935597004903,
+          "p90": 6.568420031278804,
+          "p95": 25.183147103324476
+        }
+      },
+      "measuredTimingIncreaseCases": [
+        {
+          "sample": "control-inner1",
+          "beforeSeconds": 1173.238138658,
+          "afterSeconds": 1644.6048892600002,
+          "changeSeconds": 471.36675060200014,
+          "changePercent": 40.176562205961844
+        },
+        {
+          "sample": "right",
+          "beforeSeconds": 24.872561158999996,
+          "afterSeconds": 29.37198997,
+          "changeSeconds": 4.499428811000005,
+          "changePercent": 18.089929630636025
+        },
+        {
+          "sample": "left",
+          "beforeSeconds": 53.807443087,
+          "afterSeconds": 58.333385069,
+          "changeSeconds": 4.525941981999999,
+          "changePercent": 8.411367874667652
+        },
+        {
+          "sample": "above",
+          "beforeSeconds": 44.327133845,
+          "afterSeconds": 45.365473394999995,
+          "changeSeconds": 1.0383395499999963,
+          "changePercent": 2.342446848990476
+        },
+        {
+          "sample": "inner-layers-right",
+          "beforeSeconds": 72.73486476500001,
+          "afterSeconds": 105.196518831,
+          "changeSeconds": 32.461654065999994,
+          "changePercent": 44.63011537985362
+        },
+        {
+          "sample": "inner-layers-left",
+          "beforeSeconds": 216.224224059,
+          "afterSeconds": 271.897128169,
+          "changeSeconds": 55.67290410999999,
+          "changePercent": 25.747764549641204
+        },
+        {
+          "sample": "inner-layers-above",
+          "beforeSeconds": 276.018229448,
+          "afterSeconds": 300.26625314100005,
+          "changeSeconds": 24.24802369300005,
+          "changePercent": 8.784935597004907
+        },
+        {
+          "sample": "outer-layers",
+          "beforeSeconds": 944.996204299,
+          "afterSeconds": 1007.067524277,
+          "changeSeconds": 62.071319977999906,
+          "changePercent": 6.568420031278799
+        }
+      ],
+      "observedTimingRange": {
+        "minimum": {
+          "sample": "control",
+          "beforeSeconds": 53.770838762,
+          "afterSeconds": 42.657781456,
+          "changeSeconds": -11.113057305999995,
+          "changePercent": -20.667442728926932
+        },
+        "maximum": {
+          "sample": "inner-layers-right",
+          "beforeSeconds": 72.73486476500001,
+          "afterSeconds": 105.196518831,
+          "changeSeconds": 32.461654065999994,
+          "changePercent": 44.63011537985362
+        }
+      },
+      "timingInterpretation": "One observed pair per case. Report increases explicitly. Repro identical-code range is descriptive context, not a reason to dismiss fix increases or claim statistical speedup.",
+      "comparison": "/workspace/ddr-results/stacked-ci/fix-358604c/comparison.md",
+      "provenance": "/workspace/ddr-results/stacked-ci/fix-358604c/provenance.json"
+    }
+  ]
+}

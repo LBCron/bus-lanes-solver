@@ -1,0 +1,10 @@
+{
+  "label": "head",
+  "sourceDirectory": "/workspace/bus-lanes-work",
+  "sourceCommit": "358604c0e7f8bee42d0aef488807239c322198c6",
+  "packageDirectory": "/workspace/ddr-results/packages/bus-stack-fix-handbook",
+  "distributionSha256": "557d2f94e831b77c89546f730931b46be07f2d371d534fd81fcf29453ea98913",
+  "buildLog": "/workspace/ddr-results/build-stack-fix-handbook.log",
+  "frozenAtUtc": "2026-11-18T21:25:35.734440+00:00",
+  "sourceTrackedChanges": ""
+}

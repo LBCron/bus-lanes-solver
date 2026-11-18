@@ -1,0 +1,11 @@
+{
+  "freshBundleSha256": "92f3fb6ea1086a669b07ea368b804c4a9e976773fdea8e620132eb139d16a155",
+  "historicalBundleSha256": "fa6390c904b678f7dc197d0d3d671a28e273554369f8475457ea86374c5dad8c",
+  "replacedPathPrefix": "../bus-lanes-work/node_modules/",
+  "replacementPathPrefix": "node_modules/",
+  "replacementOccurrences": 60,
+  "normalizedBytesEqualHistorical": true,
+  "normalizationPerformedOnlyInMemory": true,
+  "normalizedSha256": "fa6390c904b678f7dc197d0d3d671a28e273554369f8475457ea86374c5dad8c",
+  "freshBundleUnmodified": true
+}

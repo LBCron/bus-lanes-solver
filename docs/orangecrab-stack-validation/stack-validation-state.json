@@ -1,0 +1,14 @@
+{
+  "status": "completed_all20_and_fresh_pair",
+  "sourceR": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+  "sourceF": "358604c0e7f8bee42d0aef488807239c322198c6",
+  "configSha256": "3410b74f224264939e8a496c9fc7a43d8e5f6da7ca8dc9145e928440dad50989",
+  "startedAtUtc": "2026-11-18T21:28:30.592999+00:00",
+  "updatedAtUtc": "2026-11-18T21:59:51.674844+00:00",
+  "pairWrapperExitCode": 0,
+  "comparisonExitCode": 0,
+  "orangeCrabGeometryComparison": "/workspace/ddr-results/orangecrab-stack-versus-retained190.json",
+  "pairComparison": "/workspace/ddr-results/a64-stack-paired-public/comparison.json",
+  "coreComparison": "/workspace/ddr-results/core-stack-comparison/core-comparison.json",
+  "finishedAtUtc": "2026-11-18T21:59:51.674829+00:00"
+}

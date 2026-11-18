@@ -1,0 +1,327 @@
+{
+  "generatedAt": "2026-11-18T22:14:33.255921+00:00",
+  "prNumber": 218,
+  "sourceRevision": "358604c0e7f8bee42d0aef488807239c322198c6",
+  "baseRevision": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+  "controllerRevision": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+  "baseMeaning": "Frozen repro PR219 head, not main202b",
+  "workflowRun": 44400918145,
+  "workflowUrl": "https://github.com/tscircuit/bus-lanes-solver/actions/runs/44400918145",
+  "acceptanceJobId": 135171928817,
+  "acceptanceJobConclusion": "success",
+  "timeoutSecondsPerSolverPerSample": 3600,
+  "freshPairedCases": 11,
+  "acceptedMain": 11,
+  "acceptedPr": 11,
+  "runnerClass": "blacksmith-4vcpu-ubuntu-2404",
+  "remoteBunVersion": "1.4.0",
+  "remotePlatform": "linux",
+  "remoteArchitecture": "x64",
+  "fullTestBunVersion": "1.4.4",
+  "fullTestBunRevision": "38afee6c8",
+  "localReportBunVersion": "1.4.3",
+  "trustedControllerCopy": "trusted-controller/",
+  "fixtureManifestSha256": "24edbdb1dedb7a7e5ab521c0ebeec739f515ca213b195df6364b818c3d90a743",
+  "trustedRendererSha256": "91a3b4b06fa9b967a42d458ee156a26a9eabdd3942912b9b7ae83ef3ab24ab89",
+  "trustedRendererCopiedFromPinnedController": true,
+  "reportDriverSha256": "215b7fd04f9034b0fea467c34960cb66c6715a120cb36c9534b5cfdbd42d80d5",
+  "comparisonSha256": "6619ba9a5086ea65325f0a8b1b64be587b12bf9751a14e59fa1837c9fb365280",
+  "hostedComparisonSha256": "6619ba9a5086ea65325f0a8b1b64be587b12bf9751a14e59fa1837c9fb365280",
+  "hostedComparisonByteIdentical": true,
+  "all33CheckRunsSuccess": true,
+  "vercelStatus": "success",
+  "all12ArtifactDigestsMatch": true,
+  "artifactIntegrity": [
+    {
+      "id": 14476426997,
+      "name": "am3352-control-inner1",
+      "githubDigest": "sha256:5a79ce3d6c77e87d1aca2939e2d078b2eb725ac7c514b727cce76d75e44316df",
+      "localSha256": "5a79ce3d6c77e87d1aca2939e2d078b2eb725ac7c514b727cce76d75e44316df",
+      "digestMatches": true
+    },
+    {
+      "id": 14475423110,
+      "name": "am3352-comparison",
+      "githubDigest": "sha256:c76b4f2f6bfa2bb2322db60ad0e1f432b8477320015a05569c95bfc208958d0e",
+      "localSha256": "c76b4f2f6bfa2bb2322db60ad0e1f432b8477320015a05569c95bfc208958d0e",
+      "digestMatches": true
+    },
+    {
+      "id": 14475325557,
+      "name": "am3352-outer-layers",
+      "githubDigest": "sha256:d8aff85384ac9e17dcd60666a798459cc1167d16c4d704890df1c8785dfd11e4",
+      "localSha256": "d8aff85384ac9e17dcd60666a798459cc1167d16c4d704890df1c8785dfd11e4",
+      "digestMatches": true
+    },
+    {
+      "id": 14474351116,
+      "name": "am3352-inner-layers-complete-ca",
+      "githubDigest": "sha256:35d907dcb8971a2ccdac19a11ef870ce390673e5a9aff6e0edde5b8bd4e52ee3",
+      "localSha256": "35d907dcb8971a2ccdac19a11ef870ce390673e5a9aff6e0edde5b8bd4e52ee3",
+      "digestMatches": true
+    },
+    {
+      "id": 14473865207,
+      "name": "am3352-control",
+      "githubDigest": "sha256:6a53fe9051801bbf811fc03ba369293725343be9bd0b875c8cda3e09697f6b2a",
+      "localSha256": "6a53fe9051801bbf811fc03ba369293725343be9bd0b875c8cda3e09697f6b2a",
+      "digestMatches": true
+    },
+    {
+      "id": 14473475324,
+      "name": "am3352-above",
+      "githubDigest": "sha256:cfc3cff83c24be85fac031c0cf04237046c15021c780643d217e235ffc436d34",
+      "localSha256": "cfc3cff83c24be85fac031c0cf04237046c15021c780643d217e235ffc436d34",
+      "digestMatches": true
+    },
+    {
+      "id": 14473046420,
+      "name": "am3352-inner-layers-left",
+      "githubDigest": "sha256:4e885468df96f216ee7d32e473d56ffc823a8b34c984f284bb576efde6ae33eb",
+      "localSha256": "4e885468df96f216ee7d32e473d56ffc823a8b34c984f284bb576efde6ae33eb",
+      "digestMatches": true
+    },
+    {
+      "id": 14472950619,
+      "name": "am3352-left",
+      "githubDigest": "sha256:1599d6bf9a64f5055049e7124e6b86eb06a1b3d9450dfbc0e7981b3ead0b6e3d",
+      "localSha256": "1599d6bf9a64f5055049e7124e6b86eb06a1b3d9450dfbc0e7981b3ead0b6e3d",
+      "digestMatches": true
+    },
+    {
+      "id": 14472822207,
+      "name": "am3352-inner-layers-above",
+      "githubDigest": "sha256:9360a577b6deffe3bd3ced39cbe11a2b079d2a19257da30a87e7a78b3537533f",
+      "localSha256": "9360a577b6deffe3bd3ced39cbe11a2b079d2a19257da30a87e7a78b3537533f",
+      "digestMatches": true
+    },
+    {
+      "id": 14472566062,
+      "name": "am3352-inner-layers",
+      "githubDigest": "sha256:f72afdd66377ff6e372eb2233c1853b9f322a34fcf89bd80dabbbec303d465bb",
+      "localSha256": "f72afdd66377ff6e372eb2233c1853b9f322a34fcf89bd80dabbbec303d465bb",
+      "digestMatches": true
+    },
+    {
+      "id": 14472461140,
+      "name": "am3352-inner-layers-right",
+      "githubDigest": "sha256:f7bb89334bbd0d25ee7411e8b9b9fcef8347c22f922b667458ced8f5872640b8",
+      "localSha256": "f7bb89334bbd0d25ee7411e8b9b9fcef8347c22f922b667458ced8f5872640b8",
+      "digestMatches": true
+    },
+    {
+      "id": 14472329687,
+      "name": "am3352-right",
+      "githubDigest": "sha256:06501eba06d551ad4f4effb4230e14ef8f55b247ea67611de23c2750d1014e62",
+      "localSha256": "06501eba06d551ad4f4effb4230e14ef8f55b247ea67611de23c2750d1014e62",
+      "digestMatches": true
+    }
+  ],
+  "pairMetadata": {
+    "control": {
+      "order": [
+        "main",
+        "pr"
+      ],
+      "mainSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "prSha": "358604c0e7f8bee42d0aef488807239c322198c6",
+      "controllerSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-o5wswas2kxbqi4ay",
+      "runnerOS": "Linux"
+    },
+    "control-inner1": {
+      "order": [
+        "pr",
+        "main"
+      ],
+      "mainSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "prSha": "358604c0e7f8bee42d0aef488807239c322198c6",
+      "controllerSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-sqiwwb3uuzu2ufxa",
+      "runnerOS": "Linux"
+    },
+    "right": {
+      "order": [
+        "main",
+        "pr"
+      ],
+      "mainSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "prSha": "358604c0e7f8bee42d0aef488807239c322198c6",
+      "controllerSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-yqtrx55pd5dogrgn",
+      "runnerOS": "Linux"
+    },
+    "left": {
+      "order": [
+        "pr",
+        "main"
+      ],
+      "mainSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "prSha": "358604c0e7f8bee42d0aef488807239c322198c6",
+      "controllerSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-5rcpssln36fucyun",
+      "runnerOS": "Linux"
+    },
+    "above": {
+      "order": [
+        "main",
+        "pr"
+      ],
+      "mainSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "prSha": "358604c0e7f8bee42d0aef488807239c322198c6",
+      "controllerSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-zkz76uinflwhqdwx",
+      "runnerOS": "Linux"
+    },
+    "inner-layers": {
+      "order": [
+        "pr",
+        "main"
+      ],
+      "mainSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "prSha": "358604c0e7f8bee42d0aef488807239c322198c6",
+      "controllerSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-npdjgbznf4kd5wzl",
+      "runnerOS": "Linux"
+    },
+    "inner-layers-right": {
+      "order": [
+        "main",
+        "pr"
+      ],
+      "mainSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "prSha": "358604c0e7f8bee42d0aef488807239c322198c6",
+      "controllerSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-u2uhtitamwxpll64",
+      "runnerOS": "Linux"
+    },
+    "inner-layers-left": {
+      "order": [
+        "pr",
+        "main"
+      ],
+      "mainSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "prSha": "358604c0e7f8bee42d0aef488807239c322198c6",
+      "controllerSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-qntows6b76ukgh3q",
+      "runnerOS": "Linux"
+    },
+    "inner-layers-above": {
+      "order": [
+        "main",
+        "pr"
+      ],
+      "mainSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "prSha": "358604c0e7f8bee42d0aef488807239c322198c6",
+      "controllerSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-oplexxgwe6rhxnpg",
+      "runnerOS": "Linux"
+    },
+    "inner-layers-complete-ca": {
+      "order": [
+        "pr",
+        "main"
+      ],
+      "mainSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "prSha": "358604c0e7f8bee42d0aef488807239c322198c6",
+      "controllerSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-pvbr3mmifc3ifsw4",
+      "runnerOS": "Linux"
+    },
+    "outer-layers": {
+      "order": [
+        "main",
+        "pr"
+      ],
+      "mainSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "prSha": "358604c0e7f8bee42d0aef488807239c322198c6",
+      "controllerSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "bunVersion": "1.4.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "runnerName": "blacksmith-4vcpu-ubuntu-2404-dm2jykvsqt77zn2k",
+      "runnerOS": "Linux"
+    }
+  },
+  "testRuns": {
+    "push": {
+      "runId": 44400903570,
+      "passed": 623,
+      "failed": 0,
+      "summarySha256": "0a2be3d33a813b7ebbcc08b402160ebd133cb8cd02e488676ac9fe4c98436681"
+    },
+    "pullRequest": {
+      "runId": 44400917765,
+      "passed": 623,
+      "failed": 0,
+      "summarySha256": "68ef61dd230ad05ec26d4f529793e49dd311d26f491460771e2ef5167cc4408e"
+    }
+  },
+  "commands": {
+    "pairedSolve": "Trusted base workflow .github/workflows/am3352-benchmark.yml runs base/scripts/pr-benchmark/run-pair.ts --sample SAMPLE --timeout-seconds 3600 --main base/lib/index.ts --pr head/lib/index.ts --main-sha 2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95 --pr-sha 358604c0e7f8bee42d0aef488807239c322198c6 --controller-sha 2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95 --output results/SAMPLE.json",
+    "localReport": "source /workspace/.tools/autorouter-env.sh; bun /workspace/ddr-results/stacked-ci/fix-358604c/render-final.ts"
+  },
+  "interpretation": {
+    "identicalFullValidationPairs": 11,
+    "identicalIterationsPairs": 11,
+    "exactFreshRouteGeometryAvailable": false,
+    "singlePairPerSample": true,
+    "measuredTimingIncreases": [
+      "control-inner1",
+      "right",
+      "left",
+      "above",
+      "inner-layers-right",
+      "inner-layers-left",
+      "inner-layers-above",
+      "outer-layers"
+    ],
+    "measuredPercentileChangePercent": {
+      "p50": 44.63011537985363,
+      "p80": 8.784935597004903,
+      "p90": 6.568420031278804,
+      "p95": 25.183147103324476
+    },
+    "performanceClaim": "Measured single-pair timing regressions are retained. No statistical speedup claim; the separate repro identical-code range is descriptive context only."
+  },
+  "baseSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+  "headSha": "358604c0e7f8bee42d0aef488807239c322198c6",
+  "controllerSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+  "branch": "feat/global-bus-corridor-planning",
+  "partial": false,
+  "independentAudit": {
+    "path": "/workspace/ddr-results/stacked-ci/fix-358604c/independent-audit-repro-agent.txt",
+    "sha256": "b3e2a6fef33ca270804695032f1ffed812e4c76d2228b77785d7a4a37bb51a0b",
+    "passed": true
+  }
+}

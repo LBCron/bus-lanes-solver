@@ -1,0 +1,12 @@
+{
+  "scope": "Supplementary equivalence check for a conventions refactor, not fresh benchmark performance evidence",
+  "fixtureSha256": "f2000823bb4787fc9307f4674fe2d9a9320d0f9ba548c065add740e5b08f526c",
+  "guidePathsExactlyEqual": true,
+  "guideCostSamples": 10000,
+  "guideCostsExactlyEqual": true,
+  "planningYields": 12,
+  "routingYields": 1191,
+  "everyNegotiationYieldExactlyEqual": true,
+  "completedTraceArraysExactlyEqual": true,
+  "completedTraceArraySha256": "102069fe761c3b41f7117638cab14076b873a41c1fcf42b89c287ed8a3f02472"
+}

@@ -1,0 +1,19 @@
+{
+  "label": "head",
+  "command": [
+    "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+    "/workspace/ddr-results/prepared-post-handbook/a64-public-stage.ts",
+    "head",
+    "/workspace/ddr-results/a64-stack-paired-public/head",
+    "/workspace/ddr-results/stack-final-config.json"
+  ],
+  "cwd": "/workspace/core",
+  "externalLimitSeconds": 120,
+  "watchdog": "Python subprocess.communicate(timeout=120); SIGKILL entire isolated child process group on timeout",
+  "startedAtUtc": "2026-11-18T21:59:42.001006+00:00",
+  "status": "exited",
+  "pid": 21669,
+  "externalWallSeconds": 9.243914153001242,
+  "exitCode": 0,
+  "endedAtUtc": "2026-11-18T21:59:51.245057+00:00"
+}

@@ -1,0 +1,623 @@
+{
+  "updatedAt": "2026-11-18T22:08:46.821318+00:00",
+  "prNumber": 219,
+  "branch": "repro/orangecrab-full-board",
+  "baseSha": "202b034659fb96bad44d11b8190f4044b675116f",
+  "headSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+  "controllerSha": "202b034659fb96bad44d11b8190f4044b675116f",
+  "partial": false,
+  "sourceCodeComparison": {
+    "paths": [
+      "lib",
+      "scripts/benchmark.ts",
+      "scripts/pr-benchmark",
+      "benchmark.sh",
+      "package.json",
+      "bun.lock",
+      "bun.lockb",
+      "tests"
+    ],
+    "changedPaths": []
+  },
+  "benchmark": {
+    "workflowRun": 44400469680,
+    "url": "https://github.com/tscircuit/bus-lanes-solver/actions/runs/44400469680",
+    "mode": "fresh sequential base/head solve per sample, alternating order by canonical sample index",
+    "perSolverSampleBudgetSeconds": 3600,
+    "runnerLabel": "blacksmith-4vcpu-ubuntu-2404",
+    "bunVersion": "1.4.0",
+    "command": "bun base/scripts/pr-benchmark/run-pair.ts --sample SAMPLE --timeout-seconds 3600 --main base/lib/index.ts --pr head/lib/index.ts --main-sha 202b034659fb96bad44d11b8190f4044b675116f --pr-sha 2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95 --controller-sha 202b034659fb96bad44d11b8190f4044b675116f --output results/SAMPLE.json",
+    "renderer": {
+      "report.ts": {
+        "sourceRevision": "202b034659fb96bad44d11b8190f4044b675116f",
+        "sha256": "91a3b4b06fa9b967a42d458ee156a26a9eabdd3942912b9b7ae83ef3ab24ab89",
+        "currentWorktreeIdentical": true
+      },
+      "samples.json": {
+        "sourceRevision": "202b034659fb96bad44d11b8190f4044b675116f",
+        "sha256": "24edbdb1dedb7a7e5ab521c0ebeec739f515ca213b195df6364b818c3d90a743",
+        "currentWorktreeIdentical": true
+      }
+    },
+    "artifactArchives": [
+      {
+        "id": 14475572275,
+        "name": "am3352-comparison",
+        "workflowRun": 44400469680,
+        "headSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "path": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/comparison.zip",
+        "githubDigest": "sha256:801db9bff4cdedbe30553097680bdd05dda3461a8af068a055f8dd97fba8c0f1",
+        "localDigest": "sha256:801db9bff4cdedbe30553097680bdd05dda3461a8af068a055f8dd97fba8c0f1",
+        "digestMatches": true,
+        "createdAt": "2026-11-18T22:06:44Z"
+      },
+      {
+        "id": 14475355733,
+        "name": "am3352-outer-layers",
+        "workflowRun": 44400469680,
+        "headSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "path": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/outer-layers.zip",
+        "githubDigest": "sha256:141f1df5f35fe244bf847c3299a78c7aaed632d8c34b9246fc436ead9c1f3568",
+        "localDigest": "sha256:141f1df5f35fe244bf847c3299a78c7aaed632d8c34b9246fc436ead9c1f3568",
+        "digestMatches": true,
+        "createdAt": "2026-11-18T21:57:56Z"
+      },
+      {
+        "id": 14475177741,
+        "name": "am3352-control-inner1",
+        "workflowRun": 44400469680,
+        "headSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "path": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/control-inner1.zip",
+        "githubDigest": "sha256:e36e1be3643cc0072d85c53e9f0275380012113889320e408f619bd34709a353",
+        "localDigest": "sha256:e36e1be3643cc0072d85c53e9f0275380012113889320e408f619bd34709a353",
+        "digestMatches": true,
+        "createdAt": "2026-11-18T22:06:25Z"
+      },
+      {
+        "id": 14473411610,
+        "name": "am3352-inner-layers-above",
+        "workflowRun": 44400469680,
+        "headSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "path": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers-above.zip",
+        "githubDigest": "sha256:d6965cf0b24a0a18ee86a18275ae89a92d830501ed533c7f25ed9d107c82a966",
+        "localDigest": "sha256:d6965cf0b24a0a18ee86a18275ae89a92d830501ed533c7f25ed9d107c82a966",
+        "digestMatches": true,
+        "createdAt": "2026-11-18T21:33:16Z"
+      },
+      {
+        "id": 14473280212,
+        "name": "am3352-above",
+        "workflowRun": 44400469680,
+        "headSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "path": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/above.zip",
+        "githubDigest": "sha256:ae7d1d425177511acb72b91ac985dede660d532e38e21301cc7e006673351793",
+        "localDigest": "sha256:ae7d1d425177511acb72b91ac985dede660d532e38e21301cc7e006673351793",
+        "digestMatches": true,
+        "createdAt": "2026-11-18T21:23:23Z"
+      },
+      {
+        "id": 14472522110,
+        "name": "am3352-inner-layers-complete-ca",
+        "workflowRun": 44400469680,
+        "headSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "path": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers-complete-ca.zip",
+        "githubDigest": "sha256:98829aa24b91e7ff84cd07e7154602c1d130cf5fe33c1f5ac341456532f8f589",
+        "localDigest": "sha256:98829aa24b91e7ff84cd07e7154602c1d130cf5fe33c1f5ac341456532f8f589",
+        "digestMatches": true,
+        "createdAt": "2026-11-18T21:30:41Z"
+      },
+      {
+        "id": 14472432289,
+        "name": "am3352-inner-layers-left",
+        "workflowRun": 44400469680,
+        "headSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "path": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers-left.zip",
+        "githubDigest": "sha256:70c6d4929acd0e1107e6b9f25ad0b1a736f6c5906db44d8548fa624cd16bbdef",
+        "localDigest": "sha256:70c6d4929acd0e1107e6b9f25ad0b1a736f6c5906db44d8548fa624cd16bbdef",
+        "digestMatches": true,
+        "createdAt": "2026-11-18T21:31:00Z"
+      },
+      {
+        "id": 14472249868,
+        "name": "am3352-inner-layers",
+        "workflowRun": 44400469680,
+        "headSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "path": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers.zip",
+        "githubDigest": "sha256:99be807495426052020ae50b2123b63c1dd86ec833db19d8c83220093c3b1053",
+        "localDigest": "sha256:99be807495426052020ae50b2123b63c1dd86ec833db19d8c83220093c3b1053",
+        "digestMatches": true,
+        "createdAt": "2026-11-18T21:23:17Z"
+      },
+      {
+        "id": 14472119921,
+        "name": "am3352-left",
+        "workflowRun": 44400469680,
+        "headSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "path": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/left.zip",
+        "githubDigest": "sha256:f34afd8532ad6e45a36b35229eb041c2005125f27862aaf2924f76b3bcc78cd9",
+        "localDigest": "sha256:f34afd8532ad6e45a36b35229eb041c2005125f27862aaf2924f76b3bcc78cd9",
+        "digestMatches": true,
+        "createdAt": "2026-11-18T21:23:03Z"
+      },
+      {
+        "id": 14471304487,
+        "name": "am3352-right",
+        "workflowRun": 44400469680,
+        "headSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "path": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/right.zip",
+        "githubDigest": "sha256:a3db35d6819fc6f683b5deec310fefb60f1126c77fd15fc242efd4611a252e11",
+        "localDigest": "sha256:a3db35d6819fc6f683b5deec310fefb60f1126c77fd15fc242efd4611a252e11",
+        "digestMatches": true,
+        "createdAt": "2026-11-18T21:22:10Z"
+      },
+      {
+        "id": 14471084963,
+        "name": "am3352-inner-layers-right",
+        "workflowRun": 44400469680,
+        "headSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "path": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers-right.zip",
+        "githubDigest": "sha256:cbcdac18babdea2cbab53998acd765391652a87b92321ce813d7fc3fd7e20b1c",
+        "localDigest": "sha256:cbcdac18babdea2cbab53998acd765391652a87b92321ce813d7fc3fd7e20b1c",
+        "digestMatches": true,
+        "createdAt": "2026-11-18T21:23:57Z"
+      },
+      {
+        "id": 14470454899,
+        "name": "am3352-control",
+        "workflowRun": 44400469680,
+        "headSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "path": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/control.zip",
+        "githubDigest": "sha256:831845f8624a14f4ad284bb6a1ac939e0845616b9d72e9017ba287bffdbd656d",
+        "localDigest": "sha256:831845f8624a14f4ad284bb6a1ac939e0845616b9d72e9017ba287bffdbd656d",
+        "digestMatches": true,
+        "createdAt": "2026-11-18T21:22:53Z"
+      }
+    ],
+    "availablePairs": 11,
+    "mainAccepted": 11,
+    "prAccepted": 11,
+    "lostCompletions": [],
+    "gainedCompletions": [],
+    "timeoutsMain": 0,
+    "timeoutsPr": 0,
+    "inputComparable": true,
+    "metadataComparable": true,
+    "allFullValidationIdentical": true,
+    "allIterationsIdentical": true,
+    "acceptanceJobId": 135169324049,
+    "acceptanceConclusion": "success",
+    "comparison": {
+      "local": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/comparison.md",
+      "hosted": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/comparison/comparison.md",
+      "byteIdentical": true,
+      "sha256": "c2908eccf1cf01be71571b76b445d694adc27a147aecfdcc2856a0cb74feeca3"
+    },
+    "observedTimingRange": {
+      "minimum": {
+        "sample": "inner-layers",
+        "changePercent": -23.15885765581215,
+        "mainSolveSeconds": 60.583326895999996,
+        "prSolveSeconds": 46.552920457,
+        "changeSeconds": -14.030406438999997
+      },
+      "maximum": {
+        "sample": "control-inner1",
+        "changePercent": 38.56704802157795,
+        "mainSolveSeconds": 1128.6874045569998,
+        "prSolveSeconds": 1563.988817886,
+        "changeSeconds": 435.3014133290003
+      }
+    },
+    "rawReports": [
+      {
+        "sample": "control",
+        "path": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/control/control.json",
+        "sha256": "e38cd1c7deba74057aa69b8fc04f0d1cbd6dc9d379f18495cd44afdc7a694d11",
+        "logs": {
+          "main": {
+            "stdout": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/control/control.json.main.stdout.log",
+            "reportMatchesPairEnvelope": true,
+            "reportCount": 1,
+            "stderr": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/control/control.json.main.stderr.log",
+            "stderrBytes": 0
+          },
+          "pr": {
+            "stdout": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/control/control.json.pr.stdout.log",
+            "reportMatchesPairEnvelope": true,
+            "reportCount": 1,
+            "stderr": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/control/control.json.pr.stderr.log",
+            "stderrBytes": 0
+          }
+        }
+      },
+      {
+        "sample": "control-inner1",
+        "path": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/control-inner1/control-inner1.json",
+        "sha256": "6d08ef7b8c7beb74d6cc69d9fa5aaf60227b709c8a6cb0bf6504f9272562db07",
+        "logs": {
+          "main": {
+            "stdout": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/control-inner1/control-inner1.json.main.stdout.log",
+            "reportMatchesPairEnvelope": true,
+            "reportCount": 1,
+            "stderr": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/control-inner1/control-inner1.json.main.stderr.log",
+            "stderrBytes": 0
+          },
+          "pr": {
+            "stdout": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/control-inner1/control-inner1.json.pr.stdout.log",
+            "reportMatchesPairEnvelope": true,
+            "reportCount": 1,
+            "stderr": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/control-inner1/control-inner1.json.pr.stderr.log",
+            "stderrBytes": 0
+          }
+        }
+      },
+      {
+        "sample": "right",
+        "path": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/right/right.json",
+        "sha256": "2e09de8ec2ee96a4ffb44c6db5876cfd39f71591dc35dd574ad9874aea613579",
+        "logs": {
+          "main": {
+            "stdout": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/right/right.json.main.stdout.log",
+            "reportMatchesPairEnvelope": true,
+            "reportCount": 1,
+            "stderr": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/right/right.json.main.stderr.log",
+            "stderrBytes": 0
+          },
+          "pr": {
+            "stdout": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/right/right.json.pr.stdout.log",
+            "reportMatchesPairEnvelope": true,
+            "reportCount": 1,
+            "stderr": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/right/right.json.pr.stderr.log",
+            "stderrBytes": 0
+          }
+        }
+      },
+      {
+        "sample": "left",
+        "path": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/left/left.json",
+        "sha256": "0e9f97fffc21276cbc35e15a73eac7f441219b71e6d5a82d42bda06921d4a0e0",
+        "logs": {
+          "main": {
+            "stdout": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/left/left.json.main.stdout.log",
+            "reportMatchesPairEnvelope": true,
+            "reportCount": 1,
+            "stderr": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/left/left.json.main.stderr.log",
+            "stderrBytes": 0
+          },
+          "pr": {
+            "stdout": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/left/left.json.pr.stdout.log",
+            "reportMatchesPairEnvelope": true,
+            "reportCount": 1,
+            "stderr": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/left/left.json.pr.stderr.log",
+            "stderrBytes": 0
+          }
+        }
+      },
+      {
+        "sample": "above",
+        "path": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/above/above.json",
+        "sha256": "dc3f9ac16d3e950724ada537cc3e2de0b4fff4a3d08368edb4ca9e9321155541",
+        "logs": {
+          "main": {
+            "stdout": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/above/above.json.main.stdout.log",
+            "reportMatchesPairEnvelope": true,
+            "reportCount": 1,
+            "stderr": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/above/above.json.main.stderr.log",
+            "stderrBytes": 0
+          },
+          "pr": {
+            "stdout": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/above/above.json.pr.stdout.log",
+            "reportMatchesPairEnvelope": true,
+            "reportCount": 1,
+            "stderr": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/above/above.json.pr.stderr.log",
+            "stderrBytes": 0
+          }
+        }
+      },
+      {
+        "sample": "inner-layers",
+        "path": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers/inner-layers.json",
+        "sha256": "58a1991dfef36e236f8ee00092fdd31709baf2125a24b11c20363d461e3152bf",
+        "logs": {
+          "main": {
+            "stdout": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers/inner-layers.json.main.stdout.log",
+            "reportMatchesPairEnvelope": true,
+            "reportCount": 1,
+            "stderr": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers/inner-layers.json.main.stderr.log",
+            "stderrBytes": 0
+          },
+          "pr": {
+            "stdout": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers/inner-layers.json.pr.stdout.log",
+            "reportMatchesPairEnvelope": true,
+            "reportCount": 1,
+            "stderr": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers/inner-layers.json.pr.stderr.log",
+            "stderrBytes": 0
+          }
+        }
+      },
+      {
+        "sample": "inner-layers-right",
+        "path": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers-right/inner-layers-right.json",
+        "sha256": "9e524752166a4ef9e41f6f73fb04d1d504f4acc1d9cb8de8c6cde599d3e744cb",
+        "logs": {
+          "main": {
+            "stdout": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers-right/inner-layers-right.json.main.stdout.log",
+            "reportMatchesPairEnvelope": true,
+            "reportCount": 1,
+            "stderr": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers-right/inner-layers-right.json.main.stderr.log",
+            "stderrBytes": 0
+          },
+          "pr": {
+            "stdout": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers-right/inner-layers-right.json.pr.stdout.log",
+            "reportMatchesPairEnvelope": true,
+            "reportCount": 1,
+            "stderr": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers-right/inner-layers-right.json.pr.stderr.log",
+            "stderrBytes": 0
+          }
+        }
+      },
+      {
+        "sample": "inner-layers-left",
+        "path": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers-left/inner-layers-left.json",
+        "sha256": "73c5c981c00cc76437f7f1fe69bf215b9bfb00b7d87157897ad4f68bf01e4fd9",
+        "logs": {
+          "main": {
+            "stdout": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers-left/inner-layers-left.json.main.stdout.log",
+            "reportMatchesPairEnvelope": true,
+            "reportCount": 1,
+            "stderr": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers-left/inner-layers-left.json.main.stderr.log",
+            "stderrBytes": 0
+          },
+          "pr": {
+            "stdout": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers-left/inner-layers-left.json.pr.stdout.log",
+            "reportMatchesPairEnvelope": true,
+            "reportCount": 1,
+            "stderr": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers-left/inner-layers-left.json.pr.stderr.log",
+            "stderrBytes": 0
+          }
+        }
+      },
+      {
+        "sample": "inner-layers-above",
+        "path": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers-above/inner-layers-above.json",
+        "sha256": "1ee9aaa5dd2d8ba86c4217bd771add4b880324dd7ffe0e46cad265ac42edd51d",
+        "logs": {
+          "main": {
+            "stdout": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers-above/inner-layers-above.json.main.stdout.log",
+            "reportMatchesPairEnvelope": true,
+            "reportCount": 1,
+            "stderr": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers-above/inner-layers-above.json.main.stderr.log",
+            "stderrBytes": 0
+          },
+          "pr": {
+            "stdout": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers-above/inner-layers-above.json.pr.stdout.log",
+            "reportMatchesPairEnvelope": true,
+            "reportCount": 1,
+            "stderr": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers-above/inner-layers-above.json.pr.stderr.log",
+            "stderrBytes": 0
+          }
+        }
+      },
+      {
+        "sample": "inner-layers-complete-ca",
+        "path": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers-complete-ca/inner-layers-complete-ca.json",
+        "sha256": "6f817711cf274dbd96c58001cb13ce76d61addc06d46dca6c5ac2e19e7fc2b23",
+        "logs": {
+          "main": {
+            "stdout": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers-complete-ca/inner-layers-complete-ca.json.main.stdout.log",
+            "reportMatchesPairEnvelope": true,
+            "reportCount": 1,
+            "stderr": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers-complete-ca/inner-layers-complete-ca.json.main.stderr.log",
+            "stderrBytes": 0
+          },
+          "pr": {
+            "stdout": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers-complete-ca/inner-layers-complete-ca.json.pr.stdout.log",
+            "reportMatchesPairEnvelope": true,
+            "reportCount": 1,
+            "stderr": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/inner-layers-complete-ca/inner-layers-complete-ca.json.pr.stderr.log",
+            "stderrBytes": 0
+          }
+        }
+      },
+      {
+        "sample": "outer-layers",
+        "path": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/outer-layers/outer-layers.json",
+        "sha256": "d801170d3b727ffeb0385a77854839c189f5ebeada3c0a18b72cd295a9e6fbcc",
+        "logs": {
+          "main": {
+            "stdout": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/outer-layers/outer-layers.json.main.stdout.log",
+            "reportMatchesPairEnvelope": true,
+            "reportCount": 1,
+            "stderr": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/outer-layers/outer-layers.json.main.stderr.log",
+            "stderrBytes": 0
+          },
+          "pr": {
+            "stdout": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/outer-layers/outer-layers.json.pr.stdout.log",
+            "reportMatchesPairEnvelope": true,
+            "reportCount": 1,
+            "stderr": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/outer-layers/outer-layers.json.pr.stderr.log",
+            "stderrBytes": 0
+          }
+        }
+      }
+    ]
+  },
+  "tests": {
+    "pr": {
+      "workflowRun": 44400469671,
+      "passed": 611,
+      "failed": 0,
+      "partial": false,
+      "runtimesByNode": {
+        "1": {
+          "bunVersion": "1.4.4",
+          "bunRevision": "38afee6c8"
+        },
+        "2": {
+          "bunVersion": "1.4.4",
+          "bunRevision": "38afee6c8"
+        },
+        "3": {
+          "bunVersion": "1.4.4",
+          "bunRevision": "38afee6c8"
+        },
+        "4": {
+          "bunVersion": "1.4.4",
+          "bunRevision": "38afee6c8"
+        },
+        "5": {
+          "bunVersion": "1.4.4",
+          "bunRevision": "38afee6c8"
+        },
+        "6": {
+          "bunVersion": "1.4.4",
+          "bunRevision": "38afee6c8"
+        }
+      }
+    },
+    "push": {
+      "workflowRun": 44400360468,
+      "passed": 611,
+      "failed": 0,
+      "partial": false,
+      "runtimesByNode": {
+        "1": {
+          "bunVersion": "1.4.4",
+          "bunRevision": "38afee6c8"
+        },
+        "2": {
+          "bunVersion": "1.4.4",
+          "bunRevision": "38afee6c8"
+        },
+        "3": {
+          "bunVersion": "1.4.4",
+          "bunRevision": "38afee6c8"
+        },
+        "4": {
+          "bunVersion": "1.4.4",
+          "bunRevision": "38afee6c8"
+        },
+        "5": {
+          "bunVersion": "1.4.4",
+          "bunRevision": "38afee6c8"
+        },
+        "6": {
+          "bunVersion": "1.4.4",
+          "bunRevision": "38afee6c8"
+        }
+      }
+    }
+  },
+  "checks": {
+    "type": 44400469668,
+    "format": 44400469791,
+    "package": 44400469708,
+    "preview": 44400469763,
+    "previewInstallURL": "https://pkg.pr.new/tscircuit/bus-lanes-solver/@tscircuit/bus-lanes-solver@2af1bd6"
+  },
+  "allCheckRuns": {
+    "total": 33,
+    "success": 33
+  },
+  "finalPRMetadata": {
+    "number": 219,
+    "url": "https://github.com/tscircuit/bus-lanes-solver/pull/219",
+    "state": "open",
+    "draft": true,
+    "base": "main",
+    "base_sha": "202b034659fb96bad44d11b8190f4044b675116f",
+    "head": "repro/orangecrab-full-board",
+    "head_sha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+    "merge_commit_sha": "377978809252ab83154ada071c3c21e30a16ab66"
+  },
+  "finalWorkflows": [
+    {
+      "conclusion": "success",
+      "databaseId": 44400469791,
+      "event": "pull_request",
+      "headSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "name": "formatcheck",
+      "status": "completed",
+      "workflowName": "formatcheck"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 44400469708,
+      "event": "pull_request",
+      "headSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "name": "Package validation",
+      "status": "completed",
+      "workflowName": "Package validation"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 44400469668,
+      "event": "pull_request",
+      "headSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "name": "typecheck",
+      "status": "completed",
+      "workflowName": "typecheck"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 44400469763,
+      "event": "pull_request",
+      "headSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "name": "PR package preview",
+      "status": "completed",
+      "workflowName": "PR package preview"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 44400469671,
+      "event": "pull_request",
+      "headSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "name": "test",
+      "status": "completed",
+      "workflowName": "test"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 44400469680,
+      "event": "pull_request",
+      "headSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "name": "AM3352 benchmark",
+      "status": "completed",
+      "workflowName": "AM3352 benchmark"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 44400360595,
+      "event": "push",
+      "headSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "name": "typecheck",
+      "status": "completed",
+      "workflowName": "typecheck"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 44400360550,
+      "event": "push",
+      "headSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "name": "formatcheck",
+      "status": "completed",
+      "workflowName": "formatcheck"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 44400360468,
+      "event": "push",
+      "headSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "name": "test",
+      "status": "completed",
+      "workflowName": "test"
+    }
+  ],
+  "finalCommitStatuses": [
+    {
+      "context": "Vercel",
+      "state": "success",
+      "target_url": "https://vercel.com/tscircuit/bus-lanes-solver/7EfaCyZ5fkWPAxVbeqD5tBLh4E89"
+    }
+  ]
+}

@@ -1,0 +1,2294 @@
+{
+  "finalConfig": {
+    "status": "root_go_final_frozen_pins",
+    "baselineDirectory": "/workspace/ddr-results/core-stack-repro-base",
+    "coreDirectory": "/workspace/core",
+    "coreCommit": "1a16da2f74fc2c80712d52abb17254dd2a80e2c5",
+    "benchmarkPackagePin": "24dc44c166d4258c3538f8b1f66953f1b6f58690",
+    "benchmarkFingerprint": "sha256:07241d5c0af855ba5f7d0516d9cdbf62e00f0a048df8c7011165bcce697eb73c",
+    "timeoutSeconds": 120,
+    "runtime": "Bun1.4.3",
+    "resourceLimits": {
+      "cpuQuota": "400000 100000",
+      "memoryLimitBytes": 17179869184
+    },
+    "baseline": {
+      "sourceCommit": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "packageDirectory": "/workspace/ddr-results/packages/bus-stack-repro-base",
+      "distributionSha256": "92f3fb6ea1086a669b07ea368b804c4a9e976773fdea8e620132eb139d16a155",
+      "productionCodeSourceCommit": "202b034659fb96bad44d11b8190f4044b675116f",
+      "historicalDistributionSha256": "fa6390c904b678f7dc197d0d3d671a28e273554369f8475457ea86374c5dad8c",
+      "bundleDifference": "60generated module sourcepath labels/keys use ../bus-lanes-work/node_modules/ because sourceRnode_modules is a symlink; unmodified fresh bundle is used. In-memory replacement of this pathprefix gives byte-identical historicalfa639 bundle."
+    },
+    "head": {
+      "sourceCommit": "358604c0e7f8bee42d0aef488807239c322198c6",
+      "packageDirectory": "/workspace/ddr-results/packages/bus-stack-fix-handbook",
+      "distributionSha256": "557d2f94e831b77c89546f730931b46be07f2d371d534fd81fcf29453ea98913"
+    },
+    "newOutputPaths": {
+      "baselineCoreDirectory": "/workspace/ddr-results/core-stack-repro-base",
+      "baselineCoreRunLog": "/workspace/ddr-results/core-stack-repro-base.run.log",
+      "coreDirectory": "/workspace/ddr-results/core-stack-fix-handbook",
+      "coreRunLog": "/workspace/ddr-results/core-stack-fix-handbook.run.log",
+      "pairDirectory": "/workspace/ddr-results/a64-stack-paired-public",
+      "reportDirectory": "/workspace/ddr-results/core-stack-comparison"
+    },
+    "requireFreshA64PairForFinalTimingClaim": true,
+    "orangeCrabCaptureRule": "Use only the same new fresh full-run OrangeCrab circuit when status passed with full50/50 connectivity, no findings, and all stages completed. If timeout, report it; never publish partial captures.",
+    "reproBaseCommit": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+    "baselineReuseReason": "Fresh baseR and headF both measured. Historical202b is codeidentical reference only; currentR artifact contains generated dependency pathprefix differences documented in freeze provenance.",
+    "historicalBaselineDirectory": "/workspace/ddr-results/core-main",
+    "fullCoreExecutionPlan": "Fresh baseR all10 then fresh headF all10, serial and otherwise identical, both120s per case; root holds local heavy work through both and stage pair.",
+    "buildAndFreeze": [
+      {
+        "label": "baseline",
+        "sourceDirectory": "/workspace/bus-lanes-orangecrab-repro",
+        "sourceCommit": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "packageDirectory": "/workspace/ddr-results/packages/bus-stack-repro-base",
+        "distributionSha256": "92f3fb6ea1086a669b07ea368b804c4a9e976773fdea8e620132eb139d16a155",
+        "buildLog": "/workspace/ddr-results/build-stack-repro-base.log",
+        "frozenAtUtc": "2026-11-18T21:25:35.719070+00:00",
+        "sourceTrackedChanges": "",
+        "historicalDistributionSha256": "fa6390c904b678f7dc197d0d3d671a28e273554369f8475457ea86374c5dad8c",
+        "bundleDifference": "60generated module sourcepath labels/keys use ../bus-lanes-work/node_modules/ because sourceRnode_modules is a symlink; unmodified fresh bundle is used. In-memory replacement of this pathprefix gives byte-identical historicalfa639 bundle."
+      },
+      {
+        "label": "head",
+        "sourceDirectory": "/workspace/bus-lanes-work",
+        "sourceCommit": "358604c0e7f8bee42d0aef488807239c322198c6",
+        "packageDirectory": "/workspace/ddr-results/packages/bus-stack-fix-handbook",
+        "distributionSha256": "557d2f94e831b77c89546f730931b46be07f2d371d534fd81fcf29453ea98913",
+        "buildLog": "/workspace/ddr-results/build-stack-fix-handbook.log",
+        "frozenAtUtc": "2026-11-18T21:25:35.734440+00:00",
+        "sourceTrackedChanges": ""
+      }
+    ]
+  },
+  "configSha256": "3410b74f224264939e8a496c9fc7a43d8e5f6da7ca8dc9145e928440dad50989",
+  "metadataEqual": {
+    "coreCommit": true,
+    "benchmarkRevision": true,
+    "assessmentRevision": true,
+    "fixtureHashes": true,
+    "bunVersion": true,
+    "platform": true,
+    "cpu": true,
+    "dependencies": true,
+    "timeoutSeconds": true,
+    "geometryOnly": true
+  },
+  "summary": {
+    "mainPassed": 4,
+    "headPassed": 4,
+    "mainConnected": 341,
+    "headConnected": 341,
+    "requested": 606,
+    "partialDeclines": [],
+    "baselinePassBoardsPreserved": true,
+    "mainPhysicalFindings": 0,
+    "headPhysicalFindings": 0,
+    "mainGeometryErrors": 0,
+    "headGeometryErrors": 0,
+    "h616AndGliderPassedBoth": true,
+    "mainNativeConnectivityFindings": 658,
+    "mainCappedTotalWallSeconds": 952.836122365,
+    "headNativeConnectivityFindings": 658,
+    "headCappedTotalWallSeconds": 911.4161715470001
+  },
+  "cases": [
+    {
+      "circuit": "h3",
+      "main": {
+        "status": "failed",
+        "connected": 16,
+        "requested": 53,
+        "wallSeconds": 40.638775287,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "nativeFindings": {
+          "missing_traces": 0,
+          "disconnected_ports": 76,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "nativeConnectivityFindings": 76,
+        "phases": [
+          {
+            "phase": "byte0",
+            "stage": 0,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 4179.64776,
+            "durationMs": 700.1416629999994,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "byte1",
+            "stage": 1,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 4971.284095,
+            "durationMs": 25310.495968000003,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "remaining",
+            "stage": 2,
+            "solver": "AutoroutingPipelineSolver9_PreloadedTraceGraph",
+            "status": "failed",
+            "startedMs": 30500.84245,
+            "durationMs": 9345.972028,
+            "connections": 37,
+            "cacheStatus": "disabled"
+          }
+        ]
+      },
+      "head": {
+        "status": "failed",
+        "connected": 16,
+        "requested": 53,
+        "wallSeconds": 44.060040439999995,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "nativeFindings": {
+          "missing_traces": 0,
+          "disconnected_ports": 76,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "nativeConnectivityFindings": 76,
+        "phases": [
+          {
+            "phase": "byte0",
+            "stage": 0,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 5464.039066,
+            "durationMs": 776.1921060000004,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "byte1",
+            "stage": 1,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 6329.914563,
+            "durationMs": 26055.209405,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "remaining",
+            "stage": 2,
+            "solver": "AutoroutingPipelineSolver9_PreloadedTraceGraph",
+            "status": "failed",
+            "startedMs": 32558.244592,
+            "durationMs": 10284.850886999997,
+            "connections": 37,
+            "cacheStatus": "disabled"
+          }
+        ]
+      },
+      "connectedDelta": 0
+    },
+    {
+      "circuit": "a64",
+      "main": {
+        "status": "timeout",
+        "connected": 32,
+        "requested": 75,
+        "wallSeconds": 120.09071168400001,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "nativeFindings": {
+          "missing_traces": 0,
+          "disconnected_ports": 120,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "nativeConnectivityFindings": 120,
+        "phases": [
+          {
+            "phase": "byte0",
+            "stage": 0,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 3812.1537329999996,
+            "durationMs": 835.3972940000008,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "byte1",
+            "stage": 1,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 4842.384572,
+            "durationMs": 871.2211620000007,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "byte2",
+            "stage": 2,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 5877.49685,
+            "durationMs": 74589.261742,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "byte3",
+            "stage": 3,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 80660.415627,
+            "durationMs": 6329.050292,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "remaining",
+            "stage": 4,
+            "solver": "AutoroutingPipelineSolver9_PreloadedTraceGraph",
+            "status": "running",
+            "startedMs": 87215.87826499999,
+            "durationMs": null,
+            "connections": 43,
+            "cacheStatus": "disabled"
+          }
+        ]
+      },
+      "head": {
+        "status": "failed",
+        "connected": 32,
+        "requested": 75,
+        "wallSeconds": 114.41794334200002,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "nativeFindings": {
+          "missing_traces": 0,
+          "disconnected_ports": 120,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "nativeConnectivityFindings": 120,
+        "phases": [
+          {
+            "phase": "byte0",
+            "stage": 0,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 4420.21198,
+            "durationMs": 941.7347319999999,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "byte1",
+            "stage": 1,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 5642.187328,
+            "durationMs": 1052.2464810000001,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "byte2",
+            "stage": 2,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 6890.915746,
+            "durationMs": 10322.334123000004,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "byte3",
+            "stage": 3,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 17398.987146000003,
+            "durationMs": 7220.024965999997,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "remaining",
+            "stage": 4,
+            "solver": "AutoroutingPipelineSolver9_PreloadedTraceGraph",
+            "status": "failed",
+            "startedMs": 24787.29345,
+            "durationMs": 88032.15444299999,
+            "connections": 43,
+            "cacheStatus": "disabled"
+          }
+        ]
+      },
+      "connectedDelta": 0
+    },
+    {
+      "circuit": "stmp157",
+      "main": {
+        "status": "timeout",
+        "connected": 32,
+        "requested": 72,
+        "wallSeconds": 120.173357644,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "nativeFindings": {
+          "missing_traces": 0,
+          "disconnected_ports": 137,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "nativeConnectivityFindings": 137,
+        "phases": [
+          {
+            "phase": "byte0",
+            "stage": 0,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 5040.6222530000005,
+            "durationMs": 725.8977889999996,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "byte1",
+            "stage": 1,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 5925.194227,
+            "durationMs": 821.7056769999999,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "byte2",
+            "stage": 2,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 6967.03056,
+            "durationMs": 1408.3335489999981,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "byte3",
+            "stage": 3,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 8578.538528,
+            "durationMs": 800.3370140000006,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "remaining",
+            "stage": 4,
+            "solver": "AutoroutingPipelineSolver9_PreloadedTraceGraph",
+            "status": "running",
+            "startedMs": 9579.556843999999,
+            "durationMs": null,
+            "connections": 40,
+            "cacheStatus": "disabled"
+          }
+        ]
+      },
+      "head": {
+        "status": "timeout",
+        "connected": 32,
+        "requested": 72,
+        "wallSeconds": 120.15042560400002,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "nativeFindings": {
+          "missing_traces": 0,
+          "disconnected_ports": 137,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "nativeConnectivityFindings": 137,
+        "phases": [
+          {
+            "phase": "byte0",
+            "stage": 0,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 5516.951677,
+            "durationMs": 643.7346480000006,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "byte1",
+            "stage": 1,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 6328.065891,
+            "durationMs": 977.552498,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "byte2",
+            "stage": 2,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 7475.864156000001,
+            "durationMs": 1076.8692339999989,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "byte3",
+            "stage": 3,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 8726.755266999999,
+            "durationMs": 925.8961070000005,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "remaining",
+            "stage": 4,
+            "solver": "AutoroutingPipelineSolver9_PreloadedTraceGraph",
+            "status": "running",
+            "startedMs": 9832.848796,
+            "durationMs": null,
+            "connections": 40,
+            "cacheStatus": "disabled"
+          }
+        ]
+      },
+      "connectedDelta": 0
+    },
+    {
+      "circuit": "orangecrab",
+      "main": {
+        "status": "passed",
+        "connected": 50,
+        "requested": 50,
+        "wallSeconds": 96.72259171100002,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "nativeFindings": {
+          "missing_traces": 0,
+          "disconnected_ports": 0,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "nativeConnectivityFindings": 0,
+        "phases": [
+          {
+            "phase": "byte0",
+            "stage": 0,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 4340.355927,
+            "durationMs": 736.4678780000004,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "byte1",
+            "stage": 1,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 5165.533235999999,
+            "durationMs": 839.6747650000007,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "remaining",
+            "stage": 2,
+            "solver": "AutoroutingPipelineSolver9_PreloadedTraceGraph",
+            "status": "completed",
+            "startedMs": 6130.876545,
+            "durationMs": 89416.35533499999,
+            "connections": 34,
+            "cacheStatus": "disabled"
+          }
+        ]
+      },
+      "head": {
+        "status": "passed",
+        "connected": 50,
+        "requested": 50,
+        "wallSeconds": 85.56958482200001,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "nativeFindings": {
+          "missing_traces": 0,
+          "disconnected_ports": 0,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "nativeConnectivityFindings": 0,
+        "phases": [
+          {
+            "phase": "byte0",
+            "stage": 0,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 3589.055694,
+            "durationMs": 1046.7517649999995,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "byte1",
+            "stage": 1,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 4742.2202019999995,
+            "durationMs": 688.6298470000002,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "remaining",
+            "stage": 2,
+            "solver": "AutoroutingPipelineSolver9_PreloadedTraceGraph",
+            "status": "completed",
+            "startedMs": 5503.410941,
+            "durationMs": 78763.12431900001,
+            "connections": 34,
+            "cacheStatus": "disabled"
+          }
+        ]
+      },
+      "connectedDelta": 0
+    },
+    {
+      "circuit": "a13",
+      "main": {
+        "status": "timeout",
+        "connected": 24,
+        "requested": 96,
+        "wallSeconds": 120.20143611899996,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "nativeFindings": {
+          "missing_traces": 0,
+          "disconnected_ports": 144,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "nativeConnectivityFindings": 144,
+        "phases": [
+          {
+            "phase": "byte0",
+            "stage": 0,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 4063.7564639999996,
+            "durationMs": 13578.438651999999,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "byte1",
+            "stage": 1,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 17809.914823,
+            "durationMs": 14966.914843999999,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "ram_byte0",
+            "stage": 2,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 32962.351095,
+            "durationMs": 34598.24381400001,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "ram_byte1",
+            "stage": 3,
+            "solver": "BusLanesPipelineSolver",
+            "status": "running",
+            "startedMs": 67759.14409300001,
+            "durationMs": null,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          }
+        ]
+      },
+      "head": {
+        "status": "timeout",
+        "connected": 24,
+        "requested": 96,
+        "wallSeconds": 120.07539539700001,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "nativeFindings": {
+          "missing_traces": 0,
+          "disconnected_ports": 144,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "nativeConnectivityFindings": 144,
+        "phases": [
+          {
+            "phase": "byte0",
+            "stage": 0,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 4271.029434,
+            "durationMs": 15750.753039,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "byte1",
+            "stage": 1,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 20179.035999,
+            "durationMs": 14287.795986000005,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "ram_byte0",
+            "stage": 2,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 34619.878408000004,
+            "durationMs": 32484.992026999986,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "ram_byte1",
+            "stage": 3,
+            "solver": "BusLanesPipelineSolver",
+            "status": "running",
+            "startedMs": 67247.126892,
+            "durationMs": null,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          }
+        ]
+      },
+      "connectedDelta": 0
+    },
+    {
+      "circuit": "h616",
+      "main": {
+        "status": "passed",
+        "connected": 53,
+        "requested": 53,
+        "wallSeconds": 64.10691204000003,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "nativeFindings": {
+          "missing_traces": 0,
+          "disconnected_ports": 0,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "nativeConnectivityFindings": 0,
+        "phases": [
+          {
+            "phase": "byte0",
+            "stage": 0,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 4042.471272,
+            "durationMs": 709.3669080000004,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "byte1",
+            "stage": 1,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 4841.155007,
+            "durationMs": 5155.368294000001,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "remaining",
+            "stage": 2,
+            "solver": "AutoroutingPipelineSolver9_PreloadedTraceGraph",
+            "status": "completed",
+            "startedMs": 10098.654684000001,
+            "durationMs": 52473.011634999995,
+            "connections": 37,
+            "cacheStatus": "disabled"
+          }
+        ]
+      },
+      "head": {
+        "status": "passed",
+        "connected": 53,
+        "requested": 53,
+        "wallSeconds": 58.60911488899996,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "nativeFindings": {
+          "missing_traces": 0,
+          "disconnected_ports": 0,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "nativeConnectivityFindings": 0,
+        "phases": [
+          {
+            "phase": "byte0",
+            "stage": 0,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 4208.335671,
+            "durationMs": 674.2352140000003,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "byte1",
+            "stage": 1,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 5077.719679,
+            "durationMs": 4977.319824,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "remaining",
+            "stage": 2,
+            "solver": "AutoroutingPipelineSolver9_PreloadedTraceGraph",
+            "status": "completed",
+            "startedMs": 10148.296521,
+            "durationMs": 47603.723021,
+            "connections": 37,
+            "cacheStatus": "disabled"
+          }
+        ]
+      },
+      "connectedDelta": 0
+    },
+    {
+      "circuit": "butterstick",
+      "main": {
+        "status": "timeout",
+        "connected": 16,
+        "requested": 55,
+        "wallSeconds": 120.23173197700002,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "nativeFindings": {
+          "missing_traces": 0,
+          "disconnected_ports": 111,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "nativeConnectivityFindings": 111,
+        "phases": [
+          {
+            "phase": "byte0",
+            "stage": 0,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 3779.570065,
+            "durationMs": 3049.9290870000004,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "byte1",
+            "stage": 1,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 7167.697117,
+            "durationMs": 14953.588115999999,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "remaining",
+            "stage": 2,
+            "solver": "AutoroutingPipelineSolver9_PreloadedTraceGraph",
+            "status": "running",
+            "startedMs": 22284.669599,
+            "durationMs": null,
+            "connections": 39,
+            "cacheStatus": "disabled"
+          }
+        ]
+      },
+      "head": {
+        "status": "timeout",
+        "connected": 16,
+        "requested": 55,
+        "wallSeconds": 120.16640039500001,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "nativeFindings": {
+          "missing_traces": 0,
+          "disconnected_ports": 111,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "nativeConnectivityFindings": 111,
+        "phases": [
+          {
+            "phase": "byte0",
+            "stage": 0,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 3806.9913779999997,
+            "durationMs": 3489.4987090000004,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "byte1",
+            "stage": 1,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 7414.70511,
+            "durationMs": 14018.950805000004,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "remaining",
+            "stage": 2,
+            "solver": "AutoroutingPipelineSolver9_PreloadedTraceGraph",
+            "status": "running",
+            "startedMs": 21600.52621,
+            "durationMs": null,
+            "connections": 39,
+            "cacheStatus": "disabled"
+          }
+        ]
+      },
+      "connectedDelta": 0
+    },
+    {
+      "circuit": "glider",
+      "main": {
+        "status": "passed",
+        "connected": 49,
+        "requested": 49,
+        "wallSeconds": 39.13278603399999,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "nativeFindings": {
+          "missing_traces": 0,
+          "disconnected_ports": 0,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "nativeConnectivityFindings": 0,
+        "phases": [
+          {
+            "phase": "byte0",
+            "stage": 0,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 3693.4625730000002,
+            "durationMs": 640.9395319999999,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "byte1",
+            "stage": 1,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 4468.064827,
+            "durationMs": 337.7601420000001,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "remaining",
+            "stage": 2,
+            "solver": "AutoroutingPipelineSolver9_PreloadedTraceGraph",
+            "status": "completed",
+            "startedMs": 4888.390536,
+            "durationMs": 32936.472661,
+            "connections": 33,
+            "cacheStatus": "disabled"
+          }
+        ]
+      },
+      "head": {
+        "status": "passed",
+        "connected": 49,
+        "requested": 49,
+        "wallSeconds": 33.11863686700002,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "nativeFindings": {
+          "missing_traces": 0,
+          "disconnected_ports": 0,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "nativeConnectivityFindings": 0,
+        "phases": [
+          {
+            "phase": "byte0",
+            "stage": 0,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 3325.794751,
+            "durationMs": 332.4587210000004,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "byte1",
+            "stage": 1,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 3734.450874,
+            "durationMs": 631.2676670000001,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "remaining",
+            "stage": 2,
+            "solver": "AutoroutingPipelineSolver9_PreloadedTraceGraph",
+            "status": "completed",
+            "startedMs": 4450.915498,
+            "durationMs": 27655.972188,
+            "connections": 33,
+            "cacheStatus": "disabled"
+          }
+        ]
+      },
+      "connectedDelta": 0
+    },
+    {
+      "circuit": "imx6",
+      "main": {
+        "status": "passed",
+        "connected": 53,
+        "requested": 53,
+        "wallSeconds": 111.40588275200001,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "nativeFindings": {
+          "missing_traces": 0,
+          "disconnected_ports": 0,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "nativeConnectivityFindings": 0,
+        "phases": [
+          {
+            "phase": "byte0",
+            "stage": 0,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 3612.967536,
+            "durationMs": 798.3449360000004,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "byte1",
+            "stage": 1,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 4518.273440000001,
+            "durationMs": 1982.7707149999997,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "remaining",
+            "stage": 2,
+            "solver": "AutoroutingPipelineSolver9_PreloadedTraceGraph",
+            "status": "completed",
+            "startedMs": 6606.131662000001,
+            "durationMs": 102161.15546000001,
+            "connections": 37,
+            "cacheStatus": "disabled"
+          }
+        ]
+      },
+      "head": {
+        "status": "passed",
+        "connected": 53,
+        "requested": 53,
+        "wallSeconds": 95.16490427800001,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "nativeFindings": {
+          "missing_traces": 0,
+          "disconnected_ports": 0,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "nativeConnectivityFindings": 0,
+        "phases": [
+          {
+            "phase": "byte0",
+            "stage": 0,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 4337.763475,
+            "durationMs": 1068.7809809999999,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "byte1",
+            "stage": 1,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 5486.546351,
+            "durationMs": 1596.7242770000003,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "remaining",
+            "stage": 2,
+            "solver": "AutoroutingPipelineSolver9_PreloadedTraceGraph",
+            "status": "completed",
+            "startedMs": 7169.549276,
+            "durationMs": 86222.871502,
+            "connections": 37,
+            "cacheStatus": "disabled"
+          }
+        ]
+      },
+      "connectedDelta": 0
+    },
+    {
+      "circuit": "icepi",
+      "main": {
+        "status": "timeout",
+        "connected": 16,
+        "requested": 50,
+        "wallSeconds": 120.13193711699999,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "nativeFindings": {
+          "missing_traces": 0,
+          "disconnected_ports": 70,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "nativeConnectivityFindings": 70,
+        "phases": [
+          {
+            "phase": "byte0",
+            "stage": 0,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 3975.2324439999998,
+            "durationMs": 438.959472,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "byte1",
+            "stage": 1,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 4518.745323,
+            "durationMs": 396.70140999999967,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "remaining",
+            "stage": 2,
+            "solver": "AutoroutingPipelineSolver9_PreloadedTraceGraph",
+            "status": "running",
+            "startedMs": 5012.106124,
+            "durationMs": null,
+            "connections": 34,
+            "cacheStatus": "disabled"
+          }
+        ]
+      },
+      "head": {
+        "status": "timeout",
+        "connected": 16,
+        "requested": 50,
+        "wallSeconds": 120.08372551300005,
+        "physicalFindings": 0,
+        "geometryErrors": 0,
+        "nativeFindings": {
+          "missing_traces": 0,
+          "disconnected_ports": 70,
+          "trace_overlap": 0,
+          "pad_trace": 0,
+          "via_trace": 0,
+          "via_pad": 0,
+          "via_spacing": 0,
+          "contiguous": 0,
+          "via_in_pad": 0,
+          "hole_trace": 0,
+          "width": 0
+        },
+        "nativeConnectivityFindings": 70,
+        "phases": [
+          {
+            "phase": "byte0",
+            "stage": 0,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 3522.0238900000004,
+            "durationMs": 321.02495999999974,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "byte1",
+            "stage": 1,
+            "solver": "BusLanesPipelineSolver",
+            "status": "completed",
+            "startedMs": 3925.675486,
+            "durationMs": 307.18212700000004,
+            "connections": 8,
+            "cacheStatus": "disabled"
+          },
+          {
+            "phase": "remaining",
+            "stage": 2,
+            "solver": "AutoroutingPipelineSolver9_PreloadedTraceGraph",
+            "status": "running",
+            "startedMs": 4319.289962,
+            "durationMs": null,
+            "connections": 34,
+            "cacheStatus": "disabled"
+          }
+        ]
+      },
+      "connectedDelta": 0
+    }
+  ],
+  "completedByteGeometry": [
+    {
+      "circuit": "h3",
+      "phase": "byte0",
+      "allCapturesPresent": true,
+      "paths": [
+        "/workspace/ddr-results/core-stack-repro-base/h3/phase-1-start.srj.json",
+        "/workspace/ddr-results/core-stack-repro-base/h3/phase-1-end.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/h3/phase-1-start.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/h3/phase-1-end.srj.json"
+      ],
+      "startSrjEqual": true,
+      "endSrjEqual": true,
+      "sha256": [
+        "369d2050bf26ea9aa98a9b8dd4c7fb0df26d3dc85b1324a1f6c0af2a23b4bab7",
+        "3528b58d5124a3b19db221bab260003f738b00857071fc5cf5d22c0f89f052ec",
+        "369d2050bf26ea9aa98a9b8dd4c7fb0df26d3dc85b1324a1f6c0af2a23b4bab7",
+        "3528b58d5124a3b19db221bab260003f738b00857071fc5cf5d22c0f89f052ec"
+      ]
+    },
+    {
+      "circuit": "h3",
+      "phase": "byte1",
+      "allCapturesPresent": true,
+      "paths": [
+        "/workspace/ddr-results/core-stack-repro-base/h3/phase-2-start.srj.json",
+        "/workspace/ddr-results/core-stack-repro-base/h3/phase-2-end.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/h3/phase-2-start.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/h3/phase-2-end.srj.json"
+      ],
+      "startSrjEqual": true,
+      "endSrjEqual": true,
+      "sha256": [
+        "cef23b04d95522fbf93f2d5037a0857ecbf379de54dcc25fda5c8db4799e070e",
+        "ec82ba96744d440b1c4af08ba19cdbfc958d0225e71ce7d82ef056a7d68fe470",
+        "cef23b04d95522fbf93f2d5037a0857ecbf379de54dcc25fda5c8db4799e070e",
+        "ec82ba96744d440b1c4af08ba19cdbfc958d0225e71ce7d82ef056a7d68fe470"
+      ]
+    },
+    {
+      "circuit": "a64",
+      "phase": "byte0",
+      "allCapturesPresent": true,
+      "paths": [
+        "/workspace/ddr-results/core-stack-repro-base/a64/phase-1-start.srj.json",
+        "/workspace/ddr-results/core-stack-repro-base/a64/phase-1-end.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/a64/phase-1-start.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/a64/phase-1-end.srj.json"
+      ],
+      "startSrjEqual": true,
+      "endSrjEqual": true,
+      "sha256": [
+        "81a5ecd1e6a20f7e4e4906d81210219455cf57166ec255df396e7795bbb4bb61",
+        "8755e976399c2c7a90118e8f6bd1a05baf60161fd129ece7df68d76de45ad8b2",
+        "81a5ecd1e6a20f7e4e4906d81210219455cf57166ec255df396e7795bbb4bb61",
+        "8755e976399c2c7a90118e8f6bd1a05baf60161fd129ece7df68d76de45ad8b2"
+      ]
+    },
+    {
+      "circuit": "a64",
+      "phase": "byte1",
+      "allCapturesPresent": true,
+      "paths": [
+        "/workspace/ddr-results/core-stack-repro-base/a64/phase-2-start.srj.json",
+        "/workspace/ddr-results/core-stack-repro-base/a64/phase-2-end.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/a64/phase-2-start.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/a64/phase-2-end.srj.json"
+      ],
+      "startSrjEqual": true,
+      "endSrjEqual": true,
+      "sha256": [
+        "fe0181f5558506e8296cbf55fbf8a9ce8e5a532e4345dc70c67b9f7897ec0a36",
+        "7d76fe44a3ed9054276948ea49eba5bf2f91981c19b82b6ae80cbf275153f907",
+        "fe0181f5558506e8296cbf55fbf8a9ce8e5a532e4345dc70c67b9f7897ec0a36",
+        "7d76fe44a3ed9054276948ea49eba5bf2f91981c19b82b6ae80cbf275153f907"
+      ]
+    },
+    {
+      "circuit": "a64",
+      "phase": "byte2",
+      "allCapturesPresent": true,
+      "paths": [
+        "/workspace/ddr-results/core-stack-repro-base/a64/phase-3-start.srj.json",
+        "/workspace/ddr-results/core-stack-repro-base/a64/phase-3-end.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/a64/phase-3-start.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/a64/phase-3-end.srj.json"
+      ],
+      "startSrjEqual": true,
+      "endSrjEqual": true,
+      "sha256": [
+        "3839e7492986ba5a6b5f6051446a0094b29d5dea2eadda18cd718a38a27f2938",
+        "58b4af520e8c32a205296ca5181db02f3f27934dd8317b8a1bd5301137ed47a7",
+        "3839e7492986ba5a6b5f6051446a0094b29d5dea2eadda18cd718a38a27f2938",
+        "58b4af520e8c32a205296ca5181db02f3f27934dd8317b8a1bd5301137ed47a7"
+      ]
+    },
+    {
+      "circuit": "a64",
+      "phase": "byte3",
+      "allCapturesPresent": true,
+      "paths": [
+        "/workspace/ddr-results/core-stack-repro-base/a64/phase-4-start.srj.json",
+        "/workspace/ddr-results/core-stack-repro-base/a64/phase-4-end.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/a64/phase-4-start.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/a64/phase-4-end.srj.json"
+      ],
+      "startSrjEqual": true,
+      "endSrjEqual": true,
+      "sha256": [
+        "ffe7d0461d2f1a803a1cd4c1c1e77452ecfbcde2e84b8c311d8220c367e586ad",
+        "72bfa515837227deeff89bc9f070b111f8ee83859c2748ff9d055a1bce11449b",
+        "ffe7d0461d2f1a803a1cd4c1c1e77452ecfbcde2e84b8c311d8220c367e586ad",
+        "72bfa515837227deeff89bc9f070b111f8ee83859c2748ff9d055a1bce11449b"
+      ]
+    },
+    {
+      "circuit": "stmp157",
+      "phase": "byte0",
+      "allCapturesPresent": true,
+      "paths": [
+        "/workspace/ddr-results/core-stack-repro-base/stmp157/phase-1-start.srj.json",
+        "/workspace/ddr-results/core-stack-repro-base/stmp157/phase-1-end.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/stmp157/phase-1-start.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/stmp157/phase-1-end.srj.json"
+      ],
+      "startSrjEqual": true,
+      "endSrjEqual": true,
+      "sha256": [
+        "9f875de4eac1445fbb83036631d4e24458739b259c1a61dcd1fbc1ef12958da5",
+        "f40beb8a1bc7f36711c5c2706403a82e7fb004cdf54e0936ee49b0555d2deb71",
+        "9f875de4eac1445fbb83036631d4e24458739b259c1a61dcd1fbc1ef12958da5",
+        "f40beb8a1bc7f36711c5c2706403a82e7fb004cdf54e0936ee49b0555d2deb71"
+      ]
+    },
+    {
+      "circuit": "stmp157",
+      "phase": "byte1",
+      "allCapturesPresent": true,
+      "paths": [
+        "/workspace/ddr-results/core-stack-repro-base/stmp157/phase-2-start.srj.json",
+        "/workspace/ddr-results/core-stack-repro-base/stmp157/phase-2-end.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/stmp157/phase-2-start.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/stmp157/phase-2-end.srj.json"
+      ],
+      "startSrjEqual": true,
+      "endSrjEqual": true,
+      "sha256": [
+        "6d84a230f0c6374b55c4f8e1039104e65fa2bbbad12d3774958d46b226cf51ff",
+        "58cb6252a71376eaf0a4dbebdb0ca057d18af3aa1b9ab54154a116d97b9b1c2c",
+        "6d84a230f0c6374b55c4f8e1039104e65fa2bbbad12d3774958d46b226cf51ff",
+        "58cb6252a71376eaf0a4dbebdb0ca057d18af3aa1b9ab54154a116d97b9b1c2c"
+      ]
+    },
+    {
+      "circuit": "stmp157",
+      "phase": "byte2",
+      "allCapturesPresent": true,
+      "paths": [
+        "/workspace/ddr-results/core-stack-repro-base/stmp157/phase-3-start.srj.json",
+        "/workspace/ddr-results/core-stack-repro-base/stmp157/phase-3-end.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/stmp157/phase-3-start.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/stmp157/phase-3-end.srj.json"
+      ],
+      "startSrjEqual": true,
+      "endSrjEqual": true,
+      "sha256": [
+        "b26182c0fc7131cbf7122faf244ba608cf425a3e31ea6ee9b9881855660e5a37",
+        "bdabdba46719d14f62e8365c12a12bac74d5a3e98be9bde26e6c5eb15c539ee8",
+        "b26182c0fc7131cbf7122faf244ba608cf425a3e31ea6ee9b9881855660e5a37",
+        "bdabdba46719d14f62e8365c12a12bac74d5a3e98be9bde26e6c5eb15c539ee8"
+      ]
+    },
+    {
+      "circuit": "stmp157",
+      "phase": "byte3",
+      "allCapturesPresent": true,
+      "paths": [
+        "/workspace/ddr-results/core-stack-repro-base/stmp157/phase-4-start.srj.json",
+        "/workspace/ddr-results/core-stack-repro-base/stmp157/phase-4-end.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/stmp157/phase-4-start.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/stmp157/phase-4-end.srj.json"
+      ],
+      "startSrjEqual": true,
+      "endSrjEqual": true,
+      "sha256": [
+        "7efef5e35e7bdf48369347286c9f7d95b0d7ea8c71c13fa2b719544a1587acb8",
+        "9eda614c3154260e16821c22b639120cf28d03dc6fdb389e06fc5a6266af7766",
+        "7efef5e35e7bdf48369347286c9f7d95b0d7ea8c71c13fa2b719544a1587acb8",
+        "9eda614c3154260e16821c22b639120cf28d03dc6fdb389e06fc5a6266af7766"
+      ]
+    },
+    {
+      "circuit": "orangecrab",
+      "phase": "byte0",
+      "allCapturesPresent": true,
+      "paths": [
+        "/workspace/ddr-results/core-stack-repro-base/orangecrab/phase-1-start.srj.json",
+        "/workspace/ddr-results/core-stack-repro-base/orangecrab/phase-1-end.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/orangecrab/phase-1-start.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/orangecrab/phase-1-end.srj.json"
+      ],
+      "startSrjEqual": true,
+      "endSrjEqual": true,
+      "sha256": [
+        "057052f56372248e2e32d055e85ce9c3c1ccaf306ebadbf8f0022175975b9238",
+        "05f11abf35d2c57e0229140c123ecfceee7ad5cfa9b8c38fc161f8f3f5af6c46",
+        "057052f56372248e2e32d055e85ce9c3c1ccaf306ebadbf8f0022175975b9238",
+        "05f11abf35d2c57e0229140c123ecfceee7ad5cfa9b8c38fc161f8f3f5af6c46"
+      ]
+    },
+    {
+      "circuit": "orangecrab",
+      "phase": "byte1",
+      "allCapturesPresent": true,
+      "paths": [
+        "/workspace/ddr-results/core-stack-repro-base/orangecrab/phase-2-start.srj.json",
+        "/workspace/ddr-results/core-stack-repro-base/orangecrab/phase-2-end.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/orangecrab/phase-2-start.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/orangecrab/phase-2-end.srj.json"
+      ],
+      "startSrjEqual": true,
+      "endSrjEqual": true,
+      "sha256": [
+        "10820b36c084cc3340fbc621ea718f22a85672ea8e92e6153fc6fe73e202884f",
+        "eb3f33b3ede54b1cffcee7b75541fd3017c0f0031bb6182dbc4838649c644425",
+        "10820b36c084cc3340fbc621ea718f22a85672ea8e92e6153fc6fe73e202884f",
+        "eb3f33b3ede54b1cffcee7b75541fd3017c0f0031bb6182dbc4838649c644425"
+      ]
+    },
+    {
+      "circuit": "a13",
+      "phase": "byte0",
+      "allCapturesPresent": true,
+      "paths": [
+        "/workspace/ddr-results/core-stack-repro-base/a13/phase-1-start.srj.json",
+        "/workspace/ddr-results/core-stack-repro-base/a13/phase-1-end.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/a13/phase-1-start.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/a13/phase-1-end.srj.json"
+      ],
+      "startSrjEqual": true,
+      "endSrjEqual": true,
+      "sha256": [
+        "4b11f950a5bd421ca025bd5b98a61a9a36e44c7a0cc672250ea5f49e6f1efb04",
+        "7d32ae3a279460c2e779aa9ef1fc71bd9a799ed19f35d7c8bab8d18f9e64ddc7",
+        "4b11f950a5bd421ca025bd5b98a61a9a36e44c7a0cc672250ea5f49e6f1efb04",
+        "7d32ae3a279460c2e779aa9ef1fc71bd9a799ed19f35d7c8bab8d18f9e64ddc7"
+      ]
+    },
+    {
+      "circuit": "a13",
+      "phase": "byte1",
+      "allCapturesPresent": true,
+      "paths": [
+        "/workspace/ddr-results/core-stack-repro-base/a13/phase-2-start.srj.json",
+        "/workspace/ddr-results/core-stack-repro-base/a13/phase-2-end.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/a13/phase-2-start.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/a13/phase-2-end.srj.json"
+      ],
+      "startSrjEqual": true,
+      "endSrjEqual": true,
+      "sha256": [
+        "4c2e96c4059e5ff9d1c25bff58ab4584006009ba26ed9a70ee936360d3537f5f",
+        "cfb5947b4c7b991e687c8c2966768baa2f7449573884a5311c0594cea1993ec8",
+        "4c2e96c4059e5ff9d1c25bff58ab4584006009ba26ed9a70ee936360d3537f5f",
+        "cfb5947b4c7b991e687c8c2966768baa2f7449573884a5311c0594cea1993ec8"
+      ]
+    },
+    {
+      "circuit": "a13",
+      "phase": "ram_byte0",
+      "allCapturesPresent": true,
+      "paths": [
+        "/workspace/ddr-results/core-stack-repro-base/a13/phase-3-start.srj.json",
+        "/workspace/ddr-results/core-stack-repro-base/a13/phase-3-end.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/a13/phase-3-start.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/a13/phase-3-end.srj.json"
+      ],
+      "startSrjEqual": true,
+      "endSrjEqual": true,
+      "sha256": [
+        "ab787a0f7a3adcbe37d9beb48de37e89ce23a88c914a9d3072bb8541d0839a11",
+        "a1033201a426baa2d0031fabf8a4b8a757c2ef2bc4f3f134b2b28f3a7e64c87a",
+        "ab787a0f7a3adcbe37d9beb48de37e89ce23a88c914a9d3072bb8541d0839a11",
+        "a1033201a426baa2d0031fabf8a4b8a757c2ef2bc4f3f134b2b28f3a7e64c87a"
+      ]
+    },
+    {
+      "circuit": "h616",
+      "phase": "byte0",
+      "allCapturesPresent": true,
+      "paths": [
+        "/workspace/ddr-results/core-stack-repro-base/h616/phase-1-start.srj.json",
+        "/workspace/ddr-results/core-stack-repro-base/h616/phase-1-end.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/h616/phase-1-start.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/h616/phase-1-end.srj.json"
+      ],
+      "startSrjEqual": true,
+      "endSrjEqual": true,
+      "sha256": [
+        "db8e42f76e1b20b51df68f3fc45173734a7087d20cf6ab735bdaf2e6db6b5bc5",
+        "6165cf07ac35c572245dbd9cd2601ef1a1336f8ef26f33e2b74e22c503d82e83",
+        "db8e42f76e1b20b51df68f3fc45173734a7087d20cf6ab735bdaf2e6db6b5bc5",
+        "6165cf07ac35c572245dbd9cd2601ef1a1336f8ef26f33e2b74e22c503d82e83"
+      ]
+    },
+    {
+      "circuit": "h616",
+      "phase": "byte1",
+      "allCapturesPresent": true,
+      "paths": [
+        "/workspace/ddr-results/core-stack-repro-base/h616/phase-2-start.srj.json",
+        "/workspace/ddr-results/core-stack-repro-base/h616/phase-2-end.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/h616/phase-2-start.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/h616/phase-2-end.srj.json"
+      ],
+      "startSrjEqual": true,
+      "endSrjEqual": true,
+      "sha256": [
+        "b84ca4229ab00d42de34546e7b0d1012a5ff6054d3a9544b0a78739e6ab1cc86",
+        "cf1a2d0257e8980225b4b902796b27c4e9cb2d7a8409561870fe1e34bd82b885",
+        "b84ca4229ab00d42de34546e7b0d1012a5ff6054d3a9544b0a78739e6ab1cc86",
+        "cf1a2d0257e8980225b4b902796b27c4e9cb2d7a8409561870fe1e34bd82b885"
+      ]
+    },
+    {
+      "circuit": "butterstick",
+      "phase": "byte0",
+      "allCapturesPresent": true,
+      "paths": [
+        "/workspace/ddr-results/core-stack-repro-base/butterstick/phase-1-start.srj.json",
+        "/workspace/ddr-results/core-stack-repro-base/butterstick/phase-1-end.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/butterstick/phase-1-start.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/butterstick/phase-1-end.srj.json"
+      ],
+      "startSrjEqual": true,
+      "endSrjEqual": true,
+      "sha256": [
+        "2b93532bb5fff7a30292a9b15620b063e93509ddd52d73949e3caa19bd81f2ef",
+        "63aa214bbc1da86e961066957278be60a4558ac5a279c10171246fce6eadf371",
+        "2b93532bb5fff7a30292a9b15620b063e93509ddd52d73949e3caa19bd81f2ef",
+        "63aa214bbc1da86e961066957278be60a4558ac5a279c10171246fce6eadf371"
+      ]
+    },
+    {
+      "circuit": "butterstick",
+      "phase": "byte1",
+      "allCapturesPresent": true,
+      "paths": [
+        "/workspace/ddr-results/core-stack-repro-base/butterstick/phase-2-start.srj.json",
+        "/workspace/ddr-results/core-stack-repro-base/butterstick/phase-2-end.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/butterstick/phase-2-start.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/butterstick/phase-2-end.srj.json"
+      ],
+      "startSrjEqual": true,
+      "endSrjEqual": true,
+      "sha256": [
+        "fafff632a138c90e773d601f38bae396387e68ab3671c3e56382b306346e7818",
+        "3fa2bfe9dada4a6cd88d9342bf3c67744453a159985dc64d8556f7c32978611c",
+        "fafff632a138c90e773d601f38bae396387e68ab3671c3e56382b306346e7818",
+        "3fa2bfe9dada4a6cd88d9342bf3c67744453a159985dc64d8556f7c32978611c"
+      ]
+    },
+    {
+      "circuit": "glider",
+      "phase": "byte0",
+      "allCapturesPresent": true,
+      "paths": [
+        "/workspace/ddr-results/core-stack-repro-base/glider/phase-1-start.srj.json",
+        "/workspace/ddr-results/core-stack-repro-base/glider/phase-1-end.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/glider/phase-1-start.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/glider/phase-1-end.srj.json"
+      ],
+      "startSrjEqual": true,
+      "endSrjEqual": true,
+      "sha256": [
+        "34f1b01184e51be169783d85f59e0f7867cc2e7b124aac8c6859c9d2f4078806",
+        "fe77ac98f42f8d3838d88e62a4cb29c65a379e05222be0a8ca04c540a158095a",
+        "34f1b01184e51be169783d85f59e0f7867cc2e7b124aac8c6859c9d2f4078806",
+        "fe77ac98f42f8d3838d88e62a4cb29c65a379e05222be0a8ca04c540a158095a"
+      ]
+    },
+    {
+      "circuit": "glider",
+      "phase": "byte1",
+      "allCapturesPresent": true,
+      "paths": [
+        "/workspace/ddr-results/core-stack-repro-base/glider/phase-2-start.srj.json",
+        "/workspace/ddr-results/core-stack-repro-base/glider/phase-2-end.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/glider/phase-2-start.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/glider/phase-2-end.srj.json"
+      ],
+      "startSrjEqual": true,
+      "endSrjEqual": true,
+      "sha256": [
+        "a609eba703099f71b60ce178205637788f48a7e7c10daae65fd75e05a7a2a1f5",
+        "651987269ed7a3d01398c2f729a7d3a68ad32bee7cc309138c10d8e473ec9b75",
+        "a609eba703099f71b60ce178205637788f48a7e7c10daae65fd75e05a7a2a1f5",
+        "651987269ed7a3d01398c2f729a7d3a68ad32bee7cc309138c10d8e473ec9b75"
+      ]
+    },
+    {
+      "circuit": "imx6",
+      "phase": "byte0",
+      "allCapturesPresent": true,
+      "paths": [
+        "/workspace/ddr-results/core-stack-repro-base/imx6/phase-1-start.srj.json",
+        "/workspace/ddr-results/core-stack-repro-base/imx6/phase-1-end.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/imx6/phase-1-start.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/imx6/phase-1-end.srj.json"
+      ],
+      "startSrjEqual": true,
+      "endSrjEqual": true,
+      "sha256": [
+        "69588479112d5b8111afd918430e1995c0feeb3eaa3cea632866af55d1b9c8c5",
+        "131380ec3284e1fdf8c156b5547956dceb510a83cf32d8c678660b2b810a86d0",
+        "69588479112d5b8111afd918430e1995c0feeb3eaa3cea632866af55d1b9c8c5",
+        "131380ec3284e1fdf8c156b5547956dceb510a83cf32d8c678660b2b810a86d0"
+      ]
+    },
+    {
+      "circuit": "imx6",
+      "phase": "byte1",
+      "allCapturesPresent": true,
+      "paths": [
+        "/workspace/ddr-results/core-stack-repro-base/imx6/phase-2-start.srj.json",
+        "/workspace/ddr-results/core-stack-repro-base/imx6/phase-2-end.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/imx6/phase-2-start.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/imx6/phase-2-end.srj.json"
+      ],
+      "startSrjEqual": true,
+      "endSrjEqual": true,
+      "sha256": [
+        "d20a10d13041cadb257a08f07a391b8f9423bc24a42cf0a48feb1469ab2e81ef",
+        "f1e4e95c002454dd4e4a63b407275e44800355db7525ef3605eb3169ae43462d",
+        "d20a10d13041cadb257a08f07a391b8f9423bc24a42cf0a48feb1469ab2e81ef",
+        "f1e4e95c002454dd4e4a63b407275e44800355db7525ef3605eb3169ae43462d"
+      ]
+    },
+    {
+      "circuit": "icepi",
+      "phase": "byte0",
+      "allCapturesPresent": true,
+      "paths": [
+        "/workspace/ddr-results/core-stack-repro-base/icepi/phase-1-start.srj.json",
+        "/workspace/ddr-results/core-stack-repro-base/icepi/phase-1-end.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/icepi/phase-1-start.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/icepi/phase-1-end.srj.json"
+      ],
+      "startSrjEqual": true,
+      "endSrjEqual": true,
+      "sha256": [
+        "51e21417dbd56c1164836d00bd0c9e2cfd025f8dd10cc946eb87d119a5b82efe",
+        "4184a8193e388ff8e44143f292df27d3b494e6b46cc0f8ed4c7b9ee1a9846cdd",
+        "51e21417dbd56c1164836d00bd0c9e2cfd025f8dd10cc946eb87d119a5b82efe",
+        "4184a8193e388ff8e44143f292df27d3b494e6b46cc0f8ed4c7b9ee1a9846cdd"
+      ]
+    },
+    {
+      "circuit": "icepi",
+      "phase": "byte1",
+      "allCapturesPresent": true,
+      "paths": [
+        "/workspace/ddr-results/core-stack-repro-base/icepi/phase-2-start.srj.json",
+        "/workspace/ddr-results/core-stack-repro-base/icepi/phase-2-end.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/icepi/phase-2-start.srj.json",
+        "/workspace/ddr-results/core-stack-fix-handbook/icepi/phase-2-end.srj.json"
+      ],
+      "startSrjEqual": true,
+      "endSrjEqual": true,
+      "sha256": [
+        "13e61340afb69cd275b7972fc5c4a799f87bfbbf37940107791d2ffe191d99d0",
+        "d30dc4480d1da88c7d8cab4308fadc3e06ca46bec616e92df2793918f1a14e17",
+        "13e61340afb69cd275b7972fc5c4a799f87bfbbf37940107791d2ffe191d99d0",
+        "d30dc4480d1da88c7d8cab4308fadc3e06ca46bec616e92df2793918f1a14e17"
+      ]
+    }
+  ],
+  "freshOrangeCrabCompletedCaptureEligible": true,
+  "orangeCrabFreshCircuitPath": "/workspace/ddr-results/core-stack-fix-handbook/orangecrab/circuit.json",
+  "freshA64Pair": {
+    "finalConfig": {
+      "status": "root_go_final_frozen_pins",
+      "baselineDirectory": "/workspace/ddr-results/core-stack-repro-base",
+      "coreDirectory": "/workspace/core",
+      "coreCommit": "1a16da2f74fc2c80712d52abb17254dd2a80e2c5",
+      "benchmarkPackagePin": "24dc44c166d4258c3538f8b1f66953f1b6f58690",
+      "benchmarkFingerprint": "sha256:07241d5c0af855ba5f7d0516d9cdbf62e00f0a048df8c7011165bcce697eb73c",
+      "timeoutSeconds": 120,
+      "runtime": "Bun1.4.3",
+      "resourceLimits": {
+        "cpuQuota": "400000 100000",
+        "memoryLimitBytes": 17179869184
+      },
+      "baseline": {
+        "sourceCommit": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "packageDirectory": "/workspace/ddr-results/packages/bus-stack-repro-base",
+        "distributionSha256": "92f3fb6ea1086a669b07ea368b804c4a9e976773fdea8e620132eb139d16a155",
+        "productionCodeSourceCommit": "202b034659fb96bad44d11b8190f4044b675116f",
+        "historicalDistributionSha256": "fa6390c904b678f7dc197d0d3d671a28e273554369f8475457ea86374c5dad8c",
+        "bundleDifference": "60generated module sourcepath labels/keys use ../bus-lanes-work/node_modules/ because sourceRnode_modules is a symlink; unmodified fresh bundle is used. In-memory replacement of this pathprefix gives byte-identical historicalfa639 bundle."
+      },
+      "head": {
+        "sourceCommit": "358604c0e7f8bee42d0aef488807239c322198c6",
+        "packageDirectory": "/workspace/ddr-results/packages/bus-stack-fix-handbook",
+        "distributionSha256": "557d2f94e831b77c89546f730931b46be07f2d371d534fd81fcf29453ea98913"
+      },
+      "newOutputPaths": {
+        "baselineCoreDirectory": "/workspace/ddr-results/core-stack-repro-base",
+        "baselineCoreRunLog": "/workspace/ddr-results/core-stack-repro-base.run.log",
+        "coreDirectory": "/workspace/ddr-results/core-stack-fix-handbook",
+        "coreRunLog": "/workspace/ddr-results/core-stack-fix-handbook.run.log",
+        "pairDirectory": "/workspace/ddr-results/a64-stack-paired-public",
+        "reportDirectory": "/workspace/ddr-results/core-stack-comparison"
+      },
+      "requireFreshA64PairForFinalTimingClaim": true,
+      "orangeCrabCaptureRule": "Use only the same new fresh full-run OrangeCrab circuit when status passed with full50/50 connectivity, no findings, and all stages completed. If timeout, report it; never publish partial captures.",
+      "reproBaseCommit": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "baselineReuseReason": "Fresh baseR and headF both measured. Historical202b is codeidentical reference only; currentR artifact contains generated dependency pathprefix differences documented in freeze provenance.",
+      "historicalBaselineDirectory": "/workspace/ddr-results/core-main",
+      "fullCoreExecutionPlan": "Fresh baseR all10 then fresh headF all10, serial and otherwise identical, both120s per case; root holds local heavy work through both and stage pair.",
+      "buildAndFreeze": [
+        {
+          "label": "baseline",
+          "sourceDirectory": "/workspace/bus-lanes-orangecrab-repro",
+          "sourceCommit": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+          "packageDirectory": "/workspace/ddr-results/packages/bus-stack-repro-base",
+          "distributionSha256": "92f3fb6ea1086a669b07ea368b804c4a9e976773fdea8e620132eb139d16a155",
+          "buildLog": "/workspace/ddr-results/build-stack-repro-base.log",
+          "frozenAtUtc": "2026-11-18T21:25:35.719070+00:00",
+          "sourceTrackedChanges": "",
+          "historicalDistributionSha256": "fa6390c904b678f7dc197d0d3d671a28e273554369f8475457ea86374c5dad8c",
+          "bundleDifference": "60generated module sourcepath labels/keys use ../bus-lanes-work/node_modules/ because sourceRnode_modules is a symlink; unmodified fresh bundle is used. In-memory replacement of this pathprefix gives byte-identical historicalfa639 bundle."
+        },
+        {
+          "label": "head",
+          "sourceDirectory": "/workspace/bus-lanes-work",
+          "sourceCommit": "358604c0e7f8bee42d0aef488807239c322198c6",
+          "packageDirectory": "/workspace/ddr-results/packages/bus-stack-fix-handbook",
+          "distributionSha256": "557d2f94e831b77c89546f730931b46be07f2d371d534fd81fcf29453ea98913",
+          "buildLog": "/workspace/ddr-results/build-stack-fix-handbook.log",
+          "frozenAtUtc": "2026-11-18T21:25:35.734440+00:00",
+          "sourceTrackedChanges": ""
+        }
+      ]
+    },
+    "main": {
+      "label": "main",
+      "startedAt": "2026-11-18T21:58:57.026Z",
+      "command": [
+        "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "/workspace/ddr-results/prepared-post-handbook/a64-public-stage.ts",
+        "main",
+        "/workspace/ddr-results/a64-stack-paired-public/main",
+        "/workspace/ddr-results/stack-final-config.json"
+      ],
+      "finalConfigPath": "/workspace/ddr-results/stack-final-config.json",
+      "finalConfigSha256": "3410b74f224264939e8a496c9fc7a43d8e5f6da7ca8dc9145e928440dad50989",
+      "cwd": "/workspace/core",
+      "runtime": {
+        "bunVersion": "1.4.3",
+        "executable": "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "platform": "linux",
+        "arch": "x64"
+      },
+      "sourceCommit": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "bundlePath": "/workspace/ddr-results/packages/bus-stack-repro-base/dist/index.js",
+      "bundleSha256": "92f3fb6ea1086a669b07ea368b804c4a9e976773fdea8e620132eb139d16a155",
+      "coreCommit": "1a16da2f74fc2c80712d52abb17254dd2a80e2c5",
+      "coreTrackedChanges": "",
+      "benchmarkPackagePin": "24dc44c166d4258c3538f8b1f66953f1b6f58690",
+      "adapterPath": "/workspace/core/lib/utils/autorouting/get-bus-lanes-input-from-srj.ts",
+      "adapterSha256": "fca83b4aacc128274410985896c2a0c4239e44bb4e386aaccca76b10823d1fb3",
+      "rawInputPath": "/workspace/ddr-results/core-main/a64/phase-3-start.srj.json",
+      "rawInputSha256": "3839e7492986ba5a6b5f6051446a0094b29d5dea2eadda18cd718a38a27f2938",
+      "adaptedInputJsonSha256": "3839e7492986ba5a6b5f6051446a0094b29d5dea2eadda18cd718a38a27f2938",
+      "adapterPreservesRawInputValues": true,
+      "referenceOutputPath": "/workspace/ddr-results/core-main/a64/phase-3-end.srj.json",
+      "referenceOutputSha256": "58b4af520e8c32a205296ca5181db02f3f27934dd8317b8a1bd5301137ed47a7",
+      "referenceRequestedRoutesJsonSha256": "084813234da759c71bbfb8ec56f5d8aeb24dd47b626041b397462bcca9d9d718",
+      "requestCount": 8,
+      "fixedTraceCount": 16,
+      "obstacleCount": 607,
+      "physicalLayerCount": 6,
+      "constructor": "new BusLanesPipelineSolver(input)",
+      "options": "omitted; public defaults",
+      "solverExecution": "solver.solve(); solver.getOutput()",
+      "externalLimitSeconds": 120,
+      "cpuQuota": "400000 100000",
+      "memoryLimitBytes": "17179869184",
+      "fanoutPackageVersion": "0.0.86",
+      "nativeDrcSourceSha256": "cfa5a5fcb417c43f60cfe350b0efc88c64bfd421df57b6ba86a3db39017070b7",
+      "nativeConnectivitySourceSha256": "b1ed89444f596a38e759fa931fb0455aee5fc51525d9fde3fb224153b104f334",
+      "harnessSourceSha256": "18cb58c82a6da6f9fdefba7694e5d4d60f47e91a14c6c7c11a4c779b83c89117",
+      "status": "completed_and_validated",
+      "completed": true,
+      "solved": true,
+      "failed": false,
+      "error": null,
+      "solveSeconds": 44.486152399,
+      "invocationSeconds": 44.892571071999996,
+      "solverIterations": 16850,
+      "phase": "solved",
+      "outputTraceCount": 24,
+      "requestedRouteCount": 8,
+      "requestedRoutesJsonSha256": "084813234da759c71bbfb8ec56f5d8aeb24dd47b626041b397462bcca9d9d718",
+      "requestedRouteArraysEqualOriginalMainOutput": true,
+      "fullOutputJsonSha256": "58b4af520e8c32a205296ca5181db02f3f27934dd8317b8a1bd5301137ed47a7",
+      "fullOutputEqualOriginalMainOutput": true,
+      "adaptedInputUnchanged": true,
+      "rawInputUnchanged": true,
+      "fixedTracePrefixUnchanged": true,
+      "fixedTraceJsonSha256": "8142da2069d968a5a269260d3a41bfc5e78243d22e4a2b0bdf93982d4c67afe6",
+      "endpointsValid": true,
+      "connectedConnectionCount": 8,
+      "connectedEndpointCount": 16,
+      "nativeConnectivityValid": true,
+      "nativeConnectivityIssueCount": 0,
+      "nativeDrcValid": true,
+      "nativeDrcIssueCount": 0,
+      "nativeDrcCheckedTraceCount": 24,
+      "nativeDrcCheckedSegmentCount": 188,
+      "nativeDrcCheckedViaCount": 30,
+      "endedAt": "2026-11-18T21:59:41.921Z"
+    },
+    "head": {
+      "label": "head",
+      "startedAt": "2026-11-18T21:59:42.361Z",
+      "command": [
+        "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "/workspace/ddr-results/prepared-post-handbook/a64-public-stage.ts",
+        "head",
+        "/workspace/ddr-results/a64-stack-paired-public/head",
+        "/workspace/ddr-results/stack-final-config.json"
+      ],
+      "finalConfigPath": "/workspace/ddr-results/stack-final-config.json",
+      "finalConfigSha256": "3410b74f224264939e8a496c9fc7a43d8e5f6da7ca8dc9145e928440dad50989",
+      "cwd": "/workspace/core",
+      "runtime": {
+        "bunVersion": "1.4.3",
+        "executable": "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "platform": "linux",
+        "arch": "x64"
+      },
+      "sourceCommit": "358604c0e7f8bee42d0aef488807239c322198c6",
+      "bundlePath": "/workspace/ddr-results/packages/bus-stack-fix-handbook/dist/index.js",
+      "bundleSha256": "557d2f94e831b77c89546f730931b46be07f2d371d534fd81fcf29453ea98913",
+      "coreCommit": "1a16da2f74fc2c80712d52abb17254dd2a80e2c5",
+      "coreTrackedChanges": "",
+      "benchmarkPackagePin": "24dc44c166d4258c3538f8b1f66953f1b6f58690",
+      "adapterPath": "/workspace/core/lib/utils/autorouting/get-bus-lanes-input-from-srj.ts",
+      "adapterSha256": "fca83b4aacc128274410985896c2a0c4239e44bb4e386aaccca76b10823d1fb3",
+      "rawInputPath": "/workspace/ddr-results/core-main/a64/phase-3-start.srj.json",
+      "rawInputSha256": "3839e7492986ba5a6b5f6051446a0094b29d5dea2eadda18cd718a38a27f2938",
+      "adaptedInputJsonSha256": "3839e7492986ba5a6b5f6051446a0094b29d5dea2eadda18cd718a38a27f2938",
+      "adapterPreservesRawInputValues": true,
+      "referenceOutputPath": "/workspace/ddr-results/core-main/a64/phase-3-end.srj.json",
+      "referenceOutputSha256": "58b4af520e8c32a205296ca5181db02f3f27934dd8317b8a1bd5301137ed47a7",
+      "referenceRequestedRoutesJsonSha256": "084813234da759c71bbfb8ec56f5d8aeb24dd47b626041b397462bcca9d9d718",
+      "requestCount": 8,
+      "fixedTraceCount": 16,
+      "obstacleCount": 607,
+      "physicalLayerCount": 6,
+      "constructor": "new BusLanesPipelineSolver(input)",
+      "options": "omitted; public defaults",
+      "solverExecution": "solver.solve(); solver.getOutput()",
+      "externalLimitSeconds": 120,
+      "cpuQuota": "400000 100000",
+      "memoryLimitBytes": "17179869184",
+      "fanoutPackageVersion": "0.0.86",
+      "nativeDrcSourceSha256": "cfa5a5fcb417c43f60cfe350b0efc88c64bfd421df57b6ba86a3db39017070b7",
+      "nativeConnectivitySourceSha256": "b1ed89444f596a38e759fa931fb0455aee5fc51525d9fde3fb224153b104f334",
+      "harnessSourceSha256": "18cb58c82a6da6f9fdefba7694e5d4d60f47e91a14c6c7c11a4c779b83c89117",
+      "status": "completed_and_validated",
+      "completed": true,
+      "solved": true,
+      "failed": false,
+      "error": null,
+      "solveSeconds": 8.480900680000001,
+      "invocationSeconds": 8.817223871,
+      "solverIterations": 16850,
+      "phase": "solved",
+      "outputTraceCount": 24,
+      "requestedRouteCount": 8,
+      "requestedRoutesJsonSha256": "084813234da759c71bbfb8ec56f5d8aeb24dd47b626041b397462bcca9d9d718",
+      "requestedRouteArraysEqualOriginalMainOutput": true,
+      "fullOutputJsonSha256": "58b4af520e8c32a205296ca5181db02f3f27934dd8317b8a1bd5301137ed47a7",
+      "fullOutputEqualOriginalMainOutput": true,
+      "adaptedInputUnchanged": true,
+      "rawInputUnchanged": true,
+      "fixedTracePrefixUnchanged": true,
+      "fixedTraceJsonSha256": "8142da2069d968a5a269260d3a41bfc5e78243d22e4a2b0bdf93982d4c67afe6",
+      "endpointsValid": true,
+      "connectedConnectionCount": 8,
+      "connectedEndpointCount": 16,
+      "nativeConnectivityValid": true,
+      "nativeConnectivityIssueCount": 0,
+      "nativeDrcValid": true,
+      "nativeDrcIssueCount": 0,
+      "nativeDrcCheckedTraceCount": 24,
+      "nativeDrcCheckedSegmentCount": 188,
+      "nativeDrcCheckedViaCount": 30,
+      "endedAt": "2026-11-18T21:59:51.181Z"
+    },
+    "external": [
+      {
+        "label": "main",
+        "command": [
+          "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+          "/workspace/ddr-results/prepared-post-handbook/a64-public-stage.ts",
+          "main",
+          "/workspace/ddr-results/a64-stack-paired-public/main",
+          "/workspace/ddr-results/stack-final-config.json"
+        ],
+        "cwd": "/workspace/core",
+        "externalLimitSeconds": 120,
+        "watchdog": "Python subprocess.communicate(timeout=120); SIGKILL entire isolated child process group on timeout",
+        "startedAtUtc": "2026-11-18T21:58:56.632680+00:00",
+        "status": "exited",
+        "pid": 21609,
+        "externalWallSeconds": 45.36699834200044,
+        "exitCode": 0,
+        "endedAtUtc": "2026-11-18T21:59:42.000061+00:00"
+      },
+      {
+        "label": "head",
+        "command": [
+          "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+          "/workspace/ddr-results/prepared-post-handbook/a64-public-stage.ts",
+          "head",
+          "/workspace/ddr-results/a64-stack-paired-public/head",
+          "/workspace/ddr-results/stack-final-config.json"
+        ],
+        "cwd": "/workspace/core",
+        "externalLimitSeconds": 120,
+        "watchdog": "Python subprocess.communicate(timeout=120); SIGKILL entire isolated child process group on timeout",
+        "startedAtUtc": "2026-11-18T21:59:42.001006+00:00",
+        "status": "exited",
+        "pid": 21669,
+        "externalWallSeconds": 9.243914153001242,
+        "exitCode": 0,
+        "endedAtUtc": "2026-11-18T21:59:51.245057+00:00"
+      }
+    ],
+    "freshSeparateProcesses": true,
+    "serialExecution": true,
+    "otherLocalHeavyWorkHeldByRoot": true,
+    "completedAndValidated": true,
+    "harnessSha256": "18cb58c82a6da6f9fdefba7694e5d4d60f47e91a14c6c7c11a4c779b83c89117",
+    "wrapperSha256": "2ce68fc92f73fd2966b460067bfc4c61cc689fc6c24ec0356dffd30e3d5cd8c5",
+    "requestedRouteArraysEqualBetweenFreshRuns": true,
+    "allEightRouteArraysEqualOriginalMain": true,
+    "solverWallRatioMainOverHead": 5.245451406347562,
+    "solverWallReductionPercent": 80.93586380783374,
+    "scope": "One fresh isolated public A64 phase-3 byte2 solve on exact captured raw stage input; not a full-board speedup or length-matching acceptance claim.",
+    "machineAtPair": {
+      "cpu": "AMD EPYC 7763 64-Core Processor",
+      "cpuQuota": "400000 100000",
+      "memoryLimitBytes": 17179869184
+    }
+  },
+  "resultsSha256": {
+    "main": "653b7660c88ba28a61d0165df3485efb52ef2aa0fd0734ea6f833e67c1807dca",
+    "head": "6069a2733103a7eed11864657057dc8a4a47e179cadd4314972a6e9ec2e29bfd"
+  },
+  "recordedAtUtc": "2026-11-18T21:59:53.123445+00:00",
+  "orangeCrabRetainedCaptureComparison": {
+    "retainedCaptureSourceCommit": "190325da97253ad7951f9dfd3b0046b4afcb5395",
+    "retainedCircuitPath": "/workspace/ddr-results/core-head-native-inner/orangecrab/circuit.json",
+    "retainedCircuitSha256": "79df0cdc7ef4d80a6e58a00831edd5bdd0a5afdde9277d3b508d8f03e555bd2d",
+    "retainedCaptureProvenance": "/workspace/ddr-results/orangecrab-full-board-head/capture/provenance.json",
+    "retainedImageSourcePinUnchanged": true,
+    "comparison": "Exact canonical full physical objects, retaining every field including native route coordinates,widths,layers,ownership,endpointIDs and manufactured via spans; no rounding/tolerance. Raw circuit equality checked separately.",
+    "fresh": {
+      "baseline": {
+        "sourceCommit": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "distributionSha256": "92f3fb6ea1086a669b07ea368b804c4a9e976773fdea8e620132eb139d16a155",
+        "resultsPath": "/workspace/ddr-results/core-stack-repro-base/results.json",
+        "outcomeAvailable": true,
+        "status": "passed",
+        "connectedNets": 50,
+        "requestedNets": 50,
+        "wallSeconds": 96.72259171100002,
+        "completedAndValidated": true,
+        "circuitPath": "/workspace/ddr-results/core-stack-repro-base/orangecrab/circuit.json",
+        "circuitSha256": "79df0cdc7ef4d80a6e58a00831edd5bdd0a5afdde9277d3b508d8f03e555bd2d",
+        "rawCircuitBytesEqualRetained190": true,
+        "rawCircuitJsonValuesEqualRetained190": true,
+        "allPhysicalObjectsExactlyEqualRetained190": true,
+        "allCopperObjectsExactlyEqualRetained190": true,
+        "traceCount": 52,
+        "viaCount": 109,
+        "padCount": 385
+      },
+      "head": {
+        "sourceCommit": "358604c0e7f8bee42d0aef488807239c322198c6",
+        "distributionSha256": "557d2f94e831b77c89546f730931b46be07f2d371d534fd81fcf29453ea98913",
+        "resultsPath": "/workspace/ddr-results/core-stack-fix-handbook/results.json",
+        "outcomeAvailable": true,
+        "status": "passed",
+        "connectedNets": 50,
+        "requestedNets": 50,
+        "wallSeconds": 85.56958482200001,
+        "completedAndValidated": true,
+        "circuitPath": "/workspace/ddr-results/core-stack-fix-handbook/orangecrab/circuit.json",
+        "circuitSha256": "79df0cdc7ef4d80a6e58a00831edd5bdd0a5afdde9277d3b508d8f03e555bd2d",
+        "rawCircuitBytesEqualRetained190": true,
+        "rawCircuitJsonValuesEqualRetained190": true,
+        "allPhysicalObjectsExactlyEqualRetained190": true,
+        "allCopperObjectsExactlyEqualRetained190": true,
+        "traceCount": 52,
+        "viaCount": 109,
+        "padCount": 385
+      }
+    },
+    "recordedAtUtc": "2026-11-18T21:59:52.805968+00:00"
+  },
+  "generatedPathEquivalence": {
+    "freshBundleSha256": "92f3fb6ea1086a669b07ea368b804c4a9e976773fdea8e620132eb139d16a155",
+    "historicalBundleSha256": "fa6390c904b678f7dc197d0d3d671a28e273554369f8475457ea86374c5dad8c",
+    "replacedPathPrefix": "../bus-lanes-work/node_modules/",
+    "replacementPathPrefix": "node_modules/",
+    "replacementOccurrences": 60,
+    "normalizedBytesEqualHistorical": true,
+    "normalizationPerformedOnlyInMemory": true,
+    "normalizedSha256": "fa6390c904b678f7dc197d0d3d671a28e273554369f8475457ea86374c5dad8c",
+    "freshBundleUnmodified": true
+  },
+  "allTenProvenance": {
+    "main": {
+      "status": "completed_all_ten",
+      "label": "baseline",
+      "command": [
+        "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "run",
+        "benchmark:ddr",
+        "--timeout",
+        "120",
+        "--out",
+        "/workspace/ddr-results/core-stack-repro-base"
+      ],
+      "commandShell": "source /workspace/.tools/autorouter-env.sh; bun run benchmark:ddr --timeout 120 --out /workspace/ddr-results/core-stack-repro-base",
+      "cwd": "/workspace/core",
+      "coreCommit": "1a16da2f74fc2c80712d52abb17254dd2a80e2c5",
+      "coreTrackedChanges": "",
+      "busSourceCommit": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+      "busDistributionSha256": "92f3fb6ea1086a669b07ea368b804c4a9e976773fdea8e620132eb139d16a155",
+      "busInstalledPath": "/workspace/ddr-results/packages/bus-stack-repro-base",
+      "freezeProvenance": {
+        "label": "baseline",
+        "sourceDirectory": "/workspace/bus-lanes-orangecrab-repro",
+        "sourceCommit": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "packageDirectory": "/workspace/ddr-results/packages/bus-stack-repro-base",
+        "distributionSha256": "92f3fb6ea1086a669b07ea368b804c4a9e976773fdea8e620132eb139d16a155",
+        "buildLog": "/workspace/ddr-results/build-stack-repro-base.log",
+        "frozenAtUtc": "2026-11-18T21:25:35.719070+00:00",
+        "sourceTrackedChanges": "",
+        "historicalDistributionSha256": "fa6390c904b678f7dc197d0d3d671a28e273554369f8475457ea86374c5dad8c",
+        "bundleDifference": "60generated module sourcepath labels/keys use ../bus-lanes-work/node_modules/ because sourceRnode_modules is a symlink; unmodified fresh bundle is used. In-memory replacement of this pathprefix gives byte-identical historicalfa639 bundle."
+      },
+      "benchmarkPackagePin": "24dc44c166d4258c3538f8b1f66953f1b6f58690",
+      "benchmarkRevision": "sha256:07241d5c0af855ba5f7d0516d9cdbf62e00f0a048df8c7011165bcce697eb73c",
+      "assessmentRevision": "sha256:07241d5c0af855ba5f7d0516d9cdbf62e00f0a048df8c7011165bcce697eb73c",
+      "renderTimeoutSeconds": 120,
+      "validationTimeoutSeconds": 120,
+      "cpuQuota": "400000 100000",
+      "memoryLimitBytes": 17179869184,
+      "bunVersion": "1.4.3",
+      "execution": "Fresh all10 serial per-case workers, routing cache disabled, no other local heavy work by root agreement; baselineR completes before headF begins.",
+      "logPath": "/workspace/ddr-results/core-stack-repro-base.run.log",
+      "startedAtUtc": "2026-11-18T21:27:27.937763+00:00",
+      "finalConfigPath": "/workspace/ddr-results/stack-final-config.json",
+      "finalConfigSha256": "3410b74f224264939e8a496c9fc7a43d8e5f6da7ca8dc9145e928440dad50989",
+      "exitCode": 0,
+      "wallSeconds": 964.1931596359991,
+      "finishedAtUtc": "2026-11-18T21:43:32.131200+00:00",
+      "coreTrackedChangesAfterRun": "",
+      "runLogSha256": "3360cbecc444ebfc1f02231d3916c6c07e6f60c6058b2e8df8544c3022d55838",
+      "completedCaseCount": 10,
+      "resultsSha256": "653b7660c88ba28a61d0165df3485efb52ef2aa0fd0734ea6f833e67c1807dca"
+    },
+    "head": {
+      "status": "completed_all_ten",
+      "label": "head",
+      "command": [
+        "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "run",
+        "benchmark:ddr",
+        "--timeout",
+        "120",
+        "--out",
+        "/workspace/ddr-results/core-stack-fix-handbook"
+      ],
+      "commandShell": "source /workspace/.tools/autorouter-env.sh; bun run benchmark:ddr --timeout 120 --out /workspace/ddr-results/core-stack-fix-handbook",
+      "cwd": "/workspace/core",
+      "coreCommit": "1a16da2f74fc2c80712d52abb17254dd2a80e2c5",
+      "coreTrackedChanges": "",
+      "busSourceCommit": "358604c0e7f8bee42d0aef488807239c322198c6",
+      "busDistributionSha256": "557d2f94e831b77c89546f730931b46be07f2d371d534fd81fcf29453ea98913",
+      "busInstalledPath": "/workspace/ddr-results/packages/bus-stack-fix-handbook",
+      "freezeProvenance": {
+        "label": "head",
+        "sourceDirectory": "/workspace/bus-lanes-work",
+        "sourceCommit": "358604c0e7f8bee42d0aef488807239c322198c6",
+        "packageDirectory": "/workspace/ddr-results/packages/bus-stack-fix-handbook",
+        "distributionSha256": "557d2f94e831b77c89546f730931b46be07f2d371d534fd81fcf29453ea98913",
+        "buildLog": "/workspace/ddr-results/build-stack-fix-handbook.log",
+        "frozenAtUtc": "2026-11-18T21:25:35.734440+00:00",
+        "sourceTrackedChanges": ""
+      },
+      "benchmarkPackagePin": "24dc44c166d4258c3538f8b1f66953f1b6f58690",
+      "benchmarkRevision": "sha256:07241d5c0af855ba5f7d0516d9cdbf62e00f0a048df8c7011165bcce697eb73c",
+      "assessmentRevision": "sha256:07241d5c0af855ba5f7d0516d9cdbf62e00f0a048df8c7011165bcce697eb73c",
+      "renderTimeoutSeconds": 120,
+      "validationTimeoutSeconds": 120,
+      "cpuQuota": "400000 100000",
+      "memoryLimitBytes": 17179869184,
+      "bunVersion": "1.4.3",
+      "execution": "Fresh all10 serial per-case workers, routing cache disabled, no other local heavy work by root agreement; baselineR completes before headF begins.",
+      "logPath": "/workspace/ddr-results/core-stack-fix-handbook.run.log",
+      "startedAtUtc": "2026-11-18T21:43:32.203396+00:00",
+      "finalConfigPath": "/workspace/ddr-results/stack-final-config.json",
+      "finalConfigSha256": "3410b74f224264939e8a496c9fc7a43d8e5f6da7ca8dc9145e928440dad50989",
+      "exitCode": 0,
+      "wallSeconds": 921.7227082680001,
+      "finishedAtUtc": "2026-11-18T21:58:53.926841+00:00",
+      "coreTrackedChangesAfterRun": "",
+      "runLogSha256": "545785e0f7ef2fe3ea99cac5b1a2a552427fc242efde3ad7c109c6019f7be3d8",
+      "completedCaseCount": 10,
+      "resultsSha256": "6069a2733103a7eed11864657057dc8a4a47e179cadd4314972a6e9ec2e29bfd"
+    }
+  },
+  "byteGeometrySummary": {
+    "bothCompleted": 25,
+    "comparableStartInputs": 25,
+    "equalEndSrjWhenComparable": 25,
+    "missingCaptures": [],
+    "differentEndWhenComparable": []
+  },
+  "bothPassedFullCircuitGeometry": [
+    {
+      "circuit": "orangecrab",
+      "rawCircuitBytesEqual": true,
+      "rawCircuitJsonValuesEqual": true,
+      "baseCircuitSha256": "79df0cdc7ef4d80a6e58a00831edd5bdd0a5afdde9277d3b508d8f03e555bd2d",
+      "headCircuitSha256": "79df0cdc7ef4d80a6e58a00831edd5bdd0a5afdde9277d3b508d8f03e555bd2d"
+    },
+    {
+      "circuit": "h616",
+      "rawCircuitBytesEqual": true,
+      "rawCircuitJsonValuesEqual": true,
+      "baseCircuitSha256": "220d8f355c4ed89b7bfb3028ac613387bd494ad26c0834c869107c0818b2534d",
+      "headCircuitSha256": "220d8f355c4ed89b7bfb3028ac613387bd494ad26c0834c869107c0818b2534d"
+    },
+    {
+      "circuit": "glider",
+      "rawCircuitBytesEqual": true,
+      "rawCircuitJsonValuesEqual": true,
+      "baseCircuitSha256": "2fe2b300f3659d6e8e18793155ab6e180f2c4ddbbdeb024394aec6f27683100f",
+      "headCircuitSha256": "2fe2b300f3659d6e8e18793155ab6e180f2c4ddbbdeb024394aec6f27683100f"
+    },
+    {
+      "circuit": "imx6",
+      "rawCircuitBytesEqual": true,
+      "rawCircuitJsonValuesEqual": true,
+      "baseCircuitSha256": "b63110b9978cdb9dddc2203d19a94b2c85bafcb13a0a14085c3ef7d557236c21",
+      "headCircuitSha256": "b63110b9978cdb9dddc2203d19a94b2c85bafcb13a0a14085c3ef7d557236c21"
+    }
+  ],
+  "finalTrackedState": {
+    "/workspace/core": "",
+    "/workspace/bus-lanes-orangecrab-repro": "",
+    "/workspace/bus-lanes-work": ""
+  },
+  "finalCoreBusPackage": "/workspace/ddr-results/packages/bus-stack-fix-handbook"
+}

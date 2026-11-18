@@ -1,0 +1,155 @@
+{
+  "updatedAt": "2026-11-18T22:13:52.057288+00:00",
+  "headSha": "358604c0e7f8bee42d0aef488807239c322198c6",
+  "baseSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+  "controllerSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+  "auditPassed": true,
+  "allNumbersFinite": true,
+  "uniqueMeasurementIds": true,
+  "totalCopperCalculationsChecked": true,
+  "threeDistinctPairsWithCoupling": true,
+  "fixed161Preserved": true,
+  "lostCompletions": [],
+  "partial": false,
+  "acceptedBoth": 11,
+  "expected": 11,
+  "allComparable": true,
+  "allFullValidationIdentical": true,
+  "allIterationsIdentical": true,
+  "rows": [
+    {
+      "sample": "control",
+      "acceptedMain": true,
+      "acceptedPr": true,
+      "comparable": true,
+      "identity": {
+        "iterations": true,
+        "validation": true,
+        "carrierLayerCounts": true
+      },
+      "solveChangePercent": -20.667442728926932
+    },
+    {
+      "sample": "control-inner1",
+      "acceptedMain": true,
+      "acceptedPr": true,
+      "comparable": true,
+      "identity": {
+        "iterations": true,
+        "validation": true,
+        "carrierLayerCounts": true
+      },
+      "solveChangePercent": 40.176562205961844
+    },
+    {
+      "sample": "right",
+      "acceptedMain": true,
+      "acceptedPr": true,
+      "comparable": true,
+      "identity": {
+        "iterations": true,
+        "validation": true,
+        "carrierLayerCounts": true
+      },
+      "solveChangePercent": 18.089929630636025
+    },
+    {
+      "sample": "left",
+      "acceptedMain": true,
+      "acceptedPr": true,
+      "comparable": true,
+      "identity": {
+        "iterations": true,
+        "validation": true,
+        "carrierLayerCounts": true
+      },
+      "solveChangePercent": 8.411367874667652
+    },
+    {
+      "sample": "above",
+      "acceptedMain": true,
+      "acceptedPr": true,
+      "comparable": true,
+      "identity": {
+        "iterations": true,
+        "validation": true,
+        "carrierLayerCounts": true
+      },
+      "solveChangePercent": 2.342446848990476
+    },
+    {
+      "sample": "inner-layers",
+      "acceptedMain": true,
+      "acceptedPr": true,
+      "comparable": true,
+      "identity": {
+        "iterations": true,
+        "validation": true,
+        "carrierLayerCounts": true
+      },
+      "solveChangePercent": -7.269713118011367
+    },
+    {
+      "sample": "inner-layers-right",
+      "acceptedMain": true,
+      "acceptedPr": true,
+      "comparable": true,
+      "identity": {
+        "iterations": true,
+        "validation": true,
+        "carrierLayerCounts": true
+      },
+      "solveChangePercent": 44.63011537985362
+    },
+    {
+      "sample": "inner-layers-left",
+      "acceptedMain": true,
+      "acceptedPr": true,
+      "comparable": true,
+      "identity": {
+        "iterations": true,
+        "validation": true,
+        "carrierLayerCounts": true
+      },
+      "solveChangePercent": 25.747764549641204
+    },
+    {
+      "sample": "inner-layers-above",
+      "acceptedMain": true,
+      "acceptedPr": true,
+      "comparable": true,
+      "identity": {
+        "iterations": true,
+        "validation": true,
+        "carrierLayerCounts": true
+      },
+      "solveChangePercent": 8.784935597004907
+    },
+    {
+      "sample": "inner-layers-complete-ca",
+      "acceptedMain": true,
+      "acceptedPr": true,
+      "comparable": true,
+      "identity": {
+        "iterations": true,
+        "validation": true,
+        "carrierLayerCounts": true
+      },
+      "solveChangePercent": -2.436395654290724
+    },
+    {
+      "sample": "outer-layers",
+      "acceptedMain": true,
+      "acceptedPr": true,
+      "comparable": true,
+      "identity": {
+        "iterations": true,
+        "validation": true,
+        "carrierLayerCounts": true
+      },
+      "solveChangePercent": 6.568420031278799
+    }
+  ],
+  "drcTraceCountsChecked": true,
+  "pairCardinalityAndEdgeGapBoundsChecked": true
+}

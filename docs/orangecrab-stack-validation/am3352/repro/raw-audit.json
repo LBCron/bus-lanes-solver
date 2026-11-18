@@ -1,0 +1,144 @@
+{
+  "updatedAt": "2026-11-18T22:07:21.303311+00:00",
+  "headSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+  "partial": false,
+  "acceptedBoth": 11,
+  "expected": 11,
+  "allComparable": true,
+  "allFullValidationIdentical": true,
+  "allIterationsIdentical": true,
+  "rows": [
+    {
+      "sample": "control",
+      "acceptedMain": true,
+      "acceptedPr": true,
+      "comparable": true,
+      "identity": {
+        "iterations": true,
+        "validation": true,
+        "carrierLayerCounts": true
+      },
+      "solveChangePercent": -4.8475243053581085
+    },
+    {
+      "sample": "control-inner1",
+      "acceptedMain": true,
+      "acceptedPr": true,
+      "comparable": true,
+      "identity": {
+        "iterations": true,
+        "validation": true,
+        "carrierLayerCounts": true
+      },
+      "solveChangePercent": 38.56704802157795
+    },
+    {
+      "sample": "right",
+      "acceptedMain": true,
+      "acceptedPr": true,
+      "comparable": true,
+      "identity": {
+        "iterations": true,
+        "validation": true,
+        "carrierLayerCounts": true
+      },
+      "solveChangePercent": -1.4932675172114829
+    },
+    {
+      "sample": "left",
+      "acceptedMain": true,
+      "acceptedPr": true,
+      "comparable": true,
+      "identity": {
+        "iterations": true,
+        "validation": true,
+        "carrierLayerCounts": true
+      },
+      "solveChangePercent": 18.004132113772986
+    },
+    {
+      "sample": "above",
+      "acceptedMain": true,
+      "acceptedPr": true,
+      "comparable": true,
+      "identity": {
+        "iterations": true,
+        "validation": true,
+        "carrierLayerCounts": true
+      },
+      "solveChangePercent": 12.99300091512945
+    },
+    {
+      "sample": "inner-layers",
+      "acceptedMain": true,
+      "acceptedPr": true,
+      "comparable": true,
+      "identity": {
+        "iterations": true,
+        "validation": true,
+        "carrierLayerCounts": true
+      },
+      "solveChangePercent": -23.15885765581215
+    },
+    {
+      "sample": "inner-layers-right",
+      "acceptedMain": true,
+      "acceptedPr": true,
+      "comparable": true,
+      "identity": {
+        "iterations": true,
+        "validation": true,
+        "carrierLayerCounts": true
+      },
+      "solveChangePercent": 20.438323240519594
+    },
+    {
+      "sample": "inner-layers-left",
+      "acceptedMain": true,
+      "acceptedPr": true,
+      "comparable": true,
+      "identity": {
+        "iterations": true,
+        "validation": true,
+        "carrierLayerCounts": true
+      },
+      "solveChangePercent": -2.3501061400257095
+    },
+    {
+      "sample": "inner-layers-above",
+      "acceptedMain": true,
+      "acceptedPr": true,
+      "comparable": true,
+      "identity": {
+        "iterations": true,
+        "validation": true,
+        "carrierLayerCounts": true
+      },
+      "solveChangePercent": 35.07075237719049
+    },
+    {
+      "sample": "inner-layers-complete-ca",
+      "acceptedMain": true,
+      "acceptedPr": true,
+      "comparable": true,
+      "identity": {
+        "iterations": true,
+        "validation": true,
+        "carrierLayerCounts": true
+      },
+      "solveChangePercent": 6.7091756932831315
+    },
+    {
+      "sample": "outer-layers",
+      "acceptedMain": true,
+      "acceptedPr": true,
+      "comparable": true,
+      "identity": {
+        "iterations": true,
+        "validation": true,
+        "carrierLayerCounts": true
+      },
+      "solveChangePercent": -13.832421235007509
+    }
+  ]
+}

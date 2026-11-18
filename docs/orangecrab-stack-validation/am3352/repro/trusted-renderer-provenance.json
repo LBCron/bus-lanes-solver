@@ -1,0 +1,12 @@
+{
+  "report.ts": {
+    "sourceRevision": "202b034659fb96bad44d11b8190f4044b675116f",
+    "sha256": "91a3b4b06fa9b967a42d458ee156a26a9eabdd3942912b9b7ae83ef3ab24ab89",
+    "currentWorktreeIdentical": true
+  },
+  "samples.json": {
+    "sourceRevision": "202b034659fb96bad44d11b8190f4044b675116f",
+    "sha256": "24edbdb1dedb7a7e5ab521c0ebeec739f515ca213b195df6364b818c3d90a743",
+    "currentWorktreeIdentical": true
+  }
+}

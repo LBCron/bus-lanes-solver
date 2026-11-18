@@ -1,0 +1,92 @@
+{
+  "updatedAt": "2026-11-18T21:32:38.480966+00:00",
+  "headSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+  "workflowRun": 44400469671,
+  "event": "pr",
+  "partial": false,
+  "totalPassed": 611,
+  "totalFailed": 0,
+  "nodes": [
+    {
+      "node": 1,
+      "passed": 1,
+      "failed": 0,
+      "failures": [],
+      "a64Passes": [],
+      "runtime": {
+        "bunVersion": "1.4.4",
+        "bunRevision": "38afee6c8"
+      },
+      "log": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/tests-pr-node1.log"
+    },
+    {
+      "node": 2,
+      "passed": 85,
+      "failed": 0,
+      "failures": [],
+      "a64Passes": [],
+      "runtime": {
+        "bunVersion": "1.4.4",
+        "bunRevision": "38afee6c8"
+      },
+      "log": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/tests-pr-node2.log"
+    },
+    {
+      "node": 3,
+      "passed": 60,
+      "failed": 0,
+      "failures": [],
+      "a64Passes": [],
+      "runtime": {
+        "bunVersion": "1.4.4",
+        "bunRevision": "38afee6c8"
+      },
+      "log": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/tests-pr-node3.log"
+    },
+    {
+      "node": 4,
+      "passed": 65,
+      "failed": 0,
+      "failures": [],
+      "a64Passes": [
+        {
+          "file": "tests/a64-preloaded-byte.test.ts",
+          "test": "routes A64 byte2 without changing the supplied first two bytes [36551.38ms]"
+        },
+        {
+          "file": "tests/a64-preloaded-byte3.test.ts",
+          "test": "routes A64 byte3 without changing the supplied first three bytes [3517.88ms]"
+        }
+      ],
+      "runtime": {
+        "bunVersion": "1.4.4",
+        "bunRevision": "38afee6c8"
+      },
+      "log": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/tests-pr-node4.log"
+    },
+    {
+      "node": 5,
+      "passed": 46,
+      "failed": 0,
+      "failures": [],
+      "a64Passes": [],
+      "runtime": {
+        "bunVersion": "1.4.4",
+        "bunRevision": "38afee6c8"
+      },
+      "log": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/tests-pr-node5.log"
+    },
+    {
+      "node": 6,
+      "passed": 354,
+      "failed": 0,
+      "failures": [],
+      "a64Passes": [],
+      "runtime": {
+        "bunVersion": "1.4.4",
+        "bunRevision": "38afee6c8"
+      },
+      "log": "/workspace/ddr-results/stacked-ci/repro-2af1bd6/tests-pr-node6.log"
+    }
+  ]
+}

@@ -1,0 +1,1010 @@
+{
+  "updatedAt": "2026-11-18T22:13:01.967183+00:00",
+  "headSha": "358604c0e7f8bee42d0aef488807239c322198c6",
+  "mainSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+  "runId": 44400918145,
+  "partial": false,
+  "availablePairs": 11,
+  "expectedPairs": 11,
+  "missing": [],
+  "acceptedMain": 11,
+  "acceptedPr": 11,
+  "comparablePairs": 11,
+  "identicalFullValidationPairs": 11,
+  "identicalIterationsPairs": 11,
+  "lostCompletions": [],
+  "gainedCompletions": [],
+  "runtimeRegressionsAvailablePairs": [
+    "control-inner1",
+    "right",
+    "left",
+    "above",
+    "inner-layers-right",
+    "inner-layers-left",
+    "inner-layers-above",
+    "outer-layers"
+  ],
+  "rows": [
+    {
+      "sample": "control",
+      "metadataComparable": true,
+      "inputSha256": "b7a4e9d09a22fe0ed131a544548b14eef20fbf4e88b6dc6ffaa11ca44e6bfe59",
+      "metadata": {
+        "order": [
+          "main",
+          "pr"
+        ],
+        "mainSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "prSha": "358604c0e7f8bee42d0aef488807239c322198c6",
+        "controllerSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "bunVersion": "1.4.0",
+        "platform": "linux",
+        "architecture": "x64",
+        "runnerName": "blacksmith-4vcpu-ubuntu-2404-o5wswas2kxbqi4ay",
+        "runnerOS": "Linux"
+      },
+      "validationIdentical": true,
+      "iterationsIdentical": true,
+      "carrierLayerCountsIdentical": true,
+      "solveChangePercent": -20.667442728926932,
+      "main": {
+        "accepted": true,
+        "missingWorker": false,
+        "checks": {
+          "sampleIdentity": true,
+          "worker": true,
+          "status": true,
+          "budget": true,
+          "connectivity": true,
+          "matching": true,
+          "drc": true,
+          "fixed161": true,
+          "inputUnchanged": true,
+          "busSkew": true,
+          "pairSkew": true,
+          "pairCoupling": true,
+          "noIssues": true
+        },
+        "status": "solved",
+        "error": null,
+        "solveSeconds": 53.770838762,
+        "wallSeconds": 55.991283603999996,
+        "iterations": 50026,
+        "busSkews": {
+          "DDR_BYTE0": 0.6350000000675919,
+          "DDR_BYTE1": 0.6350000100064577
+        },
+        "pairSkews": {
+          "pair_0": 0.0778683245814733,
+          "pair_1": 0.12688373178988854,
+          "pair_2": 0.07282965286481868
+        }
+      },
+      "pr": {
+        "accepted": true,
+        "missingWorker": false,
+        "checks": {
+          "sampleIdentity": true,
+          "worker": true,
+          "status": true,
+          "budget": true,
+          "connectivity": true,
+          "matching": true,
+          "drc": true,
+          "fixed161": true,
+          "inputUnchanged": true,
+          "busSkew": true,
+          "pairSkew": true,
+          "pairCoupling": true,
+          "noIssues": true
+        },
+        "status": "solved",
+        "error": null,
+        "solveSeconds": 42.657781456,
+        "wallSeconds": 44.58819290099999,
+        "iterations": 50026,
+        "busSkews": {
+          "DDR_BYTE0": 0.6350000000675919,
+          "DDR_BYTE1": 0.6350000100064577
+        },
+        "pairSkews": {
+          "pair_0": 0.0778683245814733,
+          "pair_1": 0.12688373178988854,
+          "pair_2": 0.07282965286481868
+        }
+      }
+    },
+    {
+      "sample": "control-inner1",
+      "metadataComparable": true,
+      "inputSha256": "14b5b318540ce7bac367cf22338abd7f9fffd2f7ce6c2a12f903116f50ca9bde",
+      "metadata": {
+        "order": [
+          "pr",
+          "main"
+        ],
+        "mainSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "prSha": "358604c0e7f8bee42d0aef488807239c322198c6",
+        "controllerSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "bunVersion": "1.4.0",
+        "platform": "linux",
+        "architecture": "x64",
+        "runnerName": "blacksmith-4vcpu-ubuntu-2404-sqiwwb3uuzu2ufxa",
+        "runnerOS": "Linux"
+      },
+      "validationIdentical": true,
+      "iterationsIdentical": true,
+      "carrierLayerCountsIdentical": true,
+      "solveChangePercent": 40.176562205961844,
+      "main": {
+        "accepted": true,
+        "missingWorker": false,
+        "checks": {
+          "sampleIdentity": true,
+          "worker": true,
+          "status": true,
+          "budget": true,
+          "connectivity": true,
+          "matching": true,
+          "drc": true,
+          "fixed161": true,
+          "inputUnchanged": true,
+          "busSkew": true,
+          "pairSkew": true,
+          "pairCoupling": true,
+          "noIssues": true
+        },
+        "status": "solved",
+        "error": null,
+        "solveSeconds": 1173.238138658,
+        "wallSeconds": 1175.869670635,
+        "iterations": 98842,
+        "busSkews": {
+          "DDR_BYTE0": 0.6350000000017673,
+          "DDR_BYTE1": 0.6349999999999554
+        },
+        "pairSkews": {
+          "pair_0": 0.04889964467002983,
+          "pair_1": 0.004719837709238561,
+          "pair_2": 0.03021530790510596
+        }
+      },
+      "pr": {
+        "accepted": true,
+        "missingWorker": false,
+        "checks": {
+          "sampleIdentity": true,
+          "worker": true,
+          "status": true,
+          "budget": true,
+          "connectivity": true,
+          "matching": true,
+          "drc": true,
+          "fixed161": true,
+          "inputUnchanged": true,
+          "busSkew": true,
+          "pairSkew": true,
+          "pairCoupling": true,
+          "noIssues": true
+        },
+        "status": "solved",
+        "error": null,
+        "solveSeconds": 1644.6048892600002,
+        "wallSeconds": 1648.080941742,
+        "iterations": 98842,
+        "busSkews": {
+          "DDR_BYTE0": 0.6350000000017673,
+          "DDR_BYTE1": 0.6349999999999554
+        },
+        "pairSkews": {
+          "pair_0": 0.04889964467002983,
+          "pair_1": 0.004719837709238561,
+          "pair_2": 0.03021530790510596
+        }
+      }
+    },
+    {
+      "sample": "right",
+      "metadataComparable": true,
+      "inputSha256": "78c22c8d818ee2c2abe2eec9c6b6e408161a9d0eaf09afbafc3242e71e8f5778",
+      "metadata": {
+        "order": [
+          "main",
+          "pr"
+        ],
+        "mainSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "prSha": "358604c0e7f8bee42d0aef488807239c322198c6",
+        "controllerSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "bunVersion": "1.4.0",
+        "platform": "linux",
+        "architecture": "x64",
+        "runnerName": "blacksmith-4vcpu-ubuntu-2404-yqtrx55pd5dogrgn",
+        "runnerOS": "Linux"
+      },
+      "validationIdentical": true,
+      "iterationsIdentical": true,
+      "carrierLayerCountsIdentical": true,
+      "solveChangePercent": 18.089929630636025,
+      "main": {
+        "accepted": true,
+        "missingWorker": false,
+        "checks": {
+          "sampleIdentity": true,
+          "worker": true,
+          "status": true,
+          "budget": true,
+          "connectivity": true,
+          "matching": true,
+          "drc": true,
+          "fixed161": true,
+          "inputUnchanged": true,
+          "busSkew": true,
+          "pairSkew": true,
+          "pairCoupling": true,
+          "noIssues": true
+        },
+        "status": "solved",
+        "error": null,
+        "solveSeconds": 24.872561158999996,
+        "wallSeconds": 27.19847926,
+        "iterations": 51405,
+        "busSkews": {
+          "DDR_BYTE0": 0.635000000000467,
+          "DDR_BYTE1": 0.6349999999999696
+        },
+        "pairSkews": {
+          "pair_0": 0.09604665360949838,
+          "pair_1": 0.12180230740349174,
+          "pair_2": 0.10264381675825973
+        }
+      },
+      "pr": {
+        "accepted": true,
+        "missingWorker": false,
+        "checks": {
+          "sampleIdentity": true,
+          "worker": true,
+          "status": true,
+          "budget": true,
+          "connectivity": true,
+          "matching": true,
+          "drc": true,
+          "fixed161": true,
+          "inputUnchanged": true,
+          "busSkew": true,
+          "pairSkew": true,
+          "pairCoupling": true,
+          "noIssues": true
+        },
+        "status": "solved",
+        "error": null,
+        "solveSeconds": 29.37198997,
+        "wallSeconds": 31.469251093999997,
+        "iterations": 51405,
+        "busSkews": {
+          "DDR_BYTE0": 0.635000000000467,
+          "DDR_BYTE1": 0.6349999999999696
+        },
+        "pairSkews": {
+          "pair_0": 0.09604665360949838,
+          "pair_1": 0.12180230740349174,
+          "pair_2": 0.10264381675825973
+        }
+      }
+    },
+    {
+      "sample": "left",
+      "metadataComparable": true,
+      "inputSha256": "6042ca0f0889a983a6ccf8f929a6a46b18cc57134e1b9f3b49c19063b936caa5",
+      "metadata": {
+        "order": [
+          "pr",
+          "main"
+        ],
+        "mainSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "prSha": "358604c0e7f8bee42d0aef488807239c322198c6",
+        "controllerSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "bunVersion": "1.4.0",
+        "platform": "linux",
+        "architecture": "x64",
+        "runnerName": "blacksmith-4vcpu-ubuntu-2404-5rcpssln36fucyun",
+        "runnerOS": "Linux"
+      },
+      "validationIdentical": true,
+      "iterationsIdentical": true,
+      "carrierLayerCountsIdentical": true,
+      "solveChangePercent": 8.411367874667652,
+      "main": {
+        "accepted": true,
+        "missingWorker": false,
+        "checks": {
+          "sampleIdentity": true,
+          "worker": true,
+          "status": true,
+          "budget": true,
+          "connectivity": true,
+          "matching": true,
+          "drc": true,
+          "fixed161": true,
+          "inputUnchanged": true,
+          "busSkew": true,
+          "pairSkew": true,
+          "pairCoupling": true,
+          "noIssues": true
+        },
+        "status": "solved",
+        "error": null,
+        "solveSeconds": 53.807443087,
+        "wallSeconds": 57.81281032700001,
+        "iterations": 82820,
+        "busSkews": {
+          "DDR_BYTE0": 0.635000009997654,
+          "DDR_BYTE1": 0.5111468252001927
+        },
+        "pairSkews": {
+          "pair_0": 0.010514368851048062,
+          "pair_1": 0.12699999999991718,
+          "pair_2": 0.10542851386562901
+        }
+      },
+      "pr": {
+        "accepted": true,
+        "missingWorker": false,
+        "checks": {
+          "sampleIdentity": true,
+          "worker": true,
+          "status": true,
+          "budget": true,
+          "connectivity": true,
+          "matching": true,
+          "drc": true,
+          "fixed161": true,
+          "inputUnchanged": true,
+          "busSkew": true,
+          "pairSkew": true,
+          "pairCoupling": true,
+          "noIssues": true
+        },
+        "status": "solved",
+        "error": null,
+        "solveSeconds": 58.333385069,
+        "wallSeconds": 63.863192861,
+        "iterations": 82820,
+        "busSkews": {
+          "DDR_BYTE0": 0.635000009997654,
+          "DDR_BYTE1": 0.5111468252001927
+        },
+        "pairSkews": {
+          "pair_0": 0.010514368851048062,
+          "pair_1": 0.12699999999991718,
+          "pair_2": 0.10542851386562901
+        }
+      }
+    },
+    {
+      "sample": "above",
+      "metadataComparable": true,
+      "inputSha256": "20fc884f08accd368e4ce049ab3fc180a1926f425787a504dbc4040f651bfa69",
+      "metadata": {
+        "order": [
+          "main",
+          "pr"
+        ],
+        "mainSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "prSha": "358604c0e7f8bee42d0aef488807239c322198c6",
+        "controllerSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "bunVersion": "1.4.0",
+        "platform": "linux",
+        "architecture": "x64",
+        "runnerName": "blacksmith-4vcpu-ubuntu-2404-zkz76uinflwhqdwx",
+        "runnerOS": "Linux"
+      },
+      "validationIdentical": true,
+      "iterationsIdentical": true,
+      "carrierLayerCountsIdentical": true,
+      "solveChangePercent": 2.342446848990476,
+      "main": {
+        "accepted": true,
+        "missingWorker": false,
+        "checks": {
+          "sampleIdentity": true,
+          "worker": true,
+          "status": true,
+          "budget": true,
+          "connectivity": true,
+          "matching": true,
+          "drc": true,
+          "fixed161": true,
+          "inputUnchanged": true,
+          "busSkew": true,
+          "pairSkew": true,
+          "pairCoupling": true,
+          "noIssues": true
+        },
+        "status": "solved",
+        "error": null,
+        "solveSeconds": 44.327133845,
+        "wallSeconds": 48.37454931800001,
+        "iterations": 101425,
+        "busSkews": {
+          "DDR_BYTE0": 0.6350000000108622,
+          "DDR_BYTE1": 0.635000000003032
+        },
+        "pairSkews": {
+          "pair_0": 0.12700000000003797,
+          "pair_1": 0.1269999999999456,
+          "pair_2": 0.12699999999998823
+        }
+      },
+      "pr": {
+        "accepted": true,
+        "missingWorker": false,
+        "checks": {
+          "sampleIdentity": true,
+          "worker": true,
+          "status": true,
+          "budget": true,
+          "connectivity": true,
+          "matching": true,
+          "drc": true,
+          "fixed161": true,
+          "inputUnchanged": true,
+          "busSkew": true,
+          "pairSkew": true,
+          "pairCoupling": true,
+          "noIssues": true
+        },
+        "status": "solved",
+        "error": null,
+        "solveSeconds": 45.365473394999995,
+        "wallSeconds": 48.07600308800001,
+        "iterations": 101425,
+        "busSkews": {
+          "DDR_BYTE0": 0.6350000000108622,
+          "DDR_BYTE1": 0.635000000003032
+        },
+        "pairSkews": {
+          "pair_0": 0.12700000000003797,
+          "pair_1": 0.1269999999999456,
+          "pair_2": 0.12699999999998823
+        }
+      }
+    },
+    {
+      "sample": "inner-layers",
+      "metadataComparable": true,
+      "inputSha256": "1b91e6c5207e4b7e132aa5ac246e94777f926c7beab8675adf0356634b8280ad",
+      "metadata": {
+        "order": [
+          "pr",
+          "main"
+        ],
+        "mainSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "prSha": "358604c0e7f8bee42d0aef488807239c322198c6",
+        "controllerSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "bunVersion": "1.4.0",
+        "platform": "linux",
+        "architecture": "x64",
+        "runnerName": "blacksmith-4vcpu-ubuntu-2404-npdjgbznf4kd5wzl",
+        "runnerOS": "Linux"
+      },
+      "validationIdentical": true,
+      "iterationsIdentical": true,
+      "carrierLayerCountsIdentical": true,
+      "solveChangePercent": -7.269713118011367,
+      "main": {
+        "accepted": true,
+        "missingWorker": false,
+        "checks": {
+          "sampleIdentity": true,
+          "worker": true,
+          "status": true,
+          "budget": true,
+          "connectivity": true,
+          "matching": true,
+          "drc": true,
+          "fixed161": true,
+          "inputUnchanged": true,
+          "busSkew": true,
+          "pairSkew": true,
+          "pairCoupling": true,
+          "noIssues": true
+        },
+        "status": "solved",
+        "error": null,
+        "solveSeconds": 51.321807827,
+        "wallSeconds": 53.07846329299999,
+        "iterations": 123306,
+        "busSkews": {
+          "DDR_BYTE0": 0.6349999999628082,
+          "DDR_BYTE1": 0.6350000109864098
+        },
+        "pairSkews": {
+          "pair_0": 0.0778683245814733,
+          "pair_1": 0.12688373178988854,
+          "pair_2": 0.12699999999976797
+        }
+      },
+      "pr": {
+        "accepted": true,
+        "missingWorker": false,
+        "checks": {
+          "sampleIdentity": true,
+          "worker": true,
+          "status": true,
+          "budget": true,
+          "connectivity": true,
+          "matching": true,
+          "drc": true,
+          "fixed161": true,
+          "inputUnchanged": true,
+          "busSkew": true,
+          "pairSkew": true,
+          "pairCoupling": true,
+          "noIssues": true
+        },
+        "status": "solved",
+        "error": null,
+        "solveSeconds": 47.590859631,
+        "wallSeconds": 49.280746599,
+        "iterations": 123306,
+        "busSkews": {
+          "DDR_BYTE0": 0.6349999999628082,
+          "DDR_BYTE1": 0.6350000109864098
+        },
+        "pairSkews": {
+          "pair_0": 0.0778683245814733,
+          "pair_1": 0.12688373178988854,
+          "pair_2": 0.12699999999976797
+        }
+      }
+    },
+    {
+      "sample": "inner-layers-right",
+      "metadataComparable": true,
+      "inputSha256": "2eaf3dedcd84fbfed10262f4d4c99370a0ca00a7a060f87b7a1cdcba9de37a8e",
+      "metadata": {
+        "order": [
+          "main",
+          "pr"
+        ],
+        "mainSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "prSha": "358604c0e7f8bee42d0aef488807239c322198c6",
+        "controllerSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "bunVersion": "1.4.0",
+        "platform": "linux",
+        "architecture": "x64",
+        "runnerName": "blacksmith-4vcpu-ubuntu-2404-u2uhtitamwxpll64",
+        "runnerOS": "Linux"
+      },
+      "validationIdentical": true,
+      "iterationsIdentical": true,
+      "carrierLayerCountsIdentical": true,
+      "solveChangePercent": 44.63011537985362,
+      "main": {
+        "accepted": true,
+        "missingWorker": false,
+        "checks": {
+          "sampleIdentity": true,
+          "worker": true,
+          "status": true,
+          "budget": true,
+          "connectivity": true,
+          "matching": true,
+          "drc": true,
+          "fixed161": true,
+          "inputUnchanged": true,
+          "busSkew": true,
+          "pairSkew": true,
+          "pairCoupling": true,
+          "noIssues": true
+        },
+        "status": "solved",
+        "error": null,
+        "solveSeconds": 72.73486476500001,
+        "wallSeconds": 74.84785125900001,
+        "iterations": 159784,
+        "busSkews": {
+          "DDR_BYTE0": 0.6350000110508631,
+          "DDR_BYTE1": 0.6349999999999696
+        },
+        "pairSkews": {
+          "pair_0": 0.12700001096276736,
+          "pair_1": 0.12699999999998113,
+          "pair_2": 0.1270000000000593
+        }
+      },
+      "pr": {
+        "accepted": true,
+        "missingWorker": false,
+        "checks": {
+          "sampleIdentity": true,
+          "worker": true,
+          "status": true,
+          "budget": true,
+          "connectivity": true,
+          "matching": true,
+          "drc": true,
+          "fixed161": true,
+          "inputUnchanged": true,
+          "busSkew": true,
+          "pairSkew": true,
+          "pairCoupling": true,
+          "noIssues": true
+        },
+        "status": "solved",
+        "error": null,
+        "solveSeconds": 105.196518831,
+        "wallSeconds": 107.708859778,
+        "iterations": 159784,
+        "busSkews": {
+          "DDR_BYTE0": 0.6350000110508631,
+          "DDR_BYTE1": 0.6349999999999696
+        },
+        "pairSkews": {
+          "pair_0": 0.12700001096276736,
+          "pair_1": 0.12699999999998113,
+          "pair_2": 0.1270000000000593
+        }
+      }
+    },
+    {
+      "sample": "inner-layers-left",
+      "metadataComparable": true,
+      "inputSha256": "1c3db8ee018bc90df7fbbb0c198c42efcc0ca948a6a213338650cf81a51f7ab2",
+      "metadata": {
+        "order": [
+          "pr",
+          "main"
+        ],
+        "mainSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "prSha": "358604c0e7f8bee42d0aef488807239c322198c6",
+        "controllerSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "bunVersion": "1.4.0",
+        "platform": "linux",
+        "architecture": "x64",
+        "runnerName": "blacksmith-4vcpu-ubuntu-2404-qntows6b76ukgh3q",
+        "runnerOS": "Linux"
+      },
+      "validationIdentical": true,
+      "iterationsIdentical": true,
+      "carrierLayerCountsIdentical": true,
+      "solveChangePercent": 25.747764549641204,
+      "main": {
+        "accepted": true,
+        "missingWorker": false,
+        "checks": {
+          "sampleIdentity": true,
+          "worker": true,
+          "status": true,
+          "budget": true,
+          "connectivity": true,
+          "matching": true,
+          "drc": true,
+          "fixed161": true,
+          "inputUnchanged": true,
+          "busSkew": true,
+          "pairSkew": true,
+          "pairCoupling": true,
+          "noIssues": true
+        },
+        "status": "solved",
+        "error": null,
+        "solveSeconds": 216.224224059,
+        "wallSeconds": 220.064731619,
+        "iterations": 246079,
+        "busSkews": {
+          "DDR_BYTE0": 0.634990371865257,
+          "DDR_BYTE1": 0.6349920303628309
+        },
+        "pairSkews": {
+          "pair_0": 0.12699000000001348,
+          "pair_1": 5.274709806712963e-07,
+          "pair_2": 0.10542851386563257
+        }
+      },
+      "pr": {
+        "accepted": true,
+        "missingWorker": false,
+        "checks": {
+          "sampleIdentity": true,
+          "worker": true,
+          "status": true,
+          "budget": true,
+          "connectivity": true,
+          "matching": true,
+          "drc": true,
+          "fixed161": true,
+          "inputUnchanged": true,
+          "busSkew": true,
+          "pairSkew": true,
+          "pairCoupling": true,
+          "noIssues": true
+        },
+        "status": "solved",
+        "error": null,
+        "solveSeconds": 271.897128169,
+        "wallSeconds": 275.693603016,
+        "iterations": 246079,
+        "busSkews": {
+          "DDR_BYTE0": 0.634990371865257,
+          "DDR_BYTE1": 0.6349920303628309
+        },
+        "pairSkews": {
+          "pair_0": 0.12699000000001348,
+          "pair_1": 5.274709806712963e-07,
+          "pair_2": 0.10542851386563257
+        }
+      }
+    },
+    {
+      "sample": "inner-layers-above",
+      "metadataComparable": true,
+      "inputSha256": "68a86ef74f8ec9628954e909464c009d98fb2c902a6376e20b3a32d4b5cff555",
+      "metadata": {
+        "order": [
+          "main",
+          "pr"
+        ],
+        "mainSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "prSha": "358604c0e7f8bee42d0aef488807239c322198c6",
+        "controllerSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "bunVersion": "1.4.0",
+        "platform": "linux",
+        "architecture": "x64",
+        "runnerName": "blacksmith-4vcpu-ubuntu-2404-oplexxgwe6rhxnpg",
+        "runnerOS": "Linux"
+      },
+      "validationIdentical": true,
+      "iterationsIdentical": true,
+      "carrierLayerCountsIdentical": true,
+      "solveChangePercent": 8.784935597004907,
+      "main": {
+        "accepted": true,
+        "missingWorker": false,
+        "checks": {
+          "sampleIdentity": true,
+          "worker": true,
+          "status": true,
+          "budget": true,
+          "connectivity": true,
+          "matching": true,
+          "drc": true,
+          "fixed161": true,
+          "inputUnchanged": true,
+          "busSkew": true,
+          "pairSkew": true,
+          "pairCoupling": true,
+          "noIssues": true
+        },
+        "status": "solved",
+        "error": null,
+        "solveSeconds": 276.018229448,
+        "wallSeconds": 279.619793572,
+        "iterations": 323178,
+        "busSkews": {
+          "DDR_BYTE0": 0.6349909297154568,
+          "DDR_BYTE1": 0.6349927153210047
+        },
+        "pairSkews": {
+          "pair_0": 0.12691534384281056,
+          "pair_1": 0.12698980000070037,
+          "pair_2": 6.186337131453001e-07
+        }
+      },
+      "pr": {
+        "accepted": true,
+        "missingWorker": false,
+        "checks": {
+          "sampleIdentity": true,
+          "worker": true,
+          "status": true,
+          "budget": true,
+          "connectivity": true,
+          "matching": true,
+          "drc": true,
+          "fixed161": true,
+          "inputUnchanged": true,
+          "busSkew": true,
+          "pairSkew": true,
+          "pairCoupling": true,
+          "noIssues": true
+        },
+        "status": "solved",
+        "error": null,
+        "solveSeconds": 300.26625314100005,
+        "wallSeconds": 303.16226372399996,
+        "iterations": 323178,
+        "busSkews": {
+          "DDR_BYTE0": 0.6349909297154568,
+          "DDR_BYTE1": 0.6349927153210047
+        },
+        "pairSkews": {
+          "pair_0": 0.12691534384281056,
+          "pair_1": 0.12698980000070037,
+          "pair_2": 6.186337131453001e-07
+        }
+      }
+    },
+    {
+      "sample": "inner-layers-complete-ca",
+      "metadataComparable": true,
+      "inputSha256": "a6def279fa2d3356a66ee94b1760a76eebb6c6d8e605005ce5903bd2fbca8776",
+      "metadata": {
+        "order": [
+          "pr",
+          "main"
+        ],
+        "mainSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "prSha": "358604c0e7f8bee42d0aef488807239c322198c6",
+        "controllerSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "bunVersion": "1.4.0",
+        "platform": "linux",
+        "architecture": "x64",
+        "runnerName": "blacksmith-4vcpu-ubuntu-2404-pvbr3mmifc3ifsw4",
+        "runnerOS": "Linux"
+      },
+      "validationIdentical": true,
+      "iterationsIdentical": true,
+      "carrierLayerCountsIdentical": true,
+      "solveChangePercent": -2.436395654290724,
+      "main": {
+        "accepted": true,
+        "missingWorker": false,
+        "checks": {
+          "sampleIdentity": true,
+          "worker": true,
+          "status": true,
+          "budget": true,
+          "connectivity": true,
+          "matching": true,
+          "drc": true,
+          "fixed161": true,
+          "inputUnchanged": true,
+          "busSkew": true,
+          "pairSkew": true,
+          "pairCoupling": true,
+          "noIssues": true
+        },
+        "status": "solved",
+        "error": null,
+        "solveSeconds": 269.21614740399997,
+        "wallSeconds": 279.21101036900006,
+        "iterations": 72633,
+        "busSkews": {
+          "DDR_BYTE0": 0.6349902427763041,
+          "DDR_BYTE1": 0.6349916843630794,
+          "DDR_ADDR_CTRL_CK": 0.6349944579905653
+        },
+        "pairSkews": {
+          "pair_0": 0.07535887199949798,
+          "pair_1": 8.526512829121202e-14,
+          "pair_2": 0.06638387191047457
+        }
+      },
+      "pr": {
+        "accepted": true,
+        "missingWorker": false,
+        "checks": {
+          "sampleIdentity": true,
+          "worker": true,
+          "status": true,
+          "budget": true,
+          "connectivity": true,
+          "matching": true,
+          "drc": true,
+          "fixed161": true,
+          "inputUnchanged": true,
+          "busSkew": true,
+          "pairSkew": true,
+          "pairCoupling": true,
+          "noIssues": true
+        },
+        "status": "solved",
+        "error": null,
+        "solveSeconds": 262.65697688800003,
+        "wallSeconds": 271.32983237999997,
+        "iterations": 72633,
+        "busSkews": {
+          "DDR_BYTE0": 0.6349902427763041,
+          "DDR_BYTE1": 0.6349916843630794,
+          "DDR_ADDR_CTRL_CK": 0.6349944579905653
+        },
+        "pairSkews": {
+          "pair_0": 0.07535887199949798,
+          "pair_1": 8.526512829121202e-14,
+          "pair_2": 0.06638387191047457
+        }
+      }
+    },
+    {
+      "sample": "outer-layers",
+      "metadataComparable": true,
+      "inputSha256": "de3fd915f3c7d8c9bf4fd3c9b197596ba5e08c1be328f9c5223d7ab78736588f",
+      "metadata": {
+        "order": [
+          "main",
+          "pr"
+        ],
+        "mainSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "prSha": "358604c0e7f8bee42d0aef488807239c322198c6",
+        "controllerSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+        "bunVersion": "1.4.0",
+        "platform": "linux",
+        "architecture": "x64",
+        "runnerName": "blacksmith-4vcpu-ubuntu-2404-dm2jykvsqt77zn2k",
+        "runnerOS": "Linux"
+      },
+      "validationIdentical": true,
+      "iterationsIdentical": true,
+      "carrierLayerCountsIdentical": true,
+      "solveChangePercent": 6.568420031278799,
+      "main": {
+        "accepted": true,
+        "missingWorker": false,
+        "checks": {
+          "sampleIdentity": true,
+          "worker": true,
+          "status": true,
+          "budget": true,
+          "connectivity": true,
+          "matching": true,
+          "drc": true,
+          "fixed161": true,
+          "inputUnchanged": true,
+          "busSkew": true,
+          "pairSkew": true,
+          "pairCoupling": true,
+          "noIssues": true
+        },
+        "status": "solved",
+        "error": null,
+        "solveSeconds": 944.996204299,
+        "wallSeconds": 949.687517763,
+        "iterations": 4174041,
+        "busSkews": {
+          "DDR_BYTE0": 0.6350000110165794,
+          "DDR_BYTE1": 0.6349999999999838
+        },
+        "pairSkews": {
+          "pair_0": 0.019219371674388697,
+          "pair_1": 0.12700000000001666,
+          "pair_2": 0.12699999999989586
+        }
+      },
+      "pr": {
+        "accepted": true,
+        "missingWorker": false,
+        "checks": {
+          "sampleIdentity": true,
+          "worker": true,
+          "status": true,
+          "budget": true,
+          "connectivity": true,
+          "matching": true,
+          "drc": true,
+          "fixed161": true,
+          "inputUnchanged": true,
+          "busSkew": true,
+          "pairSkew": true,
+          "pairCoupling": true,
+          "noIssues": true
+        },
+        "status": "solved",
+        "error": null,
+        "solveSeconds": 1007.067524277,
+        "wallSeconds": 1010.8021519590002,
+        "iterations": 4174041,
+        "busSkews": {
+          "DDR_BYTE0": 0.6350000110165794,
+          "DDR_BYTE1": 0.6349999999999838
+        },
+        "pairSkews": {
+          "pair_0": 0.019219371674388697,
+          "pair_1": 0.12700000000001666,
+          "pair_2": 0.12699999999989586
+        }
+      }
+    }
+  ]
+}

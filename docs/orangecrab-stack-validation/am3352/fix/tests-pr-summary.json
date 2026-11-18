@@ -1,0 +1,110 @@
+{
+  "updatedAt": "2026-11-18T21:36:49.633639+00:00",
+  "headSha": "358604c0e7f8bee42d0aef488807239c322198c6",
+  "workflowRun": 44400917765,
+  "event": "pr",
+  "partial": false,
+  "totalPassed": 623,
+  "totalFailed": 0,
+  "nodes": [
+    {
+      "node": 1,
+      "passed": 1,
+      "failed": 0,
+      "failures": [],
+      "a64Passes": [],
+      "bunRuntimes": [
+        {
+          "version": "1.4.4",
+          "revision": "38afee6c8"
+        }
+      ],
+      "log": "/workspace/ddr-results/stacked-ci/fix-358604c/tests-pr-node1.log"
+    },
+    {
+      "node": 2,
+      "passed": 59,
+      "failed": 0,
+      "failures": [],
+      "a64Passes": [
+        {
+          "file": "tests/a64-preloaded-byte3.test.ts",
+          "test": "routes A64 byte3 without changing the supplied first three bytes [3648.90ms]"
+        }
+      ],
+      "bunRuntimes": [
+        {
+          "version": "1.4.4",
+          "revision": "38afee6c8"
+        }
+      ],
+      "log": "/workspace/ddr-results/stacked-ci/fix-358604c/tests-pr-node2.log"
+    },
+    {
+      "node": 3,
+      "passed": 62,
+      "failed": 0,
+      "failures": [],
+      "a64Passes": [],
+      "bunRuntimes": [
+        {
+          "version": "1.4.4",
+          "revision": "38afee6c8"
+        }
+      ],
+      "log": "/workspace/ddr-results/stacked-ci/fix-358604c/tests-pr-node3.log"
+    },
+    {
+      "node": 4,
+      "passed": 64,
+      "failed": 0,
+      "failures": [],
+      "a64Passes": [
+        {
+          "file": "tests/a64-preloaded-byte.test.ts",
+          "test": "routes A64 byte2 without changing the supplied first two bytes [5830.44ms]"
+        }
+      ],
+      "bunRuntimes": [
+        {
+          "version": "1.4.4",
+          "revision": "38afee6c8"
+        }
+      ],
+      "log": "/workspace/ddr-results/stacked-ci/fix-358604c/tests-pr-node4.log"
+    },
+    {
+      "node": 5,
+      "passed": 345,
+      "failed": 0,
+      "failures": [],
+      "a64Passes": [],
+      "bunRuntimes": [
+        {
+          "version": "1.4.4",
+          "revision": "38afee6c8"
+        }
+      ],
+      "log": "/workspace/ddr-results/stacked-ci/fix-358604c/tests-pr-node5.log"
+    },
+    {
+      "node": 6,
+      "passed": 92,
+      "failed": 0,
+      "failures": [],
+      "a64Passes": [
+        {
+          "file": "tests/a64-byte2-early-negotiation.test.ts",
+          "test": "routes A64 byte2 with the default pipeline and preserves the supplied two bytes [5725.57ms]"
+        }
+      ],
+      "bunRuntimes": [
+        {
+          "version": "1.4.4",
+          "revision": "38afee6c8"
+        }
+      ],
+      "log": "/workspace/ddr-results/stacked-ci/fix-358604c/tests-pr-node6.log"
+    }
+  ]
+}

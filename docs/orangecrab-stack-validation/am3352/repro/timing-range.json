@@ -1,0 +1,21 @@
+{
+  "headSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+  "baseSha": "202b034659fb96bad44d11b8190f4044b675116f",
+  "kind": "descriptive observed paired solve-time change on identical production/harness code; no statistical speedup claim",
+  "range": {
+    "minimum": {
+      "sample": "inner-layers",
+      "changePercent": -23.15885765581215,
+      "mainSolveSeconds": 60.583326895999996,
+      "prSolveSeconds": 46.552920457,
+      "changeSeconds": -14.030406438999997
+    },
+    "maximum": {
+      "sample": "control-inner1",
+      "changePercent": 38.56704802157795,
+      "mainSolveSeconds": 1128.6874045569998,
+      "prSolveSeconds": 1563.988817886,
+      "changeSeconds": 435.3014133290003
+    }
+  }
+}

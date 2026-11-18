@@ -1,0 +1,142 @@
+{
+  "generatedAt": "2026-11-18T22:08:36.761073+00:00",
+  "baseSha": "202b034659fb96bad44d11b8190f4044b675116f",
+  "headSha": "2af1bd6f4f7481a10afcf9c475f9b7dfe92f9e95",
+  "controllerSha": "202b034659fb96bad44d11b8190f4044b675116f",
+  "auditPassed": true,
+  "acceptedMain": 11,
+  "acceptedPr": 11,
+  "comparablePairs": 11,
+  "fullValidationIdenticalPairs": 11,
+  "iterationsIdenticalPairs": 11,
+  "lostCompletions": [],
+  "failures": [],
+  "numericFiniteAndUniqueMeasurementsChecked": true,
+  "totalCopperCalculationsChecked": true,
+  "threeDistinctPairSkewAndCouplingChecks": true,
+  "fixed161PreservationChecked": true,
+  "exactFreshGeometryAvailable": false,
+  "rows": [
+    {
+      "sample": "control",
+      "acceptedBoth": true,
+      "comparable": true,
+      "fullValidationIdentical": true,
+      "iterationsIdentical": true,
+      "mainSolveSeconds": 42.118166932,
+      "prSolveSeconds": 40.076478553,
+      "solveChangePercent": -4.8475243053581085,
+      "pairJsonSha256": "e38cd1c7deba74057aa69b8fc04f0d1cbd6dc9d379f18495cd44afdc7a694d11"
+    },
+    {
+      "sample": "control-inner1",
+      "acceptedBoth": true,
+      "comparable": true,
+      "fullValidationIdentical": true,
+      "iterationsIdentical": true,
+      "mainSolveSeconds": 1128.6874045569998,
+      "prSolveSeconds": 1563.988817886,
+      "solveChangePercent": 38.56704802157795,
+      "pairJsonSha256": "6d08ef7b8c7beb74d6cc69d9fa5aaf60227b709c8a6cb0bf6504f9272562db07"
+    },
+    {
+      "sample": "right",
+      "acceptedBoth": true,
+      "comparable": true,
+      "fullValidationIdentical": true,
+      "iterationsIdentical": true,
+      "mainSolveSeconds": 23.007848495999998,
+      "prSolveSeconds": 22.664279768,
+      "solveChangePercent": -1.4932675172114829,
+      "pairJsonSha256": "2e09de8ec2ee96a4ffb44c6db5876cfd39f71591dc35dd574ad9874aea613579"
+    },
+    {
+      "sample": "left",
+      "acceptedBoth": true,
+      "comparable": true,
+      "fullValidationIdentical": true,
+      "iterationsIdentical": true,
+      "mainSolveSeconds": 43.215640181000005,
+      "prSolveSeconds": 50.996241133000005,
+      "solveChangePercent": 18.004132113772986,
+      "pairJsonSha256": "0e9f97fffc21276cbc35e15a73eac7f441219b71e6d5a82d42bda06921d4a0e0"
+    },
+    {
+      "sample": "above",
+      "acceptedBoth": true,
+      "comparable": true,
+      "fullValidationIdentical": true,
+      "iterationsIdentical": true,
+      "mainSolveSeconds": 50.863398941999996,
+      "prSolveSeconds": 57.472080832,
+      "solveChangePercent": 12.99300091512945,
+      "pairJsonSha256": "dc3f9ac16d3e950724ada537cc3e2de0b4fff4a3d08368edb4ca9e9321155541"
+    },
+    {
+      "sample": "inner-layers",
+      "acceptedBoth": true,
+      "comparable": true,
+      "fullValidationIdentical": true,
+      "iterationsIdentical": true,
+      "mainSolveSeconds": 60.583326895999996,
+      "prSolveSeconds": 46.552920457,
+      "solveChangePercent": -23.15885765581215,
+      "pairJsonSha256": "58a1991dfef36e236f8ee00092fdd31709baf2125a24b11c20363d461e3152bf"
+    },
+    {
+      "sample": "inner-layers-right",
+      "acceptedBoth": true,
+      "comparable": true,
+      "fullValidationIdentical": true,
+      "iterationsIdentical": true,
+      "mainSolveSeconds": 69.90249607499999,
+      "prSolveSeconds": 84.18939417600001,
+      "solveChangePercent": 20.438323240519594,
+      "pairJsonSha256": "9e524752166a4ef9e41f6f73fb04d1d504f4acc1d9cb8de8c6cde599d3e744cb"
+    },
+    {
+      "sample": "inner-layers-left",
+      "acceptedBoth": true,
+      "comparable": true,
+      "fullValidationIdentical": true,
+      "iterationsIdentical": true,
+      "mainSolveSeconds": 285.946081096,
+      "prSolveSeconds": 279.226044687,
+      "solveChangePercent": -2.3501061400257095,
+      "pairJsonSha256": "73c5c981c00cc76437f7f1fe69bf215b9bfb00b7d87157897ad4f68bf01e4fd9"
+    },
+    {
+      "sample": "inner-layers-above",
+      "acceptedBoth": true,
+      "comparable": true,
+      "fullValidationIdentical": true,
+      "iterationsIdentical": true,
+      "mainSolveSeconds": 293.69161186,
+      "prSolveSeconds": 396.691469808,
+      "solveChangePercent": 35.07075237719049,
+      "pairJsonSha256": "1ee9aaa5dd2d8ba86c4217bd771add4b880324dd7ffe0e46cad265ac42edd51d"
+    },
+    {
+      "sample": "inner-layers-complete-ca",
+      "acceptedBoth": true,
+      "comparable": true,
+      "fullValidationIdentical": true,
+      "iterationsIdentical": true,
+      "mainSolveSeconds": 261.157486389,
+      "prSolveSeconds": 278.679000987,
+      "solveChangePercent": 6.7091756932831315,
+      "pairJsonSha256": "6f817711cf274dbd96c58001cb13ce76d61addc06d46dca6c5ac2e19e7fc2b23"
+    },
+    {
+      "sample": "outer-layers",
+      "acceptedBoth": true,
+      "comparable": true,
+      "fullValidationIdentical": true,
+      "iterationsIdentical": true,
+      "mainSolveSeconds": 1171.6612547109999,
+      "prSolveSeconds": 1009.592134512,
+      "solveChangePercent": -13.832421235007509,
+      "pairJsonSha256": "d801170d3b727ffeb0385a77854839c189f5ebeada3c0a18b72cd295a9e6fbcc"
+    }
+  ]
+}
