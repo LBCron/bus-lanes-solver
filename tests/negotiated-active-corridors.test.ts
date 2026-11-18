@@ -5,7 +5,7 @@ import { planBusCorridors } from "../lib/plan-bus-corridors"
 import type { SimpleRouteJson } from "../lib/types"
 import { fixedCopper } from "../lib/vector-scene"
 
-test("active corridor guides route a legal byte around an overloaded fixed-copper bottleneck", () => {
+test("coarse overload preserves a legal one-sweep detailed route", () => {
   const input: SimpleRouteJson = {
     layerCount: 2,
     minTraceWidth: 0.1,
@@ -45,12 +45,23 @@ test("active corridor guides route a legal byte around an overloaded fixed-coppe
   let plan = planning.next()
   while (!plan.done) plan = planning.next()
   expect(plan.value.size).toBe(5)
-  const work = negotiateLanes(input, input.connections, copper, [], widths)
+  let reportedIterations = 0
+  const work = negotiateLanes(
+    input,
+    input.connections,
+    copper,
+    [],
+    widths,
+    (iteration) => {
+      reportedIterations = Math.max(reportedIterations, iteration)
+    },
+  )
   let state = work.next()
   while (!state.done) state = work.next()
   expect(state.value).not.toBeNull()
   const traces = state.value!
   expect(traces).toHaveLength(input.connections.length)
+  expect(reportedIterations).toBe(input.connections.length)
   for (const connection of input.connections) {
     const trace = traces.find(
       (candidate) => candidate.connection_name === connection.name,
