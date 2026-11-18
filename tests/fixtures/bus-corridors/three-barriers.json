@@ -1,0 +1,235 @@
+{
+  "layerCount": 2,
+  "minTraceWidth": 0.1,
+  "minTraceToPadEdgeClearance": 0.1,
+  "minBoardEdgeClearance": 0.1,
+  "bounds": {
+    "minX": -6,
+    "maxX": 6,
+    "minY": -6,
+    "maxY": 6
+  },
+  "connections": [
+    {
+      "name": "D0",
+      "pointsToConnect": [
+        {
+          "x": -4,
+          "y": -1.025,
+          "layer": "top"
+        },
+        {
+          "x": 4,
+          "y": -1.2249999999999999,
+          "layer": "top"
+        }
+      ]
+    },
+    {
+      "name": "D1",
+      "pointsToConnect": [
+        {
+          "x": -4,
+          "y": -0.675,
+          "layer": "top"
+        },
+        {
+          "x": 4,
+          "y": -0.875,
+          "layer": "top"
+        }
+      ]
+    },
+    {
+      "name": "D2",
+      "pointsToConnect": [
+        {
+          "x": -4,
+          "y": -0.3249999999999999,
+          "layer": "top"
+        },
+        {
+          "x": 4,
+          "y": -0.5249999999999999,
+          "layer": "top"
+        }
+      ]
+    },
+    {
+      "name": "D3",
+      "pointsToConnect": [
+        {
+          "x": -4,
+          "y": 0.025000000000000022,
+          "layer": "top"
+        },
+        {
+          "x": 4,
+          "y": -0.175,
+          "layer": "top"
+        }
+      ]
+    },
+    {
+      "name": "D4",
+      "pointsToConnect": [
+        {
+          "x": -4,
+          "y": 0.375,
+          "layer": "top"
+        },
+        {
+          "x": 4,
+          "y": 0.175,
+          "layer": "top"
+        }
+      ]
+    },
+    {
+      "name": "D5",
+      "pointsToConnect": [
+        {
+          "x": -4,
+          "y": 0.7249999999999999,
+          "layer": "top"
+        },
+        {
+          "x": 4,
+          "y": 0.5249999999999999,
+          "layer": "top"
+        }
+      ]
+    },
+    {
+      "name": "D6",
+      "pointsToConnect": [
+        {
+          "x": -4,
+          "y": 1.075,
+          "layer": "top"
+        },
+        {
+          "x": 4,
+          "y": 0.875,
+          "layer": "top"
+        }
+      ]
+    },
+    {
+      "name": "D7",
+      "pointsToConnect": [
+        {
+          "x": -4,
+          "y": 1.4249999999999998,
+          "layer": "top"
+        },
+        {
+          "x": 4,
+          "y": 1.2249999999999999,
+          "layer": "top"
+        }
+      ]
+    }
+  ],
+  "buses": [
+    {
+      "busId": "data",
+      "connectionNames": [
+        "D0",
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7"
+      ]
+    }
+  ],
+  "obstacles": [
+    {
+      "center": {
+        "x": -2,
+        "y": -1
+      },
+      "width": 0.25,
+      "height": 2.4000000000000004,
+      "layers": [
+        "top"
+      ],
+      "connectedTo": [
+        "wall"
+      ]
+    },
+    {
+      "center": {
+        "x": -2,
+        "y": 2
+      },
+      "width": 0.25,
+      "height": 2.4000000000000004,
+      "layers": [
+        "top"
+      ],
+      "connectedTo": [
+        "wall"
+      ]
+    },
+    {
+      "center": {
+        "x": 0,
+        "y": -2
+      },
+      "width": 0.25,
+      "height": 2.4000000000000004,
+      "layers": [
+        "top"
+      ],
+      "connectedTo": [
+        "wall"
+      ]
+    },
+    {
+      "center": {
+        "x": 0,
+        "y": 1
+      },
+      "width": 0.25,
+      "height": 2.4000000000000004,
+      "layers": [
+        "top"
+      ],
+      "connectedTo": [
+        "wall"
+      ]
+    },
+    {
+      "center": {
+        "x": 2,
+        "y": -1
+      },
+      "width": 0.25,
+      "height": 2.4000000000000004,
+      "layers": [
+        "top"
+      ],
+      "connectedTo": [
+        "wall"
+      ]
+    },
+    {
+      "center": {
+        "x": 2,
+        "y": 2
+      },
+      "width": 0.25,
+      "height": 2.4000000000000004,
+      "layers": [
+        "top"
+      ],
+      "connectedTo": [
+        "wall"
+      ]
+    }
+  ]
+}
