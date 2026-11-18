@@ -2,8 +2,25 @@ import { expect, test } from "bun:test"
 import {
   planBusCorridors,
   type BusCorridorGuide,
+  type ConnectionName,
 } from "../lib/plan-bus-corridors"
 import type { Bus, SimpleRouteJson } from "../lib/types"
+
+function getCorridorGuides(
+  input: SimpleRouteJson,
+): Map<ConnectionName, BusCorridorGuide> {
+  const work = planBusCorridors({
+    input,
+    connections: input.connections,
+    fixed: [],
+    widths: new Map<ConnectionName, number>(
+      input.connections.map((connection) => [connection.name, 0.1]),
+    ),
+  })
+  let state = work.next()
+  while (!state.done) state = work.next()
+  return state.value
+}
 
 test("corridor guides leave requests with timing constraints on their matching-aware search", () => {
   const input: SimpleRouteJson = {
@@ -26,47 +43,41 @@ test("corridor guides leave requests with timing constraints on their matching-a
       },
     ],
   }
-  const plan = (request: SimpleRouteJson): Map<string, BusCorridorGuide> => {
-    const work = planBusCorridors(
-      request,
-      request.connections,
-      [],
-      new Map(request.connections.map((connection) => [connection.name, 0.1])),
-    )
-    let state = work.next()
-    while (!state.done) state = work.next()
-    return state.value
-  }
-  expect(plan(input).size).toBe(8)
+  expect(getCorridorGuides(input).size).toBe(8)
   const constraints: Array<Partial<Bus>> = [
     { minLength: 0 },
     { maxLength: 100 },
     { maxLengthSkew: 0 },
   ]
   for (const constraint of constraints) {
-    const data = input.buses![0]
-    expect(plan({ ...input, buses: [{ ...data, ...constraint }] }).size).toBe(0)
+    const untimedBus = input.buses![0]
+    expect(
+      getCorridorGuides({
+        ...input,
+        buses: [{ ...untimedBus, ...constraint }],
+      }).size,
+    ).toBe(0)
     const overlay: Bus = {
       busId: "timed_overlap",
       connectionNames: ["D0"],
       ...constraint,
     }
     for (const buses of [
-      [data, overlay],
-      [overlay, data],
+      [untimedBus, overlay],
+      [overlay, untimedBus],
     ]) {
-      const guides = plan({ ...input, buses })
+      const guides = getCorridorGuides({ ...input, buses })
       expect(guides.size).toBe(0)
     }
     const unbounded = input.connections.map((connection) => ({
       ...connection,
       name: `U${connection.name}`,
     }))
-    const guides = plan({
+    const guides = getCorridorGuides({
       ...input,
       connections: [...input.connections, ...unbounded],
       buses: [
-        { ...data, ...constraint },
+        { ...untimedBus, ...constraint },
         { busId: "unbounded", connectionNames: unbounded.map((c) => c.name) },
       ],
     })
@@ -82,6 +93,8 @@ test("corridor guides leave requests with timing constraints on their matching-a
       maxUncoupledLength: 1,
     },
   ]) {
-    expect(plan({ ...input, differentialPairs: [pair] }).size).toBe(0)
+    expect(
+      getCorridorGuides({ ...input, differentialPairs: [pair] }).size,
+    ).toBe(0)
   }
 })

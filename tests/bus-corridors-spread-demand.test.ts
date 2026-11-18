@@ -1,5 +1,8 @@
 import { expect, test } from "bun:test"
-import { planBusCorridors } from "../lib/plan-bus-corridors"
+import {
+  planBusCorridors,
+  type ConnectionName,
+} from "../lib/plan-bus-corridors"
 import type { SimpleRouteJson } from "../lib/types"
 import { fixedCopper } from "../lib/vector-scene"
 
@@ -24,12 +27,14 @@ test("coarse planning separates overloaded lanes within one bus and releases the
       },
     ],
   }
-  const work = planBusCorridors(
+  const work = planBusCorridors({
     input,
-    input.connections,
-    fixedCopper(input),
-    new Map(input.connections.map((connection) => [connection.name, 0.1])),
-  )
+    connections: input.connections,
+    fixed: fixedCopper(input),
+    widths: new Map<ConnectionName, number>(
+      input.connections.map((connection) => [connection.name, 0.1]),
+    ),
+  })
   let state = work.next()
   let yields = 0
   while (!state.done) {
@@ -48,9 +53,9 @@ test("coarse planning separates overloaded lanes within one bus and releases the
   for (const connection of input.connections) {
     const guide = state.value.get(connection.name)!
     const terminal = connection.pointsToConnect[0]
-    expect(guide.costAt(terminal.x, terminal.y, "top")).toBe(0)
-    expect(guide.costAt(0, 3, "bottom")).toBe(0)
-    expect(guide.costAt(0, 3, "top")).toBeGreaterThan(0)
-    expect(guide.costAt(0, 3, "top")).toBeLessThanOrEqual(0.75)
+    expect(guide.costAt(terminal)).toBe(0)
+    expect(guide.costAt({ x: 0, y: 3, layer: "bottom" })).toBe(0)
+    expect(guide.costAt({ x: 0, y: 3, layer: "top" })).toBeGreaterThan(0)
+    expect(guide.costAt({ x: 0, y: 3, layer: "top" })).toBeLessThanOrEqual(0.75)
   }
 })

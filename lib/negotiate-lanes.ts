@@ -10,7 +10,11 @@ import { length } from "./geometry"
 import { RouteConflictIndex } from "./route-conflict-index"
 import { reduceOrdinaryTurns } from "./reduce-ordinary-turns"
 import { repairLaneClosures } from "./repair-lane-closures"
-import { planBusCorridors, type BusCorridorGuide } from "./plan-bus-corridors"
+import {
+  planBusCorridors,
+  type BusCorridorGuide,
+  type ConnectionName,
+} from "./plan-bus-corridors"
 import type { SimpleRouteJson, Connection, Trace, Wire, Point } from "./types"
 
 /** Queue-based rip-up routing adapted from the reference's negotiate-fine.ts.
@@ -107,7 +111,7 @@ export function* negotiateLanes(
   }
   const pairedCopper = paired.flatMap(getCopper)
   let planningStarted = false
-  let guides = new Map<string, BusCorridorGuide>()
+  let guides = new Map<ConnectionName, BusCorridorGuide>()
   const visits = new Map<string, number>()
   const queue = [...units]
   let bestCount = 0,
@@ -126,10 +130,12 @@ export function* negotiateLanes(
     // unresolved conflicts. Repeated detailed visits release these soft guides.
     if (!planningStarted && iteration >= units.length) {
       planningStarted = true
-      const planning = planBusCorridors(
+      const planning = planBusCorridors({
         input,
-        connections.filter((connection) => !pairedNames.has(connection.name)),
-        [
+        connections: connections.filter(
+          (connection) => !pairedNames.has(connection.name),
+        ),
+        fixed: [
           ...fixed,
           ...pairedCopper,
           ...[...routed.values()]
@@ -138,7 +144,7 @@ export function* negotiateLanes(
         ],
         widths,
         terminalLayers,
-      )
+      })
       let planned = planning.next()
       try {
         while (!planned.done) {
@@ -462,7 +468,8 @@ export function* negotiateLanes(
               ),
               checkReachability,
               costAt: (x: number, y: number): number =>
-                guide.costAt(x, y, candidateLayer) / Math.max(1, visit - 1),
+                guide.costAt({ x, y, layer: candidateLayer }) /
+                Math.max(1, visit - 1),
             },
           )
           try {

@@ -1,5 +1,8 @@
 import { expect, test } from "bun:test"
-import { planBusCorridors } from "../lib/plan-bus-corridors"
+import {
+  planBusCorridors,
+  type ConnectionName,
+} from "../lib/plan-bus-corridors"
 import type { SimpleRouteJson } from "../lib/types"
 
 test("a board narrower than one coarse tile produces no invalid guide field", () => {
@@ -18,15 +21,15 @@ test("a board narrower than one coarse tile produces no invalid guide field", ()
     })),
     buses: [{ busId: "byte", connectionNames: ["D0", "D1"] }],
   }
-  const work = planBusCorridors(
+  const work = planBusCorridors({
     input,
-    input.connections,
-    [],
-    new Map([
+    connections: input.connections,
+    fixed: [],
+    widths: new Map<ConnectionName, number>([
       ["D0", 0.01],
       ["D1", 0.01],
     ]),
-  )
+  })
   let state = work.next()
   while (!state.done) state = work.next()
   expect(state.value.size).toBe(0)
