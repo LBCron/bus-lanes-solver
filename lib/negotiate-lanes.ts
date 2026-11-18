@@ -10,6 +10,7 @@ import { length } from "./geometry"
 import { RouteConflictIndex } from "./route-conflict-index"
 import { reduceOrdinaryTurns } from "./reduce-ordinary-turns"
 import { repairLaneClosures } from "./repair-lane-closures"
+import { planBusCorridors } from "./plan-bus-corridors"
 import type { SimpleRouteJson, Connection, Trace, Wire } from "./types"
 
 /** Queue-based rip-up routing adapted from the reference's negotiate-fine.ts.
@@ -105,8 +106,40 @@ export function* negotiateLanes(
     return copper
   }
   const pairedCopper = paired.flatMap(getCopper)
+  // Negotiate coarse space for all lanes before committing detailed tracks.
+  // These guides are preferences; fixed copper and the physical length limits
+  // remain authoritative, and repeated visits gradually release the preference.
+  const planning = planBusCorridors(
+    input,
+    connections.filter((connection) => !pairedNames.has(connection.name)),
+    [...fixed, ...pairedCopper],
+    widths,
+    terminalLayers,
+  )
+  let planned = planning.next()
+  try {
+    while (!planned.done) {
+      yield paired
+      planned = planning.next()
+    }
+  } finally {
+    if (!planned.done) planning.return(new Map())
+  }
+  const guides = planned.value!
+  const guideLengths = new Map(
+    [...guides].map(([name, guide]) => [name, length([...guide.path])]),
+  )
   const visits = new Map<string, number>()
-  const queue = [...units]
+  const queue = [...units].sort((a, b) => {
+    if (a.pair || b.pair) return Number(!a.pair) - Number(!b.pair)
+    const first = guides.get(a.connections[0].name),
+      second = guides.get(b.connections[0].name)
+    if (!first && !second) return 0
+    return (
+      (guideLengths.get(b.connections[0].name) ?? 0) -
+      (guideLengths.get(a.connections[0].name) ?? 0)
+    )
+  })
   let bestCount = 0,
     lastProgress = 0,
     pairRefresh = 0,
@@ -202,6 +235,10 @@ export function* negotiateLanes(
         for (const point of c.pointsToConnect) point.layer = chosenLayer
       const width = widths.get(connection.name)!,
         layer = connection.pointsToConnect[0].layer
+      const guide = guides.get(connection.name)
+      const guideCost = guide
+        ? (x: number, y: number): number => guide.costAt(x, y, layer) / visit
+        : undefined
       routed.delete(connection.name)
       const routedLanes = [...routed.values()]
       const progressRoutes = [...paired, ...routedLanes]
@@ -304,6 +341,7 @@ export function* negotiateLanes(
             maximumCarrierLength(input, connection.name),
           ),
           checkReachability,
+          costAt: guideCost,
         },
       )
       if (!histories.has(layer))
@@ -335,6 +373,10 @@ export function* negotiateLanes(
                     maximumCarrierLength(input, connection.name),
                   ),
                   checkReachability,
+                  costAt: guide
+                    ? (x: number, y: number): number =>
+                        guide.costAt(x, y, candidateLayer) / visit
+                    : undefined,
                 },
               )
         if (!histories.has(candidateLayer))

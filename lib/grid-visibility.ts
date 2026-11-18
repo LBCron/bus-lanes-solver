@@ -441,6 +441,7 @@ export class GridVisibilitySearch extends GridHistoryProjector {
   }
   private hx: Float64Array
   private hy: Float64Array
+  private readonly costAt?: (x: number, y: number) => number
   constructor(
     scene: VectorScene,
     readonly start: Point,
@@ -460,9 +461,12 @@ export class GridVisibilitySearch extends GridHistoryProjector {
       starts?: Point[]
       ends?: Point[]
       bounds?: SimpleRouteJson["bounds"]
+      /** Nonnegative advisory cost per grid unit; never changes clearance or length. */
+      costAt?: (x: number, y: number) => number
     },
   ) {
     super(scene, grid)
+    this.costAt = grid?.costAt
     const b = this.gridBounds
     // Physical soft clearance keeps legal parallel BGA lanes available.
     this.softMargin = scene.margin
@@ -1141,6 +1145,7 @@ export class GridVisibilitySearch extends GridHistoryProjector {
       softBuckets,
       copperBuckets,
       softMargin,
+      costAt,
     } = this
     const bounds = this.scene.input.bounds
     const edge =
@@ -1216,7 +1221,8 @@ export class GridVisibilitySearch extends GridHistoryProjector {
         // With nonnegative occupancy cost, this is a lower bound on g.
         // An edge that cannot improve the route needs no geometry checks.
         // Keep the addition order used by g below to preserve tie decisions.
-        const minimumG = curG + cost + 0 + (history?.[id] ?? 0)
+        const guideCost = costAt ? cost * costAt(xs[x + dx], ys[y + dy]) : 0
+        const minimumG = curG + cost + guideCost + 0 + (history?.[id] ?? 0)
         if (!lengthFrontier && penalty >= 0 && minimumG >= best[id] - 1e-10)
           continue
         const goalDx = hx[x + dx],
@@ -1253,7 +1259,7 @@ export class GridVisibilitySearch extends GridHistoryProjector {
           }
           softCost = softEdgeBlocked[curId] & bit ? penalty : 0
         }
-        const g = curG + cost + softCost + (history?.[id] ?? 0)
+        const g = curG + cost + guideCost + softCost + (history?.[id] ?? 0)
         if (
           lengthFrontier
             ? lengthFrontier.dominated(id, g, travelled)
