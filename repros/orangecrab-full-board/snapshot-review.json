@@ -1,0 +1,22 @@
+{
+  "reviewedAtUtc": "2026-11-18T21:14:59.361111+00:00",
+  "reviewer": "/root/orangecrab_visual_repro",
+  "state": "baseline_timeout",
+  "sourceBusCommit": "202b034659fb96bad44d11b8190f4044b675116f",
+  "svgSha256": "4a63865529268f23641990b3d8805aa11f316a2c1334a34dc727cd96fd49786b",
+  "pngSha256": "91e94bf82b2990f6c0e5546e9c2f01701fd0a40200b85a438bc2b6c12589f408",
+  "individuallyOpenedPng": true,
+  "physicalLayerPanels": 6,
+  "sameFullBoardViewportForBothCaptures": true,
+  "nativePadCentersIndependentlyVerified": 385,
+  "unclippedCaptionsAndBoardOutlines": true,
+  "noRatsNestOrProvisionalCopper": true,
+  "retainedOutputRevalidation": true,
+  "freshRoutingPerformed": false,
+  "nativeCoreReassessmentMatchesOriginalExceptValidationMilliseconds": true,
+  "findings": "All six physical-layer panels visible; board outlines and native BGA/passive pads visible; titles/source/count/scope labels readable and unclipped. The baseline shows only16 accepted DQ routes; completed capture adds remaining capacity-router copper. Existing16DQ geometry and through-via spans verified unchanged. No visual blockers.",
+  "conventionsRefactorCheckedAtUtc": "2026-11-18T21:18:00.673839+00:00",
+  "conventionsRefactorImageBytesUnchanged": true,
+  "exporterSha256": "26d750f04a9d071217379e8192e651033fd3a897686d77ba1a27f45a04e90e03",
+  "entrypointSha256": "9a902fb3605245f976c8d111b9e222cb7104997d61f37b4c97cc84b225183493"
+}

@@ -1,0 +1,38 @@
+{
+  "state": "baseline_timeout",
+  "scope": "Retained fresh core benchmark output, revalidated for snapshot export; this script performs no fresh routing.",
+  "busSourceCommit": "202b034659fb96bad44d11b8190f4044b675116f",
+  "circuitSha256": "86d6291ce930467a837cbc7bde9d1effa5b6672382ea46117e36c4a0d35b00cc",
+  "connectedNets": 16,
+  "requestedNets": 50,
+  "traceCount": 16,
+  "viaCount": 32,
+  "nativePadCount": 385,
+  "unchangedDataByteRoutes": 16,
+  "capacityRouterRequestedNets": 34,
+  "physicalLayers": "top, inner1, inner2, inner3, inner4, bottom",
+  "viewport": {
+    "minX": -27,
+    "minY": -13,
+    "maxX": 27,
+    "maxY": 13
+  },
+  "physicalFindings": {
+    "missing_traces": 0,
+    "disconnected_ports": 70,
+    "trace_overlap": 0,
+    "pad_trace": 0,
+    "via_trace": 0,
+    "via_pad": 0,
+    "via_spacing": 0,
+    "contiguous": 0,
+    "via_in_pad": 0,
+    "hole_trace": 0,
+    "width": 0
+  },
+  "nativeGeometryErrorCount": 0,
+  "svgSha256": "4a63865529268f23641990b3d8805aa11f316a2c1334a34dc727cd96fd49786b",
+  "pngSha256": "91e94bf82b2990f6c0e5546e9c2f01701fd0a40200b85a438bc2b6c12589f408",
+  "exporterSha256": "26d750f04a9d071217379e8192e651033fd3a897686d77ba1a27f45a04e90e03",
+  "entrypointSha256": "9a902fb3605245f976c8d111b9e222cb7104997d61f37b4c97cc84b225183493"
+}
