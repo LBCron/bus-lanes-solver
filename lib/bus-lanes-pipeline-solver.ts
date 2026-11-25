@@ -1203,6 +1203,7 @@ export class BusLanesPipelineSolver extends BaseSolver {
         { x: 0, y: 0 },
       )
     if (
+      !independentGroups &&
       !multilayerBus &&
       this.attempt === 0 &&
       deferStandalonePairs &&
